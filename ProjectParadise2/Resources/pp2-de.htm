@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PP2 README / Installationsanleitung</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #181818;
+            color: #e0e0e0;
+        }
+        header {
+            background-color: #333333;
+            color: #f1f1f1;
+            text-align: center;
+            padding: 1.5em;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            background-color: #222222;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            display: block;
+        }
+        nav ul li a:hover {
+            background-color: #444444;
+            border-radius: 5px;
+        }
+        section {
+            padding: 2em;
+            margin: 2em;
+            background-color: #242424;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        pre {
+            background-color: #333333;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .faq ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .faq ul li {
+            margin-bottom: 10px;
+        }
+        .faq ul li a {
+            text-decoration: none;
+            color: #1e90ff;
+        }
+        .faq ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Willkommen bei der Installationsanleitung</h1>
+    <p>Diese Seite f&uuml;hrt Sie durch die Installation und hilft bei h&auml;ufigen Problemen</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#requirements">Voraussetzungen</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#troubleshooting">Fehlerbehebung</a></li>
+        <li><a href="#faq">FAQ</a></li>
+    </ul>
+</nav>
+
+<section id="requirements">
+    <h2>1. Voraussetzungen</h2>
+    <p>Bevor Sie mit der Installation fortfahren, stellen Sie sicher, dass Ihr System die folgenden Anforderungen erf&uuml;llt:</p>
+    <ul>
+        <li>Windows Windows 7, Windows 8, Windows 10, Windows 11</li>
+        <li>Mindestens 4 GB RAM</li>
+        <li>Mindestens 18 GB freien Festplattenspeicher</li>
+        <li>Grafik: NVIDIA GeForce 8800 GTX/ ATI Radeon HD 3870 oder schneller, mindestens 512 MB. Neuere GPUs (haupts&auml;chlich Nvidia) k&ouml;nnten Probleme mit dem Spiel verursachen und m&uuml;ssen mit zus&auml;tzlicher Software behoben werden.</li>
+        <li>Prozessor: Intel Core 2 Duo 2.2GHz oder AMD Athlon X2 4400+</li>
+        <li>Microsoft C++ Runtime 2005/2008 als 32-bit Version</li>
+    </ul>
+    <p>Es ist außerdem wichtig, dass das Spiel bereits installiert ist. Aus Erfahrung sollten nur saubere Versionen verwendet werden. Repacked oder bereits modifizierte Spiele k&ouml;nnen Probleme verursachen!</p>
+</section>
+
+<section id="installation">
+    <h2>2. Installation</h2>
+    <p>Folgen Sie den unten stehenden Schritten, um das Projekt zu installieren:</p>
+    <ol>
+        <li>
+            &Ouml;ffnen Sie die Einstellungen des Launchers und klicken Sie auf "Select Game". 
+            Wenn der Original-Launcher zuvor ge&ouml;ffnet war, wird automatisch das richtige Spielverzeichnis angezeigt. W&auml;hlen Sie dort die <code>.exe</code>-Datei aus. Falls dies nicht der Fall ist, navigieren Sie manuell in das Spielverzeichnis und w&auml;hlen Sie die <code>.exe</code>-Datei aus.
+        </li>
+        <li>
+            Der Launcher versucht immer, das ausgew&auml;hlte Spiel zu starten, unabh&auml;ngig davon, wo sich der Launcher befindet. 
+            Wenn die Meldung erscheint, dass das Spiel nicht auf dem neuesten Stand ist, f&uuml;hren Sie einen "Spiel Check" aus. Dieser pr&uuml;ft die vorhandenen Dateien und aktualisiert sie bei Bedarf.
+        </li>
+        <li>
+            Warten Sie, bis die Meldung erscheint, dass der Vorgang abgeschlossen ist. Sollte der Download langsam sein, empfehlen wir die Verwendung eines VPNs, um eine bessere Verbindung zum Serverstandort (Berlin, Deutschland) zu erhalten.
+        </li>
+        <li>
+            Falls Sie das Spiel &uuml;ber Steam besitzen, gibt es zwei wichtige Punkte:
+            <ul>
+                <li>Wenn sich der Launcher im Spielverzeichnis befindet, f&uuml;gen Sie den Startparameter <code>-direct</code> hinzu.</li>
+                <li>Aktivieren Sie in beiden F&auml;llen die Steam-Option (Toggle) im Launcher.</li>
+            </ul>
+        </li>
+        <li>
+            Bei Project Paradise 2 ist keine Registrierung erforderlich. Sie erstellen einen Account direkt im Spiel. 
+            Bitte verwenden Sie Informationen, die Sie sich leicht merken k&ouml;nnen, und vermeiden Sie nach M&ouml;glichkeit die Verwendung einer E-Mail-Adresse. Wir m&ouml;chten so wenige pers&ouml;nliche Daten wie m&ouml;glich erfassen.
+        </li>
+        <li>
+            Wir empfehlen, vor der Account-Erstellung zu pr&uuml;fen, ob der gew&uuml;nschte Name bereits vergeben ist. 
+            Dazu k&ouml;nnen Sie die Funktion auf unserer Website im Login-Bereich nutzen.
+        </li>
+        <li>
+            Das war's mit der Installation! Wenn Sie eine Fehlermeldung erhalten, dass keine Verbindung hergestellt werden konnte, klicken Sie auf "Set Connection". Die Verbindungsdatei des Spiels wird automatisch angepasst.
+        </li>
+    </ol>
+</section>
+
+<section id="troubleshooting">
+    <h2>3. Fehlerbehebung</h2>
+    <p></p>
+    <ul>
+        <li><strong>Fehler bei der Aktivierung des Spiels: Dies passiert oft bei &ouml;ffentlichen Spielschl&uuml;sseln. Es gibt ein Tool zur Generierung eines Aktivierungscodes:</strong>
+            <br>Sie k&ouml;nnen das Tool hier finden:
+            <a href="https://github.com/Blaukovitch/80_PA/releases">Wir sind nicht mit dem Ersteller des Tools verbunden. Bei Problemen sollten Sie sich direkt an ihn wenden.</a>
+        </li>
+        <li><strong>Schwarze Bildschirme auf Karten, Abst&uuml;rze mit der Spielkarte, Abst&uuml;rze beim Erstellen von Screenshots:</strong>
+            <br>Dieses Problem tritt h&auml;ufig bei Nvidia-Grafikkarten auf. Wir haben 3 Fixes im Launcher unter "Discovery". Je nach GPU und System funktioniert eine der L&ouml;sungen besser f&uuml;r den Nutzer.
+            <br>Wichtig: DxVoodoo hat den meisten Nutzern mit RTX-Karten geholfen. Es kommt mit einem Konfigurationstool, das im Einstellungsordner des Launchers zu finden ist. Passen Sie die Einstellungen nach Bedarf an. Aus Erfahrung hilft es, den Arbeitsspeicher zu erh&ouml;hen und das DirectX-Level auf das Maximum zu setzen.
+            <br>Der Vulkan-Crash-Fix funktioniert besser bei TI-Karten und erfordert keine zus&auml;tzlichen Einstellungen. Einfach herunterladen, und der Launcher erledigt den Rest.
+            <br>Die Verwendung dieser Fixes l&ouml;st nicht 100% der Abst&uuml;rze, verringert jedoch die H&auml;ufigkeit. Wir empfehlen auch die Verwendung der 4GB gepatchten EXE aus dem Discovery-Tab.
+        </li>
+        <li><strong>"Verbindung zum Server fehlgeschlagen" Fehler im Spiel:</strong>
+            <br>Dieser Fehler kann verschiedene Ursachen haben. Stellen Sie sicher, dass a) das Spiel auf dem neuesten Stand ist und b) die Verbindung nicht blockiert wird (falsches Port-Forwarding). Um auf Nummer sicher zu gehen, stellen Sie die Verbindung &uuml;ber den Launcher ein.
+            <br>Wenn Sie repackte Spiele verwenden, kann es sein, dass die Spiel-exe online abgelehnt wird. Um Probleme zu vermeiden, wurde die Unterst&uuml;tzung f&uuml;r solche EXE-Dateien deaktiviert.
+            <br>Spielername bereits vergeben? Besuchen Sie die Website:
+            <a href="https://login.project-paradise2.de/ismynamefree">Pr&uuml;fen Sie hier, ob Ihr gew&uuml;nschter Name verf&uuml;gbar ist.</a> Wenn der Name bereits vergeben ist, verwenden Sie einen anderen oder wenden Sie sich an ein Teammitglied (Discord, Forum).
+        </li>
+        <li><strong>Andere Multiplayer-Mod-Installation:</strong>
+            <br>Wenn Sie &uuml;ber ein anderes Mod-Projekt hierher gekommen sind, empfehlen wir eine saubere Installation. Das Spiel-Datei-Update kann auch bei der Installation helfen.
+            <br>Die Mods, die Sie vom Mod erhalten haben, sind 1:1 kompatibel. Wichtig: F&uuml;hren Sie niemals das Spiel-Datei-Update aus, wenn Sie ein repacktes Spiel verwenden, da dies die Installation besch&auml;digen kann!
+        </li>
+    </ul>
+</section>
+
+<section id="faq" class="faq">
+    <h2>4. H&auml;ufig gestellte Fragen (FAQ)</h2>
+    <ul>
+        <li><a href="#">Ist Geld Cheating erlaubt? Im Prinzip ist das uns egal, jedoch sollte man wissen das wir einen Anticheat Implementiert haben der auf Manipulierte Regionen im Memory reagiert und das Spiel beendet</a></li>
+        <li><a href="#">Kann ich Mod-Autos verwenden? Ja, solange sie nicht a) im Community Racing Center f&uuml;r offizielle Rennen verwendet werden oder b) andere Spieler st&ouml;ren (Abst&uuml;rze, etc.).</a></li>
+        <li><a href="#">Ist Multiplayer kostenlos? Ja, es gibt keine Geb&uuml;hr, Spende oder &auml;hnliches f&uuml;r den Online-Zugang. Wenn Sie mit den Serverkosten helfen m&ouml;chten (nat&uuml;rlich nur, wenn Sie k&ouml;nnen), kann dies &uuml;ber Patreon erfolgen.</a></li>
+        <li><a href="#">Gibt es eine detailliertere Installationsanleitung? Ja, diese wurde von Matt erstellt und wird regelm&auml;&szlig;ig aktualisiert. Sie finden sie hier: <a href="https://nova-appendix-de2.notion.site/Guides-77024b8a3b3b4f518301d9d2ff354773">Extern via Notion</a>.</a></li>
+    </ul>
+</section>
+</body>
+</html>

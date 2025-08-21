@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PP2 README / Installation Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #181818;
+            color: #e0e0e0;
+        }
+        header {
+            background-color: #333333;
+            color: #f1f1f1;
+            text-align: center;
+            padding: 1.5em;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            background-color: #222222;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #e0e0e0;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            display: block;
+        }
+        nav ul li a:hover {
+            background-color: #444444;
+            border-radius: 5px;
+        }
+        section {
+            padding: 2em;
+            margin: 2em;
+            background-color: #242424;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #4CAF50;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        pre {
+            background-color: #333333;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .faq ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .faq ul li {
+            margin-bottom: 10px;
+        }
+        .faq ul li a {
+            text-decoration: none;
+            color: #1e90ff;
+        }
+        .faq ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to the Installation Guide</h1>
+    <p>This page guides you through the installation process and helps with common issues</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#requirements">Requirements</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#troubleshooting">Troubleshooting</a></li>
+        <li><a href="#faq">FAQ</a></li>
+    </ul>
+</nav>
+
+<section id="requirements">
+    <h2>1. Requirements</h2>
+    <p>Before proceeding with the installation, ensure that your system meets the following requirements:</p>
+    <ul>
+        <li>Windows 7, Windows 8, Windows 10, Windows 11</li>
+        <li>At least 4 GB RAM</li>
+        <li>At least 18 GB of free hard disk space</li>
+        <li>Graphics: NVIDIA GeForce 8800 GTX/ATI Radeon HD 3870 or faster, at least 512 MB. Newer GPUs (mainly Nvidia) might cause issues with the game and require additional software fixes.</li>
+        <li>Processor: Intel Core 2 Duo 2.2GHz or AMD Athlon X2 4400+</li>
+        <li>Microsoft C++ Runtime 2005/2008 (32-bit version)</li>
+    </ul>
+    <p>It's also important that the game is already installed. Use clean versions only. Repacked or pre-modified games can cause issues!</p>
+</section>
+
+<section id="installation">
+    <h2>2. Installation</h2>
+    <p>Follow the steps below to install the project:</p>
+    <ol>
+        <li>
+            Open the launcher settings and click "Select Game". 
+            If the original launcher was previously opened, it will automatically show the correct game directory. Select the <code>.exe</code> file there. If not, manually navigate to the game directory and select the <code>.exe</code> file.
+        </li>
+        <li>
+            The launcher will always attempt to start the selected game, regardless of the launcher's location. 
+            If a message appears stating that the game is not up-to-date, perform a "Game Check". This verifies and updates the existing files.
+        </li>
+        <li>
+            Wait until the process is completed. If the download is slow, we recommend using a VPN for a better connection to the server location (Berlin, Germany).
+        </li>
+        <li>
+            If you own the game on Steam, there are two important points:
+            <ul>
+                <li>If the launcher is in the game directory, add the launch parameter <code>-direct</code>.</li>
+                <li>Enable the Steam option (toggle) in the launcher in both cases.</li>
+            </ul>
+        </li>
+        <li>
+            No registration is required for Project Paradise 2. You create an account directly in the game. 
+            Use memorable information and avoid using an email address whenever possible. We aim to collect as little personal data as possible.
+        </li>
+        <li>
+            Before creating an account, check if the desired name is already taken. 
+            You can use the function on our website in the login section for this.
+        </li>
+        <li>
+            That's it for the installation! If you receive an error stating that no connection could be established, click "Set Connection". The game's connection file will be automatically adjusted.
+        </li>
+    </ol>
+</section>
+
+<section id="troubleshooting">
+    <h2>3. Troubleshooting</h2>
+    <p></p>
+    <ul>
+        <li><strong>Error during game activation: This often happens with public game keys. There is a tool for generating an activation code:</strong>
+            <br>You can find the tool here:
+            <a href="https://github.com/Blaukovitch/80_PA/releases">We are not affiliated with the creator of the tool. If you encounter problems, please contact them directly.</a>
+        </li>
+        <li><strong>Black screens on maps, crashes with game maps, crashes when creating screenshots:</strong>
+            <br>This issue often occurs with Nvidia graphics cards. We have provided three fixes in the launcher under "Discovery." Depending on your GPU and system, one of these solutions may work better for you.
+            <br>Important: DxVoodoo has helped most users with RTX cards. It includes a configuration tool, which can be found in the settings folder of the launcher. Adjust the settings as needed. Based on experience, increasing memory allocation and setting the DirectX level to maximum often helps.
+            <br>The Vulkan crash fix works better with TI cards and requires no additional settings. Just download it, and the launcher will handle the rest.
+            <br>Using these fixes won’t solve 100% of crashes but will reduce their frequency. We also recommend using the 4GB patched EXE available in the Discovery tab.
+        </li>
+        <li><strong>"Failed to connect to server" error in the game:</strong>
+            <br>This error can have various causes. Ensure that a) the game is up to date and b) your connection is not blocked (e.g., incorrect port forwarding). To be safe, set up the connection via the launcher.
+            <br>If you use repacked games, it’s possible that the game’s exe is rejected online. To avoid issues, support for such exe files has been disabled.
+            <br>Is your username already taken? Visit the website:
+            <a href="https://login.project-paradise2.de/ismynamefree">Check here if your desired name is available.</a> If the name is already taken, use a different one or contact a team member (Discord, forum).
+        </li>
+        <li><strong>Other multiplayer mod installation:</strong>
+            <br>If you came here via another mod project, we recommend a clean installation. The game file updater can also help with installation.
+            <br>The mods you received from the mod are 1:1 compatible. Important: Never run the game file updater if you are using a repacked game, as this can damage the installation!
+        </li>
+    </ul>
+</section>
+
+<section id="faq" class="faq">
+    <h2>4. Frequently Asked Questions (FAQ)</h2>
+    <ul>
+        <li><a href="#">Is money cheating allowed? Basically, we don’t care, but you should know that we have implemented an anti-cheat system that reacts to manipulated regions in memory and terminates the game.</a></li>
+        <li><a href="#">Can I use mod cars? Yes, as long as they are not a) used in the Community Racing Center for official races or b) disruptive to other players (causing crashes, etc.).</a></li>
+        <li><a href="#">Is multiplayer free? Yes, there is no fee, donation, or similar required for online access. If you’d like to help with server costs (of course, only if you can), you can do so via Patreon.</a></li>
+        <li><a href="#">Is there a more detailed installation guide? Yes, it was created by Matt and is regularly updated. You can find it here: <a href="https://nova-appendix-de2.notion.site/Guides-77024b8a3b3b4f518301d9d2ff354773">External via Notion</a>.</a></li>
+    </ul>
+</section>
+</body>
+</html>

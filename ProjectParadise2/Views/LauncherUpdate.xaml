@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ProjectParadise2.Views.LauncherUpdate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjectParadise2.Views"
+             xmlns:objs="clr-namespace:ProjectParadise2.Objects"
+             mc:Ignorable="d"
+             d:DesignHeight="650" d:DesignWidth="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1000"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="550"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+        <Border Width="950" Height="500" Margin="5,10,0,0" BorderThickness="0.8" CornerRadius="15" Background="#222831" BorderBrush="#393E46">
+            <StackPanel>
+                <Label Foreground="#EEEEEE" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Name="LastNews" Content="New Version Online" Margin="20,5,0,0" FontFamily="/Fonts/#Protofo"/>
+                <Label HorizontalAlignment="Center"
+                               Foreground="#EEEEEE"
+                               FontSize="18"
+                               FontFamily="/Fonts/#Protofo"
+                               Margin="0,10,0,0" Height="430" Width="905"
+                               x:Name="NewsBox">
+                    <AccessText TextWrapping="WrapWithOverflow" x:Name="ChangeLog" x:FieldModifier="public">
+                    </AccessText>
+                </Label>
+            </StackPanel>
+            <Border.Effect>
+                <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+            </Border.Effect>
+        </Border>
+        <Border Width="950" Height="50" Grid.Row="2" Grid.Column="1" Margin="5,15,0,0" BorderThickness="0.8" CornerRadius="15" Background="#222831" BorderBrush="#393E46">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="600"/>
+                    <ColumnDefinition Width="330"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Foreground="#EEEEEE" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Name="Version" Content="Local 1.0.0 Online 3.0.1" Margin="10,9,0,0" FontFamily="/Fonts/#Protofo" Grid.ColumnSpan="2" Width="600"/>
+
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="-129,0,0,0" Content="Skip" Height="40" Width="110" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="18" IsChecked="False" Icon="Pause" IconDirection="Center" IconMargin="-70,0,0,0" IconColor="#EEEEEE" Grid.Column="2" Grid.Row="2" Click="SkipUpdate" />
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="129,0,0,0" Content="Update" Height="40" Width="110" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="18" IsChecked="False" Icon="Play" IconDirection="Center" IconMargin="-70,0,0,0" IconColor="#EEEEEE" Grid.Column="2" Grid.Row="2" Click="RunUpdate" x:Name="UpdateBTN"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

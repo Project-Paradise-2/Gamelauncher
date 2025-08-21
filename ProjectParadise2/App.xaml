@@ -1,0 +1,56 @@
+﻿<Application x:Class="ProjectParadise2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ProjectParadise2"
+             xmlns:objects="clr-namespace:ProjectParadise2.Objects"
+             xmlns:viewModel="clr-namespace:ProjectParadise2.Views"
+             xmlns:view="clr-namespace:ProjectParadise2.Views"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Objects/FA_BTN.xaml"/>
+                <ResourceDictionary Source="Objects/Toggle.xaml"/>
+                <ResourceDictionary Source="Objects/Input.xaml"/>
+                <ResourceDictionary Source="Objects/DropDown.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+                <view:HomeView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModel:InfoViewModel}">
+                <view:InfoView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:SettingsViewModel}">
+                <view:SettingsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:UpdateViewModel}">
+                <view:UpdateView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:ModViewModel}">
+                <view:ModView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModel:ServiceViewModel}">
+                <view:ServiceView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModel:ModDeatilModel}">
+                <view:ModDetail/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModel:InstalledModModel}">
+                <view:InstalledMods/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:LauncherUpdateViewModel}">
+                <view:LauncherUpdate/>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
