@@ -11,7 +11,7 @@ on:
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    runs-on: ${{ matrix.os }}
     permissions:
       security-events: write
       packages: read
@@ -22,12 +22,25 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # Desktop .NET Core 3.1 Projekte (Windows-Runner erforderlich)
           - language: csharp
-            build-mode: autobuild   # ← geändert von 'none' auf 'autobuild'
+            build-mode: manual
+            os: windows-latest
+            dotnet-version: '3.1.x'
+          # Andere C# Projekte (Konsolen, Bibliotheken) auf Ubuntu
+          - language: csharp
+            build-mode: autobuild
+            os: ubuntu-latest
+            dotnet-version: '6.0.x'
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ matrix.dotnet-version }}
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
@@ -35,11 +48,13 @@ jobs:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
 
-    # Für manuelle Builds (falls notwendig)
+    # Manuelles Build für .NET Core 3.1 Desktop-Projekte
     - if: matrix.build-mode == 'manual'
-      shell: bash
+      shell: pwsh
       run: |
+        Write-Host "Restoring NuGet packages..."
         dotnet restore
+        Write-Host "Building project in Release mode..."
         dotnet build --configuration Release
 
     - name: Perform CodeQL Analysis
