@@ -1,55 +1,37 @@
-name: "CodeQL Advanced"
+name: "CodeQL C# Desktop"
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-  schedule:
-    - cron: '29 20 * * 6'
 
 jobs:
   analyze:
-    name: Analyze (${{ matrix.language }})
-    runs-on: ${{ matrix.os }}
+    name: Analyze C# Desktop
+    runs-on: windows-latest
     permissions:
       security-events: write
       packages: read
       actions: read
       contents: read
 
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          # Desktop .NET Core 3.1 Projekte (Windows-Runner erforderlich)
-          - language: csharp
-            build-mode: manual
-            os: windows-latest
-            dotnet-version: '3.1.x'
-          # Andere C# Projekte (Konsolen, Bibliotheken) auf Ubuntu
-          - language: csharp
-            build-mode: autobuild
-            os: ubuntu-latest
-            dotnet-version: '6.0.x'
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup .NET SDK
+    - name: Setup .NET 3.1 SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ matrix.dotnet-version }}
+        dotnet-version: '3.1.x'
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
-        languages: ${{ matrix.language }}
-        build-mode: ${{ matrix.build-mode }}
+        languages: csharp
+        build-mode: manual
 
-    # Manuelles Build für .NET Core 3.1 Desktop-Projekte
-    - if: matrix.build-mode == 'manual'
+    - name: Build .NET Core 3.1 Desktop Project
       shell: pwsh
       run: |
         Write-Host "Restoring NuGet packages..."
@@ -59,5 +41,3 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
-      with:
-        category: "/language:${{matrix.language}}"
