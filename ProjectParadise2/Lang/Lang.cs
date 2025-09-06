@@ -6,6 +6,108 @@ namespace ProjectParadise2
 {
     internal class Lang
     {
+        public static string GetAboutText()
+        {
+            string message = GetAboutText(Database.Database.p2Database.Usersettings.LangId);
+
+            if (CommandLineArg.DebugUI)
+                message += $" [ 0 | {Database.Database.p2Database.Usersettings.LangId} ]";
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                return message;
+            }
+            else
+            {
+                return $"Missing Translation, {Database.Database.p2Database.Usersettings.LangId}";
+            }
+        }
+        public static string GetAboutText(int LangId)
+        {
+            try
+            {
+                string aboutText;
+                switch (LangId)
+                {
+                    case 0: // German
+                        aboutText = "Project Paradise 2 ist ein Community-Server-Emulator für Test Drive Unlimited 2. Es stellt die Online-Funktionen wieder her und bietet neue Community-Features.\n\nFeatures:\n- Stabile Server\n- Aktive Community\n- Neue Community-Features\n- Regelmäßige Updates\n- Fanprojekt, nicht offiziell\n\nHinweise:\n- Dieses Projekt steht in keiner Verbindung zu Atari oder Eden Games.\n- Reverse Engineering oder Modifikationen am Client sind untersagt.\n- Cheating oder Exploits werden nicht toleriert.\n\nServerfunktionen (Stand 17/07/2025):\n\nFunktionierende Funktionen:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Wetter-System: Originalsystem wiederhergestellt, Regenrate reduziert\n- Clubs: Erstellen, Beitreten, Clubinterne Rennen, Autos freischalten und Upgrades\n- Ranglisten: Einzelspieler-Rennen, Casino, Ranglisten\n- Freunde: Suchen, Hinzufügen, Entfernen\n- Casino: Slots, Roulette\n\nDerzeit nicht funktionierende Funktionen:\n- Casino: Join/Invite, Turnierspiele\n- Clubs: Club vs Club Rennen\n";
+                        break;
+
+                    case 1: // English
+                    case 11: // English_UK
+                        aboutText = "Project Paradise 2 is a community server emulator for Test Drive Unlimited 2. It restores online functionality and adds new community-driven features.\n\nFeatures:\n- Server Stability\n- Active Community\n- New Community Features\n- Regular Updates\n- Fan project, not official\n\nNotes:\n- This project is not affiliated with Atari or Eden Games.\n- Reverse engineering or client modifications are prohibited.\n- Cheating or exploits are not tolerated.\n\nServer Functions (Info as of 17/07/2025):\n\nCurrently Functional:\n- Lobbies: Freeroam, Races (Ranked, Unranked), House Lobbies\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Restored original system, rain rate reduced per community request\n- Clubs: Creating, Joining, Club-internal Races, Unlocking Cars and Upgrade Clubs\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\nCurrently Not Functional:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 2: // Czech
+                        aboutText = "Project Paradise 2 je komunitní serverový emulátor pro Test Drive Unlimited 2. Obnovuje online funkce a přidává nové prvky od komunity.\n\nFunkce:\n- Stabilní servery\n- Aktivní komunita\n- Nové komunitní funkce\n- Pravidelné aktualizace\n- Fanouškovský projekt, neoficiální\n\nUpozornění:\n- Tento projekt není spojen s Atari ani Eden Games.\n- Reverzní inženýrství nebo úpravy klienta jsou zakázány.\n- Podvádění nebo zneužití nejsou tolerovány.\n\nServerové funkce (k 17/07/2025):\n\nFunkční:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Původní systém obnoven, snížena intenzita deště dle komunity\n- Clubs: Vytváření, Připojování, Klubová závody, Odemykání aut a upgrade klubů\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Hledat, Přidat, Odebrat\n- Casino: Slots, Roulette\n\nMomentálně nefunkční:\n- Casino: Join/Invite, Turnament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 3: // Spanish
+                        aboutText = "Project Paradise 2 es un emulador de servidor comunitario para Test Drive Unlimited 2. Restaura las funciones en línea y añade nuevas características creadas por la comunidad.\n\nFunciones:\n- Servidores estables\n- Comunidad activa\n- Nuevas características comunitarias\n- Actualizaciones regulares\n- Proyecto de fans, no oficial\n\nAvisos:\n- Este proyecto no está afiliado con Atari ni Eden Games.\n- Ingeniería inversa o modificaciones del cliente están prohibidas.\n- No se toleran trampas ni exploits.\n\nFunciones del servidor (17/07/2025):\n\nActualmente funcionales:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Sistema original restaurado, lluvia reducida según petición de la comunidad\n- Clubs: Creación, Unirse, Carreras internas del club, Desbloqueo de autos y mejoras del club\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Buscar, Añadir, Eliminar\n- Casino: Slots, Roulette\n\nActualmente no funcionales:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 4: // French
+                        aboutText = "Project Paradise 2 est un émulateur de serveur communautaire pour Test Drive Unlimited 2. Il restaure les fonctionnalités en ligne et ajoute de nouvelles options créées par la communauté.\n\nFonctionnalités:\n- Serveurs stables\n- Communauté active\n- Nouvelles fonctionnalités communautaires\n- Mises à jour régulières\n- Projet de fans, non officiel\n\nRemarques:\n- Ce projet n'est affilié à Atari ou Eden Games.\n- Le reverse engineering ou les modifications du client sont interdits.\n- Les triches ou exploits ne sont pas tolérés.\n\nFonctions du serveur (17/07/2025):\n\nFonctionnelles:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Système original restauré, pluie réduite selon demande de la communauté\n- Clubs: Création, Rejoindre, Courses internes du club, Déblocage des voitures et améliorations du club\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Rechercher, Ajouter, Supprimer\n- Casino: Slots, Roulette\n\nActuellement non fonctionnelles:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 5: // Indonesian
+                        aboutText = "Project Paradise 2 adalah emulator server komunitas untuk Test Drive Unlimited 2. Proyek ini mengembalikan fitur online dan menambahkan fitur baru dari komunitas.\n\nFitur:\n- Server stabil\n- Komunitas aktif\n- Fitur komunitas baru\n- Pembaruan rutin\n- Proyek penggemar, tidak resmi\n\nCatatan:\n- Proyek ini tidak berafiliasi dengan Atari atau Eden Games.\n- Reverse engineering atau modifikasi client dilarang.\n- Cheating atau exploit tidak ditoleransi.\n\nFungsi Server (Info per 17/07/2025):\n\nSaat ini berfungsi:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Sistem asli dipulihkan, tingkat hujan dikurangi sesuai permintaan komunitas\n- Clubs: Membuat, Bergabung, Balapan internal klub, Membuka mobil dan Upgrade Clubs\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\nSaat ini tidak berfungsi:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 6: // Italian
+                        aboutText = "Project Paradise 2 è un emulatore di server comunitario per Test Drive Unlimited 2. Ripristina le funzionalità online e aggiunge nuove caratteristiche create dalla community.\n\nCaratteristiche:\n- Server stabili\n- Community attiva\n- Nuove caratteristiche della community\n- Aggiornamenti regolari\n- Progetto dei fan, non ufficiale\n\nAvvertenze:\n- Questo progetto non è affiliato con Atari o Eden Games.\n- Reverse engineering o modifiche del client sono vietate.\n- Cheat o exploit non sono tollerati.\n\nFunzioni del server (Info al 17/07/2025):\n\nFunzionanti:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Sistema originale ripristinato, pioggia ridotta su richiesta della community\n- Clubs: Creazione, Unirsi, Gare interne del club, Sbloccare auto e upgrade club\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\nAttualmente non funzionanti:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 7: // Lithuanian
+                        aboutText = "Project Paradise 2 yra bendruomenės serverio emuliatorius Test Drive Unlimited 2 žaidimui. Jis atkuria internetines funkcijas ir prideda naujų bendruomenės sukurtų galimybių.\n\nFunkcijos:\n- Stabilių serverių\n- Aktyvi bendruomenė\n- Naujos bendruomenės funkcijos\n- Reguliarūs atnaujinimai\n- Fanų projektas, neoficialus\n\nPastabos:\n- Šis projektas nėra susijęs su Atari ar Eden Games.\n- Reverse engineering arba kliento modifikacijos draudžiamos.\n- Cheatinimas ar exploit'ai netoleruojami.\n\nServerio funkcijos (2025-07-17):\n\nVeikiančios:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Originalus sistema atkurta, lietaus dažnis sumažintas pagal bendruomenės pageidavimą\n- Clubs: Kūrimas, Prisijungimas, Klubinės lenktynės, Automobilių atrakimas ir klubų patobulinimai\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\nŠiuo metu neveikia:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 8: // Polish
+                        aboutText = "Project Paradise 2 to emulator serwera społecznościowego dla Test Drive Unlimited 2. Przywraca funkcje online i dodaje nowe funkcje tworzone przez społeczność.\n\nFunkcje:\n- Stabilne serwery\n- Aktywna społeczność\n- Nowe funkcje społeczności\n- Regularne aktualizacje\n- Projekt fanowski, nieoficjalny\n\nUwagi:\n- Projekt nie jest powiązany z Atari ani Eden Games.\n- Reverse engineering lub modyfikacje klienta są zabronione.\n- Cheaty lub exploity nie są tolerowane.\n\nFunkcje serwera (17/07/2025):\n\nDziałające:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Przywrócono oryginalny system, zmniejszono deszcz według życzeń społeczności\n- Clubs: Tworzenie, Dołączanie, Wyścigi wewnętrzne klubów, Odblokowywanie aut i ulepszenia klubów\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\nObecnie nie działające:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 9: // Russian
+                        aboutText = "Project Paradise 2 — это эмулятор серверов сообщества для Test Drive Unlimited 2. Он восстанавливает сетевые функции и добавляет новые возможности от сообщества.\n\nФункции:\n- Стабильные серверы\n- Активное сообщество\n- Новые функции сообщества\n- Регулярные обновления\n- Фан-проект, неофициально\n\nПримечания:\n- Этот проект не связан с Atari или Eden Games.\n- Reverse engineering или модификации клиента запрещены.\n- Читы и эксплойты не допускаются.\n\nФункции сервера (17/07/2025):\n\nРаботают:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Восстановлена оригинальная система, дождь уменьшен по просьбе сообщества\n- Clubs: Создание, Присоединение, Внутриклубные гонки, Разблокировка машин и улучшение клубов\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\nВ настоящее время не работают:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 10: // Portuguese_Brazil
+                        aboutText = "Project Paradise 2 é um emulador de servidor da comunidade para Test Drive Unlimited 2. Ele restaura as funções online e adiciona novos recursos feitos pela comunidade.\n\nRecursos:\n- Servidores estáveis\n- Comunidade ativa\n- Novos recursos da comunidade\n- Atualizações regulares\n- Projeto de fãs, não oficial\n\nAvisos:\n- Este projeto não é afiliado à Atari ou Eden Games.\n- Engenharia reversa ou modificações no cliente são proibidas.\n- Cheats ou exploits não são tolerados.\n\nFunções do servidor (Info em 17/07/2025):\n\nAtualmente funcionando:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Sistema original restaurado, taxa de chuva reduzida por solicitação da comunidade\n- Clubs: Criar, Entrar, Corridas internas do clube, Desbloqueio de carros e upgrades do clube\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\nAtualmente não funcionando:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 12: // Dutch
+                        aboutText = "Project Paradise 2 is een community-serveremulator voor Test Drive Unlimited 2. Het herstelt de online functies en voegt nieuwe functies toe die door de community zijn gemaakt.\n\nFuncties:\n- Stabiele servers\n- Actieve community\n- Nieuwe community-functies\n- Regelmatige updates\n- Fanproject, niet officieel\n\nOpmerkingen:\n- Dit project is niet gelieerd aan Atari of Eden Games.\n- Reverse engineering of clientwijzigingen zijn verboden.\n- Cheating of exploits worden niet getolereerd.\n\nServerfuncties (17/07/2025):\n\nMomenteel functioneel:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Origineel systeem hersteld, regen verminderd op verzoek van de community\n- Clubs: Creëren, Lid worden, Clubinterne races, Auto’s ontgrendelen en club upgrades\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\nMomenteel niet functioneel:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 13: // Romanian
+                        aboutText = "Project Paradise 2 este un emulator de server comunitar pentru Test Drive Unlimited 2. Restaurează funcțiile online și adaugă caracteristici noi create de comunitate.\n\nFuncționalități:\n- Servere stabile\n- Comunitate activă\n- Funcționalități noi ale comunității\n- Actualizări regulate\n- Proiect de fani, neoficial\n\nNotă:\n- Acest proiect nu este afiliat cu Atari sau Eden Games.\n- Reverse engineering sau modificări ale clientului sunt interzise.\n- Cheat-uri sau exploatări nu sunt tolerate.\n\nFuncții server (Info la 17/07/2025):\n\nFuncționale:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Sistemul original restaurat, rata ploii redusă la cererea comunității\n- Clubs: Creare, Alăturare, Curse interne club, Deblocare mașini și upgrade club\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\nÎn prezent nefuncționale:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 14: // Turkish
+                        aboutText = "Project Paradise 2, Test Drive Unlimited 2 için bir topluluk sunucu emülatörüdür. Çevrimiçi işlevleri geri getirir ve topluluk tarafından oluşturulan yeni özellikler ekler.\n\nÖzellikler:\n- Kararlı sunucular\n- Aktif topluluk\n- Yeni topluluk özellikleri\n- Düzenli güncellemeler\n- Hayran projesi, resmi değil\n\nNotlar:\n- Bu proje Atari veya Eden Games ile bağlantılı değildir.\n- Reverse engineering veya istemci değişiklikleri yasaktır.\n- Hile veya exploit kabul edilmez.\n\nSunucu Fonksiyonları (17/07/2025):\n\nŞu anda çalışanlar:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Orijinal sistem geri yüklendi, yağmur oranı topluluk isteğine göre azaltıldı\n- Clubs: Oluşturma, Katılma, Kulüp içi yarışlar, Arabaların kilidini açma ve kulüp geliştirmeleri\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\nŞu anda çalışmayanlar:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 15: // Chinese
+                        aboutText = "Project Paradise 2 是《无限试驾2》的社区服务器模拟器。它恢复了在线功能，并加入了新的社区功能。\n\n功能:\n- 稳定的服务器\n- 活跃的社区\n- 新的社区功能\n- 定期更新\n- 粉丝项目，非官方\n\n注意事项:\n- 本项目与 Atari 或 Eden Games 无关。\n- 禁止对客户端进行反向工程或修改。\n- 禁止作弊或利用漏洞。\n\n服务器功能 (2025/07/17):\n\n目前功能正常:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbys\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: 恢复原始系统，雨量根据社区要求降低\n- Clubs: 创建, 加入, 俱乐部内部赛事, 解锁车辆及俱乐部升级\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\n目前功能异常:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+
+                    case 16: // Debug
+                        aboutText = "Debug Language ID: " + LangId + "\n";
+                        break;
+
+                    default: // Fallback
+                        aboutText = "Project Paradise 2 is a community server emulator for Test Drive Unlimited 2. It restores online functionality and adds new community-driven features.\n\nFeatures:\n- Server Stability\n- Active Community\n- New Community Features\n- Regular Updates\n- Fan project, not official\n\nNotes:\n- This project is not affiliated with Atari or Eden Games.\n- Reverse engineering or client modifications are prohibited.\n- Cheating or exploits are not tolerated.\n\nServer Functions (Info as of 17/07/2025):\n\nCurrently Functional:\n- Lobbys: Freeroam, Races (Ranked, Unranked), House Lobbies\n- Stats: TDUMyLife, Casino, Playerstats\n- Community Racing Center: CRC, ORC\n- Weather System: Restored original system, rain rate reduced per community request\n- Clubs: Creating, Joining, Club-internal Races, Unlocking Cars and Upgrade Clubs\n- Leaderboards: Singleplayer Races, Casino, Ranking lists\n- Friends: Search, Add and Remove\n- Casino: Slots, Roulette\n\nCurrently Not Functional:\n- Casino: Join/Invite, Tournament Game\n- Clubs: Club vs Club Races\n";
+                        break;
+                }
+
+                return aboutText + "\n"; // finaler Zeilenumbruch
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Missing Translation Text: 0 Lang: {LangId}", ex);
+                return string.Empty;
+            }
+        }
+
         public static string GetTooltipText(int TextId)
         {
             string message = GetTooltipText(TextId, Database.Database.p2Database.Usersettings.LangId);
@@ -68,7 +170,7 @@ namespace ProjectParadise2
             }
             catch (Exception ex)
             {
-                Log.Print($"Missing Translation Text: {TextId} Lang: {LangId}", ex);
+                Log.Error($"Missing Translation Text: {TextId} Lang: {LangId}", ex);
                 return string.Empty;
             }
         }
@@ -136,7 +238,7 @@ namespace ProjectParadise2
             }
             catch (Exception ex)
             {
-                Log.Print($"Missing Translation Text: {TextId} Lang: {LangId}", ex);
+                Log.Error($"Missing Translation Text: {TextId} Lang: {LangId}", ex);
                 return string.Empty;
             }
         }
@@ -798,7 +900,8 @@ namespace ProjectParadise2
             "Audio-Modus",
             "Ist das gewählte Spiel ein modifiziertes/unpacked Spiel?",
             "Die Spieleüberprüfung wurde abgebrochen, modifizierte Spiele können dadurch kaputt gemacht werden.",
-            "Es wurden keine Standard-Spieldateien gefunden. Stelle sicher, dass das Spiel korrekt installiert und ausgewählt ist.",
+            "Es wurden keine Standard-Spieldateien gefunden. Stelle sicher, dass das Spiel korrekt installiert und ausgewählt ist.", //125
+            "Ressourcen"
         };
 
         public static string[] English =
@@ -929,6 +1032,7 @@ namespace ProjectParadise2
             "Is the selected game a modified/unpacked game?",
             "The game verification was canceled, modified games may be broken as a result.",
             "No standard game files were found. Make sure the game is properly installed and selected.",
+            "Resources"
         };
 
         public static string[] Czech =
@@ -1059,6 +1163,7 @@ namespace ProjectParadise2
             "Je vybraný game modifikovaná/rozbalená hra?",
             "Ověření hry bylo zrušeno, modifikované hry mohou být tímto poškozeny.",
             "Nebyl nalezen žádný standardní herní soubor. Ujistěte se, že je hra správně nainstalována a vybrána.",
+            "Zdroje"
         };
 
         public static string[] Spanish =
@@ -1189,6 +1294,7 @@ namespace ProjectParadise2
             "¿Es el juego seleccionado un juego modificado/desempaquetado?",
             "La verificación del juego fue cancelada, los juegos modificados pueden dañarse como resultado.",
             "No se encontraron archivos estándar del juego. Asegúrate de que el juego esté correctamente instalado y seleccionado.",
+            "Recursos"
         };
 
         public static string[] French =
@@ -1319,6 +1425,7 @@ namespace ProjectParadise2
             "Le jeu sélectionné est-il un jeu modifié/décompressé ?",
             "La vérification du jeu a été annulée, les jeux modifiés peuvent être endommagés en conséquence.",
             "Aucun fichier de jeu standard n'a été trouvé. Assurez-vous que le jeu est correctement installé et sélectionné.",
+            "Ressources"
         };
 
         public static string[] Indonesian =
@@ -1449,6 +1556,7 @@ namespace ProjectParadise2
             "Apakah game yang dipilih adalah game yang dimodifikasi/dibongkar?",
             "Verifikasi game dibatalkan, game yang dimodifikasi mungkin rusak sebagai akibatnya.",
             "Tidak ada file permainan standar yang ditemukan. Pastikan permainan terinstal dengan benar dan dipilih.",
+            "Sumber Daya"
         };
 
         public static string[] Italian =
@@ -1579,6 +1687,7 @@ namespace ProjectParadise2
             "Il gioco selezionato è un gioco modificato/decompresso?",
             "La verifica del gioco è stata annullata, i giochi modificati potrebbero essere danneggiati di conseguenza.",
             "Non sono stati trovati file di gioco standard. Assicurati che il gioco sia correttamente installato e selezionato.",
+            "Risorse"
         };
 
         public static string[] Lithuanian =
@@ -1709,6 +1818,7 @@ namespace ProjectParadise2
             "Ar pasirinktas žaidimas yra modifikuotas/ išpakuotas žaidimas?",
             "Žaidimo tikrinimas buvo nutrauktas, modifikuoti žaidimai gali būti sugadinti.",
             "Nerasta standartinių žaidimo failų. Įsitikinkite, kad žaidimas yra tinkamai įdiegtas ir pasirinktas.",
+            "Ištekliai"
         };
 
         public static string[] Polish =
@@ -1839,6 +1949,7 @@ namespace ProjectParadise2
             "Czy wybrana gra to zmodyfikowana/rozpakowana gra?",
             "Weryfikacja gry została anulowana, zmodyfikowane gry mogą zostać uszkodzone w wyniku tego.",
             "Nie znaleziono standardowych plików gry. Upewnij się, że gra jest poprawnie zainstalowana i wybrana.",
+            "Zasoby"
         };
 
         public static string[] Russian =
@@ -1969,6 +2080,7 @@ namespace ProjectParadise2
             "Является ли выбранная игра модифицированной/распакованной игрой?",
             "Проверка игры была отменена, модифицированные игры могут быть повреждены в результате.",
             "Не найдены стандартные файлы игры. Убедитесь, что игра правильно установлена и выбрана.",
+            "Ресурсы"
         };
 
         public static string[] Portuguese_Brazil =
@@ -2099,6 +2211,7 @@ namespace ProjectParadise2
             "O jogo selecionado é um jogo modificado/descompactado?",
             "A verificação do jogo foi cancelada, jogos modificados podem ser corrompidos como resultado.",
             "Nenhum arquivo padrão do jogo foi encontrado. Certifique-se de que o jogo esteja corretamente instalado e selecionado.",
+            "Recursos"
         };
 
         public static string[] English_UK =
@@ -2229,6 +2342,7 @@ namespace ProjectParadise2
             "Is the selected game a modified/unpacked game?",
             "The game verification was canceled, modified games may be broken as a result.",
             "No standard game files were found. Make sure the game is properly installed and selected.",
+            "Resources"
         };
 
         public static string[] Dutch =
@@ -2359,6 +2473,7 @@ namespace ProjectParadise2
             "Is het geselecteerde spel een gemodificeerd/uitgepakte game?",
             "De gameverificatie werd geannuleerd, gemodificeerde games kunnen daardoor kapot gaan.",
             "Geen standaard spelbestanden gevonden. Zorg ervoor dat het spel correct is geïnstalleerd en geselecteerd.",
+            "Bronnen"
         };
 
         public static string[] Romanian =
@@ -2489,6 +2604,7 @@ namespace ProjectParadise2
             "Jocul selectat este un joc modificat/dezarchivat?",
             "Verificarea jocului a fost anulată, jocurile modificate pot fi deteriorate din această cauză.",
             "Nu au fost găsite fișiere standard de joc. Asigură-te că jocul este instalat și selectat corect.",
+            "Resurse"
         };
 
         public static string[] Turkish =
@@ -2619,6 +2735,7 @@ namespace ProjectParadise2
             "Seçilen oyun, modifiye edilmiş / açılmış bir oyun mu?",
             "Oyun doğrulaması iptal edildi, modifiye edilmiş oyunlar buna bağlı olarak bozulabilir.",
             "Standart oyun dosyaları bulunamadı. Oyunun doğru şekilde kurulduğundan ve seçildiğinden emin olun.",
+            "Kaynaklar"
         };
 
         public static string[] Chinese =
@@ -2749,6 +2866,7 @@ namespace ProjectParadise2
             "选择的游戏是修改过的/解包的游戏吗？",
             "游戏验证已取消，修改过的游戏可能因此被破坏。",
             "未找到标准游戏文件。请确保游戏已正确安装并选择。",
+            "繁體中文",
         };
 
     }

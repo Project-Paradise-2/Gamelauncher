@@ -54,7 +54,7 @@ namespace ProjectParadise2.Database
                     catch (JsonException ex)
                     {
                         Report.GenerateJson(ex, "Failed Deserialize Launcher Database");
-                        Log.Print("Failed Open Database: " + ex.Message, ex);
+                        Log.Error("Failed Deserialize Database: " + ex.Message, ex);
                     }
                 }
                 else
@@ -99,7 +99,7 @@ namespace ProjectParadise2.Database
                             }
                             else
                             {
-                                Log.Print("Failed open the Browser");
+                                Log.Error("Failed open the Browser");
                             }
                         }
                     }
@@ -109,9 +109,9 @@ namespace ProjectParadise2.Database
             catch (Exception ex)
             {
                 Report.Generate(ex, "Failed Load Launcher Database");
-                Log.Print("Failed Open Database: " + ex.Message, ex);
+                Log.Error("Failed Open Database: " + ex.Message, ex);
             }
-            Log.Print("Database Loadet Version: " + p2Database.DatabaseVersion + " launcher used: " + db);
+            Log.Info("Database Loadet Version: " + p2Database.DatabaseVersion + " launcher used: " + db);
             p2Database.Usersettings.Launcherverion = Constans.LauncherVersion;
         }
 
@@ -130,7 +130,7 @@ namespace ProjectParadise2.Database
             catch (Exception ex)
             {
                 Report.Generate(ex, "Failed Write Launcher Database");
-                Log.Print("Failed Write Database: " + ex.Message);
+                Log.Error("Failed Write Database: " + ex.Message);
             }
         }
 

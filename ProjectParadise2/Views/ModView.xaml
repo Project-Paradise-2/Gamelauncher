@@ -17,7 +17,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
         </Grid>
-        <Border Width="1000" Height="635" CornerRadius="20" Background="#222831" Margin="0,0,0,0" BorderThickness="1.5" BorderBrush="#393E46">
+        <Border Width="1000" Height="635" CornerRadius="20" Background="#20232B" Margin="0,0,0,0" BorderThickness="1.5">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -33,7 +33,7 @@
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
-                <Border Name="Element1" Grid.Column="0" Grid.Row="1" Background="#222831" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
+                <Border Name="Element1" Grid.Column="0" Grid.Row="1" Background="#20232B" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
                     <Grid>
                         <Image Source="/Images/PP2Logo.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10" Name="Element1Image" Stretch="Fill">
 
@@ -41,9 +41,12 @@
                         <TextBlock Text="Loading Info.." FontSize="14" Foreground="#6C5A49" MaxWidth="110" MaxHeight="60" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="/Fonts/#Protofo" Name="Element1Text" Height="65" Margin="8,122,0,0" Width="160"/>
                         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="0,180,0,0" Content="Mod Info" Height="35" Width="160" TextMargin="45,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Server" IconDirection="Center" IconMargin="-110,3,0,0" IconColor="#EEEEEE" Click="ModInfo1"/>
                     </Grid>
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+                    </Border.Effect>
                 </Border>
 
-                <Border Name="Element2" Grid.Column="1" Grid.Row="1" Background="#222831" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
+                <Border Name="Element2" Grid.Column="1" Grid.Row="1" Background="#20232B" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
                     <Grid>
                         <Image Source="/Images/PP2Logo.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10" Name="Element2Image" Stretch="Fill">
 
@@ -51,9 +54,12 @@
                         <TextBlock Text="Loading Info.." FontSize="14" Foreground="#6C5A49" MaxWidth="110" MaxHeight="60" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="/Fonts/#Protofo" Name="Element2Text" Height="65" Margin="8,122,0,0" Width="160"/>
                         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="0,180,0,0" Content="Mod Info" Height="35" Width="160" TextMargin="45,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Server" IconDirection="Center" IconMargin="-110,3,0,0" IconColor="#EEEEEE" Click="ModInfo2"/>
                     </Grid>
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+                    </Border.Effect>
                 </Border>
 
-                <Border Name="Element3" Grid.Column="2" Grid.Row="1" Background="#222831" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
+                <Border Name="Element3" Grid.Column="2" Grid.Row="1" Background="#20232B" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
                     <Grid>
                         <Image Source="/Images/PP2Logo.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10" Name="Element3Image" Stretch="Fill">
 
@@ -61,9 +67,12 @@
                         <TextBlock Text="Loading Info.." FontSize="14" Foreground="#6C5A49" MaxWidth="110" MaxHeight="60" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="/Fonts/#Protofo" Name="Element3Text" Height="65" Margin="8,122,0,0" Width="160"/>
                         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="0,180,0,0" Content="Mod Info" Height="35" Width="160" TextMargin="45,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Server" IconDirection="Center" IconMargin="-110,3,0,0" IconColor="#EEEEEE" Click="ModInfo3"/>
                     </Grid>
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+                    </Border.Effect>
                 </Border>
 
-                <Border Name="Element4" Grid.Column="3" Grid.Row="1" Background="#222831" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
+                <Border Name="Element4" Grid.Column="3" Grid.Row="1" Background="#20232B" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
                     <Grid>
                         <Image Source="/Images/PP2Logo.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10" Name="Element4Image" Stretch="Fill">
 
@@ -71,9 +80,12 @@
                         <TextBlock Text="Loading Info.." FontSize="14" Foreground="#6C5A49" MaxWidth="110" MaxHeight="60" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="/Fonts/#Protofo" Name="Element4Text" Height="65" Margin="8,122,0,0" Width="160"/>
                         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="0,180,0,0" Content="Mod Info" Height="35" Width="160" TextMargin="45,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Server" IconDirection="Center" IconMargin="-110,3,0,0" IconColor="#EEEEEE" Click="ModInfo4"/>
                     </Grid>
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+                    </Border.Effect>
                 </Border>
 
-                <Border Name="Element5" Grid.Column="4" Grid.Row="1" Background="#222831" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
+                <Border Name="Element5" Grid.Column="4" Grid.Row="1" Background="#20232B" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
                     <Grid>
                         <Image Source="/Images/PP2Logo.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10" Name="Element5Image" Stretch="Fill">
 
@@ -81,10 +93,13 @@
                         <TextBlock Text="Loading Info.." FontSize="14" Foreground="#6C5A49" MaxWidth="110" MaxHeight="60" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="/Fonts/#Protofo" Name="Element5Text" Height="65" Margin="8,122,0,0" Width="160"/>
                         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="0,180,0,0" Content="Mod Info" Height="35" Width="160" TextMargin="45,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Server" IconDirection="Center" IconMargin="-110,3,0,0" IconColor="#EEEEEE" Click="ModInfo5"/>
                     </Grid>
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+                    </Border.Effect>
                 </Border>
 
 
-                <Border Name="Element6" Grid.Column="0" Grid.Row="2" Background="#222831" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
+                <Border Name="Element6" Grid.Column="0" Grid.Row="2" Background="#20232B" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
                     <Grid>
                         <Image Source="/Images/PP2Logo.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10" Name="Element6Image" Stretch="Fill">
 
@@ -92,9 +107,12 @@
                         <TextBlock Text="Loading Info.." FontSize="14" Foreground="#6C5A49" MaxWidth="110" MaxHeight="60" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="/Fonts/#Protofo" Name="Element6Text" Height="65" Margin="8,122,0,0" Width="160"/>
                         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="0,180,0,0" Content="Mod Info" Height="35" Width="160" TextMargin="45,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Server" IconDirection="Center" IconMargin="-110,3,0,0" IconColor="#EEEEEE" Click="ModInfo6"/>
                     </Grid>
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+                    </Border.Effect>
                 </Border>
 
-                <Border Name="Element7" Grid.Column="1" Grid.Row="2" Background="#222831" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
+                <Border Name="Element7" Grid.Column="1" Grid.Row="2" Background="#20232B" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
                     <Grid>
                         <Image Source="/Images/PP2Logo.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10" Name="Element7Image" Stretch="Fill">
 
@@ -102,9 +120,12 @@
                         <TextBlock Text="Loading Info.." FontSize="14" Foreground="#6C5A49" MaxWidth="110" MaxHeight="60" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="/Fonts/#Protofo" Name="Element7Text" Height="65" Margin="8,122,0,0" Width="160"/>
                         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="0,180,0,0" Content="Mod Info" Height="35" Width="160" TextMargin="45,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Server" IconDirection="Center" IconMargin="-110,3,0,0" IconColor="#EEEEEE" Click="ModInfo7"/>
                     </Grid>
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+                    </Border.Effect>
                 </Border>
 
-                <Border Name="Element8" Grid.Column="2" Grid.Row="2" Background="#222831" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
+                <Border Name="Element8" Grid.Column="2" Grid.Row="2" Background="#20232B" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
                     <Grid>
                         <Image Source="/Images/PP2Logo.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10" Name="Element8Image" Stretch="Fill">
 
@@ -112,9 +133,12 @@
                         <TextBlock Text="Loading Info.." FontSize="14" Foreground="#6C5A49" MaxWidth="110" MaxHeight="60" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="/Fonts/#Protofo" Name="Element8Text" Height="65" Margin="8,122,0,0" Width="160"/>
                         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="0,180,0,0" Content="Mod Info" Height="35" Width="160" TextMargin="45,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Server" IconDirection="Center" IconMargin="-110,3,0,0" IconColor="#EEEEEE" Click="ModInfo8"/>
                     </Grid>
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+                    </Border.Effect>
                 </Border>
 
-                <Border Name="Element9" Grid.Column="3" Grid.Row="2" Background="#222831" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
+                <Border Name="Element9" Grid.Column="3" Grid.Row="2" Background="#20232B" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
                     <Grid>
                         <Image Source="/Images/PP2Logo.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10" Name="Element9Image" Stretch="Fill">
 
@@ -122,9 +146,12 @@
                         <TextBlock Text="Loading Info.." FontSize="14" Foreground="#6C5A49" MaxWidth="110" MaxHeight="60" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="/Fonts/#Protofo" Name="Element9Text" Height="65" Margin="8,122,0,0" Width="160"/>
                         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="0,180,0,0" Content="Mod Info" Height="35" Width="160" TextMargin="45,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Server" IconDirection="Center" IconMargin="-110,3,0,0" IconColor="#EEEEEE" Click="ModInfo9"/>
                     </Grid>
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+                    </Border.Effect>
                 </Border>
 
-                <Border Name="Element10" Grid.Column="4" Grid.Row="2" Background="#222831" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
+                <Border Name="Element10" Grid.Column="4" Grid.Row="2" Background="#20232B" CornerRadius="25" Margin="10" BorderThickness="1.5" BorderBrush="#393E46">
                     <Grid>
                         <Image Source="/Images/PP2Logo.png" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10" Name="Element10Image" Stretch="Fill">
 
@@ -132,6 +159,9 @@
                         <TextBlock Text="Loading Info.." FontSize="14" Foreground="#6C5A49" MaxWidth="110" MaxHeight="60" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="/Fonts/#Protofo" Name="Element10Text" Height="65" Margin="8,122,0,0" Width="160"/>
                         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="0,180,0,0" Content="Mod Info" Height="35" Width="160" TextMargin="45,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Server" IconDirection="Center" IconMargin="-110,3,0,0" IconColor="#EEEEEE" Click="ModInfo10"/>
                     </Grid>
+                    <Border.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+                    </Border.Effect>
                 </Border>
 
                 <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="-90,-5,0,0" Content="" Height="30" Width="80" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="LongArrowLeft" IconDirection="Center" IconMargin="-10,0,0,0" IconColor="#EEEEEE" Grid.Column="0" Grid.Row="3" Click="LastPage" x:Name="LastPageBTN"/>

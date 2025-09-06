@@ -3,13 +3,11 @@
 // and interacting with the database. It also manages game startup and shutdown processes.
 using KuxiiSoft.Utils.Crashreport;
 using ProjectParadise2.Core.Classes;
-using ProjectParadise2.Core.Stun;
-using ProjectParadise2.Core.UPnP;
 using ProjectParadise2.Views;
 using System;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Security;
+using System.Threading.Tasks;
 
 namespace ProjectParadise2.Core
 {
@@ -21,7 +19,7 @@ namespace ProjectParadise2.Core
     {
         public static KuxiiSoft.Utils.Crashreport.Report _report;
         public static string LauncherNews { get; set; } = "|" + Constans.LauncherVersion;
-        public static string MyNatType { get; private set; } = "Strict:UdpBlocked";
+        public static string MyNatType { get; set; } = "Strict:UdpBlocked";
         public static EventHandler OnLangset;
 
         /// <summary>
@@ -35,44 +33,31 @@ namespace ProjectParadise2.Core
 
             _report = new Report("PP2 Launcher", Constans.LauncherVersion, AppDomain.CurrentDomain.BaseDirectory);
             AppDomain.CurrentDomain.UnhandledException += Report.Generate;
-            if (CommandLineArg.SkipUpnp || Database.Database.p2Database.Usersettings.UpnpWorker.Equals(false))
-            {
-                Log.Log.Print("Skip Upnp");
-            }
-            else
-            {
-                var state = UPnP.UPnP.IsOpen(Protocol.UDP, 8889);
-                if (!state)
-                {
-                    try
-                    {
-                        UPnP.UPnP.FindGateway();
-                        UPnP.UPnP.Open(Protocol.UDP, 8889, 8889, "TDU2");
-                        var state2 = UPnP.UPnP.IsOpen(Protocol.UDP, 8889);
-                        Log.Log.Print("Forwarding from: " + UPnP.UPnP.ExternalIP + " to " + UPnP.UPnP.LocalIP);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Log.Print("Failed to set forwarding rule ", ex);
-                    }
-                }
-            }
             DoStunTest();
             try
             {
                 if (Database.Database.p2Database.Usersettings.DiscordRPC)
                     DiscordIntegration.Init();
-
             }
             catch (Exception ex)
             {
-                Log.Log.Print("Failed to patch the original domain ", ex);
+                Log.Log.Error("Failed to init Discord RPC ", ex);
+            }
+
+            try
+            {
+
+                Utils.UpdateConnection();
+            }
+            catch (Exception ex)
+            {
+                Log.Log.Error("Failed to update the connection ", ex);
             }
         }
 
-        public static string[] StunServer = { "stun1.l.google.com", "proxy.project-paradise2.de", "stun3.l.google.com" };
-        static int stunTry = 0;
-
+        /// <summary>
+        /// Fetches the latest launcher version from a remote server and checks if an update is available.
+        /// </summary>
         public static void GetLauncherVersion()
         {
             try
@@ -95,7 +80,7 @@ namespace ProjectParadise2.Core
             catch (Exception ex)
             {
                 LauncherNews = "|" + Constans.LauncherVersion;
-                Log.Log.Print("Unable Load Launcher Version: ", ex);
+                Log.Log.Error("Failed to get the launcher version ", ex);
             }
         }
 
@@ -107,101 +92,21 @@ namespace ProjectParadise2.Core
         {
             try
             {
-                STUN_Result result = null;
-                try
+                Task.Run(async () =>
                 {
-                    result = STUN_Client.Query(StunServer[stunTry], 3478, new IPEndPoint(IPAddress.Any, 8889));
-                }
-                catch (Exception ex)
-                {
-                    Log.Log.Print("Error querying STUN server: ", ex);
-                    return;
-                }
-
-                if (result == null)
-                {
-                    Log.Log.Print("No response received from the STUN server.");
-                    return;
-                }
-
-                switch (result.NetType)
-                {
-                    case STUN_NetType.UdpBlocked:
-                        Log.Log.Print("UDP is blocked. This is a strict NAT type, and communication is highly limited.");
-                        break;
-
-                    case STUN_NetType.OpenInternet:
-                        Log.Log.Print("No NAT or firewall detected. Public IP with no restrictions.");
-                        break;
-
-                    case STUN_NetType.SymmetricUdpFirewall:
-                        Log.Log.Print("Symmetric UDP firewall detected. Symmetric NAT may exist, and incoming connections are blocked.");
-                        break;
-
-                    case STUN_NetType.FullCone:
-                        Log.Log.Print("Full Cone NAT detected. You can receive incoming connections from any external host.");
-                        break;
-
-                    case STUN_NetType.RestrictedCone:
-                        Log.Log.Print("Restricted Cone NAT detected. Only previously contacted external hosts can reach you.");
-                        break;
-
-                    case STUN_NetType.PortRestrictedCone:
-                        Log.Log.Print("Port Restricted Cone NAT detected. External hosts must match both the IP and port to communicate.");
-                        break;
-
-                    case STUN_NetType.Symmetric:
-                        Log.Log.Print("Symmetric NAT detected. Only specific, previously contacted external hosts can communicate with you.");
-                        break;
-
-                    default:
-                        result.NetType = STUN_NetType.UdpBlocked;
-                        Log.Log.Print("Unknown or unchecked NAT type.");
-                        break;
-                }
-
-                MyNatType = STUN_NatType.GetType(result.NetType);
-
-                if (result.NetType != STUN_NetType.UdpBlocked)
-                {
-                    IPEndPoint publicEP = result.PublicEndPoint;
-                    Log.Log.Print("Public endpoint detected: " + publicEP + ", mapped endpoint: " + UPnP.UPnP.ExternalIP);
-                }
-                else
-                {
-                    if (stunTry != StunServer.Length - 1)
-                    {
-                        stunTry++;
-                        Log.Log.Print($"UDP is blocked or the STUN server is not responding. Trying another server [{stunTry}|{StunServer.Length - 1}]");
-                        DoStunTest();
-                    }
-                    else
-                    {
-                        Log.Log.Print("UDP is blocked or the STUN server is not responding. After 5 attempts, stopping.");
-                    }
-                }
-
-                if (result != null)
-                {
-                    try
-                    {
-                        Regestry.UpdateKey("NetworkNatType", MyNatType, Database.Database.p2Database.Usersettings.IsSteambuild);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Log.Print("Failed Update Regestry: ", ex);
-                    }
-                }
+                    await NatDetector.RunTest();
+                });
             }
             catch (Exception ex)
             {
-                Log.Log.Print("Failed on Stun Test: ", ex);
+                Log.Log.Error("Failed to run the STUN test ", ex);
             }
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback((sender, certificate, chain, sslPolicyErrors) => true);
             GC.Collect();
             GetLauncherVersion();
+            Regestry.UpdateKey("NetworkNatType", BackgroundWorker.MyNatType, Database.Database.p2Database.Usersettings.IsSteambuild);
         }
 
         /// <summary>
@@ -212,14 +117,11 @@ namespace ProjectParadise2.Core
         {
             try
             {
-                var state = UPnP.UPnP.IsOpen(Protocol.UDP, 8889);
-                if (state)
-                    UPnP.UPnP.Close(Protocol.UDP, 8889);
                 DiscordIntegration.StopRPC();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.ToString());
+                Log.Log.Error("Failed to stop Discord RPC ", ex);
             }
 
             try
@@ -228,7 +130,7 @@ namespace ProjectParadise2.Core
             }
             catch (Exception ex2)
             {
-                Log.Log.Print("Failed to update the database ", ex2);
+                Log.Log.Error("Failed to write the database on exit ", ex2);
             }
             GameRunner.KillGame();
             Environment.Exit(0);
@@ -241,7 +143,7 @@ namespace ProjectParadise2.Core
                 using (WebConnection wc = new WebConnection())
                 {
                     wc.Timeout = 5;
-                    Log.Log.Print("[WR]Missing key, connect to the generator");
+                    Log.Log.Warning("Missing key, connect to the generator");
                     return System.Text.Encoding.UTF8.GetString(wc.DownloadData(Constans.Cdn + $"/Requests/serial.php"));
                 }
             }
@@ -256,10 +158,12 @@ namespace ProjectParadise2.Core
         /// </summary>
         public static void RunGame()
         {
-            Utils.UpdateConnection();
             GameRunner.RunGame();
         }
 
+        /// <summary>
+        /// Sets the language by invoking the OnLangset event.
+        /// </summary>
         public static void SetLang()
         {
             OnLangset?.Invoke(null, null);

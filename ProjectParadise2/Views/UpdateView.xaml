@@ -7,7 +7,7 @@
              xmlns:objs="clr-namespace:ProjectParadise2.Objects"
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="1000">
-    <Border Margin="5,10,0,0" BorderThickness="0.8" CornerRadius="20" Background="#222831" BorderBrush="#393E46">
+    <Border Margin="5,10,0,0" BorderThickness="0.8" CornerRadius="20" Background="#20232B">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10" />
@@ -20,15 +20,13 @@
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" Background="#1A1A1A" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Width="1000" Height="550" VerticalAlignment="Top" HorizontalAlignment="Left" Name="ScrollView">
-                <TextBlock TextWrapping="Wrap" Text="" Foreground="#E68E3A" Margin="5" Name="ConsoleTextbox" FontSize="18" MaxWidth="2500" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock TextWrapping="Wrap" Text="" Foreground="#C9A227" Margin="5" Name="ConsoleTextbox" FontSize="14" MaxWidth="2500" FontFamily="/Fonts/#Protofo"/>
             </ScrollViewer>
             <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
-                <ProgressBar Width="1000" Height="16" VerticalAlignment="Center" Margin="-20,0,0,0" Background="Transparent" Foreground="#241552" Name="TotalProgress" Minimum="0" Maximum="100" Value="100" BorderBrush="Transparent"/>
-                <TextBlock Text="{Binding ElementName=TotalProgress, Path=Value, StringFormat={}{0:0}% }" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,-18,10,0" Foreground="Wheat" FontSize="12" FontFamily="/Fonts/#Protofo"/>
-
-                <ProgressBar Width="1000" Height="16" VerticalAlignment="Center" Margin="-20,-0,0,0" Background="Transparent" Foreground="#152d52" Name="DownloadProgress" Minimum="0" Maximum="100" Value="100" BorderBrush="Transparent"/>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,-17,10,0" Foreground="Wheat" FontSize="12" Name="DownloadProgressText" FontFamily="/Fonts/#Protofo"/>
-
+                <ProgressBar Width="1000" Height="20" VerticalAlignment="Center" Margin="-20,0,0,0" Background="Transparent" Foreground="#3BB273" Name="TotalProgress" Minimum="0" Maximum="100" Value="100" BorderBrush="Transparent"/>
+                <TextBlock Text="{Binding ElementName=TotalProgress, Path=Value, StringFormat={}{0:0}% }" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,-21,10,0" Foreground="#B8B8B8" FontSize="15" FontFamily="/Fonts/#Protofo"/>
+                <ProgressBar Width="1000" Height="20" VerticalAlignment="Center" Margin="-20,-0,0,0" Background="Transparent" Foreground="#1D7DB6" Name="DownloadProgress" Minimum="0" Maximum="100" Value="100" BorderBrush="Transparent"/>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,-21,10,0" Foreground="#B8B8B8" FontSize="15" Name="DownloadProgressText" FontFamily="/Fonts/#Protofo"/>
                 <TextBlock HorizontalAlignment="Left" Text="Status:" Foreground="Wheat" Name="StatusText" Margin="0,5,0,0" Width="746" FontSize="12" FontFamily="/Fonts/#Protofo"/>
             </StackPanel>
         </Grid>

@@ -44,11 +44,13 @@ namespace ProjectParadise2.Core.Gameupdate
                 if (isUnpacked && isUnpacked2)
                 {
                     UpdateView.Instance.Updatestatus(Lang.GetText(124));
+                    Log.Log.Error("Unpacked game files detected.");
                     return;
                 }
                 if (isUnpacked || isUnpacked2)
                 {
                     UpdateView.Instance.Updatestatus(Lang.GetText(124) + " mixed game?");
+                    Log.Log.Error("Both unpacked and packed game files detected.");
                     return;
                 }
 
@@ -57,6 +59,7 @@ namespace ProjectParadise2.Core.Gameupdate
                     || !File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/bigfile_EU_4.big"))
                 {
                     UpdateView.Instance.Updatestatus(Lang.GetText(125));
+                    Log.Log.Error("Missing bigfiles in game directory (Default Files each Version).");
                     return;
                 }
 
@@ -94,19 +97,19 @@ namespace ProjectParadise2.Core.Gameupdate
             List<string> localFiles = new List<string>();
             List<string> requiredFiles = new List<string>();
 
-            Thread.Sleep(2500);
+            Thread.Sleep(250);
             UpdateView.Instance.Updatestatus(Lang.GetText(46));
 
             foreach (var liveFile in Live.File)
             {
                 requiredFiles.Add(liveFile.FilePath);
-                Thread.Sleep(2);
+                Thread.Sleep(1);
             }
 
             foreach (var file in Files)
             {
                 localFiles.Add(file.Replace(Database.Database.p2Database.Usersettings.Gamedirectory + "/", string.Empty).Replace(@"\", @"/"));
-                Thread.Sleep(2);
+                Thread.Sleep(1);
             }
 
             List<string> missingFiles = CompareFiles(requiredFiles, localFiles);
@@ -118,9 +121,9 @@ namespace ProjectParadise2.Core.Gameupdate
                 var info = GetInfo(file);
                 GamefileLoader.AddFile(file, info[0], info[1]);
                 UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(49), info[0], info[2]), 0);
-                Thread.Sleep(100);
+                Log.Log.Info($"Missing file detected: {info[0]} Size: {info[2]}");
+                Thread.Sleep(5);
             }
-
             PerformHashCheck();
         }
 
@@ -132,7 +135,6 @@ namespace ProjectParadise2.Core.Gameupdate
             UpdateView.Instance.PrintMessage($"", 0);
             UpdateView.Instance.PrintMessage(Lang.GetText(50), 5);
             UpdateView.Instance.PrintMessage($"", 0);
-
             UpdateView.Instance.Updatestatus(Lang.GetText(51));
             string CurrentFile = "";
             int totalFiles = Live.File.Count;
@@ -157,7 +159,7 @@ namespace ProjectParadise2.Core.Gameupdate
                             UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(54), relativePath), 1);
                         }
 
-                        Thread.Sleep(15);
+                        Thread.Sleep(10);
                     }
                 }
             }
@@ -215,6 +217,7 @@ namespace ProjectParadise2.Core.Gameupdate
         private static void GetUpdatedFile(int index)
         {
             GamefileLoader.AddFile(Live.File[index].FilePath, Live.File[index].FileName, Live.File[index].FilePath);
+            Log.Log.Warning($"Outdated file detected: {Live.File[index].FileName} Size: {Live.File[index].FileSize}");
         }
 
         /// <summary>
@@ -267,35 +270,32 @@ namespace ProjectParadise2.Core.Gameupdate
         {
             try
             {
+                ///Linux workaround for ssl
                 ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
                 System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-
-
-
                 var client = new WebClient
                 {
-                    Headers = { ["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" },
-
+                    //Headers = { ["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" },
+                    Headers = { ["User-Agent"] = "Launcher Updatefiles Request" },
                 };
 
                 string url = Constans.Cdn + "/update/Update.json";
                 string content = client.DownloadString(url);
                 Live = JsonConvert.DeserializeObject<UpdateInfos>(content);
-
                 UpdateView.Instance.Updatestatus(Lang.GetText(57));
                 return true;
             }
             catch (WebException ex)
             {
                 UpdateView.Instance.PrintMessage($"Failed to connect to server: {ex.Message}\n");
-                Log.Log.Print("Failed to connect to server: ", ex);
+                Log.Log.Error("Failed to connect to server: ", ex);
                 UpdateView.Instance.Updatestatus(Lang.GetText(58));
                 return false;
             }
             catch (Exception ex)
             {
                 UpdateView.Instance.PrintMessage($"An error occurred: {ex.Message}\n");
-                Log.Log.Print("An error occurred: ", ex);
+                Log.Log.Error("An error occurred while retrieving the online file: ", ex);
                 UpdateView.Instance.Updatestatus(Lang.GetText(58));
                 return false;
             }

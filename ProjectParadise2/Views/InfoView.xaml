@@ -7,10 +7,10 @@
              xmlns:local="clr-namespace:ProjectParadise2.Views"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="1000">
-    <Border Margin="5,10,0,0" BorderThickness="0.8" CornerRadius="20" Background="#222831" BorderBrush="#393E46">
+    <Border Margin="5,10,0,0" BorderThickness="0.8" CornerRadius="20" Background="#20232B">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="100"/>
@@ -20,49 +20,85 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="175"/>
-                <ColumnDefinition Width="291"/>
-                <ColumnDefinition Width="334"/>
+                <ColumnDefinition Width="252"/>
+                <ColumnDefinition Width="373"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="4">
-                <TextBlock Text="Quick Check" FontSize="18" Foreground="#EEEEEE" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo"/>
-
-                <TextBlock Text="Version:" FontSize="14" Foreground="#EEEEEE" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="Build:" FontSize="14" Foreground="#EEEEEE" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="Nat Type" FontSize="14" Foreground="#EEEEEE" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="Forwarding State:" FontSize="14" Foreground="#EEEEEE" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="DirectX (9.0c)" FontSize="14" Foreground="#EEEEEE" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="C++ Runtime" FontSize="14" Foreground="#EEEEEE" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo"/>
-            </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="4" Margin="166,6,0,0">
-                <TextBlock Text="" FontSize="14" Foreground="#EEEEEE" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo"/>
-
-                <TextBlock Text="2.10" FontSize="14" Foreground="#EEEEEE" Margin="0,5,0,0" FontStyle="Italic" Name="Launcherversion" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="24.12.2024 18:59:00" FontSize="14" Foreground="#EEEEEE" Margin="0,5,0,0" FontStyle="Italic" Name="Launcherbuild" FontFamily="/Fonts/#Protofo"/>
-
-                <TextBlock Text="UDP:Blocked" FontSize="14" Foreground="#EEEEEE" Margin="0,5,0,0" Name="NatTypeText" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="NO" FontSize="14" Foreground="#EEEEEE" Margin="0,5,0,0" Name="PortTypeText" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="DirectX (9.0c)" FontSize="14" Foreground="#EEEEEE" Margin="0,5,0,0" Name="DirectXText" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="C++ Runtime" FontSize="14" Foreground="#EEEEEE" Margin="0,5,0,0" Name="CPlusText" FontFamily="/Fonts/#Protofo"/>
-            </StackPanel>
-
-            <TextBlock Text="Hardware Infos" FontSize="14" Foreground="#EEEEEE" Margin="10,5,0,0" Name="HardwareText" FontFamily="/Fonts/#Protofo" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="3"/>
-
-
-            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="120,155,0,0">
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="-750,0,0,15" Content="Twitter/X" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Twitter" IconDirection="Center" IconMargin="-80,0,0,0" IconColor="#EEEEEE" Grid.Row="5" Click="OpenTwitter" Width="120" Height="35"/>
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="-480,-50,0,15" Content="Youtube" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Youtube" IconDirection="Center" IconMargin="-80,0,0,0" IconColor="#EEEEEE" Grid.Row="5" Click="OpenYoutube" Width="120" Height="35"/>
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="-210,-50,0,15" Content="Facebook" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="FacebookOfficial" IconDirection="Center" IconMargin="-80,0,0,0" IconColor="#EEEEEE" Grid.Row="5" Click="OpenFacebook" Width="120" Height="35"/>
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="70,-50,0,15" Content="Website" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Firefox" IconDirection="Center" IconMargin="-80,0,0,0" IconColor="#EEEEEE" Grid.Row="5" Click="OpenWebsite" Width="120" Height="35"/>
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="345,-50,0,15" Content="Github" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Github" IconDirection="Center" IconMargin="-80,0,0,0" IconColor="#EEEEEE" Grid.Row="5" Click="OpenGit" Width="120" Height="35"/>
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="620,-50,0,15" Content="Help" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Question" IconDirection="Center" IconMargin="-80,0,0,0" IconColor="#EEEEEE" Grid.Row="5" Grid.ColumnSpan="2" Click="OpenHelp" Width="120" Height="35"/>
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="6">
+                <TextBlock Text="Software Infos" FontSize="18" Foreground="#F1F1F1" Margin="20,5,0,0" FontFamily="/Fonts/#Protofo"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="394"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Version:" FontSize="14" Foreground="#B8B8B8" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo" Grid.Column="1" Grid.Row="0"/>
+                    <TextBlock Text="Build:" FontSize="14" Foreground="#B8B8B8" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo" Grid.Column="1" Grid.Row="1"/>
+                    <TextBlock Text="DirectX (9.0c)" FontSize="14" Foreground="#B8B8B8" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo" Grid.Column="1" Grid.Row="2"/>
+                    <TextBlock Text="C++ Runtime" FontSize="14" Foreground="#B8B8B8" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo" Grid.Column="1" Grid.Row="3"/>
+                    <TextBlock Text="2.10" FontSize="14" Foreground="#7A7A7A" Margin="0,5,86,0" FontStyle="Italic" Name="Launcherversion" FontFamily="/Fonts/#Protofo" Grid.Column="2" Grid.Row="0"/>
+                    <TextBlock Text="24.12.2024 18:59:00" FontSize="14" Foreground="#7A7A7A" Margin="0,5,86,0" FontStyle="Italic" Name="Launcherbuild" FontFamily="/Fonts/#Protofo" Grid.Column="2" Grid.Row="1"/>
+                    <TextBlock Text="DirectX (9.0c)" FontSize="14" Foreground="#7A7A7A" Margin="0,5,86,0" FontStyle="Italic" Name="DirectXText" FontFamily="/Fonts/#Protofo" Grid.Column="2" Grid.Row="2"/>
+                    <TextBlock Text="C++ Runtime" FontSize="14" Foreground="#7A7A7A" Margin="0,5,86,0" FontStyle="Italic" Name="CPlusText" FontFamily="/Fonts/#Protofo" Grid.Column="2" Grid.Row="3" Grid.RowSpan="4"/>
+                </Grid>
             </StackPanel>
 
+            <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" Grid.RowSpan="6">
+                <TextBlock Text="Hardware Infos" FontSize="18" Foreground="#F1F1F1" Margin="20,5,0,0" FontFamily="/Fonts/#Protofo"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="77"/>
+                        <ColumnDefinition Width="550"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="CPU:" FontSize="14" Foreground="#B8B8B8" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo" Grid.Column="1" Grid.Row="0"/>
+                    <TextBlock Text="Ram:" FontSize="14" Foreground="#B8B8B8" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo" Grid.Column="1" Grid.Row="3"/>
+                    <TextBlock Text="GPU:" FontSize="14" Foreground="#B8B8B8" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo" Grid.Column="1" Grid.Row="4"/>
+                    <TextBlock Text="Displays:" FontSize="14" Foreground="#B8B8B8" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo" Grid.Column="1" Grid.Row="7"/>
+                    <TextBlock Text="Network:" FontSize="14" Foreground="#B8B8B8" Margin="10,5,0,0" FontFamily="/Fonts/#Protofo" Grid.Column="1" Grid.Row="10"/>
+                    <TextBlock Text="Loading.." FontSize="14" Foreground="#7A7A7A" Margin="0,5,0,0" FontStyle="Italic" Name="CPU" FontFamily="/Fonts/#Protofo" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Left" Width="550"/>
+                    <TextBlock Text="Loading.." FontSize="14" Foreground="#7A7A7A" Margin="0,5,86,0" FontStyle="Italic" Name="RAM" FontFamily="/Fonts/#Protofo" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" Width="550"/>
+                    <TextBlock Text="Loading.." FontSize="14" Foreground="#7A7A7A" Margin="0,5,86,0" FontStyle="Italic" Name="GPU" FontFamily="/Fonts/#Protofo" Grid.Column="2" Grid.Row="4" Grid.RowSpan="3" HorizontalAlignment="Left" Width="550"/>
+                    <TextBlock Text="Loading.." FontSize="14" Foreground="#7A7A7A" Margin="0,5,86,0" FontStyle="Italic" Name="Displays" FontFamily="/Fonts/#Protofo" Grid.Column="2" Grid.Row="7" Grid.RowSpan="3" HorizontalAlignment="Left" Width="550"/>
+                    <TextBlock Text="Loading.." FontSize="14" Foreground="#7A7A7A" Margin="0,5,86,0" FontStyle="Italic" Name="Network" FontFamily="/Fonts/#Protofo" Grid.Column="2" Grid.Row="10" Grid.RowSpan="5" HorizontalAlignment="Left" Width="550"/>
+                </Grid>
+            </StackPanel>
 
-            <TextBlock Text="¹ It is best to install DirectX 9.0c using the web installer, as it includes all the necessary libraries." Foreground="#FFD369" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,0,0,0"/>
-            <TextBlock Text="² TDU2 requires the C++ Runtime 2005/2008 for 32-bit systems." Foreground="#FFD369" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,36,0,0"/>
-            <TextBlock Text="³ NAT type is an approximate assessment of your internet connection. This is not critical for the online service but is relevant for hosting lobbies (joinable by other players)." Foreground="#FFD369" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,18,0,0"/>
-            <TextBlock Text="©2022 - 2025 Project-Paradise 2" Foreground="Wheat" FontSize="12" Grid.Row="6" Grid.Column="3" Margin="25,50,0,0"/>
+            <objs:FA_BTN Style="{StaticResource FA_BTN}" Content="Copy to Clipboard" TextMargin="10,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Copy" IconDirection="Right" IconMargin="0,0,10,00" IconColor="#EEEEEE" Grid.Row="0" Grid.Column="3" Click="CopytoClipboard" Width="180"/>
+            <TextBlock Text="¹ It is best to install DirectX 9.0c using the web installer, as it includes all the necessary libraries." Foreground="#FF8744" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,0,0,0"/>
+            <TextBlock Text="² TDU2 requires the C++ Runtime 2005/2008 for 32-bit systems." Foreground="#FF8744" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,18,0,0"/>
+            <TextBlock Text="³ The NAT type is only an approximate indicator of your connection. It is not critical for the online service, but it mainly reflects how reachable you are for other players" Foreground="#FF8744" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,36,0,0"/>
+            <TextBlock Text="©2022 - 2025 Project-Paradise 2" Foreground="Wheat" FontSize="12" Grid.Row="6" Grid.Column="3" Margin="25,54,0,0"/>
         </Grid>
     </Border>
 </UserControl>

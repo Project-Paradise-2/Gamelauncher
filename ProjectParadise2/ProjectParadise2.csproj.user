@@ -12,6 +12,9 @@
     <Compile Update="Core\WebConnection.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Views\About.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\HomeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

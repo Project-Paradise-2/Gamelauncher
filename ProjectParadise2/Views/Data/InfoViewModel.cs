@@ -10,7 +10,7 @@ namespace ProjectParadise2.Views
             {
                 Task.Run(() =>
                 {
-                    InfoView.Instance.Refresh();
+                    InfoView.Instance.RefreshAsync();
                 });
             }
         }

@@ -211,7 +211,7 @@ namespace ProjectParadise2.Core
             }
             catch (Exception ex)
             {
-                Log.Log.Print($"An error occurred: {ex.Message}");
+                Log.Log.Error("Failed to detect redistributable package " + redistributableVersion.ToString(), ex);
                 return false;
             }
         }

@@ -130,7 +130,7 @@ namespace ProjectParadise2.Views
             }
             catch (Exception ex)
             {
-                Log.Print("Failed Read Gameinfos: " + ex.Message);
+                Log.Error("Failed Read Gameinfos: " + ex.Message);
                 DisplayNoGameConfiguredWarning();
                 return;
             }

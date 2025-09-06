@@ -22,7 +22,7 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-    <Border Background="#222831" CornerRadius="30" BorderThickness="2" BorderBrush="#393E46">
+    <Border Background="#20232B" CornerRadius="30" BorderThickness="2" BorderBrush="#393E46">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="209"/>
@@ -36,7 +36,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="- Project Paradise 2 -" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Black" FontSize="30" Height="60" Grid.Column="1" Width="350" Margin="288,0,0,0" FontFamily="/Fonts/#Angelos-Personal use"/>
-            <TextBlock Text="- Project Paradise 2 -" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#EEEEEE" FontSize="30" Height="60" Grid.Column="1" Width="350" Margin="286,0,0,0" FontFamily="/Fonts/#Angelos-Personal use" Grid.RowSpan="2"/>
+            <TextBlock Text="- Project Paradise 2 -" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#F1F1F1" FontSize="30" Height="60" Grid.Column="1" Width="350" Margin="286,0,0,0" FontFamily="/Fonts/#Angelos-Personal use" Grid.RowSpan="2"/>
 
             <fa:ImageAwesome Icon="Empire" Spin="True" SpinDuration="1.2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" Width="30" x:Name="Working" Foreground="#b4a5a5" Margin="1031,0,0,0" Grid.ColumnSpan="2"/>
 
@@ -57,17 +57,19 @@
 
                 <Image Source="/Images/PP2Logo.png" Margin="0,-60,0,0" Stretch="UniformToFill" Height="200" Width="200"/>
 
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,50,0,0" Content="HOME" x:Name="Home" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="True" Icon="Home" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#EEEEEE" Command="{Binding HomeViewCommand}"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,50,0,0" Content="HOME" x:Name="Home" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="True" Icon="Home" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding HomeViewCommand}"/>
 
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="SERVICE" x:Name="Service" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Wrench" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#EEEEEE" Command="{Binding ServiceViewCommand}"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="DISCOVERY" x:Name="Discovery" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="False" Icon="Flask" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding ModViewCommand}"/>
 
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="DISCOVERY" x:Name="Discovery" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Archive" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#EEEEEE" Command="{Binding ModViewCommand}"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="SETTINGS" x:Name="Settings" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="False" Icon="Gear" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding SettingsViewCommand}"/>
 
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="SETTINGS" x:Name="Settings" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Gear" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#EEEEEE" Command="{Binding SettingsViewCommand}"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="SERVICE" x:Name="Service" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="False" Icon="Wrench" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding ServiceViewCommand}"/>
 
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="INFO" x:Name="Info" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Info" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#EEEEEE" Command="{Binding InfoViewCommand}"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="INFO" x:Name="Info" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="False" Icon="Bug" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding InfoViewCommand}"/>
 
-                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,92,0,0" Content="EXIT" x:Name="Exit" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#FFD369" FontSize="15" IsChecked="False" Icon="PowerOff" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#FFD369" Click="OnCloseLauncher"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="About" x:Name="About" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="False" Icon="Info" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding AboutViewCommand}"/>
+
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,45,0,0" Content="EXIT" x:Name="Exit" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#D94141" FontSize="12" IsChecked="False" Icon="PowerOff" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#D94141" Click="OnCloseLauncher"/>
 
             </StackPanel>
 

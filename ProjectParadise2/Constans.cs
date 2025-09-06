@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ProjectParadise2
 {
@@ -31,7 +32,7 @@ namespace ProjectParadise2
         /// <summary>
         /// The version of the launcher.
         /// </summary>
-        internal const string LauncherVersion = "3.0.12";
+        internal const string LauncherVersion = "3.1.0";
 
         /// <summary>
         /// The path to the documents folder for Project Paradise 2.
@@ -67,5 +68,23 @@ namespace ProjectParadise2
         /// The current build mode of the launcher.
         /// </summary>
         internal const Launcherbuild launcherbuild = Launcherbuild.Unpacked;
+
+        /// <summary>
+        /// Bad words list for filtering inappropriate content.
+        /// </summary>
+        public static readonly List<string> Badwords = new List<string>
+        {
+            "idiot", "stupid", "moron", "loser", "retard", "dumb",
+            "bastard", "asshole", "shit", "fuck", "fucker", "fucking",
+            "bitch", "cunt", "dick", "prick", "cock", "pussy",
+            "slut", "whore", "hoe", "twat", "bollocks", "wanker",
+            "fag", "faggot", "dyke", "tranny", "queer", "gay", "homo",
+            "spic", "kike", "chink", "gook", "nigger", "nigga",
+            "arsch", "arschloch", "scheisse", "scheiße", "wichser", "fotze",
+            "hure", "schlampe", "nutte", "opfer", "spast", "spasti",
+            "idiot", "dummkopf", "blödmann", "hurensohn", "missgeburt",
+            "gaylord", "f4g", "f@g", "b1tch", "slvt", "wh0re", "phaggot",
+            "niga", "ni99er", "ni99a", "biatch", "fukk", "fucc", "shiit"
+        };
     }
 }

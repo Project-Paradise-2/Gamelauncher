@@ -44,18 +44,23 @@ namespace ProjectParadise2.Views
                 catch (WebException wx)
                 {
                     this.NewsMessage.Text = "Failed to get the latest news:\n" + wx.Message;
-                    Log.Print("Failed to get the latest news: ", wx);
+                    Log.Error("Failed to get the latest news: ", wx);
                 }
                 catch (Exception ex)
                 {
                     this.NewsMessage.Text = "An unexpected error occurred:\n" + ex.Message;
-                    Log.Print("An unexpected error occurred: ", ex);
+                    Log.Error("An unexpected error occurred: ", ex);
                 }
             }
 
             RefreshState(null, null);
         }
 
+        /// <summary>
+        /// Sets the language for UI elements based on user settings.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SetLang(object sender, EventArgs e)
         {
             if (!Dispatcher.CheckAccess())
@@ -71,6 +76,9 @@ namespace ProjectParadise2.Views
                 RunGameButton.Foreground = Brushes.DarkRed;
         }
 
+        /// <summary>
+        /// Sets the language for UI elements based on user settings.
+        /// </summary>
         private void SetLang()
         {
             LastNews.Content = Lang.GetText(7);
@@ -171,13 +179,13 @@ namespace ProjectParadise2.Views
             switch (news[2])
             {
                 case "smal":
-                    NewsBox.FontSize = 14;
+                    NewsBox.FontSize = 12;
                     break;
                 case "medium":
-                    NewsBox.FontSize = 16;
+                    NewsBox.FontSize = 14;
                     break;
                 case "big":
-                    NewsBox.FontSize = 18;
+                    NewsBox.FontSize = 16;
                     break;
                 case "verybig":
                     NewsBox.FontSize = 20;

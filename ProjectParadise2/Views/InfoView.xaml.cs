@@ -1,14 +1,13 @@
 ﻿using HardwareInformation;
-using Microsoft.Win32;
 using ProjectParadise2.Core;
 using ProjectParadise2.Core.Log;
-using ProjectParadise2.Core.UPnP;
 using System;
-using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -37,143 +36,72 @@ namespace ProjectParadise2.Views
         {
             InitializeComponent();
             Instance = this;
-            Refresh();
+            _ = RefreshAsync();
         }
 
         /// <summary>
         /// Refreshes the information displayed in the view.
         /// Updates DirectX status, launcher version, redistributable packages, port state, and build time.
         /// </summary>
-        public void Refresh()
+        public async Task RefreshAsync()
         {
-            if (!Dispatcher.CheckAccess())
-            {
-                Dispatcher.Invoke(new Action(Refresh));
-                return;
-            }
-
             try
             {
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    Launcherversion.Text = Constans.LauncherVersion.ToString();
+                    Launcherbuild.Text = new FileInfo(Assembly.GetExecutingAssembly().Location).CreationTime.ToString();
+                });
+
                 var hardware = MachineInformationGatherer.GatherInformation(true);
-                RegistryKey dxVersion = Registry.LocalMachine.OpenSubKey(DirectX, true);
-                if (dxVersion != null)
+                ulong totalRam = 0;
+                foreach (var ram in hardware.RAMSticks)
                 {
-                    if (dxVersion.GetValue("Version").ToString() == "4.09.00.0904")
-                        this.DirectXText.Text = "Installed (4.09.00.0904)";
-                    else
-                        this.DirectXText.Text = "Not-Installed";
+                    totalRam += ram.Capacity;
                 }
+                string gpuText = string.Join("\n\n", hardware.Gpus.Select(g =>
+                    $"{g.Name} VRAM: {g.AvailableVideoMemoryHRF} - {g.Type}\n - DriverVersion: {g.DriverVersion}, DriverDate: {g.DriverDate}"));
 
-                NatTypeText.ToolTip = Lang.GetTooltipText(24);
-                PortTypeText.ToolTip = Lang.GetTooltipText(25);
+                string displayText = string.Join("\n", hardware.Displays.Select(d => $"- {d.Manufacturer} | {d.Name}"));
 
-                this.Launcherversion.Text = Constans.LauncherVersion.ToString();
-                this.NatTypeText.Text = BackgroundWorker.MyNatType;
-
-                bool isVC2005Installed = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2005x86);
-                bool isVC2008Installed = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2008x86);
-
-                bool isVC2005InstalledX = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2005x64);
-                bool isVC2008InstalledX = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2008x64);
-
-                this.CPlusText.Text = $"" +
-                    $"VC2005* (x86): {ParseBool(isVC2005Installed)}\n" +
-                    $"VC2008  (x86): {ParseBool(isVC2008Installed)}\n";
-
-                var state = UPnP.IsOpen(Protocol.UDP, 8889);
-                if (state)
-                    this.PortTypeText.Text = $"The port 8889 has been successfully opened.";
-                else
-                    this.PortTypeText.Text = $"Failed to open port 8889.Possible: UPnP might be disabled on your router. Port 8889 may already be forwarded manually.";
-
-
-                this.Launcherbuild.Text = new FileInfo(Assembly.GetExecutingAssembly().Location).CreationTime.ToString();
-                try
+                await Dispatcher.InvokeAsync(() =>
                 {
-                    this.HardwareText.Text = "Once you’ve opened the page, press CTRL + V here in the chat to paste your system information. This will help us assist you more quickly.\nHardwareinfos:";
-                    this.HardwareText.Text += GenerateInfo(hardware);
-                }
-                catch (Exception e)
+                    CPU.Text = $"{hardware.Cpu.Name} {hardware.Cpu.Socket}\n" +
+                               $"- Logical Cores: {hardware.Cpu.LogicalCores}\n" +
+                               $"- Physical Cores: {hardware.Cpu.PhysicalCores}\n" +
+                               $"- Speed: {hardware.Cpu.NormalClockSpeed} MHz";
+
+                    RAM.Text = $"{Utils.FormatBytes((long)totalRam)} in {hardware.RAMSticks.Count} Sticks";
+                    GPU.Text = gpuText;
+                    Displays.Text = displayText;
+                    Network.Text = $"{NatDetector.Result.AfterUpnp.ToString()}" +
+                    $"\n{NatDetector.Result.AfterUpnp.InternToString()}\n" +
+                    $"Forwarding: {ParseNatBool(NatDetector.Result.UpnpAvailable)} \nType: {NatDetector.Result.ForwardingType}\n{NatDetector.Result.UpnpStatus} Port: {NatDetector.Result.UpnpPort}";
+                    Network.ToolTip = NatDetector.Result.InternalReachable
+                                        ? "This port is open and reachable from the internet."
+                                        : "Connection might be blocked; external peers cannot reach this port.";
+
+                });
+
+                bool isVC2005x86 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2005x86);
+                bool isVC2008x86 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2008x86);
+                bool isVC2005x64 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2005x64);
+                bool isVC2008x64 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2008x64);
+
+                await Dispatcher.InvokeAsync(() =>
                 {
-                    Log.Print("Unable to read Hardware Info: ", e);
-                }
+                    CPlusText.Text =
+                        $"VC2005* (x86): {ParseBool(isVC2005x86)}\n" +
+                        $"VC2008  (x86): {ParseBool(isVC2008x86)}\n" +
+                        $"VC2005* (x64): {ParseBool(isVC2005x64)}\n" +
+                        $"VC2008  (x64): {ParseBool(isVC2008x64)}";
+                });
             }
             catch (Exception ex)
             {
-                Log.Print("Failed to initialize InfoView: ", ex);
+                Log.Error("Failed to initialize InfoView: ", ex);
             }
         }
-
-        private string GenerateInfo(MachineInformation hardware)
-        {
-            StringBuilder View = new StringBuilder();
-            StringBuilder File = new StringBuilder();
-
-            File.AppendLine($"----------------------- Hardware Report -----------------------------\n");
-            // Betriebssystem
-            File.AppendLine($"OS: {hardware.OperatingSystem.VersionString}");
-            File.AppendLine($"Platform: {hardware.Platform}");
-
-            // CPU
-            File.AppendLine($"\nCPU: {hardware.Cpu.Name} {hardware.Cpu.Socket}");
-            File.AppendLine($"- Logical Cores: {hardware.Cpu.LogicalCores}");
-            File.AppendLine($"- Physical Cores: {hardware.Cpu.PhysicalCores}");
-            File.AppendLine($"- Speed: {hardware.Cpu.NormalClockSpeed} MHz");
-
-            // GPUs
-            File.AppendLine("\nGPUs:");
-            foreach (var gpu in hardware.Gpus)
-            {
-                File.AppendLine($"- Name: {gpu.Name} Device: {gpu.Type.ToString()}");
-                File.AppendLine($"  - VRAM: {gpu.AvailableVideoMemoryHRF}");
-                File.AppendLine($"  - Driverversion: {gpu.DriverVersion}");
-                File.AppendLine($"  - Driverdate: {gpu.DriverDate}");
-            }
-
-            // RAM
-            ulong totalRam = 0;
-            File.AppendLine("\nSystem Memory:");
-            foreach (var ram in hardware.RAMSticks)
-            {
-                File.AppendLine($"- {ram.Manufacturer} | {ram.PartNumber} | {ram.CapacityHRF} | {ram.Speed} MHz | {ram.Name}");
-                totalRam += ram.Capacity;
-            }
-            File.AppendLine($"\nTotal: {Utils.FormatBytes((long)totalRam)} in {hardware.RAMSticks.Count} Sticks");
-
-            File.AppendLine("\nDisplays: " + hardware.Displays.Count);
-            foreach (var ram in hardware.Displays)
-            {
-                File.AppendLine($"- {ram.Manufacturer} | {ram.Name}");
-            }
-
-
-            File.AppendLine("\nGametype: " + Database.Database.p2Database.Usersettings.Packedgame + " Mods: " + Database.Database.p2Database.Usermods.Count);
-            foreach (var mod in Database.Database.p2Database.Usermods)
-            {
-                File.AppendLine($"-Mod: " + mod.Name + "|" + mod.Version);
-            }
-
-
-
-            File.AppendLine($"\n----------------------- Hardware Report END--------------------------");
-            Clipboard.SetText(File.ToString());
-
-            View.AppendLine($"\nCPU: {hardware.Cpu.Name}");
-            View.AppendLine("\nGPUs:");
-            foreach (var gpu in hardware.Gpus)
-            {
-                View.AppendLine($"- Name: {gpu.Name}");
-                View.AppendLine($"  - Driverversion: {gpu.DriverVersion}");
-                View.AppendLine($"  - Driverdate: {gpu.DriverDate}");
-            }
-            View.AppendLine("\nRam:");
-            View.AppendLine($"Total: {Utils.FormatBytes((long)totalRam)} in {hardware.RAMSticks.Count} Sticks");
-
-
-            return View.ToString();
-        }
-
-
 
         /// <summary>
         /// Parses a boolean value into a string indicating installation status.
@@ -186,68 +114,86 @@ namespace ProjectParadise2.Views
         }
 
         /// <summary>
-        /// Opens a website URL in the default browser, after user confirmation.
+        /// Parses a boolean value into a string indicating NAT usage status.
         /// </summary>
-        /// <param name="url">The URL to open.</param>
-        private void OpenWebsite(string url)
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public string ParseNatBool(bool value)
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            return value ? "Used" : "Not-Used";
+        }
+
+        /// <summary>
+        /// Copies the gathered hardware and software information to the clipboard in a formatted manner.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CopytoClipboard(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                var hardware = MachineInformationGatherer.GatherInformation(true);
+                bool isVC2005x86 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2005x86);
+                bool isVC2008x86 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2008x86);
+                bool isVC2005x64 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2005x64);
+                bool isVC2008x64 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2008x64);
+                StringBuilder File = new StringBuilder();
+                File.AppendLine($"```----------------------- System Report -----------------------------\n");
+                File.AppendLine($"OS: {hardware.OperatingSystem.VersionString}");
+                File.AppendLine($"Platform: {hardware.Platform}");
+                File.AppendLine($"\nCPU: {hardware.Cpu.Name} {hardware.Cpu.Socket}");
+                File.AppendLine($"- Logical Cores: {hardware.Cpu.LogicalCores}");
+                File.AppendLine($"- Physical Cores: {hardware.Cpu.PhysicalCores}");
+                File.AppendLine($"- Speed: {hardware.Cpu.NormalClockSpeed} MHz");
+                File.AppendLine("\nGPUs:");
+                foreach (var gpu in hardware.Gpus)
+                {
+                    File.AppendLine($"- Name: {gpu.Name} Device: {gpu.Type.ToString()}");
+                    File.AppendLine($"  - VRAM: {gpu.AvailableVideoMemoryHRF}");
+                    File.AppendLine($"  - Driverversion: {gpu.DriverVersion}");
+                    File.AppendLine($"  - Driverdate: {gpu.DriverDate}");
+                }
+                ulong totalRam = 0;
+                File.AppendLine("\nSystem Memory:");
+                foreach (var ram in hardware.RAMSticks)
+                {
+                    File.AppendLine($"- {ram.Manufacturer} | {ram.PartNumber} | {ram.CapacityHRF} | {ram.Speed} MHz | {ram.Name}");
+                    totalRam += ram.Capacity;
+                }
+                File.AppendLine($"\nTotal: {Utils.FormatBytes((long)totalRam)} in {hardware.RAMSticks.Count} Sticks");
+                File.AppendLine("\nDisplays: " + hardware.Displays.Count);
+                foreach (var ram in hardware.Displays)
+                {
+                    File.AppendLine($"- {ram.Manufacturer} | {ram.Name}");
+                }
+                File.AppendLine("\nNetwork: ");
+                string output = Regex.Replace(NatDetector.Result.AfterUpnp.ToString(), @"(\d+)\.(\d+)\.(\d+)\.(\d+)", "$1.$2.XXX.XXX");
+                string net = $"{output}\n{NatDetector.Result.AfterUpnp.InternToString()}\nForwarding: {ParseNatBool(NatDetector.Result.UpnpAvailable)} \nType: {NatDetector.Result.ForwardingType}\n{NatDetector.Result.UpnpStatus} Port: {NatDetector.Result.UpnpPort}";
+                File.AppendLine(net);
+                File.AppendLine("\nGametype: " + Database.Database.p2Database.Usersettings.Packedgame + " Mods: " + Database.Database.p2Database.Usermods.Count);
+                foreach (var mod in Database.Database.p2Database.Usermods)
+                {
+                    File.AppendLine($"-Mod: " + mod.Name + "|" + mod.Version);
+                }
+                string Stoftware = $"\nSoftware:\n -VC2005x86:{isVC2005x86}, VC2005x64:{isVC2005x64}\n -VC2008x86:{isVC2008x86}, VC2008x64:{isVC2008x64}\n";
+                File.AppendLine(Stoftware);
+                File.AppendLine($"\n----------------------- System Report END--------------------------```");
+                Clipboard.SetText(File.ToString());
+                MessageBoxResult state = MessageBox.Show(
+                    "Hardware information has been copied to the clipboard.",
+                    "Project Paradise 2 - Infocreator",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            catch (Exception ex)
             {
-                Process.Start("xdg-open", url);
+                Log.Error("Failed to copy hardware info to clipboard: ", ex);
+                MessageBoxResult state = MessageBox.Show(
+                    "Failed to copy hardware information to the clipboard.",
+                    "Project Paradise 2 - Infocreator",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
-            else
-            {
-                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
-            }
-        }
-
-        /// <summary>
-        /// Event handler to open the project's GitHub page.
-        /// </summary>
-        private void OpenGit(object sender, RoutedEventArgs e)
-        {
-            OpenWebsite("http://kuxii.de:8080/PP2-Group/PP2_Gamelauncher");
-        }
-
-        /// <summary>
-        /// Event handler to open the project's official website.
-        /// </summary>
-        private void OpenWebsite(object sender, RoutedEventArgs e)
-        {
-            OpenWebsite("https://project-paradise2.de/");
-        }
-
-        /// <summary>
-        /// Event handler to open the project's Facebook page.
-        /// </summary>
-        private void OpenFacebook(object sender, RoutedEventArgs e)
-        {
-            OpenWebsite("https://www.facebook.com/tdupp2");
-        }
-
-        /// <summary>
-        /// Event handler to open the project's YouTube channel.
-        /// </summary>
-        private void OpenYoutube(object sender, RoutedEventArgs e)
-        {
-            OpenWebsite("https://www.youtube.com/channel/UC4kYDX2HX1ixNPO77hF8B3g");
-        }
-
-        /// <summary>
-        /// Event handler to open the project's Twitter page.
-        /// </summary>
-        private void OpenTwitter(object sender, RoutedEventArgs e)
-        {
-            OpenWebsite("https://x.com/ProjParadise2");
-        }
-
-        private void OpenHelp(object sender, RoutedEventArgs e)
-        {
-            OpenWebsite("https://nova-appendix-de2.notion.site/TDU-2-Guides-77024b8a3b3b4f518301d9d2ff354773");
         }
     }
 }

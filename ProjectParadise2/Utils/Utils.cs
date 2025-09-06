@@ -192,7 +192,7 @@ namespace ProjectParadise2
                         if (!currentLines.Contains(entry))
                         {
                             File.AppendAllText(hostsFilePath, "\n" + entry);
-                            Log.Print("Add host entry: " + entry);
+                            Log.Info("Add host entry: " + entry);
                         }
                     }
                 }
@@ -303,7 +303,7 @@ namespace ProjectParadise2
                     image.EndInit();
                 }
                 image.Freeze();
-                Log.Print("Failed Load Mod-Image: " + ex.Message, ex);
+                Log.Error("Failed Load Mod-Image: " + ex.Message, ex);
                 return image;
             }
         }

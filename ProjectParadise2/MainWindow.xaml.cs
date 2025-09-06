@@ -1,5 +1,4 @@
-﻿using KuxiiSoft.Utils.Crashreport;
-using ProjectParadise2.Core;
+﻿using ProjectParadise2.Core;
 using ProjectParadise2.Core.Log;
 using System;
 using System.Threading;
@@ -60,6 +59,7 @@ namespace ProjectParadise2
             Settings.Content = Lang.GetText(4);
             Info.Content = Lang.GetText(5);
             Exit.Content = Lang.GetText(6);
+            About.Content = Lang.GetText(126);
         }
 
         private void SetLang()
@@ -70,6 +70,7 @@ namespace ProjectParadise2
             Settings.Content = Lang.GetText(4);
             Info.Content = Lang.GetText(5);
             Exit.Content = Lang.GetText(6);
+            About.Content = Lang.GetText(126);
         }
 
         /// <summary>
@@ -184,6 +185,5 @@ namespace ProjectParadise2
                 this.UserAvatar.Visibility = Visibility.Hidden;
             }
         }
-
     }
 }

@@ -91,17 +91,11 @@
             // Log the flags read from command line arguments
             if (flags.Equals("Read Launcher Flags:"))
             {
-                Log.Log.Print("No Custom flags set.");
+                Log.Log.Debug("No Custom flags set.");
             }
             else
             {
-                Log.Log.Print(flags);
-            }
-
-            // Perform additional actions if necessary based on specific flags
-            if (SkipUpnp && AutoRun && !OnlineMode)
-            {
-                // Placeholder for any specific logic based on these flags.
+                Log.Log.Warning(flags);
             }
         }
     }

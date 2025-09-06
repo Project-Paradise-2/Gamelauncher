@@ -55,7 +55,7 @@ namespace ProjectParadise2.Views
                 {
                     if (t.IsFaulted)
                     {
-                        Log.Print("[DISCOVERY] Task(RequestModcount)::IsFaulted");
+                        Log.Error("[DISCOVERY] Task(RequestModcount)::IsFaulted");
                     }
                     if (t.IsCompleted)
                     {
@@ -71,7 +71,7 @@ namespace ProjectParadise2.Views
                 {
                     if (t.IsFaulted)
                     {
-                        Log.Print("[DISCOVERY] Task(RequestModData)::IsFaulted");
+                        Log.Error("[DISCOVERY] Task(RequestModData)::IsFaulted");
                     }
                     if (t.IsCompleted)
                     {
@@ -87,7 +87,7 @@ namespace ProjectParadise2.Views
             }
             catch (Exception ex)
             {
-                Log.Print("[DISCOVERY] Failed to handle Initial Tasks: " + ex.Message, ex);
+                Log.Error("[DISCOVERY] Failed to handle Initial Tasks: " + ex.Message, ex);
             }
         }
 
@@ -109,7 +109,7 @@ namespace ProjectParadise2.Views
             }
             catch (Exception ex)
             {
-                Log.Print("[DISCOVERY] Error in RequestModcount: " + ex.Message, ex);
+                Log.Error("[DISCOVERY] Error in RequestModcount: " + ex.Message, ex);
             }
         }
 
@@ -148,7 +148,7 @@ namespace ProjectParadise2.Views
             }
             catch (Exception ex)
             {
-                Log.Print("[DISCOVERY] Error in RequestModData: " + ex.Message, ex);
+                Log.Error("[DISCOVERY] Error in RequestModData: " + ex.Message, ex);
             }
         }
 
@@ -174,7 +174,7 @@ namespace ProjectParadise2.Views
                             {
                                 if (t.IsFaulted)
                                 {
-                                    Log.Print("[DISCOVERY]Task(RequestModData)::IsFaulted");
+                                    Log.Error("[DISCOVERY]Task(RequestModData)::IsFaulted");
                                 }
                                 if (t.IsCompleted)
                                 {
@@ -196,7 +196,7 @@ namespace ProjectParadise2.Views
             }
             catch (Exception ex)
             {
-                Log.Print("Failed get Modlist: " + ex.Message + $" Build: {Build} Currentpage: {CurrentPage} Selectedmod: {SelectedMod} Totalmods: {Totalmods}", ex);
+                Log.Error("Failed get Modlist: " + ex.Message + $" Build: {Build} Currentpage: {CurrentPage} Selectedmod: {SelectedMod} Totalmods: {Totalmods}", ex);
             }
         }
 
@@ -226,7 +226,7 @@ namespace ProjectParadise2.Views
                 {
                     GameMod mod = new GameMod();
                     mod = JsonConvert.DeserializeObject<GameMod>(result.Result);
-                    Log.Print("Deserialize Modinfo: " + mod.Modname + " v.: " + mod.Modversion);
+                    Log.Info("Deserialize Modinfo: " + mod.Modname + " v.: " + mod.Modversion);
                     Mods.Add(mod);
 
                     ModView.Instance.OnNotifymessage((Mods.Count - 1).ToString(), 3);
@@ -243,11 +243,11 @@ namespace ProjectParadise2.Views
             }
             catch (WebException ex)
             {
-                Log.Print("[DISCOVERY] Failed get mod from Remote=> " + ex.Message.ToString(), ex);
+                Log.Error("[DISCOVERY] Failed get mod from Remote=> " + ex.Message.ToString(), ex);
             }
             catch (Exception ex)
             {
-                Log.Print("[DISCOVERY] Failed get mod from Remote=> " + ex.Message.ToString(), ex);
+                Log.Error("[DISCOVERY] Failed get mod from Remote=> " + ex.Message.ToString(), ex);
             }
             MainWindow.DoWork();
         }

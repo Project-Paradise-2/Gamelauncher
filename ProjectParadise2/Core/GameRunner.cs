@@ -16,7 +16,6 @@ namespace ProjectParadise2.Core
         private static bool isMonitoringActive = false;
         public static bool CanRunTheGame { get; set; } = false;
 
-
         /// <summary>
         /// Starts the game based on user settings.
         /// </summary>
@@ -29,11 +28,8 @@ namespace ProjectParadise2.Core
                 backup.IsBackground = true;
                 backup.Start();
             }
-
             Application.Current.Exit += new ExitEventHandler(KillGameFast);
-
             DiscordIntegration.SetRpcTime();
-
             try
             {
                 int mode = 1;
@@ -50,9 +46,8 @@ namespace ProjectParadise2.Core
                 if (!CommandLineArg.OnlineMode)
                 {
                     mode = 1;
-                    Log.Log.Print("Force Offline mode, flag is active");
+                    Log.Log.Warning("Force Offline mode, flag is active");
                 }
-
 
                 if (mode == 0)
                 {
@@ -64,73 +59,62 @@ namespace ProjectParadise2.Core
                 }
 
                 string path = Path.GetFullPath(Database.Database.p2Database.Usersettings.ExePath);
-                //if (Database.Database.p2Database.Usersettings.IsSteambuild && !CommandLineArg.IsInfolder)
-                //{
-                //    Log.Log.Print("The Safe Steamrunner will be included in the next update. Move the launcher to the Steam game directory and add the '-direct' command to run the game through Steam.");
+                if (File.Exists(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "TestDrive2.exe")))
+                {
+                    SetLargeAddressAware(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "TestDrive2.exe"), Database.Database.p2Database.Usersettings.LAAEnabled);
 
-
-                //    MessageBox.Show(Lang.GetText(113), "Project Paradise 2 - Start Game", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                //    return false;
-                //}
-                //else
-                //{
-                    if (File.Exists(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "TestDrive2.exe")))
+                    if (!File.Exists(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "key.txt")))
                     {
-                        SetLargeAddressAware(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "TestDrive2.exe"), Database.Database.p2Database.Usersettings.LAAEnabled);
-
-                        if (!File.Exists(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "key.txt")))
-                        {
-                            string Key = BackgroundWorker.GetKey();
-                            Log.Log.Print("Missing Key dedect Generate it: " + Key + " ");
-                            File.WriteAllText(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "key.txt"), Key);
-                        }
-
-                        start = new Mutex(false, Runtype[mode], out bool createdNew);
-
-                        if (!createdNew)
-                        {
-                            return false;
-                        }
-
-                        string arguments = Runtype[mode];
-                        var highPrio = Database.Database.p2Database.Usersettings.HighPrio;
-                        var moreCores = Database.Database.p2Database.Usersettings.UseMoreCores;
-
-                        // Falls HighPrio aktiviert ist, füge "-high" hinzu
-                        if (highPrio)
-                        {
-                            arguments += " -high";
-                        }
-
-                        // Falls MoreCores aktiviert ist, füge "-USEALLAVAILABLECORES" hinzu
-                        if (moreCores)
-                        {
-                            arguments += " -USEALLAVAILABLECORES";
-                        }
-
-                        ProcessStartInfo processStartInfo = new ProcessStartInfo(path, Runtype[mode] + arguments);
-                        var proc = new Process();
-                        proc.StartInfo = processStartInfo;
-                        isMonitoringActive = true;
-                        proc.Start();
-                        Thread.Sleep(500);
-                        monitoredProcess = proc;
-                        monitoringThread = new Thread(MonitorProcess);
-                        monitoringThread.Start();
-                        MinimizeApplicationWithHint();
-                        StopMutex();
-                        return true;
+                        string Key = BackgroundWorker.GetKey();
+                        Log.Log.Warning("Missing Key dedect Generate it: " + Key + " ");
+                        File.WriteAllText(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "key.txt"), Key);
                     }
-                    else
+
+                    start = new Mutex(false, Runtype[mode], out bool createdNew);
+
+                    if (!createdNew)
                     {
                         return false;
                     }
-                //}
+
+                    string arguments = Runtype[mode];
+                    var highPrio = Database.Database.p2Database.Usersettings.HighPrio;
+                    var moreCores = Database.Database.p2Database.Usersettings.UseMoreCores;
+
+                    // Falls HighPrio aktiviert ist, füge "-high" hinzu
+                    if (highPrio)
+                    {
+                        arguments += " -high";
+                    }
+
+                    // Falls MoreCores aktiviert ist, füge "-USEALLAVAILABLECORES" hinzu
+                    if (moreCores)
+                    {
+                        arguments += " -USEALLAVAILABLECORES";
+                    }
+
+                    ProcessStartInfo processStartInfo = new ProcessStartInfo(path, Runtype[mode] + arguments);
+                    var proc = new Process();
+                    proc.StartInfo = processStartInfo;
+                    isMonitoringActive = true;
+                    proc.Start();
+                    Thread.Sleep(500);
+                    monitoredProcess = proc;
+                    monitoringThread = new Thread(MonitorProcess);
+                    monitoringThread.Start();
+                    MinimizeApplicationWithHint();
+                    StopMutex();
+                    Log.Log.Info("Game started with mode: " + (mode == 0 ? "Online" : "Offline") + " args: " + arguments);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
-                Log.Log.Print($"An error occurred on Gamestart: {ex.Message}", ex);
+                Log.Log.Error($"An error occurred while starting the game: {ex.Message}", ex);
                 return false;
             }
         }
@@ -162,7 +146,7 @@ namespace ProjectParadise2.Core
             }
             catch (Exception ex)
             {
-                Log.Log.Print($"An error occurred: {ex.Message}", ex);
+                Log.Log.Error($"An error occurred while monitoring the process: {ex.Message}", ex);
             }
         }
 
@@ -218,7 +202,7 @@ namespace ProjectParadise2.Core
                 }
                 catch (Exception ex)
                 {
-                    Log.Log.Print($"An error occurred on Gamestop: {ex.Message}", ex);
+                    Log.Log.Error($"An error occurred while killing the game process: {ex.Message}", ex);
                 }
             }
             if (start != null)
@@ -250,7 +234,7 @@ namespace ProjectParadise2.Core
                 });
             }
             else
-                Log.Log.Print("Stop hiding launcher, flag is active");
+                Log.Log.Warning("Stop hiding launcher, flag is active");
         }
 
         /// <summary>
@@ -282,11 +266,17 @@ namespace ProjectParadise2.Core
             }
         }
 
+        /// <summary>
+        /// Sets or unsets the Large Address Aware (LAA) flag in the specified executable file.
+        /// </summary>
+        /// <param name="exePath"></param>
+        /// <param name="enable"></param>
+        /// <returns></returns>
         public static bool SetLargeAddressAware(string exePath, bool enable)
         {
             if (!File.Exists(exePath))
             {
-                Console.WriteLine("Error: File not found!");
+                Log.Log.Error("Error: File not found!");
                 return false;
             }
 
@@ -304,7 +294,7 @@ namespace ProjectParadise2.Core
 
                     if (magic != 0x10B && magic != 0x20B)  // Check if it's a valid PE file (32-bit or 64-bit)
                     {
-                        Console.WriteLine("Error: Not a valid PE file.");
+                        Log.Log.Error("Error: Not a valid PE file.");
                         return false;
                     }
 
@@ -324,15 +314,14 @@ namespace ProjectParadise2.Core
                     bw.Write(characteristics);
                 }
 
-                Console.WriteLine("LAA flag has been successfully " + (enable ? "enabled" : "disabled") + "!");
+                Log.Log.Info("LAA flag has been successfully " + (enable ? "enabled" : "disabled") + "!");
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error modifying EXE: " + ex.Message);
+                Log.Log.Error("Error modifying EXE: " + ex.Message);
                 return false;
             }
         }
-
     }
 }

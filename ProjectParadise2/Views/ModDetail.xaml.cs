@@ -154,7 +154,7 @@ namespace ProjectParadise2.Views
                 }
                 else
                 {
-                    Log.Print("Failed open the Browser");
+                    Log.Error("Failed open the Browser");
                 }
             }
         }
@@ -210,7 +210,7 @@ namespace ProjectParadise2.Views
             {
                 if (t.IsFaulted)
                 {
-                    Log.Print("[Discovery] Task(Modloader.CheckDirs)::IsFaulted");
+                    Log.Error("[Discovery] Task(Modloader.CheckDirs)::IsFaulted");
                 }
                 if (t.IsCompleted)
                 {

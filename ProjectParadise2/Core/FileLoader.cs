@@ -89,7 +89,7 @@ namespace ProjectParadise2.Core
             }
             catch (Exception ex)
             {
-                Log.Log.Print("[MOD] Failed to get Modfile ", ex);
+                Log.Log.Error("[MOD]Failed to get File: " + InstallDir[HasFiles] + " : " + ex.Message);
             }
         }
 
@@ -157,7 +157,7 @@ namespace ProjectParadise2.Core
             }
             catch (Exception ex)
             {
-                Log.Log.Print("[MOD]Failed install File: " + InstallDir[HasFiles] + " : " + ex.Message);
+                Log.Log.Error("[MOD]Failed install File: " + InstallDir[HasFiles] + " : " + ex.Message);
             }
         }
 

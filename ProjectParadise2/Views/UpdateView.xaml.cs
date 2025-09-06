@@ -28,7 +28,6 @@ namespace ProjectParadise2.Views
             this.DownloadProgress.Value = 0;
             this.DownloadProgressText.Text = "";
             this.StatusText.Text = "Starting game file check. This might take a while. Grab a coffee and relax while the launcher works.";
-
             // Start a new thread to perform the file check.
             var check = new Thread(Filecheck.StartCheck);
             check.Start();
@@ -63,15 +62,12 @@ namespace ProjectParadise2.Views
                 Dispatcher.Invoke(new Action<int, int, string>(UpdateProgress), totalSteps, currentStep, message);
                 return;
             }
-
             int progress = 0;
-
             // Ensure that totalSteps is valid to avoid division by zero.
             if (totalSteps > 0)
             {
                 progress = Math.Min((currentStep * 100) / totalSteps, 100);
             }
-
             // Update the total progress bar and display the corresponding message.
             TotalProgress.Value = progress;
             DownloadProgressText.Text = message;
@@ -93,7 +89,6 @@ namespace ProjectParadise2.Views
                 Dispatcher.Invoke(new Action<double, double, string, string, string>(WriteCurrentDownload), value, maximal, state, state2, speed);
                 return;
             }
-
             // Update the download progress bar and text.
             DownloadProgress.Value = value;
             DownloadProgress.Maximum = maximal;
@@ -143,6 +138,22 @@ namespace ProjectParadise2.Views
             ConsoleTextbox.Inlines.Add("\n");
             ScrollView.ScrollToEnd();
         }
+
+        public void HideStatus(int state)
+        {
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(new Action<int>(HideStatus), state);
+                return;
+            }
+            if (state == 0)
+            {
+                StatusText.Visibility = System.Windows.Visibility.Hidden;
+            }
+            else
+            {
+                StatusText.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
     }
 }
-

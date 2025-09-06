@@ -6,7 +6,7 @@
                 <ControlTemplate TargetType="{x:Type ComboBox}">
                     <Grid>
                         <Border x:Name="Border"
-                                Background="#222831"
+                                Background="#20232B"
                                 BorderBrush="#393E46"
                                 BorderThickness="1"
                                 CornerRadius="10"
@@ -49,7 +49,7 @@
                                PopupAnimation="Slide"
                                HorizontalOffset="25"
                                VerticalOffset="0">
-                            <Border Background="#222831"
+                            <Border Background="#20232B"
                                     BorderBrush="#393E46"
                                     BorderThickness="1"
                                     CornerRadius="10"
@@ -86,7 +86,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                     <Border x:Name="ItemBorder"
-                            Background="#222831"
+                            Background="#20232B"
                             Padding="5">
                         <ContentPresenter VerticalAlignment="Center"
                                           HorizontalAlignment="Left"/>
@@ -94,7 +94,7 @@
                     <ControlTemplate.Triggers>
                         <!-- Trigger: Wenn ausgewählt -->
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Foreground" Value="#222831"/>
+                            <Setter Property="Foreground" Value="#20232B"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -50,13 +50,12 @@ namespace ProjectParadise2.Core.Gameupdate
                 UpdateView.Instance.Updatestatus(Lang.GetText(60));
                 NeedUpdate = false;
                 UpdateFile.Clear();
-                Log.Log.Print("[UPDATER]Stop Gameupdate, To many Missing File. Looks to an not Correct installed Game.. Sorry Mate cant share the Game");
+                Log.Log.Error("Stop Gameupdate, To many Missing File. Looks to an not Correct installed Game.. Sorry Mate cant share the Game");
                 return;
             }
 
             stopWatch = new Stopwatch();
             stopWatch.Start();
-
             // Verifizierungsschritt (Stage 2)
             for (int i = 0; i < Filecheck.Live.Directorys.Length; i++)
             {
@@ -67,13 +66,10 @@ namespace ProjectParadise2.Core.Gameupdate
                     UpdateView.Instance.PrintMessage(Lang.GetText(61) + Filecheck.Live.Directorys[i], 1);
                 }
             }
-
             // Update den Status und die ProgressBar für die Verifikation
             UpdateView.Instance.Updatestatus(Lang.GetText(62));
-
             // Hier wird die Fortschrittsanzeige für die Verifizierung korrekt gesetzt.
             UpdateView.Instance.UpdateProgress(0, NeedFiles, Lang.GetText(63));
-
             // Wenn neue Dateien heruntergeladen werden müssen, starte den Downloadprozess
             if (NeedUpdate.Equals(true))
             {
@@ -94,10 +90,8 @@ namespace ProjectParadise2.Core.Gameupdate
                 {
                     // Berechnung des Gesamtfortschritts basierend auf der Anzahl der heruntergeladenen Dateien
                     int percentage = (int)((double)(HasFiles + 1) / NeedFiles * 100);
-
                     // Update der Gesamtfortschrittsanzeige
                     UpdateView.Instance.UpdateProgress(NeedFiles, HasFiles + 1, string.Format(Lang.GetText(65), UpdateName[HasFiles], percentage));
-
                     WebClient client = new WebClient();
                     Thread.Sleep(25);  // Kurze Pause zur Verbesserung der Performance
                     Uri uri = new Uri(Constans.Cdn + "/update/" + InstallDir[HasFiles]);
@@ -107,7 +101,7 @@ namespace ProjectParadise2.Core.Gameupdate
                 }
                 catch (Exception ex)
                 {
-                    Log.Log.Print($"[UPDATER] Failed to download file: ({InstallDir[HasFiles]}).", ex);
+                    Log.Log.Error("Failed to get File: " + InstallDir[HasFiles] + " : " + ex.Message, ex);
                 }
             }
             else
@@ -128,11 +122,10 @@ namespace ProjectParadise2.Core.Gameupdate
                 }
 
                 formattedTime += string.Format("{0:D2}s.{1:D3}ms", elapsed.Seconds, elapsed.Milliseconds);
-
                 UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(66), formattedTime), 5);
-                UpdateView.Instance.UpdateProgress(0, 0, Lang.GetText(67));
-                UpdateView.Instance.WriteCurrentDownload(0, 0, "", "", "");
-
+                UpdateView.Instance.UpdateProgress(100, 100, Lang.GetText(67));
+                UpdateView.Instance.WriteCurrentDownload(100, 100, "Update Complete", "", "");
+                UpdateView.Instance.HideStatus(0);
                 // Aktualisiere die Versionsnummer, wenn nötig
                 if (!string.IsNullOrEmpty(Database.Database.p2Database.Usersettings.ExePath))
                 {
@@ -140,6 +133,7 @@ namespace ProjectParadise2.Core.Gameupdate
                     Database.Database.p2Database.Usersettings.ProductVersion = myFileVersionInfo.ProductVersion.ToString();
                     Database.Database.p2Database.Usersettings.FileVersion = myFileVersionInfo.FileVersion.ToString();
                     Database.Database.Write();
+                    Log.Log.Info("Update Complete to Version: " + myFileVersionInfo.ProductVersion.ToString());
                 }
             }
         }
@@ -167,7 +161,7 @@ namespace ProjectParadise2.Core.Gameupdate
             }
             catch (Exception ex)
             {
-                Log.Log.Print($"[UPDATER] Failed to extract file: ({InstallDir[HasFiles]}).", ex);
+                Log.Log.Error("Failed to install File: " + InstallDir[HasFiles] + " : " + ex.Message, ex);
                 UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(71), InstallDir[HasFiles], ex.Message), 0);
             }
         }
@@ -177,17 +171,14 @@ namespace ProjectParadise2.Core.Gameupdate
         /// </summary>
         private static void DownloadProgressCallback(object sender, DownloadProgressChangedEventArgs e)
         {
+            UpdateView.Instance.HideStatus(1);
             DateTime now = DateTime.Now;
-
             // Berechnung des Fortschritts für den aktuellen Dateidownload (in Prozent)
             int downloadProgress = (int)((double)e.BytesReceived / e.TotalBytesToReceive * 100);
-
             if ((now - LastUpdatedState).TotalMilliseconds >= 1000)  // Update nur jede Sekunde
             {
                 double elapsedSeconds = (now - LastUpdatedState).TotalSeconds;
                 long bytesPerSecond = (long)((e.BytesReceived - lastTotalBytesReceived) / elapsedSeconds);
-
-
                 // Update der Download-Ansicht mit Fortschritt der aktuellen Datei
                 UpdateView.Instance.WriteCurrentDownload(downloadProgress, 100, string.Format(Lang.GetText(65), UpdateName[HasFiles], downloadProgress),
                                                           FormatBytes(e.BytesReceived) + " / " + FormatBytes(e.TotalBytesToReceive),

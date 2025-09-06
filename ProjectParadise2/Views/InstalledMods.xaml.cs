@@ -64,7 +64,7 @@ namespace ProjectParadise2.Views
             }
             catch (Exception ex)
             {
-                Log.Print("An error occurred while reading installed mods: ", ex);
+                Log.Error("An error occurred while reading installed mods: ", ex);
             }
         }
 
@@ -220,7 +220,7 @@ namespace ProjectParadise2.Views
                 }
                 else
                 {
-                    Log.Print("Unpacked game mods cannot be uninstalled from the launcher.");
+                    Log.Warning("Unpacked game mods cannot be uninstalled from the launcher.");
                     Database.Database.p2Database.Usermods.RemoveAt(modId);
                     ReadInstalledMods();
 
@@ -245,7 +245,7 @@ namespace ProjectParadise2.Views
         private void HandleError(string userMessage, Exception ex, string errorTitle)
         {
             // Log the error details, including the message and stack trace.
-            Log.Print($"Mod-Deinstall: {errorTitle}: \n", ex);
+            Log.Info($"Mod-Deinstall: {errorTitle}: \n", ex);
 
             // Display an error message box to inform the user of the problem.
             MessageBox.Show(userMessage,

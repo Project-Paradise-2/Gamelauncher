@@ -8,7 +8,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="local:FA_BTN">
                         <Border 
-                                Background="#222831" 
+                                Background="#20232B" 
                                 BorderBrush="#393E46" 
                                 BorderThickness="0.9" 
                                 CornerRadius="14" 
@@ -18,7 +18,7 @@
                                 <TextBlock 
                                         Text="{TemplateBinding Property=Content}" 
                                         VerticalAlignment="Center" 
-                                        FontSize="18" 
+                                        FontSize="14" 
                                         Background="Transparent"  
                                         FontFamily="/Fonts/#Protofo"
                                         Foreground="{TemplateBinding Foreground}" 
@@ -36,7 +36,7 @@
                                         VerticalAlignment="Center" 
                                         HorizontalAlignment="{Binding IconDirection, RelativeSource={RelativeSource TemplatedParent}}"
                                         Margin="{Binding IconMargin, RelativeSource={RelativeSource TemplatedParent}}"
-                                        FontSize="22" 
+                                        FontSize="20" 
                                         Foreground="{Binding IconColor, RelativeSource={RelativeSource TemplatedParent}}"/>
                             </Grid>
                             <Border.Effect>

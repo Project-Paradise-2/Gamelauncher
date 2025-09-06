@@ -51,6 +51,9 @@
                 <view:LauncherUpdate/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:AboutViewModel}">
+                <view:About/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

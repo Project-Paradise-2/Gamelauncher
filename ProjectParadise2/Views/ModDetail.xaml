@@ -7,7 +7,7 @@
              xmlns:objs="clr-namespace:ProjectParadise2.Objects"
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="1000">
-    <Border Width="1000" Height="620" CornerRadius="20" Background="#222831" Margin="0,0,0,0" BorderThickness="1.5" BorderBrush="#393E46">
+    <Border Width="1000" Height="620" CornerRadius="20" Background="#20232B" Margin="0,0,0,0" BorderThickness="1.5">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="242*"/>
@@ -29,18 +29,18 @@
             <Image Source="/Images/PP2Logo.png" Width="240" Height="240" HorizontalAlignment="Center" VerticalAlignment="Center" Name="ModImage" Stretch="Fill" Grid.Row="1"/>
 
             <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="15,15,15,92" Grid.RowSpan="3">
-                <TextBlock Text="Creator" Foreground="#B4A5A5" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Creator" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="Description" Foreground="#B4A5A5" FontSize="16" HorizontalAlignment="Left" Grid.Column="0" Grid.ColumnSpan="3" Width="642" MaxWidth="450" MaxHeight="310" Height="310" Name="Description" TextWrapping="Wrap" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock Text="Creator" Foreground="#F1F1F1" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Creator" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock Text="Description" Foreground="#F1F1F1" FontSize="16" HorizontalAlignment="Left" Grid.Column="0" Grid.ColumnSpan="3" Width="642" MaxWidth="450" MaxHeight="310" Height="310" Name="Description" TextWrapping="Wrap" FontFamily="/Fonts/#Protofo"/>
             </StackPanel>
             <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="15,8,0,0">
-                <TextBlock Text="Version" Foreground="#B4A5A5" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Version" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="Files" Foreground="#B4A5A5" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Changedfiles" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="Downloadsize" Foreground="#B4A5A5" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Downloadsize" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="Installsize" Foreground="#B4A5A5" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Installsize" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock Text="Version" Foreground="#B8B8B8" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Version" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock Text="Files" Foreground="#B8B8B8" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Changedfiles" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock Text="Downloadsize" Foreground="#B8B8B8" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Downloadsize" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock Text="Installsize" Foreground="#B8B8B8" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Installsize" FontFamily="/Fonts/#Protofo"/>
             </StackPanel>
             <StackPanel Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="3" Margin="30,-52,0,0" Height="42" VerticalAlignment="Center" HorizontalAlignment="Left" Width="465">
-                <TextBlock Text="Updates" Foreground="#B4A5A5" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Width="450" Name="Updates" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="Downloads" Foreground="#B4A5A5" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Width="450" Name="Downloads" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock Text="Updates" Foreground="#1D7DB6" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Width="450" Name="Updates" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock Text="Downloads" Foreground="#1D7DB6" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Width="450" Name="Downloads" FontFamily="/Fonts/#Protofo"/>
             </StackPanel>
             <objs:FA_BTN Style="{StaticResource FA_BTN}" Grid.Column="0" x:Name="InstallUpdate" Grid.Row="2" Margin="-170,5,0,0" Content="Install/Update" Height="40" Width="250" TextMargin="45,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Download" IconDirection="Center" IconMargin="-200,0,0,0" IconColor="#EEEEEE" Grid.ColumnSpan="2" Click="InstallOrUpdate"/>
             <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="30,20,15,15" Name="InstallingPanel">

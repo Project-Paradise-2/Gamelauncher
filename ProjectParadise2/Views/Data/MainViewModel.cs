@@ -21,6 +21,7 @@
         public RelayCommand ServiceViewCommand { get; set; }
         public RelayCommand ModDetailViewCommand { get; set; }
         public RelayCommand InstalledModViewCommand { get; set; }
+        public RelayCommand AboutViewCommand { get; set; }
 
         /// <summary>
         /// ViewModel instances for different views.
@@ -34,6 +35,7 @@
         public ModDeatilModel ModDeatilVM { get; private set; }
         public InstalledModModel InstalledModVM { get; private set; }
         public LauncherUpdateViewModel LauncherVM { get; private set; }
+        public AboutViewModel AboutVM { get; private set; }
 
         /// <summary>
         /// View instances for different views.
@@ -47,6 +49,7 @@
         public static ModDetail ModDetailView { get; set; }
         public static InstalledMods InstalledModsView { get; set; }
         public static LauncherUpdate LauncherUpdateVM { get; set; }
+        public static About AboutView { get; set; }
 
         private object _currentView;
 
@@ -78,7 +81,7 @@
             ModDeatilVM = new ModDeatilModel();
             ServiceViewVM = new ServiceViewModel();
             LauncherVM = new LauncherUpdateViewModel();
-
+            AboutVM = new AboutViewModel();
             CurrentView = HomeVM;
 
             // Initialize the commands for view navigation
@@ -107,6 +110,11 @@
             ModViewCommand = new RelayCommand(o =>
             {
                 CurrentView = ModVM;
+            });
+
+            AboutViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = AboutVM;
             });
 
             ServiceViewCommand = new RelayCommand(o =>

@@ -24,7 +24,7 @@ namespace ProjectParadise2.Core
                 // Check if the source folder exists
                 if (!Directory.Exists(sourceFolder))
                 {
-                    Log.Log.Print("The local savegame backup folder does not exist.");
+                    Log.Log.Info("The local savegame backup folder does not exist.");
                     return;
                 }
 
@@ -58,7 +58,7 @@ namespace ProjectParadise2.Core
                 {
                     var oldestBackup = existingBackups.First();
                     File.Delete(oldestBackup);
-                    Log.Log.Print($"Backup limit reached, deleting the oldest backup: {oldestBackup}");
+                    Log.Log.Warning($"Backup limit reached, deleting the oldest backup: {oldestBackup}");
                 }
 
                 // Create the next backup with the next available number
@@ -68,23 +68,23 @@ namespace ProjectParadise2.Core
                 // Create the backup file
                 ZipFile.CreateFromDirectory(sourceFolder, backupName);
 
-                Log.Log.Print($"Backup created: {backupName}");
+                Log.Log.Info($"Backup created: {backupName}");
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Log.Print($"Error: Unauthorized access. Please check permissions.", ex);
+                Log.Log.Error($"Error: Unauthorized access. Please check permissions.", ex);
             }
             catch (DirectoryNotFoundException ex)
             {
-                Log.Log.Print($"Error: Directory not found.", ex);
+                Log.Log.Error($"Error: Directory not found.", ex);
             }
             catch (IOException ex)
             {
-                Log.Log.Print($"I/O error occurred:", ex);
+                Log.Log.Error($"I/O error occurred:", ex);
             }
             catch (Exception ex)
             {
-                Log.Log.Print($"An unexpected error occurred", ex);
+                Log.Log.Error($"An unexpected error occurred", ex);
             }
         }
 
@@ -96,11 +96,11 @@ namespace ProjectParadise2.Core
             try
             {
                 CreateBackup(Constans.SaveFolder, Constans.DokumentsFolder + "Local_Backups", Database.Database.p2Database.Usersettings.NumOfBackups);
-                Log.Log.Print("Start Create Backup");
+                Log.Log.Info("Start Create Backup");
             }
             catch (Exception ex)
             {
-                Log.Log.Print($"An unexpected error occurred during the backup process", ex);
+                Log.Log.Error($"An unexpected error occurred during the backup process", ex);
             }
         }
     }

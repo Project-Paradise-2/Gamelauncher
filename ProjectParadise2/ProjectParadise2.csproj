@@ -54,6 +54,8 @@ For the Custom Gameserver from Test Drive Unlimited 2</Description>
     <PackageReference Include="DiscordRichPresence" Version="1.1.3.18" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="HardwareInformation" Version="5.0.2" />
+    <PackageReference Include="Open.Nat" Version="2.1.0" />
+    <PackageReference Include="STUN" Version="0.5.0" />
   </ItemGroup>
 
   <ItemGroup>

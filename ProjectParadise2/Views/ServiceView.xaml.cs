@@ -273,10 +273,8 @@ namespace ProjectParadise2.Views
             LoginBtn.Visibility = Visibility.Hidden;
             LogoutBtn.Visibility = Visibility.Visible;
             Refresh.Visibility = Visibility.Visible;
-
             SaveInfoText.Visibility = Visibility.Visible;
             Savegamedata.Visibility = Visibility.Visible;
-
             CloudUpload.Visibility = Visibility.Visible;
             CloudDownload.Visibility = Visibility.Visible;
         }
@@ -292,12 +290,10 @@ namespace ProjectParadise2.Views
             AccountText.Visibility = Visibility.Visible;
             PasswordText.Visibility = Visibility.Visible;
             LoginBtn.Visibility = Visibility.Visible;
-
             LogoutBtn.Visibility = Visibility.Hidden;
             Refresh.Visibility = Visibility.Hidden;
             SaveInfoText.Visibility = Visibility.Hidden;
             Savegamedata.Visibility = Visibility.Hidden;
-
             CloudUpload.Visibility = Visibility.Hidden;
             CloudDownload.Visibility = Visibility.Hidden;
         }
@@ -499,13 +495,13 @@ namespace ProjectParadise2.Views
                 {
                     UpdateProgress(Lang.GetText(88));
                     File.Delete(zipFilePath);
-                    Log.Print("[Cloud]Clean Up Old Local Savegame");
+                    Log.Info("Clean Up Old Local Savegame");
                 }
                 UpdateProgress(Lang.GetText(89));
                 ZipFile.CreateFromDirectory(Constans.SaveFolder, zipFilePath);
                 await Task.Delay(250);
                 UpdateProgress(Lang.GetText(90));
-                Log.Print("[Cloud]Start Upload");
+                Log.Info("Start Upload");
                 await Task.Delay(250);
                 var progressHandler = new Progress<long>(bytesUploaded =>
                 {
@@ -517,7 +513,7 @@ namespace ProjectParadise2.Views
                 await UploadFileWithProgressAsync(zipFilePath, $"{Constans.Cdn}/Requests/Fileupload.php?u={Database.Database.p2Database.Usersettings.Acountname}", progressHandler);
 
                 UpdateProgress(Lang.GetText(92), true);
-                Log.Print("[Cloud]Upload erfolgreich abgeschlossen");
+                Log.Info("Upload erfolgreich abgeschlossen");
                 GetSavegameInfos();
 
                 if (File.Exists(zipFilePath))
@@ -534,7 +530,7 @@ namespace ProjectParadise2.Views
             {
                 Console.WriteLine($"Error: {ex.Message}");
                 Console.WriteLine(ex.StackTrace);
-                Log.Print($"[Cloud]Error: {ex.Message}\n" + ex?.StackTrace.ToString());
+                Log.Error($"Error: {ex.Message}\n" + ex?.StackTrace.ToString());
             }
         }
 
@@ -561,7 +557,7 @@ namespace ProjectParadise2.Views
 
                         if (!response.IsSuccessStatusCode)
                         {
-                            Log.Print($"Upload failed with status code: {response.StatusCode}");
+                            Log.Error($"Upload failed with status code: {response.StatusCode}");
                             return;
                         }
                     }
@@ -629,7 +625,7 @@ namespace ProjectParadise2.Views
             }
             catch (Exception ex)
             {
-                Log.Print("Cloud Savegame Download Failed ", ex);
+                Log.Error("Cloud Savegame Download Failed ", ex);
             }
             finally
             {
@@ -687,11 +683,11 @@ namespace ProjectParadise2.Views
                                     try
                                     {
                                         Directory.CreateDirectory(destinationPath);
-                                        Log.Print($"Directory created: {destinationPath}");
+                                        Log.Info($"Directory created: {destinationPath}");
                                     }
                                     catch (Exception dirEx)
                                     {
-                                        Log.Print($"Failed to create directory: {destinationPath}, Error: {dirEx.Message}");
+                                        Log.Error($"Failed to create directory: {destinationPath}, Error: {dirEx.Message}");
                                         throw;
                                     }
                                 }
@@ -703,11 +699,11 @@ namespace ProjectParadise2.Views
                                     try
                                     {
                                         Directory.CreateDirectory(directoryPath);
-                                        Log.Print($"Directory created: {directoryPath}");
+                                        Log.Info($"Directory created: {directoryPath}");
                                     }
                                     catch (Exception dirEx)
                                     {
-                                        Log.Print($"Failed to create directory: {directoryPath}, Error: {dirEx.Message}");
+                                        Log.Error($"Failed to create directory: {directoryPath}, Error: {dirEx.Message}");
                                         throw;
                                     }
                                 }
@@ -715,7 +711,7 @@ namespace ProjectParadise2.Views
                                 if (File.Exists(destinationPath))
                                 {
                                     string backupPath = destinationPath + ".backup";
-                                    Log.Print($"Existing file backed up: {destinationPath} -> {backupPath}");
+                                    Log.Info($"Existing file backed up: {destinationPath} -> {backupPath}");
                                     if (File.Exists(backupPath))
                                     {
                                         File.Delete(backupPath);
@@ -727,24 +723,24 @@ namespace ProjectParadise2.Views
                                 try
                                 {
                                     entry.ExtractToFile(destinationPath, overwrite: true);
-                                    Log.Print($"File extracted: {destinationPath}");
+                                    Log.Info($"File extracted: {destinationPath}");
                                 }
                                 catch (Exception extractEx)
                                 {
-                                    Log.Print($"Failed to extract {entry.FullName} to {destinationPath}. Error: {extractEx.Message}");
+                                    Log.Error($"Failed to extract {entry.FullName} to {destinationPath}. Error: {extractEx.Message}");
                                     throw;
                                 }
                             }
                         }
                     }
 
-                    Log.Print("Cloud Savegame unpacked successfully.");
+                    Log.Info("Cloud Savegame unpacked successfully.");
                     UpdateProgress(Lang.GetText(96));
                 }
             }
             catch (Exception ex)
             {
-                Log.Print($"Cloud Unpack Failed: {ex.Message}");
+                Log.Error($"Cloud Unpack Failed: {ex.Message}");
             }
         }
 
