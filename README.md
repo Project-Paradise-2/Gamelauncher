@@ -55,6 +55,13 @@ This project uses the following NuGet packages:
 - **[HardwareInformation 5.0.2](https://github.com/L3tum/HardwareInformation)**  
   .NET 5 Cross-Platform Hardware Information Gatherer.
 
+- **[Open.NAT 2.1.0]([https://github.com/L3tum/HardwareInformation](https://github.com/lontivero/Open.NAT))**  
+  A lightweight and easy-to-use class library to allow port forwarding in NAT devices
+
+
+- **[STUN 0.5.0]([https://github.com/L3tum/HardwareInformation](https://github.com/lontivero/Open.NAT))**  
+  A tiny Session Traversal Utilities for NAT (STUN) client library based on deprecated RFC3489.
+  
 ---
 
 ## Installation and Usage  
@@ -68,8 +75,6 @@ This project uses the following NuGet packages:
 ## Source Code  
 The source code for this project is available and open for contributions!
 
-## Documentation  
-You can find the documentation for this project [here](https://cdn.project-paradise2.de/Launcherdoc).
 
 
 ---
