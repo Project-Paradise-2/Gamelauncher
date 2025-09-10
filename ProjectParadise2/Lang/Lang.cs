@@ -1,5 +1,4 @@
-﻿using ProjectParadise2.Core.Classes;
-using ProjectParadise2.Core.Log;
+﻿using ProjectParadise2.Core.Log;
 using System;
 
 namespace ProjectParadise2

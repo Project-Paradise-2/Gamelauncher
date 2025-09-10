@@ -2,7 +2,6 @@
 // checking the NAT type via STUN tests, managing UPnP port forwarding, initializing Discord RPC, 
 // and interacting with the database. It also manages game startup and shutdown processes.
 using KuxiiSoft.Utils.Crashreport;
-using ProjectParadise2.Core.Classes;
 using ProjectParadise2.Views;
 using System;
 using System.Net;
@@ -132,6 +131,8 @@ namespace ProjectParadise2.Core
             {
                 Log.Log.Error("Failed to write the database on exit ", ex2);
             }
+            Task.Run(async () => await NatDetector.RemoveUpnp()).Wait();
+
             GameRunner.KillGame();
             Environment.Exit(0);
         }

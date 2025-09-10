@@ -1,5 +1,4 @@
 ﻿using HardwareInformation;
-using ProjectParadise2.Core;
 using ProjectParadise2.Core.Log;
 using System;
 using System.IO;
@@ -85,16 +84,32 @@ namespace ProjectParadise2.Views
 
                 bool isVC2005x86 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2005x86);
                 bool isVC2008x86 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2008x86);
+
+                bool VC2010x86 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2010x86);
+                bool VC2012x86 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2012x86);
+                bool VC2013x86 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2013x86);
+
                 bool isVC2005x64 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2005x64);
                 bool isVC2008x64 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2008x64);
+
+                bool VC2010x64 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2010x64);
+                bool VC2012x64 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2012x64);
+                bool VC2013x64 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2013x64);
 
                 await Dispatcher.InvokeAsync(() =>
                 {
                     CPlusText.Text =
                         $"VC2005* (x86): {ParseBool(isVC2005x86)}\n" +
                         $"VC2008  (x86): {ParseBool(isVC2008x86)}\n" +
-                        $"VC2005* (x64): {ParseBool(isVC2005x64)}\n" +
-                        $"VC2008  (x64): {ParseBool(isVC2008x64)}";
+                        $"VC2010  (x86): {ParseBool(VC2010x86)}\n" +
+                        $"VC2012  (x86): {ParseBool(VC2012x86)}\n" +
+                        $"VC2013  (x86): {ParseBool(VC2013x86)}\n" +
+
+                        $"VC2005  (x64): {ParseBool(isVC2005x64)}\n" +
+                        $"VC2008  (x64): {ParseBool(isVC2008x64)}\n" +
+                        $"VC2010  (x64): {ParseBool(VC2010x64)}\n" +
+                        $"VC2012  (x64): {ParseBool(VC2012x64)}\n" +
+                        $"VC2013  (x64): {ParseBool(VC2013x64)}\n";
                 });
             }
             catch (Exception ex)

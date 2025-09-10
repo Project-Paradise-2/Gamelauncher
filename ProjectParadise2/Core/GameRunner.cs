@@ -1,11 +1,12 @@
-﻿using ProjectParadise2.Core.Classes;
+﻿using ProjectParadise2.Core;
+using ProjectParadise2.Core.Log;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows;
 
-namespace ProjectParadise2.Core
+namespace ProjectParadise2
 {
     internal class GameRunner
     {
@@ -46,7 +47,7 @@ namespace ProjectParadise2.Core
                 if (!CommandLineArg.OnlineMode)
                 {
                     mode = 1;
-                    Log.Log.Warning("Force Offline mode, flag is active");
+                    Log.Warning("Force Offline mode, flag is active");
                 }
 
                 if (mode == 0)
@@ -66,7 +67,7 @@ namespace ProjectParadise2.Core
                     if (!File.Exists(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "key.txt")))
                     {
                         string Key = BackgroundWorker.GetKey();
-                        Log.Log.Warning("Missing Key dedect Generate it: " + Key + " ");
+                        Log.Warning("Missing Key dedect Generate it: " + Key + " ");
                         File.WriteAllText(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "key.txt"), Key);
                     }
 
@@ -104,7 +105,7 @@ namespace ProjectParadise2.Core
                     monitoringThread.Start();
                     MinimizeApplicationWithHint();
                     StopMutex();
-                    Log.Log.Info("Game started with mode: " + (mode == 0 ? "Online" : "Offline") + " args: " + arguments);
+                    Log.Info("Game started with mode: " + (mode == 0 ? "Online" : "Offline") + " args: " + arguments);
                     return true;
                 }
                 else
@@ -114,7 +115,7 @@ namespace ProjectParadise2.Core
             }
             catch (Exception ex)
             {
-                Log.Log.Error($"An error occurred while starting the game: {ex.Message}", ex);
+                Log.Error($"An error occurred while starting the game: {ex.Message}: " + ex);
                 return false;
             }
         }
@@ -146,7 +147,7 @@ namespace ProjectParadise2.Core
             }
             catch (Exception ex)
             {
-                Log.Log.Error($"An error occurred while monitoring the process: {ex.Message}", ex);
+                Log.Error($"An error occurred while monitoring the process: {ex.Message}: " + ex);
             }
         }
 
@@ -202,7 +203,7 @@ namespace ProjectParadise2.Core
                 }
                 catch (Exception ex)
                 {
-                    Log.Log.Error($"An error occurred while killing the game process: {ex.Message}", ex);
+                    Log.Error($"An error occurred while killing the game process: {ex.Message}: " + ex);
                 }
             }
             if (start != null)
@@ -234,7 +235,7 @@ namespace ProjectParadise2.Core
                 });
             }
             else
-                Log.Log.Warning("Stop hiding launcher, flag is active");
+                Log.Warning("Stop hiding launcher, flag is active");
         }
 
         /// <summary>
@@ -276,7 +277,7 @@ namespace ProjectParadise2.Core
         {
             if (!File.Exists(exePath))
             {
-                Log.Log.Error("Error: File not found!");
+                Log.Error("Error: File not found!");
                 return false;
             }
 
@@ -294,7 +295,7 @@ namespace ProjectParadise2.Core
 
                     if (magic != 0x10B && magic != 0x20B)  // Check if it's a valid PE file (32-bit or 64-bit)
                     {
-                        Log.Log.Error("Error: Not a valid PE file.");
+                        Log.Error("Error: Not a valid PE file.");
                         return false;
                     }
 
@@ -314,12 +315,12 @@ namespace ProjectParadise2.Core
                     bw.Write(characteristics);
                 }
 
-                Log.Log.Info("LAA flag has been successfully " + (enable ? "enabled" : "disabled") + "!");
+                Log.Info("LAA flag has been successfully " + (enable ? "enabled" : "disabled") + "!");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.Log.Error("Error modifying EXE: " + ex.Message);
+                Log.Error("Error modifying EXE: " + ex.Message);
                 return false;
             }
         }

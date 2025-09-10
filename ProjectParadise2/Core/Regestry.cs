@@ -1,8 +1,8 @@
 ﻿using Microsoft.Win32;
-using ProjectParadise2.Core.Classes;
+using ProjectParadise2.Core.Log;
 using System;
 
-namespace ProjectParadise2.Core
+namespace ProjectParadise2
 {
     /// <summary>
     /// Handles the interaction with the Windows registry to manage game installation and settings.
@@ -55,19 +55,19 @@ namespace ProjectParadise2.Core
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Log.Error($"Access denied: {ex.Message}", ex);
+                Log.Error($"Access denied: {ex.Message}", ex);
             }
             catch (System.Security.SecurityException ex)
             {
-                Log.Log.Error($"Permission error: {ex.Message}", ex);
+                Log.Error($"Permission error: {ex.Message}", ex);
             }
             catch (ArgumentException ex)
             {
-                Log.Log.Error($"Invalid argument: {ex.Message}", ex);
+                Log.Error($"Invalid argument: {ex.Message}", ex);
             }
             catch (Exception ex)
             {
-                Log.Log.Error($"An error occurred: {ex.Message}", ex);
+                Log.Error($"An error occurred: {ex.Message}", ex);
             }
 
             return path;
@@ -107,7 +107,7 @@ namespace ProjectParadise2.Core
                 {
                     if (baseKey == null)
                     {
-                        Log.Log.Error($"Could not open or create registry key: {subKeyPath}");
+                        Log.Error($"Could not open or create registry key: {subKeyPath}");
                         return false;
                     }
 
@@ -124,19 +124,19 @@ namespace ProjectParadise2.Core
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Log.Error($"Access denied: {ex.Message}", ex);
+                Log.Error($"Access denied: {ex.Message}", ex);
             }
             catch (System.Security.SecurityException ex)
             {
-                Log.Log.Error($"Permission error: {ex.Message}", ex);
+                Log.Error($"Permission error: {ex.Message}", ex);
             }
             catch (ArgumentException ex)
             {
-                Log.Log.Error($"Invalid argument: {ex.Message}", ex);
+                Log.Error($"Invalid argument: {ex.Message}", ex);
             }
             catch (Exception ex)
             {
-                Log.Log.Error($"An error occurred: {ex.Message}", ex);
+                Log.Error($"An error occurred: {ex.Message}", ex);
             }
 
             return false;
@@ -180,19 +180,19 @@ namespace ProjectParadise2.Core
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Log.Error($"Access denied: {ex.Message}", ex);
+                Log.Error($"Access denied: {ex.Message}", ex);
             }
             catch (System.Security.SecurityException ex)
             {
-                Log.Log.Error($"Permission error: {ex.Message}", ex);
+                Log.Error($"Permission error: {ex.Message}", ex);
             }
             catch (ArgumentException ex)
             {
-                Log.Log.Error($"Invalid argument: {ex.Message}", ex);
+                Log.Error($"Invalid argument: {ex.Message}", ex);
             }
             catch (Exception ex)
             {
-                Log.Log.Error($"An error occurred: {ex.Message}", ex);
+                Log.Error($"An error occurred: {ex.Message}", ex);
             }
 
             return audioMode;
@@ -223,7 +223,7 @@ namespace ProjectParadise2.Core
                     {
                         if (baseKey == null)
                         {
-                            Log.Log.Error($"Could not open or create registry key: {subKeyPath}");
+                            Log.Error($"Could not open or create registry key: {subKeyPath}");
                             continue;
                         }
 
@@ -236,19 +236,19 @@ namespace ProjectParadise2.Core
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Log.Error($"Access denied: {ex.Message}", ex);
+                Log.Error($"Access denied: {ex.Message}", ex);
             }
             catch (System.Security.SecurityException ex)
             {
-                Log.Log.Error($"Permission error: {ex.Message}", ex);
+                Log.Error($"Permission error: {ex.Message}", ex);
             }
             catch (ArgumentException ex)
             {
-                Log.Log.Error($"Invalid argument: {ex.Message}", ex);
+                Log.Error($"Invalid argument: {ex.Message}", ex);
             }
             catch (Exception ex)
             {
-                Log.Log.Error($"An error occurred: {ex.Message}", ex);
+                Log.Error($"An error occurred: {ex.Message}", ex);
             }
 
             return false;
@@ -276,7 +276,7 @@ namespace ProjectParadise2.Core
                 {
                     if (baseKey == null)
                     {
-                        Log.Log.Error($"Could not open or create registry key: {subKeyPath}");
+                        Log.Error($"Could not open or create registry key: {subKeyPath}");
                         return false;
                     }
 
@@ -289,19 +289,19 @@ namespace ProjectParadise2.Core
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Log.Error($"Access denied: {ex.Message}", ex);
+                Log.Error($"Access denied: {ex.Message}", ex);
             }
             catch (System.Security.SecurityException ex)
             {
-                Log.Log.Error($"Permission error: {ex.Message}", ex);
+                Log.Error($"Permission error: {ex.Message}", ex);
             }
             catch (ArgumentException ex)
             {
-                Log.Log.Error($"Invalid argument: {ex.Message}", ex);
+                Log.Error($"Invalid argument: {ex.Message}", ex);
             }
             catch (Exception ex)
             {
-                Log.Log.Error($"An error occurred: {ex.Message}", ex);
+                Log.Error($"An error occurred: {ex.Message}", ex);
             }
 
             return false;
@@ -328,7 +328,7 @@ namespace ProjectParadise2.Core
                 {
                     if (baseKey == null)
                     {
-                        Log.Log.Error($"Could not open or create registry key: {subKeyPath}");
+                        Log.Error($"Could not open or create registry key: {subKeyPath}");
                         return false;
                     }
 
@@ -339,19 +339,19 @@ namespace ProjectParadise2.Core
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Log.Error($"Access denied: {ex.Message}", ex);
+                Log.Error($"Access denied: {ex.Message}", ex);
             }
             catch (System.Security.SecurityException ex)
             {
-                Log.Log.Error($"Permission error: {ex.Message}", ex);
+                Log.Error($"Permission error: {ex.Message}", ex);
             }
             catch (ArgumentException ex)
             {
-                Log.Log.Error($"Invalid argument: {ex.Message}", ex);
+                Log.Error($"Invalid argument: {ex.Message}", ex);
             }
             catch (Exception ex)
             {
-                Log.Log.Error($"An error occurred: {ex.Message}", ex);
+                Log.Error($"An error occurred: {ex.Message}", ex);
             }
 
             return false;
@@ -377,7 +377,7 @@ namespace ProjectParadise2.Core
                 {
                     if (baseKey == null)
                     {
-                        Log.Log.Error($"Could not open or create registry key: {subKeyPath}");
+                        Log.Error($"Could not open or create registry key: {subKeyPath}");
                         return false;
                     }
 
@@ -392,19 +392,19 @@ namespace ProjectParadise2.Core
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Log.Error($"Access denied: {ex.Message}", ex);
+                Log.Error($"Access denied: {ex.Message}", ex);
             }
             catch (System.Security.SecurityException ex)
             {
-                Log.Log.Error($"Permission error: {ex.Message}", ex);
+                Log.Error($"Permission error: {ex.Message}", ex);
             }
             catch (ArgumentException ex)
             {
-                Log.Log.Error($"Invalid argument: {ex.Message}", ex);
+                Log.Error($"Invalid argument: {ex.Message}", ex);
             }
             catch (Exception ex)
             {
-                Log.Log.Error($"An error occurred: {ex.Message}", ex);
+                Log.Error($"An error occurred: {ex.Message}", ex);
             }
 
             return false;

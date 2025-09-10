@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using ProjectParadise2.Core;
-using ProjectParadise2.Core.Classes;
 using ProjectParadise2.Core.Log;
 using System;
 using System.Diagnostics;
@@ -404,6 +403,8 @@ namespace ProjectParadise2.Views
         private void OnUpnpupdate(object sender, RoutedEventArgs e)
         {
             Database.Database.p2Database.Usersettings.UpnpWorker = (bool)UPNPToggle.IsChecked;
+            if (Database.Database.p2Database.Usersettings.UpnpWorker == false)
+                _ = NatDetector.RemoveUpnp();
             Save();
         }
 

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ProjectParadise2.Core;
-using ProjectParadise2.Core.JsonClasses;
+using ProjectParadise2.JsonClasses;
 using System;
 
 namespace ProjectParadise2.Views

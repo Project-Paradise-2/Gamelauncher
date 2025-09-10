@@ -169,18 +169,18 @@ namespace ProjectParadise2
                 "#",
                 "# Custom Connection for PP2 Server",
                 "#",
-                $"{Constans.ServerIP} testdriveunlimited2.com #Server is Offline, Lets Relay it",
+                $"194.164.199.240 testdriveunlimited2.com #Server is Offline, Lets Relay it",
                 "#",
                 "# Server Proxys",
                 "#",
-                $"{Constans.ServerIP} pc-proxy1.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
-                $"{Constans.ServerIP} pc-proxy2.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
-                $"{Constans.ServerIP} pc-proxy3.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
-                $"{Constans.ServerIP} pc-proxy4.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
-                $"{Constans.ServerIP} pc-proxy5.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
-                $"{Constans.ServerIP} pc-proxy6.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
-                $"{Constans.ServerIP} pc-proxy7.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
-                $"{Constans.ServerIP} pc-proxy8.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles"
+                $"194.164.199.240 pc-proxy1.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
+                $"194.164.199.240 pc-proxy2.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
+                $"194.164.199.240 pc-proxy3.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
+                $"194.164.199.240 pc-proxy4.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
+                $"194.164.199.240 pc-proxy5.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
+                $"194.164.199.240 pc-proxy6.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
+                $"194.164.199.240 pc-proxy7.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles",
+                $"194.164.199.240 pc-proxy8.testdriveunlimited2.com #Set Custom Connection to PP2-Server without Modify Gamefiles"
             };
 
                 if (File.Exists(hostsFilePath))

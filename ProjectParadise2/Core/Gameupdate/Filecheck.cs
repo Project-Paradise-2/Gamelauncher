@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ProjectParadise2.Core.Log;
 using ProjectParadise2.Views;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ProjectParadise2.Core.Gameupdate
+namespace ProjectParadise2.Gameupdate
 {
     internal class Filecheck
     {
@@ -44,13 +45,13 @@ namespace ProjectParadise2.Core.Gameupdate
                 if (isUnpacked && isUnpacked2)
                 {
                     UpdateView.Instance.Updatestatus(Lang.GetText(124));
-                    Log.Log.Error("Unpacked game files detected.");
+                    Log.Error("Unpacked game files detected.");
                     return;
                 }
                 if (isUnpacked || isUnpacked2)
                 {
                     UpdateView.Instance.Updatestatus(Lang.GetText(124) + " mixed game?");
-                    Log.Log.Error("Both unpacked and packed game files detected.");
+                    Log.Error("Both unpacked and packed game files detected.");
                     return;
                 }
 
@@ -59,7 +60,7 @@ namespace ProjectParadise2.Core.Gameupdate
                     || !File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/bigfile_EU_4.big"))
                 {
                     UpdateView.Instance.Updatestatus(Lang.GetText(125));
-                    Log.Log.Error("Missing bigfiles in game directory (Default Files each Version).");
+                    Log.Error("Missing bigfiles in game directory (Default Files each Version).");
                     return;
                 }
 
@@ -121,7 +122,7 @@ namespace ProjectParadise2.Core.Gameupdate
                 var info = GetInfo(file);
                 GamefileLoader.AddFile(file, info[0], info[1]);
                 UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(49), info[0], info[2]), 0);
-                Log.Log.Info($"Missing file detected: {info[0]} Size: {info[2]}");
+                Log.Info($"Missing file detected: {info[0]} Size: {info[2]}");
                 Thread.Sleep(5);
             }
             PerformHashCheck();
@@ -217,7 +218,7 @@ namespace ProjectParadise2.Core.Gameupdate
         private static void GetUpdatedFile(int index)
         {
             GamefileLoader.AddFile(Live.File[index].FilePath, Live.File[index].FileName, Live.File[index].FilePath);
-            Log.Log.Warning($"Outdated file detected: {Live.File[index].FileName} Size: {Live.File[index].FileSize}");
+            Log.Warning($"Outdated file detected: {Live.File[index].FileName} Size: {Live.File[index].FileSize}");
         }
 
         /// <summary>
@@ -288,14 +289,14 @@ namespace ProjectParadise2.Core.Gameupdate
             catch (WebException ex)
             {
                 UpdateView.Instance.PrintMessage($"Failed to connect to server: {ex.Message}\n");
-                Log.Log.Error("Failed to connect to server: ", ex);
+                Log.Error("Failed to connect to server: ", ex);
                 UpdateView.Instance.Updatestatus(Lang.GetText(58));
                 return false;
             }
             catch (Exception ex)
             {
                 UpdateView.Instance.PrintMessage($"An error occurred: {ex.Message}\n");
-                Log.Log.Error("An error occurred while retrieving the online file: ", ex);
+                Log.Error("An error occurred while retrieving the online file: ", ex);
                 UpdateView.Instance.Updatestatus(Lang.GetText(58));
                 return false;
             }

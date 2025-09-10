@@ -1,4 +1,5 @@
-﻿using ProjectParadise2.Views;
+﻿using ProjectParadise2.Core.Log;
+using ProjectParadise2.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +9,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Threading;
 
-namespace ProjectParadise2.Core.Gameupdate
+namespace ProjectParadise2.Gameupdate
 {
     internal class GamefileLoader
     {
@@ -50,7 +51,7 @@ namespace ProjectParadise2.Core.Gameupdate
                 UpdateView.Instance.Updatestatus(Lang.GetText(60));
                 NeedUpdate = false;
                 UpdateFile.Clear();
-                Log.Log.Error("Stop Gameupdate, To many Missing File. Looks to an not Correct installed Game.. Sorry Mate cant share the Game");
+                Log.Error("Stop Gameupdate, To many Missing File. Looks to an not Correct installed Game.. Sorry Mate cant share the Game");
                 return;
             }
 
@@ -101,7 +102,7 @@ namespace ProjectParadise2.Core.Gameupdate
                 }
                 catch (Exception ex)
                 {
-                    Log.Log.Error("Failed to get File: " + InstallDir[HasFiles] + " : " + ex.Message, ex);
+                    Log.Error("Failed to get File: " + InstallDir[HasFiles] + " : " + ex.Message, ex);
                 }
             }
             else
@@ -133,7 +134,7 @@ namespace ProjectParadise2.Core.Gameupdate
                     Database.Database.p2Database.Usersettings.ProductVersion = myFileVersionInfo.ProductVersion.ToString();
                     Database.Database.p2Database.Usersettings.FileVersion = myFileVersionInfo.FileVersion.ToString();
                     Database.Database.Write();
-                    Log.Log.Info("Update Complete to Version: " + myFileVersionInfo.ProductVersion.ToString());
+                    Log.Info("Update Complete to Version: " + myFileVersionInfo.ProductVersion.ToString());
                 }
             }
         }
@@ -161,7 +162,7 @@ namespace ProjectParadise2.Core.Gameupdate
             }
             catch (Exception ex)
             {
-                Log.Log.Error("Failed to install File: " + InstallDir[HasFiles] + " : " + ex.Message, ex);
+                Log.Error("Failed to install File: " + InstallDir[HasFiles] + " : " + ex.Message, ex);
                 UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(71), InstallDir[HasFiles], ex.Message), 0);
             }
         }

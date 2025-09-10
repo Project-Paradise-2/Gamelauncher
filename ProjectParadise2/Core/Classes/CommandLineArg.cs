@@ -1,4 +1,6 @@
-﻿namespace ProjectParadise2.Core.Classes
+﻿using KuxiiSoft.Utils;
+
+namespace ProjectParadise2
 {
     /// <summary>
     /// A class to handle and store command line arguments passed to the application.
@@ -91,11 +93,11 @@
             // Log the flags read from command line arguments
             if (flags.Equals("Read Launcher Flags:"))
             {
-                Log.Log.Debug("No Custom flags set.");
+                Log.Debug("No Custom flags set.");
             }
             else
             {
-                Log.Log.Warning(flags);
+                Log.Warning(flags);
             }
         }
     }

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using KuxiiSoft.Utils;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 
-namespace ProjectParadise2.Core
+namespace ProjectParadise2
 {
     /// <summary>
     /// Class to handle the creation and management of backup files.
@@ -24,7 +25,7 @@ namespace ProjectParadise2.Core
                 // Check if the source folder exists
                 if (!Directory.Exists(sourceFolder))
                 {
-                    Log.Log.Info("The local savegame backup folder does not exist.");
+                    Log.Info("The local savegame backup folder does not exist.");
                     return;
                 }
 
@@ -58,7 +59,7 @@ namespace ProjectParadise2.Core
                 {
                     var oldestBackup = existingBackups.First();
                     File.Delete(oldestBackup);
-                    Log.Log.Warning($"Backup limit reached, deleting the oldest backup: {oldestBackup}");
+                    Log.Warning($"Backup limit reached, deleting the oldest backup: {oldestBackup}");
                 }
 
                 // Create the next backup with the next available number
@@ -68,23 +69,23 @@ namespace ProjectParadise2.Core
                 // Create the backup file
                 ZipFile.CreateFromDirectory(sourceFolder, backupName);
 
-                Log.Log.Info($"Backup created: {backupName}");
+                Log.Info($"Backup created: {backupName}");
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Log.Error($"Error: Unauthorized access. Please check permissions.", ex);
+                Log.Error($"Error: Unauthorized access. Please check permissions: " + ex);
             }
             catch (DirectoryNotFoundException ex)
             {
-                Log.Log.Error($"Error: Directory not found.", ex);
+                Log.Error($"Error: Directory not found: " + ex);
             }
             catch (IOException ex)
             {
-                Log.Log.Error($"I/O error occurred:", ex);
+                Log.Error($"I/O error occurred: " + ex);
             }
             catch (Exception ex)
             {
-                Log.Log.Error($"An unexpected error occurred", ex);
+                Log.Error($"An unexpected error occurred: " + ex); ;
             }
         }
 
@@ -96,11 +97,11 @@ namespace ProjectParadise2.Core
             try
             {
                 CreateBackup(Constans.SaveFolder, Constans.DokumentsFolder + "Local_Backups", Database.Database.p2Database.Usersettings.NumOfBackups);
-                Log.Log.Info("Start Create Backup");
+                Log.Info("Start Create Backup");
             }
             catch (Exception ex)
             {
-                Log.Log.Error($"An unexpected error occurred during the backup process", ex);
+                Log.Error($"An unexpected error occurred during the backup process: " + ex);
             }
         }
     }

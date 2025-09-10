@@ -1,4 +1,4 @@
-﻿using ProjectParadise2.Core.Gameupdate;
+﻿using ProjectParadise2.Gameupdate;
 using System;
 using System.Threading;
 using System.Windows.Controls;

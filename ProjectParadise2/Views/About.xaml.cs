@@ -38,7 +38,7 @@ namespace ProjectParadise2.Views
             {
                 wc.Timeout = 10;
                 string json = System.Text.Encoding.UTF8.GetString(
-                    wc.DownloadData($"http://{Constans.ServerIP}:9024/Getstuff")
+                    wc.DownloadData($"http://{Constans.Server}:9024/Getstuff")
                 );
 
                 Stuff data = JsonConvert.DeserializeObject<Stuff>(json);
@@ -46,17 +46,17 @@ namespace ProjectParadise2.Views
                 Teamnames.Text += Environment.NewLine + "Team Members:" + Environment.NewLine;
 
                 foreach (var member in data.Team)
-                    Teamnames.Text += "•" + FilterBadwords(member) + Environment.NewLine;
+                    Teamnames.Text += "• " + FilterBadwords(member) + Environment.NewLine;
 
                 Patreonnames.Text = "";
                 Patreonnames.Text += Environment.NewLine + "Patreons:" + Environment.NewLine;
                 foreach (var supporter in data.Patreons)
-                    Patreonnames.Text += "•" + FilterBadwords(supporter) + Environment.NewLine;
+                    Patreonnames.Text += "• " + FilterBadwords(supporter) + Environment.NewLine;
 
                 Boosternames.Text = "";
                 Boosternames.Text += Environment.NewLine + "Discord Booster:" + Environment.NewLine;
                 foreach (var supporter in data.Booster)
-                    Boosternames.Text += "•" + FilterBadwords(supporter) + Environment.NewLine;
+                    Boosternames.Text += "• " + FilterBadwords(supporter) + Environment.NewLine;
             }
         }
 

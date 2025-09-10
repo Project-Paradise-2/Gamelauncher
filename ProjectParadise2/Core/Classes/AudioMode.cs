@@ -1,4 +1,4 @@
-﻿namespace ProjectParadise2.Core.Classes
+﻿namespace ProjectParadise2
 {
     /// <summary>
     /// Represents the audio modes used in the application.

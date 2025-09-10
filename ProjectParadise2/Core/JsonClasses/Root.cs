@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProjectParadise2.Core.JsonClasses
+namespace ProjectParadise2.JsonClasses
 {
     /// <summary>
     /// Represents information about a specific mod.

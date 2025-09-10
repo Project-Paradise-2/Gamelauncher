@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectParadise2.Core.JsonClasses
+namespace ProjectParadise2.JsonClasses
 {
     /// <summary>
     /// Represents the state of the application or server, including version, build details, and player count.

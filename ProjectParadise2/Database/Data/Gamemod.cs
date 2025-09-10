@@ -1,4 +1,4 @@
-﻿using ProjectParadise2.Core.JsonClasses;
+﻿using ProjectParadise2.JsonClasses;
 using System;
 using System.Collections.Generic;
 

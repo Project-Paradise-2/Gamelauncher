@@ -23,6 +23,8 @@ namespace ProjectParadise2.Views
         {
             InitializeComponent();
             Instance = this;
+            if(!NatDetector.CanRun)
+            RunGameButton.Visibility = Visibility.Hidden;
             while (MainViewModel.Instance != null)
             {
                 MainViewModel.HomeView = this;
@@ -54,6 +56,16 @@ namespace ProjectParadise2.Views
             }
 
             RefreshState(null, null);
+        }
+        public void ShowRunGameButton()
+        {
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(ShowRunGameButton);
+                return;
+            }
+
+            RunGameButton.Visibility = Visibility.Visible;
         }
 
         /// <summary>

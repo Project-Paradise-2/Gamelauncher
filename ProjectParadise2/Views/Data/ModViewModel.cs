@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using ProjectParadise2.Core.JsonClasses;
 using ProjectParadise2.Core.Log;
+using ProjectParadise2.JsonClasses;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

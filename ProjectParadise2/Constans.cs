@@ -25,14 +25,24 @@ namespace ProjectParadise2
     internal class Constans
     {
         /// <summary>
-        /// The IP address of the server.
+        /// The URL for the CDN hosting resources.
         /// </summary>
-        internal const string ServerIP = "194.164.199.240";
+        internal const string Cdn = "https://cdn.project-paradise2.de";
+
+        /// <summary>
+        /// The URL for the mod loader.
+        /// </summary>
+        internal const string Modloader = "https://mods.project-paradise2.de/TDU2Mods";
+
+        /// <summary>
+        /// The address of the server.
+        /// </summary>
+        internal const string Server = "proxy.project-paradise2.de";
 
         /// <summary>
         /// The version of the launcher.
         /// </summary>
-        internal const string LauncherVersion = "3.1.0";
+        internal const string LauncherVersion = "3.1.1";
 
         /// <summary>
         /// The path to the documents folder for Project Paradise 2.
@@ -43,16 +53,6 @@ namespace ProjectParadise2
         /// The path to the save folder for the game.
         /// </summary>
         internal static string SaveFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Eden Games\Test Drive Unlimited 2\savegame\";
-
-        /// <summary>
-        /// The URL for the CDN hosting resources.
-        /// </summary>
-        internal const string Cdn = "https://cdn.project-paradise2.de";
-
-        /// <summary>
-        /// The URL for the mod loader.
-        /// </summary>
-        internal const string Modloader = "https://mods.project-paradise2.de/TDU2Mods";
 
         /// <summary>
         /// The registry key for the Steam game key.
@@ -67,7 +67,7 @@ namespace ProjectParadise2
         /// <summary>
         /// The current build mode of the launcher.
         /// </summary>
-        internal const Launcherbuild launcherbuild = Launcherbuild.Unpacked;
+        internal const Launcherbuild launcherbuild = Launcherbuild.Packed;
 
         /// <summary>
         /// Bad words list for filtering inappropriate content.

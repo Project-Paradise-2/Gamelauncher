@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KuxiiSoft.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -6,7 +7,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Threading;
 
-namespace ProjectParadise2.Core
+namespace ProjectParadise2
 {
     class FileLoader
     {
@@ -78,8 +79,6 @@ namespace ProjectParadise2.Core
                     client.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadFileComplete);
                     client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback);
                     client.DownloadFileAsync(uri, (Database.Database.p2Database.Usersettings.Gamedirectory + "/" + InstallDir[HasFiles] + ".zip"));
-
-                    Log.Log.PrintMod("[MOD] Start Download: " + InstallDir[HasFiles], Modloader.Installing.Modname);
                 }
                 else
                 {
@@ -89,7 +88,7 @@ namespace ProjectParadise2.Core
             }
             catch (Exception ex)
             {
-                Log.Log.Error("[MOD]Failed to get File: " + InstallDir[HasFiles] + " : " + ex.Message);
+                Log.Error("[MOD]Failed to get File: " + InstallDir[HasFiles] + " : " + ex.Message);
             }
         }
 
@@ -122,7 +121,6 @@ namespace ProjectParadise2.Core
         /// </summary>
         private static void DownloadFileComplete(object sender, AsyncCompletedEventArgs e)
         {
-            Log.Log.PrintMod("[MOD] File Download Complete", Modloader.Installing.Modname);
             InstallFile();
             Thread.Sleep(100);
             HasFiles++;
@@ -141,7 +139,6 @@ namespace ProjectParadise2.Core
                     File.Delete(Database.Database.p2Database.Usersettings.Gamedirectory + InstallDir[HasFiles]);
                 }
 
-                Log.Log.PrintMod("[MOD]Install File: " + InstallDir[HasFiles], Modloader.Installing.Modname);
                 using (ZipArchive archive = ZipFile.OpenRead(Database.Database.p2Database.Usersettings.Gamedirectory + InstallDir[HasFiles] + ".zip"))
                 {
                     foreach (ZipArchiveEntry entry in archive.Entries)
@@ -149,7 +146,6 @@ namespace ProjectParadise2.Core
                         entry.ExtractToFile(Database.Database.p2Database.Usersettings.Gamedirectory + InstallDir[HasFiles].Replace(".zip", String.Empty), true);
                     }
                 }
-                Log.Log.PrintMod("[MOD]Remove File: " + InstallDir[HasFiles] + ".zip", Modloader.Installing.Modname);
                 if (File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + InstallDir[HasFiles] + ".zip"))
                 {
                     File.Delete(Database.Database.p2Database.Usersettings.Gamedirectory + InstallDir[HasFiles] + ".zip");
@@ -157,7 +153,6 @@ namespace ProjectParadise2.Core
             }
             catch (Exception ex)
             {
-                Log.Log.Error("[MOD]Failed install File: " + InstallDir[HasFiles] + " : " + ex.Message);
             }
         }
 

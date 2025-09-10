@@ -4,10 +4,11 @@
 // The `DiscordRpcClient` is initialized and the status is updated to Discord with different `RichPresence` states, 
 // including information like the game details, current state, and buttons for additional interaction.
 using DiscordRPC;
+using KuxiiSoft.Utils;
 using System;
 using System.Threading;
 
-namespace ProjectParadise2.Core
+namespace ProjectParadise2
 {
     /// <summary>
     /// This class handles the integration of Discord's Rich Presence (RPC) into the application. 
@@ -223,7 +224,7 @@ namespace ProjectParadise2.Core
                 {
                     // Optionally, update end time if you need to log session end time
                     _client.UpdateEndTime();
-                    Log.Log.Info("End time updated successfully.");
+                    Log.Info("End time updated successfully.");
 
                     _client.UpdateClearTime();
 
@@ -231,20 +232,20 @@ namespace ProjectParadise2.Core
 
                     // Deinitialize the RPC client to clean up any active connections
                     _client.Deinitialize();
-                    Log.Log.Info("Discord RPC client deinitialized successfully.");
+                    Log.Info("Discord RPC client deinitialized successfully.");
 
                     // Dispose of the client to free up resources
                     _client.Dispose();
-                    Log.Log.Info("Discord RPC client disposed of and resources freed.");
+                    Log.Info("Discord RPC client disposed of and resources freed.");
 
                     // Optionally, nullify the client reference to avoid accidental reuse
                     _client = null;
-                    Log.Log.Info("RPC client reference set to null to prevent accidental reuse.");
+                    Log.Info("RPC client reference set to null to prevent accidental reuse.");
                 }
                 catch (Exception ex)
                 {
                     // Log any errors that occur during the shutdown process
-                    Log.Log.Error($"Error while stopping Discord RPC: {ex.Message}", ex);
+                    Log.Error($"Error while stopping Discord RPC: {ex.Message}: " + ex);
                 }
             }
         }
@@ -269,7 +270,7 @@ namespace ProjectParadise2.Core
                     }
                     catch (Exception ex)
                     {
-                        Log.Log.Error("Failed to update end time or clear time ", ex);
+                        Log.Error("Failed to update end time or clear time: " + ex);
                     }
                 }
                 else if (state == Start)

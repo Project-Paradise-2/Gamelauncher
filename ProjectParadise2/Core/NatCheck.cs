@@ -1,5 +1,7 @@
 ﻿using Open.Nat;
-using ProjectParadise2.Core.Classes;
+using ProjectParadise2.Core;
+using ProjectParadise2.Core.Log;
+using ProjectParadise2.Views;
 using STUN;
 using System;
 using System.Linq;
@@ -10,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ProjectParadise2.Core
+namespace ProjectParadise2
 {
     /// <summary>
     /// Indicates the NAT (Network Address Translation) status of the network connection.
@@ -39,10 +41,10 @@ namespace ProjectParadise2.Core
     /// </summary>
     public class NatResult
     {
-        public NATStatus Status { get; set; }
-        public IPAddress PublicIp { get; set; }
+        public NATStatus Status { get; set; } = NATStatus.Unknown;
+        public IPAddress PublicIp { get; set; } = null;
         public int Port { get; set; }
-        public bool ExternalReachable { get; set; }
+        public bool ExternalReachable { get; set; } = false;
         public bool InternalReachable { get; set; } = false;
 
         public override string ToString()
@@ -65,8 +67,7 @@ namespace ProjectParadise2.Core
     /// </summary>
     public class NatTestResult
     {
-        public NatResult BeforeUpnp { get; set; }
-        public NatResult AfterUpnp { get; set; }
+        public NatResult AfterUpnp { get; set; } = new NatResult();
         public bool UpnpAvailable { get; set; }
         public int UpnpPort { get; set; }
         public string UpnpStatus { get; set; }
@@ -83,9 +84,11 @@ namespace ProjectParadise2.Core
         /// <summary>
         /// URL of the external service used to check external reachability.
         /// </summary>
-        private static string ExternalCheckUrl = $"http://{Constans.ServerIP}:9024/conncheck/check";
+        private static string ExternalCheckUrl = $"http://{Constans.Server}:9024/conncheck/check";
 
         public static NatTestResult Result { get; set; }
+        public static bool CanRun { get; set; } = false;
+        public static Mapping CurrentMapping { get; set; }
 
         /// <summary>
         /// Runs the NAT detection test, including UPnP port mapping and STUN tests, and updates the NatTestResult with the results.
@@ -93,29 +96,28 @@ namespace ProjectParadise2.Core
         /// <returns></returns>
         public static async Task RunTest()
         {
-            Result = new NatTestResult();
-            using var listenerCts = new CancellationTokenSource();
-            _ = StartEchoListener(TestPort, listenerCts.Token);
-            //Only used by Testing..
-            //Result.BeforeUpnp = await Detect(TestPort);
+            NatDevice? device = null;
             bool upnpSuccess = false;
             int mappedPort = 0;
             string statusMessage = "Not checked";
             Forwarding type = Forwarding.None;
-
-            if (!CommandLineArg.SkipUpnp || !Database.Database.p2Database.Usersettings.UpnpWorker.Equals(false))
+            Result = new NatTestResult();
+            if (Database.Database.p2Database.Usersettings.UpnpWorker.Equals(true))
             {
                 try
                 {
                     var discoverer = new NatDiscoverer();
                     using var cts = new CancellationTokenSource(5000);
-                    var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
+                    device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
                     type = Forwarding.Upnp;
-                    await device.CreatePortMapAsync(new Mapping(Protocol.Udp, TestPort, TestPort, "TDU2"));
+                    ///Mapping now for 24hours.. 
+                    CurrentMapping = new Mapping(Protocol.Udp, TestPort, TestPort, 86400000, "TDU2");
+                    await device.CreatePortMapAsync(CurrentMapping);
+
                     upnpSuccess = true;
                     mappedPort = TestPort;
                     statusMessage = $"Port {TestPort} successfully mapped via UPnP";
-                    Console.WriteLine(statusMessage);
+                    Log.Info(statusMessage);
                 }
                 catch
                 {
@@ -123,13 +125,13 @@ namespace ProjectParadise2.Core
                     {
                         var discoverer = new NatDiscoverer();
                         using var cts = new CancellationTokenSource(5000);
-                        var device = await discoverer.DiscoverDeviceAsync(PortMapper.Pmp, cts);
-                        await device.CreatePortMapAsync(new Mapping(Protocol.Udp, TestPort, TestPort, "TDU2"));
+                        device = await discoverer.DiscoverDeviceAsync(PortMapper.Pmp, cts);
+                        await device.CreatePortMapAsync(CurrentMapping);
                         type = Forwarding.Natpmp;
                         upnpSuccess = true;
                         mappedPort = TestPort;
                         statusMessage = $"Port {TestPort} successfully mapped via NAT-PMP";
-                        Console.WriteLine(statusMessage);
+                        Log.Info(statusMessage);
                     }
                     catch (Exception exPmp)
                     {
@@ -137,7 +139,7 @@ namespace ProjectParadise2.Core
                         upnpSuccess = false;
                         mappedPort = 0;
                         statusMessage = "Port mapping failed (UPnP + NAT-PMP)\nDevice does not support it or access was denied";
-                        Log.Log.Error(statusMessage + " : " + exPmp.Message);
+                        Log.Error(statusMessage + " : " + exPmp.Message);
                     }
                 }
             }
@@ -145,17 +147,43 @@ namespace ProjectParadise2.Core
             {
                 statusMessage = "UPnP/NAT-PMP skipped by user";
             }
+
             Result.ForwardingType = type;
             Result.UpnpAvailable = upnpSuccess;
             Result.UpnpPort = mappedPort;
             Result.UpnpStatus = statusMessage;
             Result.AfterUpnp = await Detect(TestPort);
+            StartEchoListener(TestPort);
             Result.AfterUpnp.ExternalReachable = await CheckExternalReachability(Result.AfterUpnp.PublicIp, Result.AfterUpnp.Port);
-            listenerCts.Cancel();
-
+            CanRun = true;
             if (CommandLineArg.AutoRun)
                 BackgroundWorker.RunGame();
         }
+
+        public static async Task RemoveUpnp()
+        {
+            try
+            {
+                var discoverer = new NatDiscoverer();
+                using var cts = new CancellationTokenSource(5000);
+                var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
+
+                try
+                {
+                    await device.DeletePortMapAsync(CurrentMapping);
+                    Log.Info($"Port {CurrentMapping.PrivatePort} unmapped successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("Error while cleaning up port mapping: " + ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error while finding UPnP device: " + ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// Performs a STUN test to detect the NAT type and public IP address.
@@ -204,7 +232,7 @@ namespace ProjectParadise2.Core
                     return result;
                 }
 
-                Log.Log.Info($"Public IP from STUN: {stunIp}, Public IP from ipify: {publicIp}, NAT Type: {natResult.NATType}, Has IPv6: {IsPrivate(publicIp)} Has CGNat: {IsCgnat(publicIp)} IP: {stunIp}");
+                Log.Info($"Public IP from STUN: {stunIp}, Public IP from ipify: {publicIp}, NAT Type: {natResult.NATType}, Has IPv6: {IsPrivate(publicIp)} Has CGNat: {IsCgnat(publicIp)}");
 
                 switch (natResult.NATType)
                 {
@@ -258,72 +286,105 @@ namespace ProjectParadise2.Core
         /// <param name="port"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        private static async Task StartEchoListener(int port, CancellationToken token)
+        private static async Task StartEchoListener(int port)
         {
             using var udp = new UdpClient(port);
+            string Statemsg = "No response from the server. Your connection may be blocked.";
+            Log.Info($"NAT test listener started on port {port}.");
 
-            Log.Log.Info($"NAT test listener started on port {port}.");
-            while (!token.IsCancellationRequested)
+            bool running = true;
+            while (running)
             {
                 try
                 {
-                    var result = await udp.ReceiveAsync();
-                    if (token.IsCancellationRequested) break;
+                    // Warte entweder auf ein Paket oder Timeout nach 8 Sekunden
+                    var receiveTask = udp.ReceiveAsync();
+                    var completed = await Task.WhenAny(receiveTask, Task.Delay(8000));
+
+                    if (completed != receiveTask)
+                    {
+                        // Timeout erreicht
+                        Log.Info("NAT test listener timed out after 8 seconds.");
+                        break;
+                    }
+
+                    var result = receiveTask.Result;
                     string msg = Encoding.UTF8.GetString(result.Buffer);
+
                     if (msg == "NAT_TEST")
                     {
+                        Statemsg = $"NAT test packet received successfully: {msg}";
                         Result.InternalReachable = true;
                         Result.AfterUpnp.InternalReachable = true;
                         BackgroundWorker.MyNatType = "FullCone";
                         Regestry.UpdateKey("NetworkNatType", "FullCone", Database.Database.p2Database.Usersettings.IsSteambuild);
-                        Log.Log.Info($"Received NAT test packet from Server: {msg}");
                     }
                     else
                     {
+                        Statemsg = $"Unexpected response from server: {msg}";
                         Result.AfterUpnp.Status = NATStatus.Blocked;
                         Regestry.UpdateKey("NetworkNatType", "Strict:Blocked", Database.Database.p2Database.Usersettings.IsSteambuild);
-                        Log.Log.Warning($"Unexpected packet received from Server: {msg}");
                     }
 
+                    // Echo zurücksenden
                     byte[] echo = Encoding.UTF8.GetBytes("ECHO:" + msg);
                     await udp.SendAsync(echo, echo.Length, result.RemoteEndPoint);
-                    Log.Log.Debug($"Nat reply sent to Server: ECHO:{msg}");
-                }
-                catch (OperationCanceledException)
-                {
-                    Log.Log.Info("NAT test listener was canceled.");
+                    Statemsg += $", sent confirmation back to server (ECHO:{msg})";
+
+                    // Ein Durchlauf reicht → danach stoppen
+                    running = false;
                 }
                 catch (Exception ex)
                 {
-                    Log.Log.Error($"NAT test listener error: {ex.Message}");
+                    Log.Error($"Error in NAT test listener: {ex.Message}");
+                    running = false;
                 }
             }
+
+            HomeView.Instance?.ShowRunGameButton();
+            Log.Info(Statemsg);
         }
 
+
         /// <summary>
-        /// Check CGNat
+        /// Check if IPv4 address is in CGNAT range (100.64.0.0/10).
         /// </summary>
-        /// <param name="ip"></param>
-        /// <returns></returns>
-        private static bool IsCgnat(IPAddress ip)
+        public static bool IsCgnat(IPAddress ip)
         {
-            if (ip.AddressFamily != AddressFamily.InterNetwork) return false;
+            if (ip.AddressFamily != AddressFamily.InterNetwork)
+                return false;
+
             var b = ip.GetAddressBytes();
             return b[0] == 100 && b[1] >= 64 && b[1] <= 127;
         }
 
         /// <summary>
-        /// Check Private IP
+        /// Check if IP address is private (IPv4 RFC1918, IPv6 ULA/LinkLocal/Loopback).
         /// </summary>
-        /// <param name="ip"></param>
-        /// <returns></returns>
-        private static bool IsPrivate(IPAddress ip)
+        public static bool IsPrivate(IPAddress ip)
         {
-            if (ip.AddressFamily != AddressFamily.InterNetwork) return false;
-            var b = ip.GetAddressBytes();
-            return b[0] == 10 ||
-                   (b[0] == 172 && b[1] >= 16 && b[1] <= 31) ||
-                   (b[0] == 192 && b[1] == 168);
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                var b = ip.GetAddressBytes();
+                return b[0] == 10 ||
+                       (b[0] == 172 && b[1] >= 16 && b[1] <= 31) ||
+                       (b[0] == 192 && b[1] == 168);
+            }
+            else if (ip.AddressFamily == AddressFamily.InterNetworkV6)
+            {
+                var b = ip.GetAddressBytes();
+
+                // Unique Local Address (fc00::/7 → fc00::/8 und fd00::/8)
+                if ((b[0] & 0xFE) == 0xFC) return true;
+
+                // Link-Local (fe80::/10)
+                if (b[0] == 0xFE && (b[1] & 0xC0) == 0x80) return true;
+
+                // Loopback (::1)
+                if (ip.Equals(IPAddress.IPv6Loopback)) return true;
+            }
+
+            return false;
         }
     }
 }

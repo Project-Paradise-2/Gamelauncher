@@ -1,11 +1,12 @@
-﻿using ProjectParadise2.Core.JsonClasses;
+﻿using ProjectParadise2.Core.Log;
+using ProjectParadise2.JsonClasses;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace ProjectParadise2.Core
+namespace ProjectParadise2
 {
     /// <summary>
     /// EventArgs class that represents the progress and status of an operation during the mod installation process.
@@ -116,7 +117,7 @@ namespace ProjectParadise2.Core
                 Directory.CreateDirectory(Constans.DokumentsFolder + "Modloader/");
             }
 
-            Log.Log.PrintMod("[MOD] Start Installing from Mod", Installing.Modname);
+            Log.PrintMod("[MOD] Start Installing from Mod", Installing.Modname);
 
             // Start the stopwatch to measure the installation time
             IsRunning = true;
@@ -130,7 +131,7 @@ namespace ProjectParadise2.Core
                 if (!Directory.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/" + item))
                 {
                     Directory.CreateDirectory(Database.Database.p2Database.Usersettings.Gamedirectory + item);
-                    Log.Log.PrintMod("[MOD] Create Directory: " + Database.Database.p2Database.Usersettings.Gamedirectory + item, Installing.Modname);
+                    Log.PrintMod("[MOD] Create Directory: " + Database.Database.p2Database.Usersettings.Gamedirectory + item, Installing.Modname);
                     SendMessage("Create missing path: " + item);
                 }
             }
@@ -141,7 +142,7 @@ namespace ProjectParadise2.Core
                 if (!File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + item.FilePath))
                 {
                     FileLoader.AddFile(item.FileName, Installing.ModCreator + "/" + Installing.ProjectName + item.FilePath, item.FilePath);
-                    Log.Log.PrintMod("[MOD] Add File to Download: " + item.FileName, Installing.Modname);
+                    Log.PrintMod("[MOD] Add File to Download: " + item.FileName, Installing.Modname);
                     FileLoader.NeedUpdate = true;
                     SendMessage(string.Format("Add file to reload: {0}", item.FileName));
                 }
@@ -169,7 +170,7 @@ namespace ProjectParadise2.Core
                             FileLoader.AddFile(remote.FileName, Installing.ModCreator + "/" + Installing.ProjectName + remote.FilePath, remote.FilePath);
                             SendMessage(string.Format("File changed: {0} reload needed", remote.FileName));
                             FileLoader.NeedUpdate = true;
-                            Log.Log.PrintMod("[MOD] File is Changed, Add to Redownload: " + remote.FileName, Installing.Modname);
+                            Log.PrintMod("[MOD] File is Changed, Add to Redownload: " + remote.FileName, Installing.Modname);
                         }
                         else
                         {
@@ -177,13 +178,13 @@ namespace ProjectParadise2.Core
                             if (info.Length == remote.FileSize)
                             {
                                 SendMessage(string.Format("Files are ok: {0} no reload needed", remote.FileName));
-                                Log.Log.PrintMod("[MOD] File is not Changed: " + remote.FileName, Installing.Modname);
+                                Log.PrintMod("[MOD] File is not Changed: " + remote.FileName, Installing.Modname);
                             }
                             else
                             {
                                 FileLoader.AddFile(remote.FileName, Installing.ModCreator + "/" + Installing.ProjectName + remote.FilePath, remote.FilePath);
                                 SendMessage(string.Format("File size difference: {0} reload needed", remote.FileName));
-                                Log.Log.PrintMod("[MOD] File has Different Size: " + remote.FileName, Installing.Modname);
+                                Log.PrintMod("[MOD] File has Different Size: " + remote.FileName, Installing.Modname);
                                 FileLoader.NeedUpdate = true;
                             }
                         }

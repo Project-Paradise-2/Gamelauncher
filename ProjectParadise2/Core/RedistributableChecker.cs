@@ -1,8 +1,9 @@
 ﻿using Microsoft.Win32;
+using ProjectParadise2.Core.Log;
 using System;
 using System.Collections.Generic;
 
-namespace ProjectParadise2.Core
+namespace ProjectParadise2
 {
     /// <summary>
     /// Microsoft Visual C++ Redistributable Package Versions
@@ -211,7 +212,7 @@ namespace ProjectParadise2.Core
             }
             catch (Exception ex)
             {
-                Log.Log.Error("Failed to detect redistributable package " + redistributableVersion.ToString(), ex);
+                Log.Error("Failed to detect redistributable package " + redistributableVersion.ToString(), ex);
                 return false;
             }
         }

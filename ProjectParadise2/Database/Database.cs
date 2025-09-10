@@ -143,7 +143,7 @@ namespace ProjectParadise2.Database
         /// <param name="ModType">The type of the mod (e.g., packed or not).</param>
         /// <param name="Files">A list of files associated with the mod.</param>
         /// <param name="ProjectName">The project name associated with the mod.</param>
-        public static void AddMod(int ModId, string Name, string Version, int ModType, List<ProjectParadise2.Core.JsonClasses.FileInfo> Files, string ProjectName)
+        public static void AddMod(int ModId, string Name, string Version, int ModType, List<ProjectParadise2.JsonClasses.FileInfo> Files, string ProjectName)
         {
             bool packed = false;
 
