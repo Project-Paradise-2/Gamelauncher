@@ -55,11 +55,11 @@ This project uses the following NuGet packages:
 - **[HardwareInformation 5.0.2](https://github.com/L3tum/HardwareInformation)**  
   .NET 5 Cross-Platform Hardware Information Gatherer.
 
-- **[Open.NAT 2.1.0]([https://github.com/L3tum/HardwareInformation](https://github.com/lontivero/Open.NAT))**  
+- **[Open.NAT 2.1.0](https://github.com/lontivero/Open.NAT)**  
   A lightweight and easy-to-use class library to allow port forwarding in NAT devices
 
 
-- **[STUN 0.5.0]([https://github.com/L3tum/HardwareInformation](https://github.com/lontivero/Open.NAT))**  
+- **[STUN 0.5.0](https://github.com/lontivero/Open.NAT)**  
   A tiny Session Traversal Utilities for NAT (STUN) client library based on deprecated RFC3489.
   
 ---
