@@ -62,7 +62,7 @@ namespace ProjectParadise2.Views
                     {
                         NavigateUri = new Uri(link[i].Replace(" ", ""))
                     };
-                    hlink.Inlines.Add("See More..");
+                    hlink.Inlines.Add(link[i].Replace("https://", ""));
                     hlink.RequestNavigate += OpenBrowser;
                     ModViewModel.Mods[ModId].Moddescription = ModViewModel.Mods[ModId].Moddescription.Replace(link[i], "");
                 }
@@ -94,7 +94,7 @@ namespace ProjectParadise2.Views
             Call a = (Call)e;
             if (a.Finished)
             {
-                Installing.Text = "Installation of mod" + ": " + Modloader.Installing.Modname + " finished.";
+                Installing.Text = string.Format(Lang.GetText(129), Modloader.Installing.Modname);
                 TotalProgress.Value = 100;
                 Status.Visibility = Visibility.Hidden;
                 TotalProgress.Visibility = Visibility.Hidden;
@@ -105,10 +105,10 @@ namespace ProjectParadise2.Views
                 ProgressText.Visibility = Visibility.Visible;
                 Status.Visibility = Visibility.Visible;
                 TotalProgress.Visibility = Visibility.Visible;
-                Installing.Text = "Installing mod" + ": " + Modloader.Installing.Modname + $" File {FileLoader.HasFiles + 1} of {FileLoader.NeedFiles}";
+                Installing.Text = string.Format(Lang.GetText(130), Modloader.Installing.Modname, FileLoader.HasFiles + 1, FileLoader.NeedFiles);
                 if (!a.Speed.Contains("-"))
                 {
-                    Status.Text = a.Message + " at ↓" + a.Speed;
+                    Status.Text = a.Message + " at ↓ " + a.Speed;
                 }
                 else
                 {
@@ -166,7 +166,7 @@ namespace ProjectParadise2.Views
         {
             if (Modloader.IsRunning)
             {
-                Installing.Text = "Start mod download";
+                Installing.Text = Lang.GetText(128);
                 InstallingPanel.IsEnabled = true;
                 InstallingPanel.Visibility = Utils.GetVisibility(InstallingPanel.IsEnabled);
             }
@@ -201,11 +201,11 @@ namespace ProjectParadise2.Views
             }
 
             Modloader.Installing = ModViewModel.Mods[ModId];
-            Installing.Text = "Start mod download";
+            Installing.Text = Lang.GetText(128);
             InstallingPanel.IsEnabled = true;
             InstallingPanel.Visibility = Utils.GetVisibility(InstallingPanel.IsEnabled);
 
-            Database.Database.AddMod(ModId, ModViewModel.Mods[ModId].Modname, ModViewModel.Mods[ModId].Modversion, ModViewModel.Mods[ModId].Modtype, ModViewModel.Mods[ModId].File, ModViewModel.Mods[ModId].ProjectName);
+            BackgroundWorker.CurrentProfile().AddMod(ModId, ModViewModel.Mods[ModId].Modname, ModViewModel.Mods[ModId].Modversion, ModViewModel.Mods[ModId].Modtype, ModViewModel.Mods[ModId].File, ModViewModel.Mods[ModId].ProjectName);
             var task2 = Task.Run(() => Modloader.CheckDirs()).ContinueWith((t) =>
             {
                 if (t.IsFaulted)
@@ -230,32 +230,32 @@ namespace ProjectParadise2.Views
                 Dispatcher.Invoke(new Action<object, EventArgs>(SetLang), sender, e);
                 return;
             }
-            BackBtn.Content = Lang.GetText(9);
-            Creator.Text = Lang.GetText(10);
-            Description.Text = Lang.GetText(11);
-            Version.Text = Lang.GetText(14);
-            Changedfiles.Text = Lang.GetText(15);
-            Downloadsize.Text = Lang.GetText(16);
-            Installsize.Text = Lang.GetText(17);
-            Updates.Text = Lang.GetText(12);
-            Downloads.Text = Lang.GetText(13);
-            InstallUpdate.Content = Lang.GetText(19);
-            ModName.Text = Lang.GetText(39);
+            BackBtn.Content = Lang.GetText(117);
+            Creator.Text = Lang.GetText(118);
+            Description.Text = Lang.GetText(119);
+            Version.Text = Lang.GetText(120);
+            Changedfiles.Text = Lang.GetText(121);
+            Downloadsize.Text = Lang.GetText(122);
+            Installsize.Text = Lang.GetText(123);
+            Updates.Text = Lang.GetText(124);
+            Downloads.Text = Lang.GetText(125);
+            InstallUpdate.Content = Lang.GetText(126);
+            ModName.Text = Lang.GetText(127);
         }
 
         private void SetLang()
         {
-            BackBtn.Content = Lang.GetText(9);
-            Creator.Text = Lang.GetText(10);
-            Description.Text = Lang.GetText(11);
-            Version.Text = Lang.GetText(14);
-            Changedfiles.Text = Lang.GetText(15);
-            Downloadsize.Text = Lang.GetText(16);
-            Installsize.Text = Lang.GetText(17);
-            Updates.Text = Lang.GetText(12);
-            Downloads.Text = Lang.GetText(13);
-            InstallUpdate.Content = Lang.GetText(19);
-            ModName.Text = Lang.GetText(39);
+            BackBtn.Content = Lang.GetText(117);
+            Creator.Text = Lang.GetText(118);
+            Description.Text = Lang.GetText(119);
+            Version.Text = Lang.GetText(120);
+            Changedfiles.Text = Lang.GetText(121);
+            Downloadsize.Text = Lang.GetText(122);
+            Installsize.Text = Lang.GetText(123);
+            Updates.Text = Lang.GetText(124);
+            Downloads.Text = Lang.GetText(125);
+            InstallUpdate.Content = Lang.GetText(126);
+            ModName.Text = Lang.GetText(127);
         }
     }
 }

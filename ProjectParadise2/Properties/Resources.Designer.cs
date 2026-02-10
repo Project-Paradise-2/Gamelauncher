@@ -103,6 +103,46 @@ namespace ProjectParadise2.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
         /// </summary>
+        internal static byte[] pp2_es {
+            get {
+                object obj = ResourceManager.GetObject("pp2-es", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] pp2_fr {
+            get {
+                object obj = ResourceManager.GetObject("pp2-fr", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] pp2_pg {
+            get {
+                object obj = ResourceManager.GetObject("pp2-pg", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] pp2_pl {
+            get {
+                object obj = ResourceManager.GetObject("pp2-pl", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
         internal static byte[] pp2_ru {
             get {
                 object obj = ResourceManager.GetObject("pp2-ru", resourceCulture);

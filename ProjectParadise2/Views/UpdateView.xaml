@@ -6,28 +6,28 @@
              xmlns:local="clr-namespace:ProjectParadise2.Views"
              xmlns:objs="clr-namespace:ProjectParadise2.Objects"
              mc:Ignorable="d"
-             d:DesignHeight="650" d:DesignWidth="1000">
-    <Border Margin="5,10,0,0" BorderThickness="0.8" CornerRadius="20" Background="#20232B">
+             d:DesignHeight="720" d:DesignWidth="1020">
+    <Border BorderThickness="0.8" CornerRadius="15" Background="#20232B" BorderBrush="#393E46" Margin="20,20,20,20">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="10" />
-                <RowDefinition Height="550"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="0" />
+                <RowDefinition Height="594"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="1000"/>
+                <ColumnDefinition Width="940"/>
                 <ColumnDefinition Width="20"/>
             </Grid.ColumnDefinitions>
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" Background="#1A1A1A" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Width="1000" Height="550" VerticalAlignment="Top" HorizontalAlignment="Left" Name="ScrollView">
-                <TextBlock TextWrapping="Wrap" Text="" Foreground="#C9A227" Margin="5" Name="ConsoleTextbox" FontSize="14" MaxWidth="2500" FontFamily="/Fonts/#Protofo"/>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" Background="#1A1A1A" Grid.Row="1" Grid.Column="1" Width="1000" Height="550" VerticalAlignment="Center" HorizontalAlignment="Center" Name="ScrollView">
+                <TextBlock TextWrapping="Wrap" Text="" Foreground="#C9A227" Margin="20,0,0,0" Name="ConsoleTextbox" FontSize="14" MaxWidth="1500" FontFamily="/Fonts/#Protofo" Width="925"/>
             </ScrollViewer>
             <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
-                <ProgressBar Width="1000" Height="20" VerticalAlignment="Center" Margin="-20,0,0,0" Background="Transparent" Foreground="#3BB273" Name="TotalProgress" Minimum="0" Maximum="100" Value="100" BorderBrush="Transparent"/>
+                <ProgressBar Width="940" Height="20" VerticalAlignment="Center" Margin="-20,0,0,0" Background="Transparent" Foreground="#3BB273" Name="TotalProgress" Minimum="0" Maximum="100" Value="100" BorderBrush="Transparent"/>
                 <TextBlock Text="{Binding ElementName=TotalProgress, Path=Value, StringFormat={}{0:0}% }" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,-21,10,0" Foreground="#B8B8B8" FontSize="15" FontFamily="/Fonts/#Protofo"/>
-                <ProgressBar Width="1000" Height="20" VerticalAlignment="Center" Margin="-20,-0,0,0" Background="Transparent" Foreground="#1D7DB6" Name="DownloadProgress" Minimum="0" Maximum="100" Value="100" BorderBrush="Transparent"/>
+                <ProgressBar Width="940" Height="20" VerticalAlignment="Center" Margin="-20,-0,0,0" Background="Transparent" Foreground="#1D7DB6" Name="DownloadProgress" Minimum="0" Maximum="100" Value="100" BorderBrush="Transparent"/>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,-21,10,0" Foreground="#B8B8B8" FontSize="15" Name="DownloadProgressText" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock HorizontalAlignment="Left" Text="Status:" Foreground="Wheat" Name="StatusText" Margin="0,5,0,0" Width="746" FontSize="12" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock HorizontalAlignment="Left" Text="Status:" Foreground="Wheat" Name="StatusText" Margin="0,5,0,0" Width="989" FontSize="12" FontFamily="/Fonts/#Protofo" Height="29" />
             </StackPanel>
         </Grid>
     </Border>

@@ -47,8 +47,8 @@ namespace ProjectParadise2.Gameupdate
 
             if (NeedFiles > 70)
             {
-                UpdateView.Instance.PrintMessage(Lang.GetText(59), 4);
-                UpdateView.Instance.Updatestatus(Lang.GetText(60));
+                UpdateView.Instance.PrintMessage(Lang.GetText(96), 4);
+                UpdateView.Instance.Updatestatus(Lang.GetText(97));
                 NeedUpdate = false;
                 UpdateFile.Clear();
                 Log.Error("Stop Gameupdate, To many Missing File. Looks to an not Correct installed Game.. Sorry Mate cant share the Game");
@@ -64,19 +64,25 @@ namespace ProjectParadise2.Gameupdate
                 {
                     Thread.Sleep(2);
                     Directory.CreateDirectory(Database.Database.p2Database.Usersettings.Gamedirectory + "/" + Filecheck.Live.Directorys[i]);
-                    UpdateView.Instance.PrintMessage(Lang.GetText(61) + Filecheck.Live.Directorys[i], 1);
+                    UpdateView.Instance.PrintMessage(Lang.GetText(98) + Filecheck.Live.Directorys[i], 1);
                 }
             }
             // Update den Status und die ProgressBar für die Verifikation
-            UpdateView.Instance.Updatestatus(Lang.GetText(62));
+            UpdateView.Instance.Updatestatus(Lang.GetText(99));
             // Hier wird die Fortschrittsanzeige für die Verifizierung korrekt gesetzt.
-            UpdateView.Instance.UpdateProgress(0, NeedFiles, Lang.GetText(63));
+            UpdateView.Instance.UpdateProgress(0, NeedFiles, Lang.GetText(100));
             // Wenn neue Dateien heruntergeladen werden müssen, starte den Downloadprozess
             if (NeedUpdate.Equals(true))
             {
                 UpdateView.Instance.WriteCurrentDownload(0, 0, "", "", "");
-                UpdateView.Instance.UpdateProgress(0, 0, Lang.GetText(64));
+                UpdateView.Instance.UpdateProgress(0, 0, Lang.GetText(101));
                 GetFiles();
+            }
+            if (NeedFiles == 0)
+            {
+                stopWatch.Stop();
+                UpdateView.Instance.WriteCurrentDownload(100, 100, Lang.GetText(108), "", "");
+                UpdateView.Instance.HideStatus(0);
             }
         }
 
@@ -92,7 +98,7 @@ namespace ProjectParadise2.Gameupdate
                     // Berechnung des Gesamtfortschritts basierend auf der Anzahl der heruntergeladenen Dateien
                     int percentage = (int)((double)(HasFiles + 1) / NeedFiles * 100);
                     // Update der Gesamtfortschrittsanzeige
-                    UpdateView.Instance.UpdateProgress(NeedFiles, HasFiles + 1, string.Format(Lang.GetText(65), UpdateName[HasFiles], percentage));
+                    UpdateView.Instance.UpdateProgress(NeedFiles, HasFiles + 1, string.Format(Lang.GetText(102), UpdateName[HasFiles], percentage));
                     WebClient client = new WebClient();
                     Thread.Sleep(25);  // Kurze Pause zur Verbesserung der Performance
                     Uri uri = new Uri(Constans.Cdn + "/update/" + InstallDir[HasFiles]);
@@ -123,9 +129,9 @@ namespace ProjectParadise2.Gameupdate
                 }
 
                 formattedTime += string.Format("{0:D2}s.{1:D3}ms", elapsed.Seconds, elapsed.Milliseconds);
-                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(66), formattedTime), 5);
-                UpdateView.Instance.UpdateProgress(100, 100, Lang.GetText(67));
-                UpdateView.Instance.WriteCurrentDownload(100, 100, "Update Complete", "", "");
+                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(103), formattedTime), 5);
+                UpdateView.Instance.UpdateProgress(100, 100, Lang.GetText(104));
+                UpdateView.Instance.WriteCurrentDownload(100, 100, Lang.GetText(108), "", "");
                 UpdateView.Instance.HideStatus(0);
                 // Aktualisiere die Versionsnummer, wenn nötig
                 if (!string.IsNullOrEmpty(Database.Database.p2Database.Usersettings.ExePath))
@@ -146,7 +152,7 @@ namespace ProjectParadise2.Gameupdate
         {
             try
             {
-                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(69), UpdateName[HasFiles], InstallDir[HasFiles]), 1);
+                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(107), UpdateName[HasFiles], InstallDir[HasFiles]), 1);
                 Thread.Sleep(10);
                 using (ZipArchive archive = ZipFile.OpenRead(Database.Database.p2Database.Usersettings.Gamedirectory + "/" + InstallDir[HasFiles] + ".zip"))
                 {
@@ -158,12 +164,12 @@ namespace ProjectParadise2.Gameupdate
                 Thread.Sleep(10);
                 File.Delete((Database.Database.p2Database.Usersettings.Gamedirectory + "/" + InstallDir[HasFiles]) + ".zip");
                 // Update mit Nachricht
-                UpdateView.Instance.PrintMessage(Lang.GetText(70) + InstallDir[HasFiles], 1);
+                UpdateView.Instance.PrintMessage(Lang.GetText(105) + InstallDir[HasFiles], 1);
             }
             catch (Exception ex)
             {
                 Log.Error("Failed to install File: " + InstallDir[HasFiles] + " : " + ex.Message, ex);
-                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(71), InstallDir[HasFiles], ex.Message), 0);
+                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(106), InstallDir[HasFiles], ex.Message), 0);
             }
         }
 
@@ -172,21 +178,28 @@ namespace ProjectParadise2.Gameupdate
         /// </summary>
         private static void DownloadProgressCallback(object sender, DownloadProgressChangedEventArgs e)
         {
-            UpdateView.Instance.HideStatus(1);
-            DateTime now = DateTime.Now;
-            // Berechnung des Fortschritts für den aktuellen Dateidownload (in Prozent)
-            int downloadProgress = (int)((double)e.BytesReceived / e.TotalBytesToReceive * 100);
-            if ((now - LastUpdatedState).TotalMilliseconds >= 1000)  // Update nur jede Sekunde
+            try
             {
-                double elapsedSeconds = (now - LastUpdatedState).TotalSeconds;
-                long bytesPerSecond = (long)((e.BytesReceived - lastTotalBytesReceived) / elapsedSeconds);
-                // Update der Download-Ansicht mit Fortschritt der aktuellen Datei
-                UpdateView.Instance.WriteCurrentDownload(downloadProgress, 100, string.Format(Lang.GetText(65), UpdateName[HasFiles], downloadProgress),
-                                                          FormatBytes(e.BytesReceived) + " / " + FormatBytes(e.TotalBytesToReceive),
-                                                          FormatBytes(bytesPerSecond) + "/s");
+                UpdateView.Instance.HideStatus(1);
+                DateTime now = DateTime.Now;
+                // Berechnung des Fortschritts für den aktuellen Dateidownload (in Prozent)
+                int downloadProgress = (int)((double)e.BytesReceived / e.TotalBytesToReceive * 100);
+                if ((now - LastUpdatedState).TotalMilliseconds >= 1000)  // Update nur jede Sekunde
+                {
+                    double elapsedSeconds = (now - LastUpdatedState).TotalSeconds;
+                    long bytesPerSecond = (long)((e.BytesReceived - lastTotalBytesReceived) / elapsedSeconds);
+                    // Update der Download-Ansicht mit Fortschritt der aktuellen Datei
+                    UpdateView.Instance.WriteCurrentDownload(downloadProgress, 100, string.Format(Lang.GetText(102), UpdateName[HasFiles], downloadProgress),
+                                                              FormatBytes(e.BytesReceived) + " / " + FormatBytes(e.TotalBytesToReceive),
+                                                              FormatBytes(bytesPerSecond) + "/s");
 
-                lastTotalBytesReceived = e.BytesReceived;
-                LastUpdatedState = now;
+                    lastTotalBytesReceived = e.BytesReceived;
+                    LastUpdatedState = now;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Failed to update Download Progress: " + InstallDir[HasFiles] + " : " + ex.Message, ex);
             }
         }
 

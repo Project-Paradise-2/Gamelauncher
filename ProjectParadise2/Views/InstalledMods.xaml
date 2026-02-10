@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:ProjectParadise2.Views"
              xmlns:objs="clr-namespace:ProjectParadise2.Objects"
              mc:Ignorable="d"
-             d:DesignHeight="650" d:DesignWidth="1000">
+             d:DesignHeight="720" d:DesignWidth="1020">
+    <Border BorderThickness="0.8" CornerRadius="15" Background="#20232B" BorderBrush="#393E46" Margin="20,20,20,20">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="152*"/>
@@ -60,5 +61,9 @@
         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="-90,-5,0,0" Content="" Height="30" Width="80" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="LongArrowLeft" IconDirection="Center" IconMargin="-10,0,0,0" IconColor="#EEEEEE" Grid.Column="0" Grid.Row="9" Click="PageLast" x:Name="LastPageBTN"/>
         <TextBlock Text=" -1/10- " FontSize="20" Foreground="#B4A5A5" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center" Name="PageList" FontFamily="/Fonts/#Protofo" Grid.ColumnSpan="2" Width="81" Margin="-30,0,0,0"/>
         <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="90,-5,0,0" Content="" Height="30" Width="80" TextMargin="35,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="LongArrowRight" IconDirection="Center" IconMargin="10,0,0,0" IconColor="#EEEEEE" Grid.Column="4" Grid.Row="9" Click="PageNext" x:Name="NextPageBTN"/>
-    </Grid>
+        </Grid>
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+        </Border.Effect>
+    </Border>
 </UserControl>

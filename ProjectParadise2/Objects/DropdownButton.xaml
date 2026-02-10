@@ -1,0 +1,83 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Dein GameLauncher Element -->
+    <Style TargetType="ContentControl" x:Key="DropDownButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid>
+                        <Border Background="#20232B"
+                                BorderBrush="#393E46"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Padding="5"
+                                Height="40"
+                                Width="330">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <!-- ComboBox -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- Button -->
+                                </Grid.ColumnDefinitions>
+
+                                <!-- ComboBox im gleichen Style wie DropDown -->
+                                <ComboBox x:Name="GameSelector"
+                                          Grid.Column="0"
+                                        Foreground="#EEEEEE"
+                                          Height="30"
+                                          VerticalAlignment="Center">
+                                    <ComboBoxItem Style="{StaticResource DropDownItem}" Content="Test Drive Unlimited 2"/>
+                                    <ComboBoxItem Style="{StaticResource DropDownItem}" Content="Gran Turismo 5"/>
+                                    <ComboBoxItem Style="{StaticResource DropDownItem}" Content="Midnight Club LA"/>
+                                    <ComboBoxItem Style="{StaticResource DropDownItem}" Content="Need for Speed Hot Pursuit"/>
+                                </ComboBox>
+
+                                <!-- Start Button -->
+                                <Button x:Name="StartButton"
+                                        Grid.Column="1"
+                                        Width="70"
+                                        Height="30"
+                                        Margin="10,0,0,0"
+                                        Background="#393E46"
+                                        Foreground="#EEEEEE"
+                                        BorderBrush="#20232B"
+                                        BorderThickness="1"
+                                        FontWeight="Bold"
+                                        Cursor="Hand"
+                                        Content="Start"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="#A9A9A9"/>
+    </Style>
+
+    <Style TargetType="{x:Type ComboBoxItem}" x:Key="DropDownItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border x:Name="ItemBorder"
+                            Background="#20232B"
+                            Padding="5">
+                        <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!-- Trigger: Wenn ausgewählt -->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="#20232B"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <!-- Keine Hover-Effekte und keine zusätzlichen Triggers -->
+        <Setter Property="Foreground" Value="Transparent"/>
+    </Style>
+
+</ResourceDictionary>

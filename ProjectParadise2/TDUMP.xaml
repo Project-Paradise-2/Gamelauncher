@@ -1,0 +1,64 @@
+﻿<Window x:Class="ProjectParadise2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:local="clr-namespace:ProjectParadise2"
+        xmlns:langs="clr-namespace:ProjectParadise2.Properties"
+        xmlns:objs="clr-namespace:ProjectParadise2.Objects"
+        xmlns:viewModel="clr-namespace:ProjectParadise2.Views"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1280"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown"
+        MouseMove="Window_MouseMove"
+        MouseUp="Window_MouseUp"
+        Background="Transparent">
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    <Border Background="#20232B" CornerRadius="15" BorderThickness="1" BorderBrush="#393E46"  UseLayoutRounding="True">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="232"/>
+                <ColumnDefinition Width="1035"/>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="- Project Paradise 2 -" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Black" FontSize="30" Height="60" Grid.Column="1" Width="350" Margin="288,0,0,0" FontFamily="/Fonts/#Angelos-Personal use" Name="PP2A"/>
+            <TextBlock Text="- Project Paradise 2 -" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#F1F1F1" FontSize="30" Height="60" Grid.Column="1" Width="350" Margin="286,0,0,0" FontFamily="/Fonts/#Angelos-Personal use" Grid.RowSpan="2" Name="PP2B"/>
+            <fa:ImageAwesome Icon="Empire" Spin="True" SpinDuration="1.2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Height="30" Width="30" x:Name="Working" Foreground="#b4a5a5" Margin="-40,-8,2,0"/>
+            <!-- Discord Gimmick -->
+            <Image Source="/Images/PP2Logo.png" Margin="22,10,165,0" Stretch="UniformToFill" Name="UserAvatar">
+                <Image.OpacityMask>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.6" RadiusY="0.6">
+                        <GradientStop Color="#ffffffff" Offset="0.3" />
+                        <GradientStop Color="#00ffffff" Offset="0.8" />
+                    </RadialGradientBrush>
+                </Image.OpacityMask>
+            </Image>
+            <TextBlock Text="Hello" FontSize="14" Foreground="#B4A5A5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Name="Playername" FontFamily="/Fonts/#Protofo" Margin="68,23,0,0" Height="19" Width="338" Grid.ColumnSpan="2"/>
+            <!-- Launcher Main Buttons -->
+            <StackPanel Grid.Row="1" Margin="0,65,0,0" Grid.RowSpan="2">
+                <Image Source="/Images/PP2Logo.png" Margin="0,-60,0,0" Stretch="UniformToFill" Height="200" Width="200"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,50,0,0" Content="HOME" x:Name="BTN_Home" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="True" Icon="Home" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding HomeViewCommand}"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="SETTINGS" x:Name="BTN_Settings" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="False" Icon="Gear" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding SettingsViewCommand}"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="PROFILE" x:Name="BTN_Profile" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="False" Icon="Gamepad" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding LauncherProfilesViewCommand}"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="SERVICE" x:Name="BTN_Service" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="False" Icon="Wrench" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding ServiceViewCommand}"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="INFO" x:Name="BTN_Info" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="False" Icon="Bug" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding InfoViewCommand}"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,10,0,0" Content="ABOUT" x:Name="BTN_About" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#F1F1F1" FontSize="12" IsChecked="False" Icon="Info" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#F1F1F1" Command="{Binding AboutViewCommand}"/>
+                <objs:FA_BTN Style="{StaticResource FA_BTN}" Margin="2,125,0,0" Content="EXIT" x:Name="BTN_Close" Height="40" Width="200" TextMargin="35,0,0,0" Foreground="#D94141" FontSize="12" IsChecked="False" Icon="PowerOff" IconDirection="Center" IconMargin="-163,0,0,0" IconColor="#D94141" Click="OnCloseLauncher"/>
+            </StackPanel>
+            <ContentControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Content="{Binding CurrentView}" Height="720" Width="1020"  UseLayoutRounding="True"/>
+            <TextBlock Text="©2022 - 2025 Project-Paradise 2" Foreground="Wheat" FontSize="12" Grid.Row="2" Grid.ColumnSpan="1" Grid.Column="1" Margin="840,510,0,0" Name="CopyRight"/>
+        </Grid>
+    </Border>
+</Window>

@@ -43,7 +43,7 @@ namespace ProjectParadise2.Views
         {
             InitializeComponent();
             BackgroundWorker.OnLangset += SetLang;
-            SetLang();
+            SetLang(null, null);
             SetUserasnonLogged();
             UpdateProgress("", true);
             if (Database.Database.p2Database.Usersettings.BackupType == BackUptype.OnStart)
@@ -65,16 +65,13 @@ namespace ProjectParadise2.Views
         /// </summary>
         void SetupInfos()
         {
-            Thread.Sleep(50);
-
+            Thread.Sleep(1);
             if (!Dispatcher.CheckAccess())
             {
                 Dispatcher.Invoke(new Action(SetupInfos));
                 return;
             }
-
             SetupLocalBackup();
-
 
             if (!string.IsNullOrEmpty(Database.Database.p2Database.Usersettings.Acountname))
             {
@@ -175,21 +172,21 @@ namespace ProjectParadise2.Views
                 {
                     if (string.IsNullOrEmpty(AccountName) && string.IsNullOrEmpty(AccountPassword))
                     {
-                        MessageBox.Show(Lang.GetText(75),
+                        MessageBox.Show(Lang.GetText(47),
                                         "Project Paradise 2 - Cloud Login",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
                     }
                     else if (string.IsNullOrEmpty(AccountName))
                     {
-                        MessageBox.Show(Lang.GetText(76),
+                        MessageBox.Show(Lang.GetText(48),
                                         "Project Paradise 2 - Cloud Login",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
                     }
                     else if (string.IsNullOrEmpty(AccountPassword))
                     {
-                        MessageBox.Show(Lang.GetText(77),
+                        MessageBox.Show(Lang.GetText(49),
                                         "Project Paradise 2 - Cloud Login",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
@@ -206,7 +203,7 @@ namespace ProjectParadise2.Views
 
                 if (status == "fail")
                 {
-                    MessageBox.Show(Lang.GetText(78),
+                    MessageBox.Show(Lang.GetText(50),
                                     "Project Paradise 2 - Cloud Login",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Error);
@@ -232,28 +229,28 @@ namespace ProjectParadise2.Views
             }
             catch (WebException webEx)
             {
-                MessageBox.Show(string.Format(Lang.GetText(79), webEx.Message),
+                MessageBox.Show("Web-error " + webEx.Message,
                                 "Project Paradise 2 - Cloud Login",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Warning);
             }
             catch (UriFormatException uriEx)
             {
-                MessageBox.Show(string.Format(Lang.GetText(80), uriEx.Message),
+                MessageBox.Show("Uri-error " + uriEx.Message,
                                 "Project Paradise 2 - Cloud Login",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
             }
             catch (InvalidOperationException invOpEx)
             {
-                MessageBox.Show(string.Format(Lang.GetText(81), invOpEx.Message),
+                MessageBox.Show("error " + invOpEx.Message,
                                 "Project Paradise 2 - Cloud Login",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format(Lang.GetText(82), ex.Message),
+                MessageBox.Show(string.Format(Lang.GetText(51), ex.Message),
                                 "Project Paradise 2 - Cloud Login",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
@@ -327,48 +324,43 @@ namespace ProjectParadise2.Views
                         DateTime lastModifiedDate = DateTime.Parse(lastModifiedString);
                         string formattedLastModified = lastModifiedDate.ToString("HH:mm dd.MM.yyyy");
                         string remoteName = (string)jsonResponse["name"];
-
-                        string savegameStatus = (bool)jsonResponse["exists"] ? Lang.GetText(83) : Lang.GetText(84);
+                        string savegameStatus = (bool)jsonResponse["exists"] ? Lang.GetText(53) : Lang.GetText(54);
                         string saveSize = FormatFileSize(fileSize);
                         string lastUploaded = formattedLastModified;
                         string remoteSavegameName = remoteName;
-
-                        // Dann den Text wie folgt setzen
-
-                        string data = string.Format(Lang.GetText(85), savegameStatus, saveSize, lastUploaded, remoteSavegameName, DateTime.Now.ToString("HH:mm dd.MM.yyyy"));
-
+                        string data = string.Format(Lang.GetText(52), savegameStatus, saveSize, lastUploaded, remoteSavegameName, DateTime.Now.ToString("HH:mm dd.MM.yyyy"));
                         this.Savegamedata.Text = data;
                     }
                     else
                     {
                         string message = (string)jsonResponse["message"];
-                        this.Savegamedata.Text = Lang.GetText(86);
+                        this.Savegamedata.Text = Lang.GetText(54);
                     }
                 }
                 catch (WebException webEx)
                 {
-                    MessageBox.Show(string.Format(Lang.GetText(79), webEx.Message),
+                    MessageBox.Show("Web-error: " + webEx.Message,
                                         "Project Paradise 2 - Cloud Login",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
                 }
                 catch (UriFormatException uriEx)
                 {
-                    MessageBox.Show(string.Format(Lang.GetText(80), uriEx.Message),
+                    MessageBox.Show("Uri-error: " + uriEx.Message,
                                         "Project Paradise 2 - Cloud Login",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Error);
                 }
                 catch (InvalidOperationException invOpEx)
                 {
-                    MessageBox.Show(string.Format(Lang.GetText(81), invOpEx.Message),
+                    MessageBox.Show("InvalidOpt: " + invOpEx.Message,
                                         "Project Paradise 2 - Cloud Login",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(string.Format(Lang.GetText(82), ex.Message),
+                    MessageBox.Show(string.Format(Lang.GetText(55), ex.Message),
                                         "Project Paradise 2 - Cloud Login",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Error);
@@ -463,7 +455,7 @@ namespace ProjectParadise2.Views
             if (IsLoaded)
             {
                 this.Uploadstate.Visibility = Visibility.Visible;
-                this.Uploadstate.Text = Lang.GetText(87);
+                this.Uploadstate.Text = Lang.GetText(56);
 
                 try
                 {
@@ -491,28 +483,29 @@ namespace ProjectParadise2.Views
                 {
                     Directory.CreateDirectory(backupFolder);
                 }
+
                 if (File.Exists(zipFilePath))
                 {
                     UpdateProgress(Lang.GetText(88));
                     File.Delete(zipFilePath);
                     Log.Info("Clean Up Old Local Savegame");
                 }
+
                 UpdateProgress(Lang.GetText(89));
                 ZipFile.CreateFromDirectory(Constans.SaveFolder, zipFilePath);
                 await Task.Delay(250);
-                UpdateProgress(Lang.GetText(90));
                 Log.Info("Start Upload");
                 await Task.Delay(250);
                 var progressHandler = new Progress<long>(bytesUploaded =>
                 {
                     long totalBytes = new FileInfo(zipFilePath).Length;
                     int progressPercentage = (int)(bytesUploaded * 100 / totalBytes);
-                    UpdateProgress(string.Format(Lang.GetText(91), progressPercentage, FormatFileSize(bytesUploaded)));
+                    UpdateProgress(string.Format(Lang.GetText(57), progressPercentage, FormatFileSize(bytesUploaded)));
                 });
 
                 await UploadFileWithProgressAsync(zipFilePath, $"{Constans.Cdn}/Requests/Fileupload.php?u={Database.Database.p2Database.Usersettings.Acountname}", progressHandler);
 
-                UpdateProgress(Lang.GetText(92), true);
+                UpdateProgress(Lang.GetText(59), true);
                 Log.Info("Upload erfolgreich abgeschlossen");
                 GetSavegameInfos();
 
@@ -528,8 +521,6 @@ namespace ProjectParadise2.Views
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
-                Console.WriteLine(ex.StackTrace);
                 Log.Error($"Error: {ex.Message}\n" + ex?.StackTrace.ToString());
             }
         }
@@ -589,7 +580,7 @@ namespace ProjectParadise2.Views
                 string remoteUri = $"{Constans.Cdn}/Requests/savegames/{Database.Database.p2Database.Usersettings.Acountname}-Upload.zip";
                 string localZipPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"{Database.Database.p2Database.Usersettings.Acountname}-Upload.zip");
 
-                UpdateProgress(Lang.GetText(93));
+                UpdateProgress(Lang.GetText(60));
 
                 using (var httpClient = new HttpClient())
                 {
@@ -608,18 +599,18 @@ namespace ProjectParadise2.Views
                         var progressHandler = new Progress<long>(bytesDownloaded =>
                         {
                             int progressPercentage = (int)((bytesDownloaded * 100) / totalBytes);
-                            UpdateProgress(string.Format(Lang.GetText(94), progressPercentage, FormatFileSize(bytesDownloaded)));
+                            UpdateProgress(string.Format(Lang.GetText(58), progressPercentage, FormatFileSize(bytesDownloaded)));
                         });
 
                         await DownloadWithProgressAsync(httpClient, response, localZipPath, progressHandler);
                     }
                 }
 
-                UpdateProgress(Lang.GetText(95));
+                UpdateProgress(Lang.GetText(61));
                 await Task.Run(() => ExtractSavegame(localZipPath, saveFolderPath));
-                UpdateProgress(Lang.GetText(96));
+                UpdateProgress(Lang.GetText(62));
                 await Task.Delay(300);
-                UpdateProgress(Lang.GetText(96), true);
+                UpdateProgress(Lang.GetText(63), true);
                 if (File.Exists(localZipPath))
                     File.Delete(localZipPath);
             }
@@ -735,7 +726,6 @@ namespace ProjectParadise2.Views
                     }
 
                     Log.Info("Cloud Savegame unpacked successfully.");
-                    UpdateProgress(Lang.GetText(96));
                 }
             }
             catch (Exception ex)
@@ -816,7 +806,7 @@ namespace ProjectParadise2.Views
         private void OnOpenbackFolder(object sender, RoutedEventArgs e)
         {
             string folderPath = Path.Combine(Constans.DokumentsFolder, "Local_Backups");
-            OpenDirectory(folderPath + @"\", "The savegame folder cannot be opened because folder not exist.");
+            OpenDirectory(folderPath + @"\", Lang.GetText(44) + "" + folderPath);
         }
 
         /// <summary>
@@ -870,66 +860,32 @@ namespace ProjectParadise2.Views
                 Dispatcher.Invoke(new Action<object, EventArgs>(SetLang), sender, e);
                 return;
             }
-            LoginText.Text = Lang.GetText(21);
-            LoginBtn.ToolTip = Lang.GetTooltipText(0);
-            LogoutBtn.ToolTip = Lang.GetTooltipText(1);
-            Refresh.ToolTip = Lang.GetTooltipText(2);
-            DiscordToggle.ToolTip = Lang.GetTooltipText(3);
-            OpenBackupFolder.ToolTip = Lang.GetTooltipText(4);
-            BackupType.ToolTip = Lang.GetTooltipText(5);
-            MaximalSaves.ToolTip = Lang.GetTooltipText(6);
-            xOpenGamefolder.ToolTip = Lang.GetTooltipText(7);
-            xOpenSavefolder.ToolTip = Lang.GetTooltipText(8);
-            CloudDownload.ToolTip = Lang.GetTooltipText(10);
-            CloudUpload.ToolTip = Lang.GetTooltipText(9);
-            AccountText.Text = Lang.GetText(22);
-            PasswordText.Text = Lang.GetText(23);
-            LoginBtn.Content = Lang.GetText(27);
-            LogoutBtn.Content = Lang.GetText(24);
-            Refresh.Content = Lang.GetText(29);
-            CloudUpload.Content = Lang.GetText(25);
-            CloudDownload.Content = Lang.GetText(26);
-            OpenBackupFolder.Content = Lang.GetText(30);
-            MaximalSavesText.Text = Lang.GetText(38);
-            xOpenGamefolder.Content = Lang.GetText(33);
-            xOpenSavefolder.Content = Lang.GetText(35);
-        }
-
-        private void SetLang()
-        {
-            LoginText.Text = Lang.GetText(21);
-            AccountText.Text = Lang.GetText(22);
-            PasswordText.Text = Lang.GetText(23);
-            LoginBtn.Content = Lang.GetText(27);
-            LogoutBtn.Content = Lang.GetText(24);
-            Refresh.Content = Lang.GetText(29);
-            CloudUpload.Content = Lang.GetText(25);
-            CloudDownload.Content = Lang.GetText(26);
-            OpenBackupFolder.Content = Lang.GetText(30);
-            MaximalSavesText.Text = Lang.GetText(38);
-            xOpenGamefolder.Content = Lang.GetText(33);
-            xOpenSavefolder.Content = Lang.GetText(35);
-            LoginBtn.ToolTip = Lang.GetTooltipText(0);
-            LogoutBtn.ToolTip = Lang.GetTooltipText(1);
-            Refresh.ToolTip = Lang.GetTooltipText(2);
-            DiscordToggle.ToolTip = Lang.GetTooltipText(3);
-            OpenBackupFolder.ToolTip = Lang.GetTooltipText(4);
-            BackupType.ToolTip = Lang.GetTooltipText(5);
-            MaximalSaves.ToolTip = Lang.GetTooltipText(6);
-            xOpenGamefolder.ToolTip = Lang.GetTooltipText(7);
-            xOpenSavefolder.ToolTip = Lang.GetTooltipText(8);
-            CloudDownload.ToolTip = Lang.GetTooltipText(10);
-            CloudUpload.ToolTip = Lang.GetTooltipText(9);
-        }
-
-        private void OpenGamefolder(object sender, RoutedEventArgs e)
-        {
-            OpenDirectory(Database.Database.p2Database.Usersettings.Gamedirectory, Lang.GetText(107));
+            LoginText.Text = Lang.GetText(64);
+            AccountText.Text = Lang.GetText(65);
+            PasswordText.Text = Lang.GetText(66);
+            LoginBtn.Content = Lang.GetText(67);
+            LogoutBtn.Content = Lang.GetText(68);
+            Refresh.Content = Lang.GetText(69);
+            CloudUpload.Content = Lang.GetText(70);
+            CloudDownload.Content = Lang.GetText(71);
+            OpenBackupFolder.Content = Lang.GetText(72);
+            xOpenSavefolder.Content = Lang.GetText(73);
+            MaximalSavesText.Text = Lang.GetText(74);
+            LoginBtn.ToolTip = Lang.GetTooltipText(18);
+            LogoutBtn.ToolTip = Lang.GetTooltipText(19);
+            Refresh.ToolTip = Lang.GetTooltipText(20);
+            DiscordToggle.ToolTip = Lang.GetTooltipText(21);
+            OpenBackupFolder.ToolTip = Lang.GetTooltipText(22);
+            BackupType.ToolTip = Lang.GetTooltipText(23);
+            MaximalSaves.ToolTip = Lang.GetTooltipText(24);
+            xOpenSavefolder.ToolTip = Lang.GetTooltipText(25);
+            CloudDownload.ToolTip = Lang.GetTooltipText(26);
+            CloudUpload.ToolTip = Lang.GetTooltipText(27);
         }
 
         private void OpenSavefolder(object sender, RoutedEventArgs e)
         {
-            OpenDirectory(Constans.SaveFolder, Lang.GetText(108));
+            OpenDirectory(Constans.SaveFolder, "Project-Paradise 2");
         }
     }
 }

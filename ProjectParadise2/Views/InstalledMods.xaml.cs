@@ -39,7 +39,7 @@ namespace ProjectParadise2.Views
             {
                 Hideall();
                 int itemsPerPage = 7;
-                int totalMods = Database.Database.p2Database.Usermods.Count;
+                int totalMods = BackgroundWorker.CurrentProfile().Usermods.Count;
                 int maxPage = Math.Max((totalMods - 1) / itemsPerPage, 0);
 
                 if (CurrentPage > maxPage)
@@ -75,7 +75,7 @@ namespace ProjectParadise2.Views
         /// <param name="rowId">The position in the current page view.</param>
         private void ShowMod(int ModId, int rowId)
         {
-            var mod = Database.Database.p2Database.Usermods[ModId];
+            var mod = BackgroundWorker.CurrentProfile().Usermods[ModId];
 
             switch (rowId)
             {
@@ -121,7 +121,7 @@ namespace ProjectParadise2.Views
                     break;
             }
 
-            int totalPages = (int)Math.Ceiling(Database.Database.p2Database.Usermods.Count / 7.0);
+            int totalPages = (int)Math.Ceiling(BackgroundWorker.CurrentProfile().Usermods.Count / 7.0);
             this.PageList.Text = " - " + (CurrentPage + 1) + " / " + totalPages + " - ";
 
             this.NextPageBTN.Visibility = (CurrentPage + 1 >= totalPages) ? Visibility.Hidden : Visibility.Visible;
@@ -162,14 +162,15 @@ namespace ProjectParadise2.Views
             if (sender is FA_BTN button && int.TryParse(button.Tag?.ToString(), out int rowId))
             {
                 int modId = CurrentPage * 7 + rowId;
-                if (modId >= 0 && modId < Database.Database.p2Database.Usermods.Count)
+                if (modId >= 0 && modId < BackgroundWorker.CurrentProfile().Usermods.Count)
                 {
-                    var mod = Database.Database.p2Database.Usermods[modId];
+                    var mod = BackgroundWorker.CurrentProfile().Usermods[modId];
                     RemoveInstalledMod(mod, modId);
+                    BackgroundWorker.CurrentProfile().Update();
                 }
                 else
                 {
-                    MessageBox.Show("Invalid Mod ID. Please try again.",
+                    MessageBox.Show(Lang.GetText(137),
                         "Project Paradise 2 - Mod Manager",
                         MessageBoxButton.OK,
                         MessageBoxImage.Warning);
@@ -209,11 +210,11 @@ namespace ProjectParadise2.Views
                             Log.PrintMod($"[MOD] File not found for deletion: {item.FileName}", mod.Name);
                         }
                     }
-                    Database.Database.p2Database.Usermods.RemoveAt(modId);
+                    BackgroundWorker.CurrentProfile().Usermods.RemoveAt(modId);
                     Database.Database.Write();
                     ReadInstalledMods();
 
-                    MessageBox.Show($"Mod \"{mod.Name}\" has been successfully uninstalled.",
+                    MessageBox.Show(string.Format(Lang.GetText(135), mod.Name),
                                     "Project Paradise 2 - Mod Manager",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Information);
@@ -221,10 +222,10 @@ namespace ProjectParadise2.Views
                 else
                 {
                     Log.Warning("Unpacked game mods cannot be uninstalled from the launcher.");
-                    Database.Database.p2Database.Usermods.RemoveAt(modId);
+                    BackgroundWorker.CurrentProfile().Usermods.RemoveAt(modId);
                     ReadInstalledMods();
 
-                    MessageBox.Show($"Unpacked game mods cannot be uninstalled from the launcher.",
+                    MessageBox.Show(Lang.GetText(139),
                                     "Project Paradise 2 - Mod Manager",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Warning);

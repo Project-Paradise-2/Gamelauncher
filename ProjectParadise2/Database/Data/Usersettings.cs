@@ -81,7 +81,7 @@ namespace ProjectParadise2.Database.Data
         /// <summary>
         /// A flag indicating whether UPnP (Universal Plug and Play) is enabled for networking tasks.
         /// </summary>
-        public bool UpnpWorker { get; set; } = false;
+        public bool UpnpWorker { get; set; } = true;
 
         /// <summary>
         /// A flag indicating whether launcher logging is enabled.
@@ -115,13 +115,6 @@ namespace ProjectParadise2.Database.Data
         /// </summary>
         public BackUptype BackupType { get; set; } = BackUptype.OnStart;
 
-
-        public bool LAAEnabled { get; set; } = false;
-        public bool HighPrio { get; set; } = false;
-        public bool UseMoreCores { get; set; } = false;
-
-
-        public bool VehicleDirt { get; set; } = true;
-        public bool VehicleDamage { get; set; } = true;
+        public int SelectedProfile { get; set; }
     }
 }

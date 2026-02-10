@@ -42,7 +42,7 @@ namespace ProjectParadise2
         /// <summary>
         /// The version of the launcher.
         /// </summary>
-        internal const string LauncherVersion = "3.1.1";
+        internal const string LauncherVersion = "3.1.7";
 
         /// <summary>
         /// The path to the documents folder for Project Paradise 2.

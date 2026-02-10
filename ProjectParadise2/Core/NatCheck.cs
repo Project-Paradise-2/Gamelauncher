@@ -4,6 +4,7 @@ using ProjectParadise2.Core.Log;
 using ProjectParadise2.Views;
 using STUN;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -153,7 +154,7 @@ namespace ProjectParadise2
             Result.UpnpPort = mappedPort;
             Result.UpnpStatus = statusMessage;
             Result.AfterUpnp = await Detect(TestPort);
-            StartEchoListener(TestPort);
+            GetServerResponse(TestPort);
             Result.AfterUpnp.ExternalReachable = await CheckExternalReachability(Result.AfterUpnp.PublicIp, Result.AfterUpnp.Port);
             CanRun = true;
             if (CommandLineArg.AutoRun)
@@ -183,7 +184,6 @@ namespace ProjectParadise2
                 Log.Error("Error while finding UPnP device: " + ex.Message);
             }
         }
-
 
         /// <summary>
         /// Performs a STUN test to detect the NAT type and public IP address.
@@ -255,7 +255,7 @@ namespace ProjectParadise2
             {
                 result.Status = NATStatus.Unknown;
             }
-
+            Debug.WriteLine($"NAT Detection Result: {result}");
             return result;
         }
 
@@ -270,8 +270,11 @@ namespace ProjectParadise2
             try
             {
                 using var client = new HttpClient();
-                var response = await client.GetAsync($"{ExternalCheckUrl}?ip={ip}&port={port}");
+                string ServerURI = $"{ExternalCheckUrl}?ip={ip}&port={port}";
+                Debug.WriteLine($"Checking external reachability via {ServerURI}");
+                var response = await client.GetAsync(ServerURI);
                 var result = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"External reachability check result: {result}");
                 return result.Contains("OK");
             }
             catch
@@ -286,30 +289,19 @@ namespace ProjectParadise2
         /// <param name="port"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        private static async Task StartEchoListener(int port)
+        private static async Task GetServerResponse(int port)
         {
-            using var udp = new UdpClient(port);
             string Statemsg = "No response from the server. Your connection may be blocked.";
-            Log.Info($"NAT test listener started on port {port}.");
-
-            bool running = true;
-            while (running)
+            var udp = new UdpClient(port);
+            Log.Info($"Listening on {udp.Client.LocalEndPoint}");
+            try
             {
-                try
+                var receiveTask = udp.ReceiveAsync();
+                if (await Task.WhenAny(receiveTask, Task.Delay(5000)) == receiveTask)
                 {
-                    // Warte entweder auf ein Paket oder Timeout nach 8 Sekunden
-                    var receiveTask = udp.ReceiveAsync();
-                    var completed = await Task.WhenAny(receiveTask, Task.Delay(8000));
-
-                    if (completed != receiveTask)
-                    {
-                        // Timeout erreicht
-                        Log.Info("NAT test listener timed out after 8 seconds.");
-                        break;
-                    }
-
-                    var result = receiveTask.Result;
+                    var result = await receiveTask;
                     string msg = Encoding.UTF8.GetString(result.Buffer);
+                    Log.Info($"Received UDP message: {msg} from {result.RemoteEndPoint}");
 
                     if (msg == "NAT_TEST")
                     {
@@ -326,25 +318,28 @@ namespace ProjectParadise2
                         Regestry.UpdateKey("NetworkNatType", "Strict:Blocked", Database.Database.p2Database.Usersettings.IsSteambuild);
                     }
 
-                    // Echo zurücksenden
                     byte[] echo = Encoding.UTF8.GetBytes("ECHO:" + msg);
                     await udp.SendAsync(echo, echo.Length, result.RemoteEndPoint);
                     Statemsg += $", sent confirmation back to server (ECHO:{msg})";
-
-                    // Ein Durchlauf reicht → danach stoppen
-                    running = false;
                 }
-                catch (Exception ex)
+                else
                 {
-                    Log.Error($"Error in NAT test listener: {ex.Message}");
-                    running = false;
+                    Log.Info("NAT test listener timed out after 5 seconds.");
                 }
             }
+            catch (Exception ex)
+            {
+                Log.Error($"Error in NAT test listener: {ex.Message}");
+            }
+            finally
+            {
+                udp.Dispose();
+            }
 
+            CanRun = true;
             HomeView.Instance?.ShowRunGameButton();
             Log.Info(Statemsg);
         }
-
 
         /// <summary>
         /// Check if IPv4 address is in CGNAT range (100.64.0.0/10).

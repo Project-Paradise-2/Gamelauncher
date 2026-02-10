@@ -1,4 +1,5 @@
 ﻿using HardwareInformation;
+using ProjectParadise2.Core;
 using ProjectParadise2.Core.Log;
 using System;
 using System.IO;
@@ -152,49 +153,78 @@ namespace ProjectParadise2.Views
                 bool isVC2008x86 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2008x86);
                 bool isVC2005x64 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2005x64);
                 bool isVC2008x64 = RedistributablePackage.IsInstalled(RedistributablePackageVersion.VC2008x64);
-                StringBuilder File = new StringBuilder();
-                File.AppendLine($"```----------------------- System Report -----------------------------\n");
-                File.AppendLine($"OS: {hardware.OperatingSystem.VersionString}");
-                File.AppendLine($"Platform: {hardware.Platform}");
-                File.AppendLine($"\nCPU: {hardware.Cpu.Name} {hardware.Cpu.Socket}");
-                File.AppendLine($"- Logical Cores: {hardware.Cpu.LogicalCores}");
-                File.AppendLine($"- Physical Cores: {hardware.Cpu.PhysicalCores}");
-                File.AppendLine($"- Speed: {hardware.Cpu.NormalClockSpeed} MHz");
-                File.AppendLine("\nGPUs:");
+
+                var fileInfo = new StringBuilder();
+                fileInfo.AppendLine("```");
+                fileInfo.AppendLine($"OS: {hardware.OperatingSystem.VersionString}");
+                fileInfo.AppendLine($"Platform: {hardware.Platform}");
+                fileInfo.AppendLine();
+                fileInfo.AppendLine($"CPU: {hardware.Cpu.Name} {hardware.Cpu.Socket}");
+                fileInfo.AppendLine($"- Logical Cores: {hardware.Cpu.LogicalCores}");
+                fileInfo.AppendLine($"- Physical Cores: {hardware.Cpu.PhysicalCores}");
+                fileInfo.AppendLine($"- Speed: {hardware.Cpu.NormalClockSpeed} MHz");
+                fileInfo.AppendLine();
+                fileInfo.AppendLine("GPUs:");
                 foreach (var gpu in hardware.Gpus)
                 {
-                    File.AppendLine($"- Name: {gpu.Name} Device: {gpu.Type.ToString()}");
-                    File.AppendLine($"  - VRAM: {gpu.AvailableVideoMemoryHRF}");
-                    File.AppendLine($"  - Driverversion: {gpu.DriverVersion}");
-                    File.AppendLine($"  - Driverdate: {gpu.DriverDate}");
+                    fileInfo.AppendLine($"- Name: {gpu.Name} Device: {gpu.Type}");
+                    fileInfo.AppendLine($"  - VRAM: {gpu.AvailableVideoMemoryHRF}");
+                    fileInfo.AppendLine($"  - Driverversion: {gpu.DriverVersion}");
+                    fileInfo.AppendLine($"  - Driverdate: {gpu.DriverDate}");
                 }
+
                 ulong totalRam = 0;
-                File.AppendLine("\nSystem Memory:");
+                fileInfo.AppendLine();
+                fileInfo.AppendLine("System Memory:");
                 foreach (var ram in hardware.RAMSticks)
                 {
-                    File.AppendLine($"- {ram.Manufacturer} | {ram.PartNumber} | {ram.CapacityHRF} | {ram.Speed} MHz | {ram.Name}");
+                    fileInfo.AppendLine($"- {ram.Manufacturer} | {ram.PartNumber} | {ram.CapacityHRF} | {ram.Speed} MHz | {ram.Name}");
                     totalRam += ram.Capacity;
                 }
-                File.AppendLine($"\nTotal: {Utils.FormatBytes((long)totalRam)} in {hardware.RAMSticks.Count} Sticks");
-                File.AppendLine("\nDisplays: " + hardware.Displays.Count);
-                foreach (var ram in hardware.Displays)
+                fileInfo.AppendLine();
+                fileInfo.AppendLine($"Total: {Utils.FormatBytes((long)totalRam)} in {hardware.RAMSticks.Count} Sticks");
+                fileInfo.AppendLine();
+                fileInfo.AppendLine("Displays: " + hardware.Displays.Count);
+                foreach (var display in hardware.Displays)
                 {
-                    File.AppendLine($"- {ram.Manufacturer} | {ram.Name}");
+                    fileInfo.AppendLine($"- {display.Manufacturer} | {display.Name}");
                 }
-                File.AppendLine("\nNetwork: ");
+
+                fileInfo.AppendLine();
+                fileInfo.AppendLine("Network:");
                 string output = Regex.Replace(NatDetector.Result.AfterUpnp.ToString(), @"(\d+)\.(\d+)\.(\d+)\.(\d+)", "$1.$2.XXX.XXX");
-                string net = $"{output}\n{NatDetector.Result.AfterUpnp.InternToString()}\nForwarding: {ParseNatBool(NatDetector.Result.UpnpAvailable)} \nType: {NatDetector.Result.ForwardingType}\n{NatDetector.Result.UpnpStatus} Port: {NatDetector.Result.UpnpPort}";
-                File.AppendLine(net);
-                File.AppendLine("\nGametype: " + Database.Database.p2Database.Usersettings.Packedgame + " Mods: " + Database.Database.p2Database.Usermods.Count);
-                foreach (var mod in Database.Database.p2Database.Usermods)
+                string netInfo = $"{output}\n{NatDetector.Result.AfterUpnp.InternToString()}\nForwarding: {ParseNatBool(NatDetector.Result.UpnpAvailable)} \nType: {NatDetector.Result.ForwardingType}\n{NatDetector.Result.UpnpStatus} Port: {NatDetector.Result.UpnpPort}";
+                fileInfo.AppendLine(netInfo);
+                string softwareInfo = $"\nSoftware:\n -VC2005x86:{isVC2005x86}, VC2005x64:{isVC2005x64}\n -VC2008x86:{isVC2008x86}, VC2008x64:{isVC2008x64}\n";
+                fileInfo.AppendLine(softwareInfo);
+
+                fileInfo.AppendLine("Launcher Gameprofile:");
+                for (int i = 0; i < BackgroundWorker.GameProfiles.Count; i++)
                 {
-                    File.AppendLine($"-Mod: " + mod.Name + "|" + mod.Version);
+                    var profile = BackgroundWorker.GameProfiles[i];
+                    fileInfo.AppendLine();
+                    fileInfo.AppendLine($"Game Profile (" + (i + 1) + "|" + BackgroundWorker.GameProfiles.Count + $") TDU-Build: {profile.Gametype}");
+                    fileInfo.AppendLine($"Profile: {profile.Profilename} type: {profile.Build} isSteam: {profile.SteamBuild}");
+                    fileInfo.AppendLine($"GamePath: {profile.Gamepath}");
+                    fileInfo.AppendLine($"Version: {profile.Version} | FileVersion: {profile.FileVersion}");
+                    fileInfo.AppendLine($"Exe: {profile.Executable} | Debug: {profile.IsDebug}");
+                    fileInfo.AppendLine($"Prio+: {ParseNatBool(profile.HighPrio)} | Ram+: {ParseNatBool(profile.LAAEnabled)}");
+                    fileInfo.AppendLine($"Cores+: {ParseNatBool(profile.UseMoreCores)} | Online: {ParseNatBool(profile.OnlineMode)}");
+                    fileInfo.AppendLine($"Damage: {ParseNatBool(profile.VehicleDamage)} | Dirt: {ParseNatBool(profile.VehicleDirt)}");
+                    fileInfo.AppendLine($"RunParams: {profile.Arguments}");
+                    fileInfo.AppendLine($"Gamemods({profile.Usermods.Count}):");
+                    foreach (var mod in profile.Usermods)
+                    {
+                        fileInfo.AppendLine($"-Mod: {mod.Name}|{mod.Version} Installed: {mod.Installed}");
+                    }
                 }
-                string Stoftware = $"\nSoftware:\n -VC2005x86:{isVC2005x86}, VC2005x64:{isVC2005x64}\n -VC2008x86:{isVC2008x86}, VC2008x64:{isVC2008x64}\n";
-                File.AppendLine(Stoftware);
-                File.AppendLine($"\n----------------------- System Report END--------------------------```");
-                Clipboard.SetText(File.ToString());
-                MessageBoxResult state = MessageBox.Show(
+
+                fileInfo.AppendLine();
+                fileInfo.AppendLine("```");
+
+                Clipboard.SetText(fileInfo.ToString());
+
+                MessageBox.Show(
                     "Hardware information has been copied to the clipboard.",
                     "Project Paradise 2 - Infocreator",
                     MessageBoxButton.OK,
@@ -203,7 +233,7 @@ namespace ProjectParadise2.Views
             catch (Exception ex)
             {
                 Log.Error("Failed to copy hardware info to clipboard: ", ex);
-                MessageBoxResult state = MessageBox.Show(
+                MessageBox.Show(
                     "Failed to copy hardware information to the clipboard.",
                     "Project Paradise 2 - Infocreator",
                     MessageBoxButton.OK,

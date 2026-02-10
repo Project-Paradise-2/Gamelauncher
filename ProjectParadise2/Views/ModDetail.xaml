@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:ProjectParadise2.Views"
              xmlns:objs="clr-namespace:ProjectParadise2.Objects"
              mc:Ignorable="d"
-             d:DesignHeight="650" d:DesignWidth="1000">
-    <Border Width="1000" Height="620" CornerRadius="20" Background="#20232B" Margin="0,0,0,0" BorderThickness="1.5">
+             d:DesignHeight="720" d:DesignWidth="1020">
+    <Border BorderThickness="0.8" CornerRadius="15" Background="#20232B" BorderBrush="#393E46" Margin="20">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="242*"/>
@@ -28,11 +28,11 @@
             <TextBlock Text="" Foreground="#B4A5A5" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="531" Name="ModName" Height="22" Margin="20,0,0,0" FontFamily="/Fonts/#Protofo"/>
             <Image Source="/Images/PP2Logo.png" Width="240" Height="240" HorizontalAlignment="Center" VerticalAlignment="Center" Name="ModImage" Stretch="Fill" Grid.Row="1"/>
 
-            <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="15,15,15,92" Grid.RowSpan="3">
+            <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="15,15,15,87" Grid.RowSpan="3">
                 <TextBlock Text="Creator" Foreground="#F1F1F1" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Creator" FontFamily="/Fonts/#Protofo"/>
-                <TextBlock Text="Description" Foreground="#F1F1F1" FontSize="16" HorizontalAlignment="Left" Grid.Column="0" Grid.ColumnSpan="3" Width="642" MaxWidth="450" MaxHeight="310" Height="310" Name="Description" TextWrapping="Wrap" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock Text="Description" Foreground="#F1F1F1" FontSize="16" HorizontalAlignment="Left" Grid.Column="0" Grid.ColumnSpan="3" Width="630" MaxWidth="450" MaxHeight="310" Height="380" Name="Description" TextWrapping="Wrap" FontFamily="/Fonts/#Protofo"/>
             </StackPanel>
-            <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="15,8,0,0">
+            <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="15,38,0,0">
                 <TextBlock Text="Version" Foreground="#B8B8B8" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Version" FontFamily="/Fonts/#Protofo"/>
                 <TextBlock Text="Files" Foreground="#B8B8B8" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Changedfiles" FontFamily="/Fonts/#Protofo"/>
                 <TextBlock Text="Downloadsize" Foreground="#B8B8B8" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Width="450" Name="Downloadsize" FontFamily="/Fonts/#Protofo"/>
@@ -47,9 +47,12 @@
                 <TextBlock Text="Installing:" Foreground="#B4A5A5" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" Width="450" Name="Installing" Margin="0,0,0,0" FontFamily="/Fonts/#Protofo"/>
                 <TextBlock Text="Installing:" Foreground="#B4A5A5" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" Width="450" Name="Status" Margin="0,0,0,0" FontFamily="/Fonts/#Protofo"/>
 
-                <ProgressBar Width="948" Height="16" Margin="0,5,0,0" Background="Transparent" Foreground="#3C415C" Name="TotalProgress" Minimum="0" Maximum="100" Value="0" BorderBrush="Transparent"/>
+                <ProgressBar Width="933" Height="16" Margin="0,5,0,0" Background="Transparent" Foreground="#3C415C" Name="TotalProgress" Minimum="0" Maximum="100" Value="0" BorderBrush="Transparent"/>
                 <TextBlock Text="{Binding ElementName=TotalProgress, Path=Value, StringFormat={}{0:0}% Total}" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,-18,10,0" Foreground="#B4A5A5" FontSize="12" Name="ProgressText" FontFamily="/Fonts/#Protofo"/>
             </StackPanel>
         </Grid>
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+        </Border.Effect>
     </Border>
 </UserControl>

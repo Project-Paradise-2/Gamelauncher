@@ -270,9 +270,9 @@ namespace ProjectParadise2.Views
                     Element1.IsEnabled = true;
                     Element1.Visibility = Utils.GetVisibility(Element1.IsEnabled);
                     Element1Text.Text = Modname;
-                    if (Database.Database.isModInstalled(Modname))
+                    if (BackgroundWorker.CurrentProfile().isModInstalled(Modname))
                     {
-                        if (!Database.Database.GetInstalledversion(Modname, Version))
+                        if (!BackgroundWorker.CurrentProfile().GetInstalledversion(Modname, Version))
                         {
                             Element1Text.Foreground = Brushes.Orange;
                         }
@@ -290,9 +290,9 @@ namespace ProjectParadise2.Views
                     Element2.IsEnabled = true;
                     Element2.Visibility = Utils.GetVisibility(Element2.IsEnabled);
                     Element2Text.Text = Modname;
-                    if (Database.Database.isModInstalled(Modname))
+                    if (BackgroundWorker.CurrentProfile().isModInstalled(Modname))
                     {
-                        if (!Database.Database.GetInstalledversion(Modname, Version))
+                        if (!BackgroundWorker.CurrentProfile().GetInstalledversion(Modname, Version))
                         {
                             Element2Text.Foreground = Brushes.Orange;
                         }
@@ -310,9 +310,9 @@ namespace ProjectParadise2.Views
                     Element3.IsEnabled = true;
                     Element3.Visibility = Utils.GetVisibility(Element3.IsEnabled);
                     Element3Text.Text = Modname;
-                    if (Database.Database.isModInstalled(Modname))
+                    if (BackgroundWorker.CurrentProfile().isModInstalled(Modname))
                     {
-                        if (!Database.Database.GetInstalledversion(Modname, Version))
+                        if (!BackgroundWorker.CurrentProfile().GetInstalledversion(Modname, Version))
                         {
                             Element3Text.Foreground = Brushes.Orange;
                         }
@@ -330,9 +330,9 @@ namespace ProjectParadise2.Views
                     Element4.IsEnabled = true;
                     Element4.Visibility = Utils.GetVisibility(Element4.IsEnabled);
                     Element4Text.Text = Modname;
-                    if (Database.Database.isModInstalled(Modname))
+                    if (BackgroundWorker.CurrentProfile().isModInstalled(Modname))
                     {
-                        if (!Database.Database.GetInstalledversion(Modname, Version))
+                        if (!BackgroundWorker.CurrentProfile().GetInstalledversion(Modname, Version))
                         {
                             Element4Text.Foreground = Brushes.Orange;
                         }
@@ -350,9 +350,9 @@ namespace ProjectParadise2.Views
                     Element5.IsEnabled = true;
                     Element5.Visibility = Utils.GetVisibility(Element5.IsEnabled);
                     Element5Text.Text = Modname;
-                    if (Database.Database.isModInstalled(Modname))
+                    if (BackgroundWorker.CurrentProfile().isModInstalled(Modname))
                     {
-                        if (!Database.Database.GetInstalledversion(Modname, Version))
+                        if (!BackgroundWorker.CurrentProfile().GetInstalledversion(Modname, Version))
                         {
                             Element5Text.Foreground = Brushes.Orange;
                         }
@@ -370,9 +370,9 @@ namespace ProjectParadise2.Views
                     Element6.IsEnabled = true;
                     Element6.Visibility = Utils.GetVisibility(Element6.IsEnabled);
                     Element6Text.Text = Modname;
-                    if (Database.Database.isModInstalled(Modname))
+                    if (BackgroundWorker.CurrentProfile().isModInstalled(Modname))
                     {
-                        if (!Database.Database.GetInstalledversion(Modname, Version))
+                        if (!BackgroundWorker.CurrentProfile().GetInstalledversion(Modname, Version))
                         {
                             Element6Text.Foreground = Brushes.Orange;
                         }
@@ -390,9 +390,9 @@ namespace ProjectParadise2.Views
                     Element7.IsEnabled = true;
                     Element7.Visibility = Utils.GetVisibility(Element7.IsEnabled);
                     Element7Text.Text = Modname;
-                    if (Database.Database.isModInstalled(Modname))
+                    if (BackgroundWorker.CurrentProfile().isModInstalled(Modname))
                     {
-                        if (!Database.Database.GetInstalledversion(Modname, Version))
+                        if (!BackgroundWorker.CurrentProfile().GetInstalledversion(Modname, Version))
                         {
                             Element7Text.Foreground = Brushes.Orange;
                         }
@@ -410,9 +410,9 @@ namespace ProjectParadise2.Views
                     Element8.IsEnabled = true;
                     Element8.Visibility = Utils.GetVisibility(Element8.IsEnabled);
                     Element8Text.Text = Modname;
-                    if (Database.Database.isModInstalled(Modname))
+                    if (BackgroundWorker.CurrentProfile().isModInstalled(Modname))
                     {
-                        if (!Database.Database.GetInstalledversion(Modname, Version))
+                        if (!BackgroundWorker.CurrentProfile().GetInstalledversion(Modname, Version))
                         {
                             Element8Text.Foreground = Brushes.Orange;
                         }
@@ -430,9 +430,9 @@ namespace ProjectParadise2.Views
                     Element9.IsEnabled = true;
                     Element9.Visibility = Utils.GetVisibility(Element9.IsEnabled);
                     Element9Text.Text = Modname;
-                    if (Database.Database.isModInstalled(Modname))
+                    if (BackgroundWorker.CurrentProfile().isModInstalled(Modname))
                     {
-                        if (!Database.Database.GetInstalledversion(Modname, Version))
+                        if (!BackgroundWorker.CurrentProfile().GetInstalledversion(Modname, Version))
                         {
                             Element9Text.Foreground = Brushes.Orange;
                         }
@@ -450,9 +450,9 @@ namespace ProjectParadise2.Views
                     Element10.IsEnabled = true;
                     Element10.Visibility = Utils.GetVisibility(Element10.IsEnabled);
                     Element10Text.Text = Modname;
-                    if (Database.Database.isModInstalled(Modname))
+                    if (BackgroundWorker.CurrentProfile().isModInstalled(Modname))
                     {
-                        if (!Database.Database.GetInstalledversion(Modname, Version))
+                        if (!BackgroundWorker.CurrentProfile().GetInstalledversion(Modname, Version))
                         {
                             Element10Text.Foreground = Brushes.Orange;
                         }
@@ -523,12 +523,12 @@ namespace ProjectParadise2.Views
                 Dispatcher.Invoke(new Action<object, EventArgs>(SetLang), sender, e);
                 return;
             }
-            MyMods.Content = Lang.GetText(20);
+            MyMods.Content = Lang.GetText(131);
         }
 
         private void SetLang()
         {
-            MyMods.Content = Lang.GetText(20);
+            MyMods.Content = Lang.GetText(131);
         }
     }
 }

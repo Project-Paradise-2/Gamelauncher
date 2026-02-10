@@ -1,5 +1,6 @@
 ﻿using ProjectParadise2.Core;
 using ProjectParadise2.Core.Log;
+using ProjectParadise2.Views;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -11,7 +12,6 @@ namespace ProjectParadise2
     internal class GameRunner
     {
         private static Mutex start;
-        public static string[] Runtype = { "44938b8f", "957e4cc3" }; // On/Off
         private static Process monitoredProcess;
         private static Thread monitoringThread;
         private static bool isMonitoringActive = false;
@@ -21,7 +21,7 @@ namespace ProjectParadise2
         /// Starts the game based on user settings.
         /// </summary>
         /// <returns>Returns true if the game started successfully, otherwise false.</returns>
-        public static bool RunGame()
+        public static bool RunGame(GameProfile profile)
         {
             if (Database.Database.p2Database.Usersettings.BackupType == Database.Data.BackUptype.OnStart)
             {
@@ -33,68 +33,57 @@ namespace ProjectParadise2
             DiscordIntegration.SetRpcTime();
             try
             {
-                int mode = 1;
-                if (string.IsNullOrEmpty(Database.Database.p2Database.Usersettings.ExePath))
+                if (File.Exists(profile.Gamepath))
                 {
-                    return false;
-                }
+                    AntiCheat.StartMonitoring();
 
-                if (Database.Database.p2Database.Usersettings.Onlinemode)
-                {
-                    mode = 0;
-                }
-
-                if (!CommandLineArg.OnlineMode)
-                {
-                    mode = 1;
-                    Log.Warning("Force Offline mode, flag is active");
-                }
-
-                if (mode == 0)
-                {
-                    DiscordIntegration.UpdateRpc(DiscordIntegration.OnlineMode);
-                }
-                else
-                {
-                    DiscordIntegration.UpdateRpc(DiscordIntegration.OfflineMode);
-                }
-
-                string path = Path.GetFullPath(Database.Database.p2Database.Usersettings.ExePath);
-                if (File.Exists(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "TestDrive2.exe")))
-                {
-                    SetLargeAddressAware(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "TestDrive2.exe"), Database.Database.p2Database.Usersettings.LAAEnabled);
-
-                    if (!File.Exists(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "key.txt")))
+                    if (AntiCheat.CanRungame() == false)
                     {
-                        string Key = BackgroundWorker.GetKey();
-                        Log.Warning("Missing Key dedect Generate it: " + Key + " ");
-                        File.WriteAllText(Path.Combine(Database.Database.p2Database.Usersettings.Gamedirectory, "key.txt"), Key);
-                    }
-
-                    start = new Mutex(false, Runtype[mode], out bool createdNew);
-
-                    if (!createdNew)
-                    {
+                        Log.Warning("Cheat Tool detected, aborting game start.");
+                        MessageBox.Show("Failed run Game: 0x14",
+                                        "Project Paradise 2 - Gamestart",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
                         return false;
                     }
 
-                    string arguments = Runtype[mode];
-                    var highPrio = Database.Database.p2Database.Usersettings.HighPrio;
-                    var moreCores = Database.Database.p2Database.Usersettings.UseMoreCores;
-
-                    // Falls HighPrio aktiviert ist, füge "-high" hinzu
-                    if (highPrio)
+                    if (profile.Gametype == Gametype.TDU2)
                     {
-                        arguments += " -high";
+                        if (!File.Exists(Path.Combine(profile.Basedir, "key.txt")))
+                        {
+                            string Key = BackgroundWorker.GetKey();
+                            Log.Warning("Missing Key dedect Generate it: " + Key + " ");
+                            File.WriteAllText(Path.Combine(profile.Basedir, "key.txt"), Key);
+                        }
                     }
 
-                    // Falls MoreCores aktiviert ist, füge "-USEALLAVAILABLECORES" hinzu
-                    if (moreCores)
+                    profile.SetLargeAddressAware(profile.Gamepath, profile.LAAEnabled);
+
+                    if (profile.Gametype == Gametype.TDU2 || profile.Gametype == Gametype.TDU2Dev)
                     {
-                        arguments += " -USEALLAVAILABLECORES";
+                        if (profile.OnlineMode)
+                        {
+                            DiscordIntegration.UpdateRpc(DiscordIntegration.OnlineMode);
+                        }
+                        else
+                        {
+                            DiscordIntegration.UpdateRpc(DiscordIntegration.OfflineMode);
+                        }
+
+                        start = new Mutex(false, profile.GetMutex(), out bool createdNew);
+
+                        if (!createdNew)
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        DiscordIntegration.UpdateRpc(DiscordIntegration.TDU);
                     }
 
-                    ProcessStartInfo processStartInfo = new ProcessStartInfo(path, Runtype[mode] + arguments);
+                    ProcessStartInfo processStartInfo = new ProcessStartInfo(profile.Gamepath, profile.GetLaunchArguments());
+                    processStartInfo.WorkingDirectory = Path.GetDirectoryName(profile.Gamepath);
                     var proc = new Process();
                     proc.StartInfo = processStartInfo;
                     isMonitoringActive = true;
@@ -105,7 +94,7 @@ namespace ProjectParadise2
                     monitoringThread.Start();
                     MinimizeApplicationWithHint();
                     StopMutex();
-                    Log.Info("Game started with mode: " + (mode == 0 ? "Online" : "Offline") + " args: " + arguments);
+                    Log.Info("Game (" + profile.Profilename + ") started, -> " + profile.Gamepath + " args: " + profile.Arguments);
                     return true;
                 }
                 else
@@ -116,6 +105,10 @@ namespace ProjectParadise2
             catch (Exception ex)
             {
                 Log.Error($"An error occurred while starting the game: {ex.Message}: " + ex);
+                MessageBox.Show("Failed run Game: 0x7F",
+                "Project Paradise 2 - Gamestart",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
                 return false;
             }
         }
@@ -128,13 +121,17 @@ namespace ProjectParadise2
             KillGame();
         }
 
+        static bool Decoradet = false;
+
         /// <summary>
         /// Monitors the started process and responds to the process exit.
         /// </summary>
         private static void MonitorProcess()
         {
+            Decoradet = false;
             try
             {
+                AntiCheat.SetProcess(monitoredProcess);
                 while (isMonitoringActive)
                 {
                     if (monitoredProcess != null && monitoredProcess.HasExited)
@@ -142,12 +139,21 @@ namespace ProjectParadise2
                         isMonitoringActive = false;
                         HandleProcessExit();
                     }
-                    Thread.Sleep(1000);
+                    Thread.Sleep(4000);
+                    if (!Decoradet)
+                    {
+                        AntiCheat.Decorate();
+                        Decoradet = true;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Log.Error($"An error occurred while monitoring the process: {ex.Message}: " + ex);
+                MessageBox.Show("Failed run Game: 0x6D",
+                    "Project Paradise 2 - Gamestart",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -175,7 +181,15 @@ namespace ProjectParadise2
             if (start != null)
             {
                 start.Close();
-                CanRunTheGame = true;
+            }
+            CanRunTheGame = true;
+            try
+            {
+                HomeView.Instance.ShowRunGameButton();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Failed to show the run game button ", ex);
             }
         }
 
@@ -204,6 +218,10 @@ namespace ProjectParadise2
                 catch (Exception ex)
                 {
                     Log.Error($"An error occurred while killing the game process: {ex.Message}: " + ex);
+                    MessageBox.Show("Failed run Game: 0x9D",
+                        "Project Paradise 2 - Gamestart",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
                 }
             }
             if (start != null)
@@ -264,64 +282,6 @@ namespace ProjectParadise2
                         mainWindow.Activate();
                     }
                 });
-            }
-        }
-
-        /// <summary>
-        /// Sets or unsets the Large Address Aware (LAA) flag in the specified executable file.
-        /// </summary>
-        /// <param name="exePath"></param>
-        /// <param name="enable"></param>
-        /// <returns></returns>
-        public static bool SetLargeAddressAware(string exePath, bool enable)
-        {
-            if (!File.Exists(exePath))
-            {
-                Log.Error("Error: File not found!");
-                return false;
-            }
-
-            try
-            {
-                using (FileStream fs = new FileStream(exePath, FileMode.Open, FileAccess.ReadWrite))
-                using (BinaryReader br = new BinaryReader(fs))
-                using (BinaryWriter bw = new BinaryWriter(fs))
-                {
-                    fs.Seek(0x3C, SeekOrigin.Begin);
-                    int peHeaderOffset = br.ReadInt32();
-
-                    fs.Seek(peHeaderOffset + 0x18, SeekOrigin.Begin);
-                    short magic = br.ReadInt16();
-
-                    if (magic != 0x10B && magic != 0x20B)  // Check if it's a valid PE file (32-bit or 64-bit)
-                    {
-                        Log.Error("Error: Not a valid PE file.");
-                        return false;
-                    }
-
-                    fs.Seek(peHeaderOffset + 0x16, SeekOrigin.Begin);
-                    ushort characteristics = br.ReadUInt16();
-
-                    if (enable)
-                    {
-                        characteristics |= 0x0020;  // Enable LAA flag
-                    }
-                    else
-                    {
-                        characteristics &= unchecked((ushort)~0x0020);  // Disable LAA flag
-                    }
-
-                    fs.Seek(peHeaderOffset + 0x16, SeekOrigin.Begin);
-                    bw.Write(characteristics);
-                }
-
-                Log.Info("LAA flag has been successfully " + (enable ? "enabled" : "disabled") + "!");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Log.Error("Error modifying EXE: " + ex.Message);
-                return false;
             }
         }
     }

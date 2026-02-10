@@ -6,12 +6,12 @@
              xmlns:objs="clr-namespace:ProjectParadise2.Objects"
              xmlns:local="clr-namespace:ProjectParadise2.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="1000">
-    <Border Margin="5,10,0,0" BorderThickness="0.8" CornerRadius="20" Background="#20232B">
+             d:DesignHeight="720" d:DesignWidth="1020">
+    <Border BorderThickness="0.8" CornerRadius="15" Background="#20232B" BorderBrush="#393E46" Margin="20,20,20,20">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="43"/>
+                <RowDefinition Height="97"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="100"/>
@@ -21,11 +21,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="175"/>
                 <ColumnDefinition Width="252"/>
-                <ColumnDefinition Width="373"/>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="383"/>
+                <ColumnDefinition Width="190"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="7">
-                <TextBlock Text="Software Infos" FontSize="18" Foreground="#F1F1F1" Margin="20,5,0,0" FontFamily="/Fonts/#Protofo"/>
+                <TextBlock Text="Software Infos" FontSize="18" Foreground="#F1F1F1" Margin="20,30,0,0" FontFamily="/Fonts/#Protofo"/>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
@@ -57,8 +57,8 @@
                 </Grid>
             </StackPanel>
 
-            <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4" Grid.RowSpan="6">
-                <TextBlock Text="Hardware Infos" FontSize="18" Foreground="#F1F1F1" Margin="20,5,0,0" FontFamily="/Fonts/#Protofo"/>
+            <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="6">
+                <TextBlock Text="Hardware Infos" FontSize="18" Foreground="#F1F1F1" Margin="20,30,0,0" FontFamily="/Fonts/#Protofo"/>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
@@ -97,11 +97,14 @@
                 </Grid>
             </StackPanel>
 
-            <objs:FA_BTN Style="{StaticResource FA_BTN}" Content="Copy to Clipboard" TextMargin="10,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Copy" IconDirection="Right" IconMargin="0,0,10,00" IconColor="#EEEEEE" Grid.Row="0" Grid.Column="3" Click="CopytoClipboard" Width="180"/>
-            <TextBlock Text="¹ It is best to install DirectX 9.0c using the web installer, as it includes all the necessary libraries." Foreground="#FF8744" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,0,0,0"/>
-            <TextBlock Text="² TDU2 requires the C++ Runtime 2005/2008 for 32-bit systems." Foreground="#FF8744" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,18,0,0"/>
-            <TextBlock Text="³ The NAT type is only an approximate indicator of your connection. It is not critical for the online service, but it mainly reflects how reachable you are for other players" Foreground="#FF8744" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,36,0,0"/>
-            <TextBlock Text="©2022 - 2025 Project-Paradise 2" Foreground="Wheat" FontSize="12" Grid.Row="6" Grid.Column="3" Margin="25,54,0,0"/>
+            <objs:FA_BTN Style="{StaticResource FA_BTN}" Content="Copy to Clipboard" TextMargin="10,0,0,0" Foreground="#EEEEEE" FontSize="15" IsChecked="False" Icon="Copy" IconDirection="Right" IconMargin="0,0,10,00" IconColor="#EEEEEE" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Click="CopytoClipboard" Margin="351,10,42,0"/>
+            <TextBlock Text="¹ It is best to install DirectX 9.0c using the web installer, as it includes all the necessary libraries." Foreground="#FF8744" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,63,0,0"/>
+            <TextBlock Text="² TDU2 requires the C++ Runtime 2005/2008 for 32-bit systems." Foreground="#FF8744" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,84,0,0"/>
+            <TextBlock Text="³ The NAT type is only an approximate indicator of your connection. It is not critical for the online service, but it mainly reflects how reachable you are for other players" Foreground="#FF8744" FontSize="12" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="10,105,0,-28"/>
+
         </Grid>
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+        </Border.Effect>
     </Border>
 </UserControl>

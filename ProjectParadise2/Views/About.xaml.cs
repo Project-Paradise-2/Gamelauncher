@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace ProjectParadise2.Views
 {
@@ -25,6 +27,7 @@ namespace ProjectParadise2.Views
         {
             InitializeComponent();
             Refresh();
+            Description.Text = Lang.GetText(138);
         }
 
         private void Refresh()
@@ -125,7 +128,7 @@ namespace ProjectParadise2.Views
 
         private void OpenHelp(object sender, RoutedEventArgs e)
         {
-            OpenWebsite("https://nova-appendix-de2.notion.site/TDU-2-Guides-77024b8a3b3b4f518301d9d2ff354773");
+            OpenWebsite("https://bug.project-paradise2.de/");
         }
 
         /// <summary>
@@ -145,6 +148,61 @@ namespace ProjectParadise2.Views
             else
             {
                 Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+        }
+
+        private int clickCount = 0;
+        private void CountClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Task.Run(() =>
+            {
+                clickCount++;
+                if (clickCount < 7)
+                {
+                    ShowFunnyMessage();
+                }
+
+                if (clickCount == 7)
+                {
+                    ShowEasterEgg();
+                }
+            });
+        }
+
+        private void ShowFunnyMessage()
+        {
+            string[] funnyMessages = {
+                "Are you sure about that?",
+                "Clicking more won't hurt!",
+                "You're getting close...",
+                "Almost there!",
+                "Keep clicking!",
+                "Don't stop now!",
+                "This is getting interesting..."
+            };
+
+            Random random = new Random();
+            string message = funnyMessages[random.Next(funnyMessages.Length)];
+
+            MessageBox.Show(message, "a mystery", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void ShowEasterEgg()
+        {
+            try
+            {
+                Task.Run(() => MessageBox.Show("Congratulations! You found the Easter Egg! 🎉",
+                                       "Easter Egg Found!",
+                                       MessageBoxButton.OK,
+                                       MessageBoxImage.Information));
+                OpenWebsite("https://cdn.project-paradise2.de/Requests/easteregg.html");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not open Rick Roll video :( \nIssue: " + ex.Message,
+                               "Error",
+                               MessageBoxButton.OK,
+                               MessageBoxImage.Error);
             }
         }
     }

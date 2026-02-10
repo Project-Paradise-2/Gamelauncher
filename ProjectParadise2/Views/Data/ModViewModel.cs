@@ -124,7 +124,7 @@ namespace ProjectParadise2.Views
             {
                 Totalmods = int.Parse(e.Result.ToString());
             }
-            ModView.Instance.OnNotifymessage("Refreshing page...", 2);
+            ModView.Instance.OnNotifymessage(Lang.GetText(134), 2);
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace ProjectParadise2.Views
                     }
                     else
                     {
-                        ModView.Instance.OnNotifymessage("No User Mods Available", 1);
+                        ModView.Instance.OnNotifymessage(Lang.GetText(133), 1);
                     }
                 }
             }
@@ -233,11 +233,11 @@ namespace ProjectParadise2.Views
 
                     if (LiveMods.data.Count == 1)
                     {
-                        ModView.Instance.OnNotifymessage(string.Format(Lang.GetText(74), Mods.Count, Totalmods), 1);
+                        ModView.Instance.OnNotifymessage(string.Format(Lang.GetText(132), Mods.Count, Totalmods), 1);
                     }
                     else
                     {
-                        ModView.Instance.OnNotifymessage(string.Format(Lang.GetText(74), (Mods.Count + (CurrentPage * 10)), (Totalmods)), 1);
+                        ModView.Instance.OnNotifymessage(string.Format(Lang.GetText(132), (Mods.Count + (CurrentPage * 10)), (Totalmods)), 1);
                     }
                 }
             }

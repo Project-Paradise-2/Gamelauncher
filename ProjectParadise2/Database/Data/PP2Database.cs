@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ProjectParadise2.Database.Data
 {
@@ -15,13 +14,8 @@ namespace ProjectParadise2.Database.Data
         public Usersettings Usersettings { get; set; } = new Usersettings();
 
         /// <summary>
-        /// A list of user-installed mods, each represented by a <see cref="Gamemod"/> object.
-        /// </summary>
-        public List<Gamemod> Usermods = new List<Gamemod>();
-
-        /// <summary>
         /// The version of the database schema. Default value is "1.0.4".
         /// </summary>
-        public string DatabaseVersion { get; set; } = "1.0.4";
+        public string DatabaseVersion { get; set; } = "2.0.0";
     }
 }

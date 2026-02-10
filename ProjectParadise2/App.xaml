@@ -5,7 +5,7 @@
              xmlns:objects="clr-namespace:ProjectParadise2.Objects"
              xmlns:viewModel="clr-namespace:ProjectParadise2.Views"
              xmlns:view="clr-namespace:ProjectParadise2.Views"
-             StartupUri="MainWindow.xaml">
+             StartupUri="TDUMP.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Objects/Toggle.xaml"/>
                 <ResourceDictionary Source="Objects/Input.xaml"/>
                 <ResourceDictionary Source="Objects/DropDown.xaml"/>
+                <ResourceDictionary Source="Objects/DropdownButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
@@ -54,6 +55,16 @@
             <DataTemplate DataType="{x:Type viewModel:AboutViewModel}">
                 <view:About/>
             </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type viewModel:CreateProfileViewModel}">
+                <view:CreateProfileView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:LauncherProfilesViewModel}">
+                <view:LauncherProfilesView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

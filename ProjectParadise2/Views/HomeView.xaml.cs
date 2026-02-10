@@ -1,7 +1,6 @@
 ﻿using ProjectParadise2.Core;
-using ProjectParadise2.Core.Log;
 using System;
-using System.Net;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,6 +14,10 @@ namespace ProjectParadise2.Views
     public partial class HomeView : UserControl
     {
         public static HomeView Instance { get; private set; }
+        private List<NewsEntry> _newsEntries = new List<NewsEntry>();
+        private int _currentIndex = 0;
+        public bool IsLoaded { get; set; } = false;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="HomeView"/> class.
         /// Sets up the news display and server state monitoring.
@@ -23,40 +26,73 @@ namespace ProjectParadise2.Views
         {
             InitializeComponent();
             Instance = this;
-            if(!NatDetector.CanRun)
-            RunGameButton.Visibility = Visibility.Hidden;
-            while (MainViewModel.Instance != null)
-            {
-                MainViewModel.HomeView = this;
-                break;
-            }
-
             BackgroundWorker.OnLangset += SetLang;
-            SetLang();
-            try
+            SetLang(null, null);
+            Playbutton.Visibility = Visibility.Hidden;
+            if (!NatDetector.CanRun)
+                while (MainViewModel.Instance != null)
+                {
+                    MainViewModel.HomeView = this;
+                    break;
+                }
+            _newsEntries = BackgroundWorker.GetLauncherNews();
+            GameProfiles.SelectedIndex = 0;
+            RefreshState(null, null);
+
+        }
+
+        public void AddProfiles(List<GameProfile> profiles)
+        {
+            if (!Dispatcher.CheckAccess())
             {
-                LoadNewsFromServer();
+                Dispatcher.Invoke(new Action<List<GameProfile>>(AddProfiles), profiles);
+                return;
             }
-            catch (WebException)
+            GameProfiles.Items.Clear();
+            foreach (var profile in profiles)
             {
-                try
-                {
-                    LoadNewsFromServer();
-                }
-                catch (WebException wx)
-                {
-                    this.NewsMessage.Text = "Failed to get the latest news:\n" + wx.Message;
-                    Log.Error("Failed to get the latest news: ", wx);
-                }
-                catch (Exception ex)
-                {
-                    this.NewsMessage.Text = "An unexpected error occurred:\n" + ex.Message;
-                    Log.Error("An unexpected error occurred: ", ex);
-                }
+                GameProfiles.Items.Add(new ComboBoxItem() { Content = profile.Profilename });
+            }
+            this.GameProfiles.SelectedIndex = Database.Database.p2Database.Usersettings.SelectedProfile;
+            this.GameProfiles.SelectedItem = Database.Database.p2Database.Usersettings.SelectedProfile;
+        }
+
+        private void NextNews(object sender, RoutedEventArgs e)
+        {
+            if (_currentIndex < _newsEntries.Count - 1)
+            {
+                _currentIndex++;
+                ShowNews();
+            }
+        }
+
+        private void PrevNews(object sender, RoutedEventArgs e)
+        {
+            if (_currentIndex > 0)
+            {
+                _currentIndex--;
+                ShowNews();
+            }
+        }
+
+        private void ShowNews()
+        {
+            if (_newsEntries.Count == 0)
+            {
+                NewsTitle.Text = "No News";
+                NewsText.Text = "No news entries available.";
+                NavPanel.Visibility = Visibility.Collapsed;
+                return;
             }
 
-            RefreshState(null, null);
+            var current = _newsEntries[_currentIndex];
+            NewsTitle.Text = current.Title + " - " + current.Date.ToString("d");
+            NewsText.Text = current.Content;
+
+            // Buttons nur anzeigen, wenn mehr als 1 Eintrag existiert
+            NavPanel.Visibility = _newsEntries.Count > 1 ? Visibility.Visible : Visibility.Collapsed;
         }
+
         public void ShowRunGameButton()
         {
             if (!Dispatcher.CheckAccess())
@@ -64,8 +100,19 @@ namespace ProjectParadise2.Views
                 Dispatcher.Invoke(ShowRunGameButton);
                 return;
             }
+            Playbutton.Visibility = Visibility.Visible;
+            Playbutton.IsEnabled = true;
+        }
 
-            RunGameButton.Visibility = Visibility.Visible;
+        public void HideRunGameButton()
+        {
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(HideRunGameButton);
+                return;
+            }
+            Playbutton.Visibility = Visibility.Hidden;
+            Playbutton.IsEnabled = false;
         }
 
         /// <summary>
@@ -80,25 +127,7 @@ namespace ProjectParadise2.Views
                 Dispatcher.Invoke(new Action<object, EventArgs>(SetLang), sender, e);
                 return;
             }
-            LastNews.Content = Lang.GetText(7);
-            RunGameButton.Content = Lang.GetText(0);
-            if (Database.Database.p2Database.Usersettings.Onlinemode)
-                RunGameButton.Foreground = Brushes.DarkGreen;
-            else
-                RunGameButton.Foreground = Brushes.DarkRed;
-        }
-
-        /// <summary>
-        /// Sets the language for UI elements based on user settings.
-        /// </summary>
-        private void SetLang()
-        {
-            LastNews.Content = Lang.GetText(7);
-            RunGameButton.Content = Lang.GetText(0);
-            if (Database.Database.p2Database.Usersettings.Onlinemode)
-                RunGameButton.Foreground = Brushes.DarkGreen;
-            else
-                RunGameButton.Foreground = Brushes.DarkRed;
+            this.Playbutton.Content = Lang.GetText(0);
         }
 
         /// <summary>
@@ -108,17 +137,27 @@ namespace ProjectParadise2.Views
         /// <param name="e">The mouse button event arguments.</param>
         private void RefreshState(object sender, MouseButtonEventArgs e)
         {
+            if (BackgroundWorker.NetworkTestsDone)
+            {
+                Playbutton.Visibility = Visibility.Visible;
+            }
+
             var info = HomeViewModel.CheckState();
             if (info != null)
             {
-                this.ServerStateText.Content = Lang.GetText(111) + info.playercount;
+                this.ServerStateText.Content = Lang.GetText(115) + info.playercount;
                 this.ServerStateLamp.Background = Brushes.Green;
             }
             else
             {
-                this.ServerStateText.Content = Lang.GetText(112);
+                this.ServerStateText.Content = Lang.GetText(116);
                 this.ServerStateLamp.Background = Brushes.Red;
             }
+
+            BackgroundWorker.RefreshProfiles();
+            this.GameProfiles.SelectedIndex = Database.Database.p2Database.Usersettings.SelectedProfile;
+            this.GameProfiles.SelectedItem = Database.Database.p2Database.Usersettings.SelectedProfile;
+            ShowNews();
         }
 
         /// <summary>
@@ -128,81 +167,20 @@ namespace ProjectParadise2.Views
         /// <param name="e">The routed event arguments.</param>
         private void StartGame(object sender, RoutedEventArgs e)
         {
+            HideRunGameButton();
             BackgroundWorker.RunGame();
         }
 
-        /// <summary>
-        /// Loads news data from the server and updates the UI.
-        /// </summary>
-        private void LoadNewsFromServer()
+        private void DefineProfile(object sender, SelectionChangedEventArgs e)
         {
-            using (WebConnection wc = new WebConnection())
+            if (!IsLoaded)
             {
-                wc.Timeout = 10;
-                string response = System.Text.Encoding.UTF8.GetString(wc.DownloadData("https://cdn.project-paradise2.de/Requests/Launchernews.php"));
-
-                string[] news = response.Split('|');
-                this.NewsMessage.Text = news[0];
-
-                UpdateNewsBoxStyle(news);
+                IsLoaded = true;
+                return;
             }
-        }
-
-        /// <summary>
-        /// Updates the news box style based on the server response.
-        /// </summary>
-        /// <param name="news">An array containing news data.</param>
-        private void UpdateNewsBoxStyle(string[] news)
-        {
-            switch (news[1])
-            {
-                case "Black":
-                    NewsBox.Foreground = Brushes.Black;
-                    break;
-                case "White":
-                    NewsBox.Foreground = Brushes.White;
-                    break;
-                case "Green":
-                    NewsBox.Foreground = Brushes.Green;
-                    break;
-                case "Red":
-                    NewsBox.Foreground = Brushes.Red;
-                    break;
-                case "Orange":
-                    NewsBox.Foreground = Brushes.Orange;
-                    break;
-                case "Yellow":
-                    NewsBox.Foreground = Brushes.Yellow;
-                    break;
-                case "Blue":
-                    NewsBox.Foreground = Brushes.Blue;
-                    break;
-                case "Grey":
-                    NewsBox.Foreground = Brushes.Gray;
-                    break;
-                case "Cyan":
-                    NewsBox.Foreground = Brushes.Cyan;
-                    break;
-                case "Magenta":
-                    NewsBox.Foreground = Brushes.Magenta;
-                    break;
-            }
-
-            switch (news[2])
-            {
-                case "smal":
-                    NewsBox.FontSize = 12;
-                    break;
-                case "medium":
-                    NewsBox.FontSize = 14;
-                    break;
-                case "big":
-                    NewsBox.FontSize = 16;
-                    break;
-                case "verybig":
-                    NewsBox.FontSize = 20;
-                    break;
-            }
+            int id = GameProfiles.SelectedIndex;
+            Database.Database.p2Database.Usersettings.SelectedProfile = id;
+            Database.Database.Write();
         }
     }
 }

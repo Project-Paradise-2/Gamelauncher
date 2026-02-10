@@ -1,4 +1,4 @@
-﻿using KuxiiSoft.Utils;
+﻿using ProjectParadise2.Core.Log;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +15,6 @@ namespace ProjectParadise2
         public static int HasFiles = 0;
         public static bool NeedUpdate = false;
         public static int PercentLoad = 0;
-
         #region Download Info Holder
         public static List<string> UpdateFile = new List<string>();
         public static List<string> InstallDir = new List<string>();
@@ -54,11 +53,22 @@ namespace ProjectParadise2
                         }
                     }
                 }
-                catch (Exception)
+                catch (UnauthorizedAccessException ex)
                 {
-                    //TODO: Handle file deletion exceptions
+                    Log.Error($"Error: Unauthorized access. Please check permissions: " + ex);
                 }
-
+                catch (DirectoryNotFoundException ex)
+                {
+                    Log.Error($"Error: Directory not found: " + ex);
+                }
+                catch (IOException ex)
+                {
+                    Log.Error($"I/O error occurred: " + ex);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"An unexpected error occurred: " + ex); ;
+                }
                 GetFiles();
             }
         }
@@ -151,8 +161,21 @@ namespace ProjectParadise2
                     File.Delete(Database.Database.p2Database.Usersettings.Gamedirectory + InstallDir[HasFiles] + ".zip");
                 }
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error($"Error: Unauthorized access. Please check permissions: " + ex);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                Log.Error($"Error: Directory not found: " + ex);
+            }
+            catch (IOException ex)
+            {
+                Log.Error($"I/O error occurred: " + ex);
+            }
             catch (Exception ex)
             {
+                Log.Error($"An unexpected error occurred: " + ex); ;
             }
         }
 
@@ -170,6 +193,5 @@ namespace ProjectParadise2
             }
             return string.Format("{0:0.##} {1}", dblSByte, Suffix[i]);
         }
-
     }
 }

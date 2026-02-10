@@ -130,6 +130,18 @@
   <data name="pp2-en" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pp2-en.htm;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="pp2-es" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pp2-es.htm;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pp2-fr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pp2-fr.htm;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pp2-pg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pp2-pg.htm;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pp2-pl" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pp2-pl.htm;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="pp2-ru" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pp2-ru.htm;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

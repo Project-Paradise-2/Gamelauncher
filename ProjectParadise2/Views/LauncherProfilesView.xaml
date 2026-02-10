@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="ProjectParadise2.Views.LauncherProfilesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjectParadise2.Views"
+             xmlns:objs="clr-namespace:ProjectParadise2.Objects"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1020">
+
+    <Border BorderThickness="0.8" CornerRadius="15" Background="#20232B" BorderBrush="#393E46" Margin="20">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Add Profile Button -->
+            <objs:FA_BTN Style="{StaticResource FA_BTN}" 
+                         x:Name="AddProfile" 
+                         Margin="15,10,15,10" 
+                         Content="Add Profile" 
+                         TextMargin="10,0,0,0" 
+                         Foreground="#B8B8B8" 
+                         FontSize="15" 
+                         IsChecked="False" 
+                         Icon="Edit" 
+                         IconDirection="Right" 
+                         IconMargin="0,0,12,00" 
+                         IconColor="#EEEEEE" 
+                         Grid.Row="0" 
+                         Grid.ColumnSpan="5"
+                         Height="40" Click="CreateProfile" 
+                         />
+
+            <!-- Profile List -->
+            <ListView Grid.Row="1"
+                      Grid.ColumnSpan="5"
+                      ItemsSource="{Binding GameProfiles}"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Foreground="#EEEEEE"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+                <!-- Stretch content across full width -->
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <!-- Template for each profile -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="#393E46"
+                                BorderThickness="0,0,0,1"
+                                Padding="12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <!-- Fixed widths for alignment -->
+                                    <ColumnDefinition Width="400"/>
+                                    <!-- Name (ca. 30 chars) -->
+                                    <ColumnDefinition Width="100"/>
+                                    <!-- Gametype (ca. 6 chars) -->
+                                    <ColumnDefinition Width="150"/>
+                                    <!-- Build (ca. 10 chars) -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- Edit Button -->
+                                    <ColumnDefinition Width="Auto"/>
+                                    <!-- Delete Button -->
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Profilname -->
+                                <TextBlock Grid.Column="0"
+                                           Text="{Binding Profilename}"
+                                           FontSize="18"
+                                           FontWeight="SemiBold"
+                                           Foreground="#FFFFFF"
+                                           VerticalAlignment="Center"
+                                           TextTrimming="CharacterEllipsis"/>
+
+                                <!-- Gametype -->
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Gametype}"
+                                           FontSize="18"
+                                           FontWeight="SemiBold"
+                                           Foreground="#FFD369"
+                                           VerticalAlignment="Center"/>
+
+                                <!-- Build -->
+                                <TextBlock Grid.Column="2"
+                                           Text="{Binding Build}"
+                                           FontSize="18"
+                                           FontWeight="SemiBold"
+                                           Foreground="#00ADB5"
+                                           VerticalAlignment="Center"/>
+
+                                <!-- Edit Button -->
+                                <objs:FA_BTN Grid.Column="3"
+                                             Margin="20,0,0,0"
+                                             Style="{StaticResource FA_BTN}"
+                                             Content="Edit"
+                                             TextMargin="12,0,0,0"
+                                             FontSize="14"
+                                             Icon="Edit"
+                                             IconDirection="Right"
+                                             IconMargin="0,0,12,0" 
+                                             Height="36"
+                                             MinWidth="120"
+                                             Foreground="#F0B13B"
+                                             IconColor="#F0B13B"
+                                             Command="{Binding DataContext.EditProfileCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                             CommandParameter="{Binding}"/>
+
+                                <!-- Delete Button -->
+                                <objs:FA_BTN Grid.Column="4"
+                                             Margin="12,0,0,0"
+                                             Style="{StaticResource FA_BTN}"
+                                             Content="Delete"
+                                             TextMargin="12,0,0,0"
+                                             FontSize="14"
+                                             Icon="Trash"
+                                             IconDirection="Right"
+                                             IconMargin="0,0,12,0" 
+                                             Height="36"
+                                             MinWidth="120"
+                                             Foreground="#FF6B6B"
+                                             IconColor="#FF6B6B"
+                                             Command="{Binding DataContext.DeleteProfileCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                             CommandParameter="{Binding}"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="25" ShadowDepth="5" Opacity="0.5"/>
+        </Border.Effect>
+    </Border>
+</UserControl>

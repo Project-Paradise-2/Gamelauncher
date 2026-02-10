@@ -22,6 +22,13 @@
         public RelayCommand ModDetailViewCommand { get; set; }
         public RelayCommand InstalledModViewCommand { get; set; }
         public RelayCommand AboutViewCommand { get; set; }
+        public RelayCommand LauncherProfilesViewCommand { get; set; }
+
+        public RelayCommand CreateProfilViewCommand { get; set; }
+
+        public RelayCommand EditProfileCommand { get; }
+        public RelayCommand DeleteProfileCommand { get; }
+
 
         /// <summary>
         /// ViewModel instances for different views.
@@ -36,6 +43,9 @@
         public InstalledModModel InstalledModVM { get; private set; }
         public LauncherUpdateViewModel LauncherVM { get; private set; }
         public AboutViewModel AboutVM { get; private set; }
+        public LauncherProfilesViewModel LauncherProfilesVM { get; private set; }
+
+        public CreateProfileViewModel CreateProfileVM { get; private set; }
 
         /// <summary>
         /// View instances for different views.
@@ -50,6 +60,8 @@
         public static InstalledMods InstalledModsView { get; set; }
         public static LauncherUpdate LauncherUpdateVM { get; set; }
         public static About AboutView { get; set; }
+        public static CreateProfileView CreateProfileView { get; set; }
+        public static LauncherProfilesView LauncherProfilesView { get; set; }
 
         private object _currentView;
 
@@ -72,22 +84,41 @@
         public MainViewModel()
         {
             Instance = this;
+            /// Initialize the ViewModel instances **Main View**
             HomeVM = new HomeViewModel();
+            /// Initialize the ViewModel instances **Hardware View**
             InfoVM = new InfoViewModel();
+            /// Initialize the ViewModel instances **Settings View**
             SettingsVM = new SettingsViewModel();
+            /// Initialize the ViewModel instances **Update Game View**
             UpdateVM = new UpdateViewModel();
+            /// Initialize the ViewModel instances **Mod View**
             ModVM = new ModViewModel();
+            /// Initialize the ViewModel instances **Installed Mod View**
             InstalledModVM = new InstalledModModel();
+            /// Initialize the ViewModel instances **Mod Detail View**
             ModDeatilVM = new ModDeatilModel();
+            /// Initialize the ViewModel instances **Service View**
             ServiceViewVM = new ServiceViewModel();
+            /// Initialize the ViewModel instances **Launcher Update View**
             LauncherVM = new LauncherUpdateViewModel();
+            /// Initialize the ViewModel instances **About View**
             AboutVM = new AboutViewModel();
+            /// Initialize the ViewModel instances **Create Profile View**
+            CreateProfileVM = new CreateProfileViewModel();
+            /// Initialize the ViewModel instances **Launcher Profiles View**
+            LauncherProfilesVM = new LauncherProfilesViewModel();
             CurrentView = HomeVM;
 
             // Initialize the commands for view navigation
             HomeViewCommand = new RelayCommand(o =>
             {
                 CurrentView = HomeVM;
+            });
+
+            LauncherProfilesViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = LauncherProfilesVM;
             });
 
             InfoViewCommand = new RelayCommand(o =>
@@ -131,6 +162,35 @@
             {
                 CurrentView = InstalledModVM;
             });
+
+            CreateProfilViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = CreateProfileVM;
+            });
+
+            EditProfileCommand = new RelayCommand(o =>
+            {
+                if (o is GameProfile profile)
+                {
+                    EditProfile(profile);
+                }
+            });
+
+            DeleteProfileCommand = new RelayCommand(o =>
+            {
+                if (o is GameProfile profile)
+                {
+                    DeleteProfile(profile);
+                }
+            });
+        }
+
+        public void EditProfile(GameProfile profile)
+        {
+        }
+
+        private void DeleteProfile(GameProfile profile)
+        {
         }
 
         /// <summary>
@@ -186,6 +246,30 @@
             if (MainViewModel.Instance != null)
             {
                 Instance.CurrentView = MainViewModel.Instance.InstalledModVM;
+            }
+        }
+
+        public static void OpenCreateProfile()
+        {
+            if (MainViewModel.Instance != null)
+            {
+                Instance.CurrentView = MainViewModel.Instance.CreateProfileVM;
+            }
+        }
+
+        public static void OpenCreateProfile(CreateProfileView view)
+        {
+            if (MainViewModel.Instance != null)
+            {
+                Instance.CurrentView = view;
+            }
+        }
+
+        public static void OpenLauncherProfiles()
+        {
+            if (MainViewModel.Instance != null)
+            {
+                Instance.CurrentView = MainViewModel.Instance.LauncherProfilesVM;
             }
         }
     }

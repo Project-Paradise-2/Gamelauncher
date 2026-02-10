@@ -21,6 +21,7 @@ namespace ProjectParadise2
                 return $"Missing Translation, {Database.Database.p2Database.Usersettings.LangId}";
             }
         }
+
         public static string GetAboutText(int LangId)
         {
             try
@@ -123,6 +124,7 @@ namespace ProjectParadise2
                 return $"Missing Translation, {TextId}:{Database.Database.p2Database.Usersettings.LangId}";
             }
         }
+
         public static string GetTooltipText(int TextId, int LangId)
         {
             try
@@ -244,2629 +246,3154 @@ namespace ProjectParadise2
 
         public static string[] GermanToolTip =
         {
-            ///Service tooltips
-            "In der Cloud mit vorhandenem Spielprofil einloggen",
-            "Mit dem aktuellen Profil ausloggen",
-            "Informationen vom Server aktualisieren",
-            "Automatische Sicherung von Savegame (lokal gespeichert) aktivieren/deaktivieren",
-            "Ordner öffnen, in dem Backups gespeichert werden",
-            "Festlegen, wann ein Backup erstellt werden soll",
-            "Angeben, wie viele Backups maximal erhalten bleiben sollen",
-            "Spielordner des ausgewählten Spiels öffnen",
-            "Speicherstand-Ordner des Spiels öffnen",
-            "Speicherstand in die Cloud hochladen. \nAchtung: Dadurch wird der vorhandene Speicherstand überschrieben!",
-            "Speicherstand aus der Cloud herunterladen. \nAchtung: Dadurch wird der lokal vorhandene Speicherstand überschrieben!",
-            ///
-            "Zwischen Online- und Offline-Modus wechseln",
-            "Spiel zwischen Unpacked/Packed wechseln \n(Nur für den Mod-Browser, damit er die korrekten Mods anzeigt)",
-            "Discord-Status-Text aktivieren/deaktivieren",
-            "Versionsprüfung für neue Updates aktivieren/deaktivieren",
-            "UPnP-Support aktivieren/deaktivieren \n(Nützlich bei manuellem Port-Forwarding oder Verbindungsproblemen zum Server)",
-            "Steam-Support aktivieren/deaktivieren \n(Erforderlich für Erfolge und Spielzeit-Tracking)",
-            "Spiel auswählen, das der Launcher starten soll",
-            "Spiel auf beschädigte oder fehlerhafte Dateien überprüfen",
-            "Verbindung zum Server über die Game-Datei zurücksetzen \n(Sollte ausgeführt werden, wenn der Launcher dies empfiehlt)",
-            "Zwischen Audiomodi wechseln",
-            "Spiel erlauben, mehr RAM zu nutzen \n(Empfohlen bei der Nutzung von Mods)",
-            "Versucht, dem Spiel mehr CPU-Kerne zuzuweisen \n(Falls Windows dies zulässt)",
-            "Prozesspriorität höher als normal setzen",
-
-            "Ungefähre Einschätzung der Verbindungsqualität für P2P-Traffic \n(Relevant für die Host-Fähigkeit einer Lobby)",
-            "Zeigt an, ob der Launcher automatisches Port-Forwarding durchführen konnte \n(UPnP muss dafür aktiviert und im Router erlaubt sein)",
-            "Schadenmodell im Spiel aktivieren/deaktivieren",
-            "Autodreck im Spiel aktivieren/deaktivieren",
+            "Discord-Spielintegration\nDeaktiv | Aktiv – Zeigt oder versteckt den Status",                                                                 //0
+            "Launcher-Update-Prüfung\nDeaktiv | Aktiv – Prüft auf neue Launcher-Versionen",                                                              //1
+            "Universal Plug and Play\nDeaktiv | Aktiv – Versucht, die Portweiterleitung automatisch einzurichten",                                      //2
+            "Sprache, die der Launcher verwenden soll",                                                                                                 //3
+            "Audio-Modus: Standard oder Erweitert\nTDU2 hat zwei Audio-Modi, hier kann gewechselt werden",                                              //4
+            "Erstellt ein neues Spielprofil",                                                                                                           //5
+            "Dynamischer RAM\nDeaktiv | Aktiv – Erlaubt der Anwendung, mehr RAM zu nutzen",                                                            //6
+            "Dynamische Kerne\nDeaktiv | Aktiv – Versucht, mehr CPU-Kerne zuzuweisen",                                                                 //7
+            "Dynamische Priorität\nDeaktiv | Aktiv – Setzt den Prozess höher als normal",                                                             //8
+            "Fahrzeugdreck\nDeaktiv | Aktiv – Fahrzeuge können verschmutzen",                                                                          //9
+            "Fahrzeugschaden\nDeaktiv | Aktiv – Fahrzeuge können Schaden nehmen",                                                                      //10
+            "Online-Modus\nDeaktiv | Aktiv – Startet das Spiel im Online- oder Offline-Modus",                                                        //11
+            "Wählt das Spiel aus, das genutzt werden soll",                                                                                            //12
+            "Öffnet den Spieleordner",                                                                                                                  //13
+            "Spielt-Update\nPrüft auf fehlende oder beschädigte Dateien",                                                                              //14
+            "Ändert die Spielkonfiguration,\num das Spiel mit dem PP2-Server zu verbinden.\nSollte genutzt werden, wenn Hostfile-Edit nicht funktioniert", //15
+            "Öffnet den Mod-Browser, um Mods in dieser Spielinstanz zu verwalten",                                                                     //16
+            "Profil speichern",                                                                                                                         //17
+            "In Cloud einloggen",                                                                                                                       //18
+            "Von Cloud ausloggen",                                                                                                                      //19
+            "Daten vom Server aktualisieren",                                                                                                          //20
+            "Lokales Backup erstellen\nDeaktiv | Aktiv",                                                                                               //21
+            "Backup-Ordner öffnen",                                                                                                                     //22
+            "Savegame-Backup erstellen vor oder nach Spielstart/-ende",                                                                                //23
+            "Maximale Anzahl an Savegames, die aufgehoben werden sollen",                                                                              //24
+            "Savegame-Ordner öffnen",                                                                                                                   //25
+            "Savegame aus der Cloud herunterladen",                                                                                                     //26
+            "Savegame in die Cloud hochladen",                                                                                                         //27
         };
 
         public static string[] EnglishToolTip =
         {
-            "Log in to the cloud with an existing game profile",
-            "Log out with the current profile",
-            "Update information from the server",
-            "Enable/disable automatic backup of savegames (locally stored)",
-            "Open the folder where backups are stored",
-            "Set when a backup should be created",
-            "Specify how many backups should be kept",
-            "Open the game folder of the selected game",
-            "Open the savegame folder of the game",
-            "Upload savegame to the cloud.\nWarning: This will overwrite the existing savegame!",
-            "Download savegame from the cloud.\nWarning: This will overwrite the locally stored savegame!",
-            "Switch between online and offline mode",
-            "Switch between Unpacked/Packed game mode\n(Only for the mod browser, so it displays the correct mods)",
-            "Enable/disable Discord status text",
-            "Enable/disable version check for new updates",
-            "Enable/disable UPnP support\n(Useful for manual port forwarding or connection issues to the server)",
-            "Enable/disable Steam support\n(Required for achievements and game time tracking)",
-            "Select the game the launcher should start",
-            "Check the game for damaged or faulty files",
-            "Reset the connection to the server via the game file\n(Should be done if the launcher recommends it)",
-            "Switch between audio modes",
-            "Allow the game to use more RAM\n(Recommended when using mods)",
-            "Try to assign more CPU cores to the game\n(If Windows allows it)",
-            "Set process priority higher than normal",
-            "Approximate estimation of connection quality for P2P traffic\n(Relevant for hosting a lobby)",
-            "Indicates whether the launcher could perform automatic port forwarding\n(UPnP must be enabled and allowed in the router)",
-            "Activate/Deactivate damage model in the game",
-            "Activate/Deactivate auto dirt in the game",
-            ""
+            "Discord game integration\nOff | On – Shows or hides the status",                                                                  //0
+            "Launcher update check\nOff | On – Checks for new launcher versions",                                                              //1
+            "Universal Plug and Play\nOff | On – Attempts to set up port forwarding automatically",                                           //2
+            "Language the launcher should use",                                                                                                 //3
+            "Audio mode: Standard or Advanced\nTDU2 has two audio modes, you can switch between them",                                         //4
+            "Create a new game profile",                                                                                                        //5
+            "Dynamic RAM\nOff | On – Allows the application to use more RAM",                                                                  //6
+            "Dynamic cores\nOff | On – Attempts to assign more CPU cores",                                                                     //7
+            "Dynamic priority\nOff | On – Sets the process to a higher priority than normal",                                                  //8
+            "Vehicle dirt\nOff | On – Vehicles can get dirty",                                                                                 //9
+            "Vehicle damage\nOff | On – Vehicles can take damage",                                                                             //10
+            "Online mode\nOff | On – Starts the game in online or offline mode",                                                              //11
+            "Select the game to be used",                                                                                                       //12
+            "Open the game folder",                                                                                                             //13
+            "Game update\nChecks for missing or corrupted files",                                                                              //14
+            "Changes the game configuration\nto connect the game to the PP2 server.\nShould be used if Hostfile-Edit does not work",          //15
+            "Opens the mod browser to manage mods in this game instance",                                                                      //16
+            "Save profile",                                                                                                                     //17
+            "Log in to cloud",                                                                                                                  //18
+            "Log out of cloud",                                                                                                                 //19
+            "Refresh server data",                                                                                                              //20
+            "Create local backup\nOff | On",                                                                                                    //21
+            "Open backup folder",                                                                                                               //22
+            "Create savegame backup before or after game start/end",                                                                           //23
+            "Maximum number of savegames to keep",                                                                                             //24
+            "Open savegame folder",                                                                                                             //25
+            "Download savegame from cloud",                                                                                                     //26
+            "Upload savegame to cloud",                                                                                                         //27
         };
 
         public static string[] CzechToolTip =
         {
-            "Přihlásit se do cloudu s existujícím herním profilem",
-            "Odhlásit se s aktuálním profilem",
-            "Aktualizovat informace ze serveru",
-            "Povolit/zakázat automatické zálohování uložených her (lokálně uložené)",
-            "Otevřít složku, kde jsou uloženy zálohy",
-            "Nastavit, kdy se má vytvořit záloha",
-            "Určit, kolik záloh má být zachováno",
-            "Otevřít složku hry vybrané hry",
-            "Otevřít složku s uloženými hrami",
-            "Nahrát uloženou hru do cloudu.\nVarování: Přepíše existující uloženou hru!",
-            "Stáhnout uloženou hru z cloudu.\nVarování: Přepíše lokálně uloženou hru!",
-            "Přepnout mezi online a offline režimem",
-            "Přepnout mezi režimy Unpacked/Packed hry\n(Pouze pro mod prohlížeč, aby zobrazil správné mody)",
-            "Povolit/zakázat status text na Discordu",
-            "Povolit/zakázat kontrolu verzí pro nové aktualizace",
-            "Povolit/zakázat podporu UPnP\n(Užitečné pro manuální přesměrování portů nebo problémy s připojením k serveru)",
-            "Povolit/zakázat podporu Steamu\n(Nutné pro úspěchy a sledování herního času)",
-            "Vybrat hru, kterou má launcher spustit",
-            "Zkontrolovat hru na poškozené nebo chybné soubory",
-            "Resetovat připojení k serveru pomocí herního souboru\n(Mělo by být provedeno, pokud to launcher doporučí)",
-            "Přepnout mezi zvukovými režimy",
-            "Povolit hře používat více RAM\n(Doporučeno při použití modů)",
-            "Pokusit se přiřadit hře více jader procesoru\n(Pokud to Windows umožňuje)",
-            "Nastavit prioritu procesu vyšší než normální",
-            "Přibližné odhady kvality připojení pro P2P provoz\n(Důležité pro hostování lobby)",
-            "Zobrazuje, zda mohl launcher provést automatické přesměrování portů\n(UPnP musí být povoleno a povoleno v routeru)",
-            "Aktivovat/deaktivovat model poškození ve hře",
-            "Aktivovat/deaktivovat automatický bláto ve hře",
-            ""
+            "Integrace hry s Discordem\nVypnuto | Zapnuto – Zobrazuje nebo skrývá stav",                                                    //0
+            "Kontrola aktualizace spouštěče\nVypnuto | Zapnuto – Kontroluje nové verze spouštěče",                                         //1
+            "Universal Plug and Play\nVypnuto | Zapnuto – Pokusí se automaticky nastavit přesměrování portů",                             //2
+            "Jazyk, který má spouštěč používat",                                                                                        //3
+            "Zvukový režim: Standardní nebo Pokročilý\nTDU2 má dva zvukové režimy, můžete mezi nimi přepínat",                              //4
+            "Vytvořit nový herní profil",                                                                                                //5
+            "Dynamická RAM\nVypnuto | Zapnuto – Umožňuje aplikaci použít více paměti RAM",                                                //6
+            "Dynamická jádra\nVypnuto | Zapnuto – Pokusí se přiřadit více CPU jader",                                                      //7
+            "Dynamická priorita\nVypnuto | Zapnuto – Nastaví proces na vyšší prioritu než obvykle",                                       //8
+            "Špína vozidel\nVypnuto | Zapnuto – Vozidla mohou být špinavá",                                                              //9
+            "Poškození vozidel\nVypnuto | Zapnuto – Vozidla mohou být poškozena",                                                         //10
+            "Online režim\nVypnuto | Zapnuto – Spustí hru v online nebo offline režimu",                                                  //11
+            "Vyberte hru, která se má použít",                                                                                           //12
+            "Otevřít složku hry",                                                                                                        //13
+            "Aktualizace hry\nKontroluje chybějící nebo poškozené soubory",                                                              //14
+            "Změní konfiguraci hry\na propojí hru se serverem PP2.\nMělo by se použít, pokud úprava hostitelského souboru nefunguje",        //15
+            "Otevře prohlížeč modů pro správu modů v této instanci hry",                                                                 //16
+            "Uložit profil",                                                                                                             //17
+            "Přihlásit se do cloudu",                                                                                                    //18
+            "Odhlásit se z cloudu",                                                                                                      //19
+            "Obnovit data serveru",                                                                                                      //20
+            "Vytvořit místní zálohu\nVypnuto | Zapnuto",                                                                                  //21
+            "Otevřít složku záloh",                                                                                                      //22
+            "Vytvořit zálohu uložené hry před nebo po spuštění/ukončení hry",                                                             //23
+            "Maximální počet uložených her, které mají být uchovány",                                                                    //24
+            "Otevřít složku uložených her",                                                                                              //25
+            "Stáhnout uloženou hru z cloudu",                                                                                            //26
+            "Nahrát uloženou hru do cloudu",
         };
 
         public static string[] SpanishToolTip =
         {
-            "Iniciar sesión en la nube con un perfil de juego existente",
-            "Cerrar sesión con el perfil actual",
-            "Actualizar información desde el servidor",
-            "Activar/desactivar la copia de seguridad automática de partidas guardadas (almacenadas localmente)",
-            "Abrir la carpeta donde se guardan las copias de seguridad",
-            "Configurar cuándo se debe crear una copia de seguridad",
-            "Especificar cuántas copias de seguridad se deben conservar",
-            "Abrir la carpeta del juego seleccionado",
-            "Abrir la carpeta de partidas guardadas del juego",
-            "Subir partida guardada a la nube.\nAdvertencia: ¡Esto sobrescribirá la partida guardada existente!",
-            "Descargar partida guardada desde la nube.\nAdvertencia: ¡Esto sobrescribirá la partida guardada local!",
-            "Cambiar entre el modo en línea y fuera de línea",
-            "Cambiar entre el modo de juego Empaquetado/Desempaquetado\n(Solo para el navegador de mods, para que muestre los mods correctos)",
-            "Activar/desactivar el estado de Discord",
-            "Activar/desactivar la comprobación de versiones para nuevas actualizaciones",
-            "Activar/desactivar soporte UPnP\n(Útil para el reenvío de puertos manual o problemas de conexión con el servidor)",
-            "Activar/desactivar soporte para Steam\n(Requerido para logros y seguimiento del tiempo de juego)",
-            "Seleccionar el juego que debe iniciar el lanzador",
-            "Verificar si el juego tiene archivos dañados o defectuosos",
-            "Restablecer la conexión al servidor a través del archivo del juego\n(Debe realizarse si el lanzador lo recomienda)",
-            "Cambiar entre modos de audio",
-            "Permitir que el juego use más RAM\n(Recomendado al usar mods)",
-            "Intentar asignar más núcleos de CPU al juego\n(Si Windows lo permite)",
-            "Establecer la prioridad del proceso más alta de lo normal",
-            "Estimación aproximada de la calidad de la conexión para tráfico P2P\n(Relevante para alojar una sala)",
-            "Indica si el lanzador pudo realizar el reenvío automático de puertos\n(UPnP debe estar habilitado y permitido en el enrutador)",
-            "Activar/desactivar el modelo de daño en el juego",
-            "Activar/desactivar el barro automático en el juego",
-            ""
+            "Integración del juego con Discord\nOff | On – Muestra u oculta el estado",                                                    //0
+            "Comprobación de actualización del lanzador\nOff | On – Busca nuevas versiones del lanzador",                                   //1
+            "Universal Plug and Play\nOff | On – Intenta configurar el reenvío de puertos automáticamente",                                //2
+            "Idioma que debe usar el lanzador",                                                                                            //3
+            "Modo de audio: Estándar o Avanzado\nTDU2 tiene dos modos de audio, puedes cambiar entre ellos",                                //4
+            "Crear un nuevo perfil de juego",                                                                                              //5
+            "RAM dinámica\nOff | On – Permite que la aplicación use más memoria RAM",                                                       //6
+            "Núcleos dinámicos\nOff | On – Intenta asignar más núcleos de CPU",                                                             //7
+            "Prioridad dinámica\nOff | On – Establece el proceso a una prioridad superior a la normal",                                     //8
+            "Suciedad del vehículo\nOff | On – Los vehículos pueden ensuciarse",                                                           //9
+            "Daño del vehículo\nOff | On – Los vehículos pueden sufrir daños",                                                             //10
+            "Modo en línea\nOff | On – Inicia el juego en modo online o offline",                                                          //11
+            "Selecciona el juego que se usará",                                                                                            //12
+            "Abrir carpeta del juego",                                                                                                      //13
+            "Actualización del juego\nComprueba archivos faltantes o corruptos",                                                           //14
+            "Cambia la configuración del juego\npara conectar el juego al servidor PP2.\nDebe usarse si la edición del archivo host no funciona", //15
+            "Abre el navegador de mods para gestionar mods en esta instancia del juego",                                                   //16
+            "Guardar perfil",                                                                                                               //17
+            "Iniciar sesión en la nube",                                                                                                    //18
+            "Cerrar sesión en la nube",                                                                                                     //19
+            "Actualizar datos del servidor",                                                                                                //20
+            "Crear copia de seguridad local\nOff | On",                                                                                     //21
+            "Abrir carpeta de copias de seguridad",                                                                                         //22
+            "Crear copia de seguridad del juego antes o después de iniciar/cerrar",                                                        //23
+            "Número máximo de partidas guardadas a conservar",                                                                              //24
+            "Abrir carpeta de partidas guardadas",                                                                                          //25
+            "Descargar partida guardada desde la nube",                                                                                    //26
+            "Subir partida guardada a la nube",
         };
 
         public static string[] FrenchToolTip =
         {
-            "Se connecter au cloud avec un profil de jeu existant",
-            "Se déconnecter avec le profil actuel",
-            "Mettre à jour les informations depuis le serveur",
-            "Activer/désactiver la sauvegarde automatique des parties (stockées localement)",
-            "Ouvrir le dossier où les sauvegardes sont enregistrées",
-            "Définir quand une sauvegarde doit être créée",
-            "Spécifier combien de sauvegardes doivent être conservées",
-            "Ouvrir le dossier du jeu sélectionné",
-            "Ouvrir le dossier des sauvegardes du jeu",
-            "Téléverser la sauvegarde dans le cloud.\nAttention : Cela écrasera la sauvegarde existante !",
-            "Télécharger la sauvegarde depuis le cloud.\nAttention : Cela écrasera la sauvegarde locale !",
-            "Passer entre le mode en ligne et hors ligne",
-            "Passer entre les modes de jeu Décompressé/Compressé\n(Uniquement pour le navigateur de mods, afin d'afficher les bons mods)",
-            "Activer/désactiver le statut Discord",
-            "Activer/désactiver la vérification des mises à jour",
-            "Activer/désactiver la prise en charge de l'UPnP\n(Utile pour le transfert manuel de ports ou les problèmes de connexion au serveur)",
-            "Activer/désactiver la prise en charge de Steam\n(Requis pour les succès et le suivi du temps de jeu)",
-            "Sélectionner le jeu que le lanceur doit démarrer",
-            "Vérifier si le jeu contient des fichiers corrompus ou défectueux",
-            "Réinitialiser la connexion au serveur via le fichier du jeu\n(Doit être effectué si le lanceur le recommande)",
-            "Basculer entre les modes audio",
-            "Permettre au jeu d'utiliser plus de RAM\n(Recommandé lors de l'utilisation de mods)",
-            "Tenter d'attribuer plus de cœurs de processeur au jeu\n(Si Windows le permet)",
-            "Définir la priorité du processus plus haute que la normale",
-            "Estimation approximative de la qualité de la connexion pour le trafic P2P\n(Relevant pour l'hébergement d'un lobby)",
-            "Indique si le lanceur a pu effectuer le transfert de port automatique\n(L'UPnP doit être activé et autorisé sur le routeur)",
-            "Activer/désactiver le modèle de dégâts dans le jeu",
-            "Activer/désactiver la saleté automatique dans le jeu",
-            ""
+            "Intégration du jeu avec Discord\nOff | On – Affiche ou masque le statut",                                                    //0
+            "Vérification de mise à jour du lanceur\nOff | On – Recherche de nouvelles versions du lanceur",                               //1
+            "Plug and Play universel\nOff | On – Tente de configurer automatiquement le redirection de port",                              //2
+            "Langue que doit utiliser le lanceur",                                                                                        //3
+            "Mode audio : Standard ou Avancé\nTDU2 possède deux modes audio, vous pouvez basculer entre eux",                               //4
+            "Créer un nouveau profil de jeu",                                                                                             //5
+            "RAM dynamique\nOff | On – Permet à l’application d’utiliser plus de mémoire RAM",                                             //6
+            "Cœurs dynamiques\nOff | On – Tente d’assigner plus de cœurs CPU",                                                            //7
+            "Priorité dynamique\nOff | On – Définit le processus à une priorité plus élevée que la normale",                               //8
+            "Saleté des véhicules\nOff | On – Les véhicules peuvent se salir",                                                            //9
+            "Dommages des véhicules\nOff | On – Les véhicules peuvent subir des dommages",                                                //10
+            "Mode en ligne\nOff | On – Lance le jeu en mode en ligne ou hors ligne",                                                      //11
+            "Sélectionner le jeu à utiliser",                                                                                             //12
+            "Ouvrir le dossier du jeu",                                                                                                    //13
+            "Mise à jour du jeu\nVérifie les fichiers manquants ou corrompus",                                                            //14
+            "Modifie la configuration du jeu\npour connecter le jeu au serveur PP2.\nÀ utiliser si la modification du fichier host ne fonctionne pas", //15
+            "Ouvre le navigateur de mods pour gérer les mods dans cette instance du jeu",                                                 //16
+            "Enregistrer le profil",                                                                                                       //17
+            "Se connecter au cloud",                                                                                                       //18
+            "Se déconnecter du cloud",                                                                                                     //19
+            "Actualiser les données du serveur",                                                                                           //20
+            "Créer une sauvegarde locale\nOff | On",                                                                                       //21
+            "Ouvrir le dossier des sauvegardes",                                                                                           //22
+            "Créer une sauvegarde du jeu avant ou après le lancement/arrêt",                                                              //23
+            "Nombre maximum de sauvegardes à conserver",                                                                                  //24
+            "Ouvrir le dossier des sauvegardes",                                                                                           //25
+            "Télécharger une sauvegarde depuis le cloud",                                                                                 //26
+            "Téléverser une sauvegarde vers le cloud",
         };
 
         public static string[] IndonesianToolTip =
         {
-            "Masuk ke cloud dengan profil permainan yang sudah ada",
-            "Keluar dari profil saat ini",
-            "Perbarui informasi dari server",
-            "Aktifkan/nonaktifkan pencadangan otomatis untuk file simpanan (disimpan secara lokal)",
-            "Buka folder tempat cadangan disimpan",
-            "Atur kapan pencadangan harus dibuat",
-            "Tentukan berapa banyak cadangan yang harus disimpan",
-            "Buka folder permainan untuk permainan yang dipilih",
-            "Buka folder file simpanan permainan",
-            "Unggah file simpanan ke cloud.\nPeringatan: Ini akan menimpa file simpanan yang ada!",
-            "Unduh file simpanan dari cloud.\nPeringatan: Ini akan menimpa file simpanan lokal!",
-            "Beralih antara mode online dan offline",
-            "Beralih antara mode game Unpacked/Packed\n(Hanya untuk peramban mod agar menampilkan mod yang benar)",
-            "Aktifkan/nonaktifkan status teks Discord",
-            "Aktifkan/nonaktifkan pemeriksaan versi untuk pembaruan baru",
-            "Aktifkan/nonaktifkan dukungan UPnP\n(Berguna untuk penerusan port manual atau masalah koneksi ke server)",
-            "Aktifkan/nonaktifkan dukungan Steam\n(Diperlukan untuk pencapaian dan pelacakan waktu bermain)",
-            "Pilih permainan yang harus dijalankan peluncur",
-            "Periksa permainan untuk file yang rusak atau salah",
-            "Setel ulang koneksi ke server melalui file permainan\n(Harus dilakukan jika peluncur merekomendasikannya)",
-            "Beralih antara mode audio",
-            "Izinkan permainan menggunakan lebih banyak RAM\n(Direkomendasikan saat menggunakan mod)",
-            "Coba tetapkan lebih banyak inti CPU ke permainan\n(Jika Windows mengizinkannya)",
-            "Tetapkan prioritas proses lebih tinggi dari normal",
-            "Perkiraan kualitas koneksi untuk lalu lintas P2P\n(Relevan untuk menjadi host lobi)",
-            "Menunjukkan apakah peluncur dapat melakukan penerusan port otomatis\n(UPnP harus diaktifkan dan diizinkan di router)",
-            "Aktifkan/nonaktifkan model kerusakan dalam permainan",
-            "Aktifkan/nonaktifkan kotoran otomatis dalam permainan",
+            "Integrasi game dengan Discord\nOff | On – Menampilkan atau menyembunyikan status",                                               //0
+            "Pemeriksaan pembaruan launcher\nOff | On – Memeriksa versi launcher terbaru",                                                    //1
+            "Universal Plug and Play\nOff | On – Mencoba mengatur port forwarding secara otomatis",                                           //2
+            "Bahasa yang digunakan launcher",                                                                                                //3
+            "Mode audio: Standar atau Lanjutan\nTDU2 memiliki dua mode audio, Anda dapat beralih di antara keduanya",                          //4
+            "Buat profil game baru",                                                                                                          //5
+            "RAM dinamis\nOff | On – Memungkinkan aplikasi menggunakan lebih banyak RAM",                                                     //6
+            "Core dinamis\nOff | On – Mencoba menetapkan lebih banyak inti CPU",                                                              //7
+            "Prioritas dinamis\nOff | On – Menetapkan proses ke prioritas yang lebih tinggi dari normal",                                      //8
+            "Kotoran kendaraan\nOff | On – Kendaraan dapat menjadi kotor",                                                                    //9
+            "Kerusakan kendaraan\nOff | On – Kendaraan dapat mengalami kerusakan",                                                            //10
+            "Mode online\nOff | On – Memulai game dalam mode online atau offline",                                                            //11
+            "Pilih game yang akan digunakan",                                                                                                 //12
+            "Buka folder game",                                                                                                                //13
+            "Pembaruan game\nMemeriksa file yang hilang atau rusak",                                                                          //14
+            "Mengubah konfigurasi game\nuntuk menghubungkan game ke server PP2.\nHarus digunakan jika pengeditan file host tidak berhasil",    //15
+            "Membuka browser mod untuk mengelola mod di instance game ini",                                                                    //16
+            "Simpan profil",                                                                                                                   //17
+            "Masuk ke cloud",                                                                                                                  //18
+            "Keluar dari cloud",                                                                                                               //19
+            "Perbarui data server",                                                                                                            //20
+            "Buat cadangan lokal\nOff | On",                                                                                                  //21
+            "Buka folder cadangan",                                                                                                            //22
+            "Buat cadangan savegame sebelum atau sesudah memulai/menutup game",                                                               //23
+            "Jumlah maksimum savegame yang disimpan",                                                                                         //24
+            "Buka folder savegame",                                                                                                            //25
+            "Unduh savegame dari cloud",                                                                                                      //26
+            "Unggah savegame ke cloud",
             ""
         };
 
         public static string[] ItalianToolTip =
         {
-            "Accedi al cloud con un profilo di gioco esistente",
-            "Disconnetti il profilo attuale",
-            "Aggiorna le informazioni dal server",
-            "Attiva/disattiva il backup automatico dei salvataggi (memorizzati localmente)",
-            "Apri la cartella in cui sono salvati i backup",
-            "Imposta quando creare un backup",
-            "Specifica quanti backup devono essere conservati",
-            "Apri la cartella del gioco selezionato",
-            "Apri la cartella dei salvataggi del gioco",
-            "Carica il salvataggio nel cloud.\nAttenzione: Questo sovrascriverà il salvataggio esistente!",
-            "Scarica il salvataggio dal cloud.\nAttenzione: Questo sovrascriverà il salvataggio locale!",
-            "Passa tra la modalità online e offline",
-            "Passa tra le modalità di gioco Unpacked/Packed\n(Solo per il browser delle mod, affinché mostri le mod corrette)",
-            "Attiva/disattiva il testo di stato di Discord",
-            "Attiva/disattiva il controllo della versione per nuovi aggiornamenti",
-            "Attiva/disattiva il supporto UPnP\n(Utile per l'inoltro manuale delle porte o problemi di connessione al server)",
-            "Attiva/disattiva il supporto per Steam\n(Necessario per obiettivi e monitoraggio del tempo di gioco)",
-            "Seleziona il gioco che il launcher deve avviare",
-            "Verifica il gioco per file danneggiati o difettosi",
-            "Reimposta la connessione al server tramite il file di gioco\n(Dovrebbe essere fatto se il launcher lo consiglia)",
-            "Passa tra le modalità audio",
-            "Consenti al gioco di utilizzare più RAM\n(Consigliato quando si usano mod)",
-            "Prova ad assegnare più core della CPU al gioco\n(Se Windows lo permette)",
-            "Imposta la priorità del processo più alta del normale",
-            "Stima approssimativa della qualità della connessione per il traffico P2P\n(Rilevante per ospitare una lobby)",
-            "Indica se il launcher è stato in grado di effettuare il port forwarding automatico\n(L'UPnP deve essere abilitato e consentito nel router)",
-            "Attivare/disattivare il modello di danno nel gioco",
-            "Attivare/disattivare il fango automatico nel gioco",
-            ""
+            "Integrazione del gioco con Discord\nOff | On – Mostra o nasconde lo stato",                                                     //0
+            "Controllo aggiornamenti del launcher\nOff | On – Verifica nuove versioni del launcher",                                          //1
+            "Universal Plug and Play\nOff | On – Tenta di configurare automaticamente il port forwarding",                                   //2
+            "Lingua che il launcher deve usare",                                                                                             //3
+            "Modalità audio: Standard o Avanzata\nTDU2 ha due modalità audio, puoi passare da una all’altra",                                 //4
+            "Crea un nuovo profilo di gioco",                                                                                                //5
+            "RAM dinamica\nOff | On – Permette all’applicazione di usare più RAM",                                                           //6
+            "Core dinamici\nOff | On – Tenta di assegnare più core CPU",                                                                     //7
+            "Priorità dinamica\nOff | On – Imposta il processo a una priorità superiore alla normale",                                       //8
+            "Sporcizia del veicolo\nOff | On – I veicoli possono sporcarsi",                                                                //9
+            "Danni ai veicoli\nOff | On – I veicoli possono subire danni",                                                                  //10
+            "Modalità online\nOff | On – Avvia il gioco in modalità online o offline",                                                      //11
+            "Seleziona il gioco da utilizzare",                                                                                             //12
+            "Apri cartella del gioco",                                                                                                       //13
+            "Aggiornamento del gioco\nVerifica file mancanti o corrotti",                                                                   //14
+            "Modifica la configurazione del gioco\nper collegare il gioco al server PP2.\nDa usare se la modifica del file host non funziona", //15
+            "Apri il browser delle mod per gestire le mod in questa istanza del gioco",                                                     //16
+            "Salva profilo",                                                                                                                 //17
+            "Accedi al cloud",                                                                                                               //18
+            "Disconnetti dal cloud",                                                                                                         //19
+            "Aggiorna dati del server",                                                                                                      //20
+            "Crea backup locale\nOff | On",                                                                                                  //21
+            "Apri cartella backup",                                                                                                          //22
+            "Crea backup della partita prima o dopo l’avvio/arresto del gioco",                                                              //23
+            "Numero massimo di salvataggi da conservare",                                                                                    //24
+            "Apri cartella salvataggi",                                                                                                      //25
+            "Scarica salvataggio dal cloud",                                                                                                 //26
+            "Carica salvataggio nel cloud",
         };
 
         public static string[] LithuanianToolTip =
         {
-            "Prisijungti prie debesies su esamu žaidimo profiliu",
-            "Atsijungti nuo dabartinio profilio",
-            "Atnaujinti informaciją iš serverio",
-            "Įjungti/išjungti automatinį išsaugotų žaidimų atsarginį kopijavimą (saugoma lokaliai)",
-            "Atidaryti aplanką, kuriame saugomos atsarginės kopijos",
-            "Nustatyti, kada turi būti sukuriama atsarginė kopija",
-            "Nurodyti, kiek atsarginių kopijų turi būti išsaugota",
-            "Atidaryti pasirinkto žaidimo aplanką",
-            "Atidaryti žaidimo išsaugojimų aplanką",
-            "Įkelti išsaugojimą į debesį.\nĮspėjimas: Tai perrašys esamą išsaugojimą!",
-            "Atsisiųsti išsaugojimą iš debesies.\nĮspėjimas: Tai perrašys vietinį išsaugojimą!",
-            "Perjungti tarp internetinio ir neprisijungusio režimo",
-            "Perjungti tarp Unpacked/Packed žaidimo režimų\n(Tik modifikacijų naršyklei, kad būtų rodomos tinkamos modifikacijos)",
-            "Įjungti/išjungti Discord būsenos tekstą",
-            "Įjungti/išjungti versijos patikrinimą naujiems atnaujinimams",
-            "Įjungti/išjungti UPnP palaikymą\n(Naudinga rankiniam prievadų peradresavimui ar ryšio problemoms su serveriu spręsti)",
-            "Įjungti/išjungti Steam palaikymą\n(Reikalingas pasiekimams ir žaidimo laiko stebėjimui)",
-            "Pasirinkti žaidimą, kurį paleis paleidimo programa",
-            "Patikrinti, ar žaidimo failai nėra sugadinti ar neteisingi",
-            "Atkurti ryšį su serveriu per žaidimo failą\n(Rekomenduojama, jei paleidimo programa to reikalauja)",
-            "Perjungti garso režimus",
-            "Leisti žaidimui naudoti daugiau RAM\n(Rekomenduojama naudojant modifikacijas)",
-            "Pabandykite priskirti žaidimui daugiau procesoriaus branduolių\n(Jei Windows tai leidžia)",
-            "Nustatyti proceso prioritetą aukštesnį nei įprasta",
-            "Apytikslis ryšio kokybės įvertinimas P2P srautui\n(Svarbu kuriant žaidimų kambarius)",
-            "Nurodo, ar paleidimo programa galėjo atlikti automatinį prievadų peradresavimą\n(UPnP turi būti įjungtas ir leidžiamas maršrutizatoriuje)",
-            "Įjungti/išjungti žalos modelį žaidime",
-            "Įjungti/išjungti automatinį purvą žaidime",
-            ""
+            "Discord žaidimo integracija\nOff | On – Rodo arba slepia būseną",                                                             //0
+            "Paleidimo programos atnaujinimų patikrinimas\nOff | On – Tikrina naujas paleidimo programos versijas",                          //1
+            "Universalus Plug and Play\nOff | On – Bando automatiškai nustatyti uostų persiuntimą",                                        //2
+            "Kalba, kurią turi naudoti paleidimo programa",                                                                                //3
+            "Garso režimas: Standartinis arba Išplėstinis\nTDU2 turi du garso režimus, galite juos keisti",                                  //4
+            "Sukurti naują žaidimo profilį",                                                                                                //5
+            "Dinaminė RAM\nOff | On – Leidžia programai naudoti daugiau RAM",                                                               //6
+            "Dinaminiai branduoliai\nOff | On – Bando priskirti daugiau CPU branduolių",                                                    //7
+            "Dinaminis prioritetas\nOff | On – Nustato procesą aukštesniu prioritetu nei įprasta",                                          //8
+            "Transporto priemonės purvas\nOff | On – Transporto priemonės gali užsiteršti",                                                  //9
+            "Transporto priemonės pažeidimai\nOff | On – Transporto priemonės gali būti pažeistos",                                         //10
+            "Internetinis režimas\nOff | On – Pradeda žaidimą internetiniame arba neprisijungusiame režime",                                 //11
+            "Pasirinkite žaidimą, kuris bus naudojamas",                                                                                   //12
+            "Atidaryti žaidimo aplanką",                                                                                                    //13
+            "Žaidimo atnaujinimas\nTikrina trūkstamus arba sugadintus failus",                                                             //14
+            "Pakeičia žaidimo konfigūraciją\nkad žaidimas prisijungtų prie PP2 serverio.\nTurėtų būti naudojama, jei hostfailo redagavimas neveikia", //15
+            "Atidaro modų naršyklę modams valdyti šioje žaidimo instancijoje",                                                              //16
+            "Išsaugoti profilį",                                                                                                           //17
+            "Prisijungti prie debesies",                                                                                                    //18
+            "Atsijungti nuo debesies",                                                                                                      //19
+            "Atnaujinti serverio duomenis",                                                                                                 //20
+            "Sukurti vietinę atsarginę kopiją\nOff | On",                                                                                   //21
+            "Atidaryti atsarginių kopijų aplanką",                                                                                          //22
+            "Sukurti žaidimo atsarginę kopiją prieš arba po žaidimo paleidimo/pabaigos",                                                     //23
+            "Maksimalus išsaugotų žaidimų skaičius",                                                                                        //24
+            "Atidaryti išsaugotų žaidimų aplanką",                                                                                          //25
+            "Atsisiųsti išsaugotą žaidimą iš debesies",                                                                                     //26
+            "Įkelti išsaugotą žaidimą į debesį",
         };
 
         public static string[] PolishToolTip =
         {
-            "Zaloguj się do chmury z istniejącym profilem gry",
-            "Wyloguj się z aktualnego profilu",
-            "Zaktualizuj informacje z serwera",
-            "Włącz/wyłącz automatyczne tworzenie kopii zapasowych zapisów gry (przechowywane lokalnie)",
-            "Otwórz folder, w którym przechowywane są kopie zapasowe",
-            "Ustaw, kiedy ma zostać utworzona kopia zapasowa",
-            "Określ, ile kopii zapasowych ma być przechowywanych",
-            "Otwórz folder gry wybraną grę",
-            "Otwórz folder zapisów gry",
-            "Prześlij zapis gry do chmury.\nUwaga: To nadpisze istniejący zapis gry!",
-            "Pobierz zapis gry z chmury.\nUwaga: To nadpisze lokalny zapis gry!",
-            "Przełącz między trybem online a offline",
-            "Przełącz między trybem gry Unpacked/Packed\n(Tylko dla przeglądarki modów, aby wyświetlała poprawne mody)",
-            "Włącz/wyłącz tekst statusu Discorda",
-            "Włącz/wyłącz sprawdzanie wersji dla nowych aktualizacji",
-            "Włącz/wyłącz wsparcie UPnP\n(Pomocne przy ręcznym przekierowywaniu portów lub problemach z połączeniem z serwerem)",
-            "Włącz/wyłącz wsparcie Steam\n(Wymagane do osiągnięć i śledzenia czasu gry)",
-            "Wybierz grę, którą ma uruchomić launcher",
-            "Sprawdź grę pod kątem uszkodzonych lub błędnych plików",
-            "Zresetuj połączenie z serwerem przez plik gry\n(Należy to zrobić, jeśli launcher to zaleca)",
-            "Przełącz między trybami audio",
-            "Zezwól grze na używanie większej ilości RAM\n(Zalecane przy używaniu modów)",
-            "Spróbuj przypisać grze więcej rdzeni CPU\n(Jeśli Windows na to pozwala)",
-            "Ustaw priorytet procesu wyższy niż normalny",
-            "Szacunkowa ocena jakości połączenia dla ruchu P2P\n(istotne dla hostowania lobby)",
-            "Wskazuje, czy launcher mógł wykonać automatyczne przekierowanie portów\n(UPnP musi być włączone i dozwolone w routerze)",
-            "Włącz/wyłącz model uszkodzeń w grze",
-            "Włącz/wyłącz automatyczne błoto w grze",
-            ""
+            "Integracja gry z Discordem\nWyłączone | Włączone – Pokazuje lub ukrywa status",                                                //0
+            "Sprawdzanie aktualizacji launchera\nWyłączone | Włączone – Sprawdza nowe wersje launchera",                                     //1
+            "Universal Plug and Play\nWyłączone | Włączone – Próbuje automatycznie ustawić przekierowanie portów",                          //2
+            "Język, którego ma używać launcher",                                                                                           //3
+            "Tryb dźwięku: Standardowy lub Zaawansowany\nTDU2 ma dwa tryby dźwięku, możesz przełączać się między nimi",                       //4
+            "Utwórz nowy profil gry",                                                                                                       //5
+            "Dynamiczna pamięć RAM\nWyłączone | Włączone – Pozwala aplikacji używać więcej pamięci RAM",                                     //6
+            "Dynamiczne rdzenie\nWyłączone | Włączone – Próbuje przydzielić więcej rdzeni CPU",                                              //7
+            "Dynamiczny priorytet\nWyłączone | Włączone – Ustawia proces na wyższy priorytet niż normalny",                                 //8
+            "Brud pojazdów\nWyłączone | Włączone – Pojazdy mogą się zabrudzić",                                                             //9
+            "Uszkodzenia pojazdów\nWyłączone | Włączone – Pojazdy mogą ulec uszkodzeniu",                                                   //10
+            "Tryb online\nWyłączone | Włączone – Uruchamia grę w trybie online lub offline",                                                //11
+            "Wybierz grę, która ma być używana",                                                                                            //12
+            "Otwórz folder gry",                                                                                                            //13
+            "Aktualizacja gry\nSprawdza brakujące lub uszkodzone pliki",                                                                    //14
+            "Zmienia konfigurację gry\naby połączyć grę z serwerem PP2.\nPowinno być używane, jeśli edycja pliku hosta nie działa",          //15
+            "Otwiera przeglądarkę modów, aby zarządzać modami w tej instancji gry",                                                         //16
+            "Zapisz profil",                                                                                                                //17
+            "Zaloguj się do chmury",                                                                                                        //18
+            "Wyloguj się z chmury",                                                                                                         //19
+            "Odśwież dane serwera",                                                                                                         //20
+            "Twórz lokalne kopie zapasowe\nWyłączone | Włączone",                                                                           //21
+            "Otwórz folder kopii zapasowych",                                                                                                //22
+            "Twórz kopię zapasową zapisanej gry przed lub po rozpoczęciu/zakończeniu gry",                                                  //23
+            "Maksymalna liczba przechowywanych zapisów",                                                                                    //24
+            "Otwórz folder zapisów",                                                                                                        //25
+            "Pobierz zapis z chmury",                                                                                                       //26
+            "Prześlij zapis do chmury",
         };
 
         public static string[] RussianToolTip =
         {
-            "Войти в облако с существующим игровым профилем",
-            "Выйти из текущего профиля",
-            "Обновить информацию с сервера",
-            "Включить/выключить автоматическое создание резервных копий сохранений (локально сохраненные)",
-            "Открыть папку, где хранятся резервные копии",
-            "Настроить, когда должна быть создана резервная копия",
-            "Указать, сколько резервных копий должно быть сохранено",
-            "Открыть папку игры выбранной игры",
-            "Открыть папку сохранений игры",
-            "Загрузить сохранение в облако.\nВнимание: Это перезапишет существующее сохранение!",
-            "Загрузить сохранение из облака.\nВнимание: Это перезапишет локальное сохранение!",
-            "Переключиться между онлайн и оффлайн режимом",
-            "Переключиться между режимами игры Unpacked/Packed\n(Только для браузера модов, чтобы он отображал правильные моды)",
-            "Включить/выключить текст статуса Discord",
-            "Включить/выключить проверку версий на новые обновления",
-            "Включить/выключить поддержку UPnP\n(Полезно для ручного проброса портов или проблем с подключением к серверу)",
-            "Включить/выключить поддержку Steam\n(Необходимо для достижений и отслеживания времени игры)",
-            "Выбрать игру, которую должен запустить лаунчер",
-            "Проверить игру на поврежденные или неисправные файлы",
-            "Сбросить соединение с сервером через игровой файл\n(Следует выполнить, если лаунчер это рекомендует)",
-            "Переключиться между аудио режимами",
-            "Разрешить игре использовать больше RAM\n(Рекомендуется при использовании модов)",
-            "Попробовать выделить игре больше ядер процессора\n(Если Windows позволяет)",
-            "Установить приоритет процесса выше, чем обычный",
-            "Приблизительная оценка качества соединения для P2P трафика\n(Актуально для хостинга лобби)",
-            "Показывает, может ли лаунчер автоматически выполнить проброс портов\n(UPnP должен быть включен и разрешен на маршрутизаторе)",
-            "Включить/выключить модель повреждений в игре",
-            "Включить/выключить автоматическую грязь в игре",
-            ""
+            "Интеграция игры с Discord\nВыкл | Вкл – Показывает или скрывает статус",                                                      //0
+            "Проверка обновлений лаунчера\nВыкл | Вкл – Проверяет наличие новых версий лаунчера",                                            //1
+            "Universal Plug and Play\nВыкл | Вкл – Пытается автоматически настроить переадресацию портов",                                   //2
+            "Язык, который должен использовать лаунчер",                                                                                   //3
+            "Режим звука: Стандартный или Продвинутый\nВ TDU2 есть два режима звука, между ними можно переключаться",                         //4
+            "Создать новый игровой профиль",                                                                                               //5
+            "Динамическая RAM\nВыкл | Вкл – Позволяет приложению использовать больше оперативной памяти",                                   //6
+            "Динамические ядра\nВыкл | Вкл – Пытается назначить больше ядер CPU",                                                           //7
+            "Динамический приоритет\nВыкл | Вкл – Устанавливает процесс с более высоким приоритетом, чем обычно",                           //8
+            "Грязь на транспортных средствах\nВыкл | Вкл – Транспортные средства могут загрязняться",                                        //9
+            "Повреждения транспортных средств\nВыкл | Вкл – Транспортные средства могут получать повреждения",                               //10
+            "Онлайн-режим\nВыкл | Вкл – Запускает игру в онлайн или оффлайн режиме",                                                        //11
+            "Выберите игру для использования",                                                                                             //12
+            "Открыть папку игры",                                                                                                          //13
+            "Обновление игры\nПроверяет отсутствующие или повреждённые файлы",                                                             //14
+            "Изменяет конфигурацию игры\nдля подключения к серверу PP2.\nСледует использовать, если редактирование файла hosts не работает", //15
+            "Открывает браузер модов для управления модами в этой копии игры",                                                              //16
+            "Сохранить профиль",                                                                                                           //17
+            "Войти в облако",                                                                                                              //18
+            "Выйти из облака",                                                                                                             //19
+            "Обновить данные сервера",                                                                                                     //20
+            "Создать локальную резервную копию\nВыкл | Вкл",                                                                               //21
+            "Открыть папку резервных копий",                                                                                               //22
+            "Создать резервную копию сохранения до или после запуска/завершения игры",                                                     //23
+            "Максимальное количество сохранений для хранения",                                                                             //24
+            "Открыть папку сохранений",                                                                                                    //25
+            "Скачать сохранение из облака",                                                                                                //26
+            "Загрузить сохранение в облако",
         };
 
         public static string[] Portuguese_BrazilToolTip =
         {
-            "Entrar na nuvem com um perfil de jogo existente",
-            "Sair com o perfil atual",
-            "Atualizar informações do servidor",
-            "Ativar/desativar o backup automático de saves (armazenado localmente)",
-            "Abrir a pasta onde os backups são armazenados",
-            "Definir quando um backup deve ser criado",
-            "Especificar quantos backups devem ser mantidos",
-            "Abrir a pasta do jogo selecionado",
-            "Abrir a pasta de saves do jogo",
-            "Fazer upload do save para a nuvem.\nAtenção: Isso sobrescreverá o save existente!",
-            "Baixar save da nuvem.\nAtenção: Isso sobrescreverá o save local!",
-            "Alternar entre o modo online e offline",
-            "Alternar entre os modos Unpacked/Packed\n(Apenas para o navegador de mods para exibir os mods corretos)",
-            "Ativar/desativar texto de status do Discord",
-            "Ativar/desativar verificação de versões para novos updates",
-            "Ativar/desativar suporte UPnP\n(Uso útil para redirecionamento manual de portas ou problemas de conexão com o servidor)",
-            "Ativar/desativar suporte para Steam\n(Necessário para conquistas e rastreamento de tempo de jogo)",
-            "Selecionar o jogo que o launcher deve iniciar",
-            "Verificar o jogo para arquivos corrompidos ou defeituosos",
-            "Reiniciar a conexão com o servidor através do arquivo do jogo\n(Deve ser feito caso o launcher recomende)",
-            "Alternar entre os modos de áudio",
-            "Permitir que o jogo utilize mais RAM\n(Recomendado quando usar mods)",
-            "Tentar atribuir mais núcleos da CPU ao jogo\n(Se o Windows permitir)",
-            "Definir a prioridade do processo mais alta que o normal",
-            "Estimativa aproximada da qualidade da conexão para tráfego P2P\n(Relevante para hospedar uma lobby)",
-            "Indica se o launcher conseguiu fazer o redirecionamento automático de portas\n(UPnP precisa estar habilitado e permitido no roteador)",
-            "Ativar/desativar o modelo de dano no jogo",
-            "Ativar/desativar sujeira automática no jogo",
-            ""
+            "Integração do jogo com Discord\nOff | On – Mostra ou oculta o status",                                                        //0
+            "Verificação de atualização do launcher\nOff | On – Verifica novas versões do launcher",                                       //1
+            "Universal Plug and Play\nOff | On – Tenta configurar encaminhamento de porta automaticamente",                                //2
+            "Idioma que o launcher deve usar",                                                                                             //3
+            "Modo de áudio: Padrão ou Avançado\nTDU2 possui dois modos de áudio, você pode alternar entre eles",                            //4
+            "Criar um novo perfil de jogo",                                                                                                //5
+            "RAM dinâmica\nOff | On – Permite que o aplicativo use mais memória RAM",                                                      //6
+            "Núcleos dinâmicos\nOff | On – Tenta atribuir mais núcleos da CPU",                                                            //7
+            "Prioridade dinâmica\nOff | On – Define o processo com prioridade maior que a normal",                                         //8
+            "Sujeira do veículo\nOff | On – Os veículos podem ficar sujos",                                                                //9
+            "Danos ao veículo\nOff | On – Os veículos podem sofrer danos",                                                                 //10
+            "Modo online\nOff | On – Inicia o jogo em modo online ou offline",                                                            //11
+            "Selecione o jogo a ser usado",                                                                                                //12
+            "Abrir pasta do jogo",                                                                                                          //13
+            "Atualização do jogo\nVerifica arquivos ausentes ou corrompidos",                                                              //14
+            "Altera a configuração do jogo\npara conectar o jogo ao servidor PP2.\nDeve ser usado se a edição do arquivo host não funcionar", //15
+            "Abre o navegador de mods para gerenciar mods nesta instância do jogo",                                                        //16
+            "Salvar perfil",                                                                                                                //17
+            "Entrar na nuvem",                                                                                                              //18
+            "Sair da nuvem",                                                                                                                //19
+            "Atualizar dados do servidor",                                                                                                  //20
+            "Criar backup local\nOff | On",                                                                                                 //21
+            "Abrir pasta de backup",                                                                                                        //22
+            "Criar backup do savegame antes ou depois do início/término do jogo",                                                          //23
+            "Número máximo de savegames a manter",                                                                                         //24
+            "Abrir pasta de savegames",                                                                                                     //25
+            "Baixar savegame da nuvem",                                                                                                     //26
+            "Enviar savegame para a nuvem",
         };
 
         public static string[] English_UKToolTip =
         {
-            "Log in to the cloud with an existing game profile",
-            "Log out with the current profile",
-            "Update information from the server",
-            "Enable/disable automatic backup of save games (stored locally)",
-            "Open the folder where backups are stored",
-            "Set when a backup should be created",
-            "Specify how many backups should be kept",
-            "Open the game folder of the selected game",
-            "Open the save game folder of the game",
-            "Upload save game to the cloud.\nWarning: This will overwrite the existing save game!",
-            "Download save game from the cloud.\nWarning: This will overwrite the local save game!",
-            "Switch between online and offline mode",
-            "Switch between Unpacked/Packed game modes\n(Only for the mod browser to display the correct mods)",
-            "Enable/disable Discord status text",
-            "Enable/disable version check for new updates",
-            "Enable/disable UPnP support\n(Useful for manual port forwarding or connection issues with the server)",
-            "Enable/disable Steam support\n(Required for achievements and playtime tracking)",
-            "Select the game that the launcher should start",
-            "Check the game for corrupted or faulty files",
-            "Reset connection to the server via the game file\n(Should be done if recommended by the launcher)",
-            "Switch between audio modes",
-            "Allow the game to use more RAM\n(Recommended when using mods)",
-            "Try to assign more CPU cores to the game\n(If Windows allows)",
-            "Set the process priority higher than normal",
-            "Approximate connection quality estimate for P2P traffic\n(Relevant for hosting a lobby)",
-            "Indicates whether the launcher was able to perform automatic port forwarding\n(UPnP must be enabled and allowed on the router)",
-            "Activate/Deactivate damage model in the game",
-            "Activate/Deactivate auto dirt in the game",
-            ""
+            "Discord game integration\nOff | On – Shows or hides the status",                                                                  //0
+            "Launcher update check\nOff | On – Checks for new launcher versions",                                                              //1
+            "Universal Plug and Play\nOff | On – Attempts to set up port forwarding automatically",                                           //2
+            "Language the launcher should use",                                                                                                 //3
+            "Audio mode: Standard or Advanced\nTDU2 has two audio modes, you can switch between them",                                         //4
+            "Create a new game profile",                                                                                                        //5
+            "Dynamic RAM\nOff | On – Allows the application to use more RAM",                                                                  //6
+            "Dynamic cores\nOff | On – Attempts to assign more CPU cores",                                                                     //7
+            "Dynamic priority\nOff | On – Sets the process to a higher priority than normal",                                                  //8
+            "Vehicle dirt\nOff | On – Vehicles can get dirty",                                                                                 //9
+            "Vehicle damage\nOff | On – Vehicles can take damage",                                                                             //10
+            "Online mode\nOff | On – Starts the game in online or offline mode",                                                              //11
+            "Select the game to be used",                                                                                                       //12
+            "Open the game folder",                                                                                                             //13
+            "Game update\nChecks for missing or corrupted files",                                                                              //14
+            "Changes the game configuration\nto connect the game to the PP2 server.\nShould be used if Hostfile-Edit does not work",          //15
+            "Opens the mod browser to manage mods in this game instance",                                                                      //16
+            "Save profile",                                                                                                                     //17
+            "Log in to cloud",                                                                                                                  //18
+            "Log out of cloud",                                                                                                                 //19
+            "Refresh server data",                                                                                                              //20
+            "Create local backup\nOff | On",                                                                                                    //21
+            "Open backup folder",                                                                                                               //22
+            "Create savegame backup before or after game start/end",                                                                           //23
+            "Maximum number of savegames to keep",                                                                                             //24
+            "Open savegame folder",                                                                                                             //25
+            "Download savegame from cloud",                                                                                                     //26
+            "Upload savegame to cloud",                                                                                                         //27
         };
 
         public static string[] DutchToolTip =
         {
-            "Inloggen op de cloud met een bestaand gameprofiel",
-            "Uitloggen met het huidige profiel",
-            "Werk informatie bij van de server",
-            "Schakel automatische back-up van opgeslagen spellen in/uit (lokaal opgeslagen)",
-            "Open de map waarin de back-ups zijn opgeslagen",
-            "Stel in wanneer een back-up moet worden gemaakt",
-            "Specificeer hoeveel back-ups er bewaard moeten blijven",
-            "Open de gamefolder van het geselecteerde spel",
-            "Open de map met opgeslagen spellen van het spel",
-            "Upload opgeslagen spel naar de cloud.\nWaarschuwing: Dit zal het bestaande opgeslagen spel overschrijven!",
-            "Download opgeslagen spel uit de cloud.\nWaarschuwing: Dit zal het lokale opgeslagen spel overschrijven!",
-            "Schakel tussen online- en offline-modus",
-            "Schakel tussen Unpacked/Packed game-modi\n(Alleen voor de modbrowser om de juiste mods weer te geven)",
-            "Schakel Discord-status tekst in/uit",
-            "Schakel versiecontrole voor nieuwe updates in/uit",
-            "Schakel UPnP-ondersteuning in/uit\n(Nuttig voor handmatig poortdoorsturen of verbindingsproblemen met de server)",
-            "Schakel Steam-ondersteuning in/uit\n(Vereist voor prestaties en speeltijd-tracking)",
-            "Selecteer het spel dat de launcher moet starten",
-            "Controleer het spel op corrupte of defecte bestanden",
-            "Reset verbinding met de server via het gamebestand\n(Moet worden gedaan als aanbevolen door de launcher)",
-            "Schakel tussen audiomodussen",
-            "Sta het spel toe om meer RAM te gebruiken\n(Aanbevolen bij het gebruik van mods)",
-            "Probeer meer CPU-cores aan het spel toe te wijzen\n(Als Windows dit toestaat)",
-            "Stel de procesprioriteit hoger dan normaal in",
-            "Geschatte verbindingskwaliteit voor P2P-verkeer\n(Relevant voor het hosten van een lobby)",
-            "Geeft aan of de launcher automatisch poortdoorsturing heeft kunnen uitvoeren\n(UPnP moet ingeschakeld en toegestaan zijn op de router)",
-            "Schadenmodel in het spel in-/uitschakelen",
-            "Auto-modder in het spel in-/uitschakelen",
-            ""
+            "Discord-game-integratie\nUit | Aan – Toont of verbergt de status",                                                          //0
+            "Launcher-updatecontrole\nUit | Aan – Controleert op nieuwe launcher-versies",                                                //1
+            "Universele Plug and Play\nUit | Aan – Probeert automatisch poortforwarding in te stellen",                                    //2
+            "Taal die de launcher moet gebruiken",                                                                                        //3
+            "Audiomodus: Standaard of Geavanceerd\nTDU2 heeft twee audiomodi, je kunt wisselen tussen beide",                              //4
+            "Maak een nieuw gameprofiel",                                                                                                 //5
+            "Dynamisch RAM\nUit | Aan – Staat de applicatie toe meer RAM te gebruiken",                                                    //6
+            "Dynamische cores\nUit | Aan – Probeert meer CPU-cores toe te wijzen",                                                          //7
+            "Dynamische prioriteit\nUit | Aan – Zet het proces op een hogere prioriteit dan normaal",                                      //8
+            "Voertuigvuil\nUit | Aan – Voertuigen kunnen vies worden",                                                                    //9
+            "Voertuigschade\nUit | Aan – Voertuigen kunnen schade oplopen",                                                                //10
+            "Online modus\nUit | Aan – Start het spel in online- of offline-modus",                                                       //11
+            "Selecteer het spel dat gebruikt moet worden",                                                                                //12
+            "Open de game-map",                                                                                                            //13
+            "Game-update\nControleert ontbrekende of beschadigde bestanden",                                                              //14
+            "Wijzigt de gameconfiguratie\nom het spel te verbinden met de PP2-server.\nMoet gebruikt worden als het bewerken van het hostbestand niet werkt", //15
+            "Opent de modbrowser om mods in deze game-instantie te beheren",                                                             //16
+            "Profiel opslaan",                                                                                                             //17
+            "Inloggen bij cloud",                                                                                                          //18
+            "Uitloggen bij cloud",                                                                                                         //19
+            "Servergegevens vernieuwen",                                                                                                   //20
+            "Lokale back-up maken\nUit | Aan",                                                                                            //21
+            "Open back-upmap",                                                                                                             //22
+            "Back-up van savegame maken voor of na het starten/beëindigen van het spel",                                                   //23
+            "Maximaal aantal savegames om te bewaren",                                                                                    //24
+            "Open savegame-map",                                                                                                           //25
+            "Savegame downloaden vanuit de cloud",                                                                                        //26
+            "Savegame uploaden naar de cloud",
         };
 
         public static string[] RomanianToolTip =
         {
-            "Autentificare în cloud cu un profil de joc existent",
-            "Deconectare cu profilul curent",
-            "Actualizează informațiile de pe server",
-            "Activează/dezactivează backup-ul automat al salvărilor (stocate local)",
-            "Deschide folderul în care sunt stocate copiile de siguranță",
-            "Setează când să fie creată o copie de siguranță",
-            "Specificați câte copii de siguranță trebuie păstrate",
-            "Deschide folderul jocului selectat",
-            "Deschide folderul salvărilor jocului",
-            "Încarcă salvarea în cloud.\nAtenție: Acest lucru va suprascrie salvarea existentă!",
-            "Descarcă salvarea din cloud.\nAtenție: Acest lucru va suprascrie salvarea locală!",
-            "Comută între modul online și offline",
-            "Comută între modurile de joc Unpacked/Packed\n(Aplicați doar pentru browserul de moduri, pentru a arăta modurile corecte)",
-            "Activează/dezactivează textul statusului Discord",
-            "Activează/dezactivează verificarea versiunii pentru noi actualizări",
-            "Activează/dezactivează suportul UPnP\n(Utile pentru redirecționarea manuală a porturilor sau problemele de conectivitate cu serverul)",
-            "Activează/dezactivează suportul Steam\n(Necesar pentru realizări și urmărirea timpului de joc)",
-            "Selectează jocul pe care îl va lansa launcher-ul",
-            "Verifică jocul pentru fișiere corupte sau defecte",
-            "Resetează conexiunea cu serverul prin fișierul jocului\n(Ar trebui făcut dacă launcher-ul recomandă acest lucru)",
-            "Comută între moduri audio",
-            "Permite jocului să folosească mai mult RAM\n(Recomandat atunci când folosești moduri)",
-            "Încearcă să atribui mai multe nuclee CPU jocului\n(Dacă Windows permite)",
-            "Setează prioritatea procesului mai mare decât normal",
-            "Estimare aproximativă a calității conexiunii pentru traficul P2P\n(Relevant pentru găzduirea unei camere de joc)",
-            "Indică dacă launcher-ul a reușit să efectueze redirecționarea automată a porturilor\n(UPnP trebuie activat și permis pe router)",
-            "Activează/dezactivează modelul de daune din joc",
-            "Activează/dezactivează noroiul automat din joc",
-            ""
+            "Integrare joc cu Discord\nOff | On – Afișează sau ascunde statusul",                                                        //0
+            "Verificare actualizare launcher\nOff | On – Verifică versiuni noi ale launcher-ului",                                       //1
+            "Universal Plug and Play\nOff | On – Încearcă să configureze automat redirecționarea porturilor",                            //2
+            "Limba pe care trebuie să o folosească launcher-ul",                                                                         //3
+            "Mod audio: Standard sau Avansat\nTDU2 are două moduri audio, poți comuta între ele",                                        //4
+            "Creează un profil nou de joc",                                                                                              //5
+            "RAM dinamică\nOff | On – Permite aplicației să folosească mai multă memorie RAM",                                          //6
+            "Nuclee dinamice\nOff | On – Încearcă să aloce mai multe nuclee CPU",                                                        //7
+            "Prioritate dinamică\nOff | On – Setează procesul cu o prioritate mai mare decât normal",                                   //8
+            "Murdărie vehicul\nOff | On – Vehiculele se pot murdări",                                                                    //9
+            "Deteriorare vehicul\nOff | On – Vehiculele pot suferi daune",                                                               //10
+            "Mod online\nOff | On – Pornește jocul în modul online sau offline",                                                         //11
+            "Selectează jocul care va fi folosit",                                                                                       //12
+            "Deschide folderul jocului",                                                                                                 //13
+            "Actualizare joc\nVerifică fișiere lipsă sau corupte",                                                                       //14
+            "Modifică configurația jocului\npentru a conecta jocul la serverul PP2.\nTrebuie folosit dacă editarea fișierului host nu funcționează", //15
+            "Deschide browser-ul de moduri pentru a gestiona moduri în această instanță a jocului",                                      //16
+            "Salvează profilul",                                                                                                         //17
+            "Conectează-te la cloud",                                                                                                    //18
+            "Deconectează-te de la cloud",                                                                                                //19
+            "Reîmprospătează datele serverului",                                                                                         //20
+            "Creează backup local\nOff | On",                                                                                            //21
+            "Deschide folderul backup-ului",                                                                                              //22
+            "Creează backup înainte sau după pornirea/opritul jocului",                                                                  //23
+            "Numărul maxim de salvări păstrate",                                                                                         //24
+            "Deschide folderul cu salvări",                                                                                              //25
+            "Descarcă salvare din cloud",                                                                                                //26
+            "Încarcă salvare în cloud",
         };
 
         public static string[] TurkishToolTip =
         {
-            "Mevcut bir oyun profili ile buluta giriş yap",
-            "Mevcut profilden çıkış yap",
-            "Sunucudan bilgileri güncelle",
-            "Otomatik yedekleme (yerel olarak kaydedilen) etkinleştir/devre dışı bırak",
-            "Yedeklerin saklandığı klasörü aç",
-            "Bir yedekleme ne zaman oluşturulacağına karar ver",
-            "En fazla kaç yedekleme saklanması gerektiğini belirt",
-            "Seçilen oyunun oyun klasörünü aç",
-            "Oyunun kaydedilen dosyalarının klasörünü aç",
-            "Kaydı buluta yükle.\nDikkat: Bu mevcut kaydı üzerine yazacaktır!",
-            "Kaydı buluttan indir.\nDikkat: Bu yerel kaydı üzerine yazacaktır!",
-            "Çevrimdışı ve çevrimiçi modları arasında geçiş yap",
-            "Unpacked/Packed oyun modu arasında geçiş yap\n(Sadece mod tarayıcısı için, doğru modları gösterebilmesi için)",
-            "Discord durum metnini etkinleştir/devre dışı bırak",
-            "Yeni güncellemeler için sürüm kontrolünü etkinleştir/devre dışı bırak",
-            "UPnP desteğini etkinleştir/devre dışı bırak\n(Manuel port yönlendirme veya sunucu bağlantı sorunları için faydalıdır)",
-            "Steam desteğini etkinleştir/devre dışı bırak\n(Başarılar ve oyun süresi takibi için gereklidir)",
-            "Başlatıcıyı hangi oyunun başlatacağını seç",
-            "Oyun dosyasını bozulmuş veya hatalı dosyalar için kontrol et",
-            "Başlatıcı bunu öneriyorsa, sunucu bağlantısını oyun dosyasından sıfırla",
-            "Ses modları arasında geçiş yap",
-            "Oyunun daha fazla RAM kullanmasına izin ver\n(Mod kullanırken önerilir)",
-            "Oyuna daha fazla CPU çekirdeği tahsis etmeye çalış\n(Windows izin veriyorsa)",
-            "İşlem önceliğini normalden daha yüksek ayarla",
-            "P2P trafiği için bağlantı kalitesinin yaklaşık değerlendirmesi\n(Lobi barındırma için geçerli)",
-            "Başlatıcının otomatik port yönlendirmesini yapıp yapamadığını gösterir\n(UPnP etkin olmalı ve yönlendiricide izin verilmeli)",
-            "Oyundaki hasar modelini etkinleştir/devre dışı bırak",
-            "Oyunda otomatik çamur özelliğini etkinleştir/devre dışı bırak",
-            ""
+            "Discord oyun entegrasyonu\nKapalı | Açık – Durumu gösterir veya gizler",                                                      //0
+            "Başlatıcı güncelleme kontrolü\nKapalı | Açık – Yeni başlatıcı sürümlerini kontrol eder",                                      //1
+            "Universal Plug and Play\nKapalı | Açık – Port yönlendirmeyi otomatik olarak ayarlamayı dener",                                 //2
+            "Başlatıcının kullanacağı dil",                                                                                                //3
+            "Ses modu: Standart veya Gelişmiş\nTDU2’nin iki ses modu vardır, aralarında geçiş yapabilirsiniz",                               //4
+            "Yeni oyun profili oluştur",                                                                                                   //5
+            "Dinamik RAM\nKapalı | Açık – Uygulamanın daha fazla RAM kullanmasına izin verir",                                             //6
+            "Dinamik çekirdekler\nKapalı | Açık – Daha fazla CPU çekirdeği atamayı dener",                                                 //7
+            "Dinamik öncelik\nKapalı | Açık – Süreci normalden daha yüksek öncelikte çalıştırır",                                          //8
+            "Araç kirlenmesi\nKapalı | Açık – Araçlar kirlenebilir",                                                                        //9
+            "Araç hasarı\nKapalı | Açık – Araçlar hasar alabilir",                                                                         //10
+            "Çevrimiçi mod\nKapalı | Açık – Oyunu çevrimiçi veya çevrimdışı modda başlatır",                                               //11
+            "Kullanılacak oyunu seçin",                                                                                                    //12
+            "Oyun klasörünü aç",                                                                                                           //13
+            "Oyun güncellemesi\nEksik veya bozuk dosyaları kontrol eder",                                                                 //14
+            "Oyun yapılandırmasını değiştirir\nPP2 sunucusuna bağlanmak için.\nHost dosyası düzenleme çalışmazsa kullanılmalıdır",         //15
+            "Bu oyun örneğinde modları yönetmek için mod tarayıcısını açar",                                                               //16
+            "Profili kaydet",                                                                                                              //17
+            "Buluta giriş yap",                                                                                                            //18
+            "Buluttan çıkış yap",                                                                                                          //19
+            "Sunucu verilerini yenile",                                                                                                    //20
+            "Yerel yedek oluştur\nKapalı | Açık",                                                                                           //21
+            "Yedekleme klasörünü aç",                                                                                                      //22
+            "Oyunun başlatılmasından/bitirilmesinden önce veya sonra savegame yedeği oluştur",                                             //23
+            "Saklanacak maksimum savegame sayısı",                                                                                         //24
+            "Savegame klasörünü aç",                                                                                                       //25
+            "Buluttan savegame indir",                                                                                                     //26
+            "Savegame’i buluta yükle",
         };
 
         public static string[] ChineseToolTip =
         {
-            "使用现有的游戏配置文件登录云端",
-            "退出当前配置文件",
-            "更新来自服务器的信息",
-            "启用/禁用自动保存备份（本地保存）",
-            "打开保存备份的文件夹",
-            "设置何时创建备份",
-            "指定应保留多少个备份",
-            "打开所选游戏的游戏文件夹",
-            "打开游戏的存档文件夹",
-            "将存档上传到云端。\n警告：这将覆盖现有的存档！",
-            "从云端下载存档。\n警告：这将覆盖本地存档！",
-            "切换在线模式和离线模式",
-            "切换 Unpacked/Packed 游戏模式\n（仅用于 mod 浏览器，以便显示正确的 mod）",
-            "启用/禁用 Discord 状态文本",
-            "启用/禁用新更新的版本检查",
-            "启用/禁用 UPnP 支持\n（对于手动端口转发或连接到服务器的问题很有帮助）",
-            "启用/禁用 Steam 支持\n（这是成就和游戏时间追踪所必需的）",
-            "选择启动器应启动的游戏",
-            "检查游戏是否有损坏或错误的文件",
-            "通过游戏文件重置与服务器的连接\n（如果启动器建议这样做，则应执行）",
-            "切换音频模式",
-            "允许游戏使用更多的 RAM\n（建议在使用 mod 时）",
-            "尝试为游戏分配更多的 CPU 核心\n（如果 Windows 允许）",
-            "将进程优先级设置为高于正常",
-            "P2P 流量的连接质量大致评估\n（与托管大厅相关）",
-            "显示启动器是否能够自动执行端口转发\n（必须启用 UPnP 并在路由器中允许）",
-            "在游戏中启用/禁用伤害模型",
-            "在游戏中启用/禁用自动泥土",
-            ""
+            "Discord 游戏集成\n关闭 | 开启 – 显示或隐藏状态",                                                                             //0
+            "启动器更新检查\n关闭 | 开启 – 检查启动器的新版本",                                                                           //1
+            "通用即插即用\n关闭 | 开启 – 尝试自动设置端口转发",                                                                             //2
+            "启动器使用的语言",                                                                                                             //3
+            "音频模式：标准或高级\nTDU2 有两种音频模式，可在它们之间切换",                                                                   //4
+            "创建新的游戏配置文件",                                                                                                         //5
+            "动态内存\n关闭 | 开启 – 允许应用程序使用更多内存",                                                                             //6
+            "动态核心\n关闭 | 开启 – 尝试分配更多 CPU 核心",                                                                               //7
+            "动态优先级\n关闭 | 开启 – 将进程设置为高于正常的优先级",                                                                       //8
+            "车辆污垢\n关闭 | 开启 – 车辆会变脏",                                                                                           //9
+            "车辆损坏\n关闭 | 开启 – 车辆可能受损",                                                                                         //10
+            "在线模式\n关闭 | 开启 – 以在线或离线模式启动游戏",                                                                            //11
+            "选择要使用的游戏",                                                                                                             //12
+            "打开游戏文件夹",                                                                                                               //13
+            "游戏更新\n检查缺失或损坏的文件",                                                                                              //14
+            "更改游戏配置\n以连接游戏到 PP2 服务器。\n如果 Hosts 文件编辑无效，应使用此选项",                                              //15
+            "打开 Mod 浏览器以管理该游戏实例的 Mod",                                                                                        //16
+            "保存配置文件",                                                                                                                 //17
+            "登录云端",                                                                                                                     //18
+            "退出云端",                                                                                                                     //19
+            "刷新服务器数据",                                                                                                               //20
+            "创建本地备份\n关闭 | 开启",                                                                                                     //21
+            "打开备份文件夹",                                                                                                               //22
+            "在游戏开始或结束前后创建存档备份",                                                                                             //23
+            "保留存档的最大数量",                                                                                                           //24
+            "打开存档文件夹",                                                                                                               //25
+            "从云端下载存档",                                                                                                               //26
+            "上传存档到云端",
         };
 
         public static string[] German =
         {
-            "TDU2 Spielen",
-            "Start",
-            "Service",
-            "Modbrowser",
-            "Einstellungen",
-            "Informationen",
-            "Beenden",
-            "Letzte News",
-            "Prüfe Status",
-            "Zurück",
-            "Ersteller",
-            "Beschreibung",
-            "Updates",
-            "Downloads",
-            "Version",
-            "Dateien",
-            "Downloadgröße",
-            "Installationsgröße",
-            "Installiere",
-            "Installieren/Updaten",
-            "Meine Mods",
-            "Login-Daten",
-            "Benutzername",
-            "Benutzerpasswort",
-            "Ausloggen",
-            "Hochladen",
-            "Runterladen",
-            "Anmelden",
-            "Abmelden",
-            "Neu laden",
-            "Backup-Ordner öffnen",
-            "Spiel wählen",
-            "Patch-Verbindung",
-            "Spielordner öffnen",
-            "Spiel prüfen",
-            "Savegame öffnen",
-            "Launcher-Sprache",
-            "Audio-Modus",
-            "Max. Backups",
-            "Mod-Name",
-            "Dateiüberprüfung des Spiels gestartet. Dies kann eine Weile dauern. Holen Sie sich einen Kaffee und entspannen Sie sich, während der Launcher arbeitet.",
-            "Indexerstellung abgeschlossen. Dateien: {0}, Ordner: {1}",
-            "Dateien und Ordner gescannt",
-            "Verbinde mit dem Server",
-            "Verbindung hergestellt!",
-            "Fehler beim Verbinden mit dem Server.",
-            "Vergleiche Dateien, Phase 1",
-            "Phase 1: Überprüfung auf fehlende Dateien",
-            "Fehlende Dateien: {0}",
-            "Fehlt: {0} - {1}",
-            "Überprüfe Dateien auf Änderungen",
-            "Vergleiche Dateien, Phase 2",
-            "Phase 2: Datei wird überprüft: ",
-            "Datei: {0} ◄ Aktualisierung erforderlich, Datei unterschiedlich [{1}|{2}]",
-            "Datei: {0} ◄ Datei ist auf dem neuesten Stand",
-            "Die Dateiüberprüfung scheint fehlgeschlagen zu sein. Bitte versuchen Sie es erneut.",
-            "Dateiüberprüfung abgeschlossen in: {0}",
-            "Live-Dateiliste heruntergeladen.",
-            "Online-Spieldateiliste konnte nicht abgerufen werden. Bitte versuchen Sie es später erneut.",
-            "Zu viele fehlende Dateien. Aktualisierung abgebrochen. Bitte installieren Sie das Spiel neu.",
-            "Dateien und Ordner gescannt.",
-            "Fehlendes Verzeichnis erstellt: ",
-            "Vergleiche Dateien, Phase 3",
-            "Phase 3: Überprüfung der Dateiintegrität",
-            "Phase 3: Herunterladen und Installieren von Dateien",
-            "Herunterladen der Datei: {0} ({1}% abgeschlossen)",
-            "Aktualisierung abgeschlossen in: {0}",
-            "Spielaktualisierung beendet.",
-            "Aktualisiere Launcher-Datenbank",
-            "Datei: {0} ◄ Wird installiert",
-            "Datei aktualisiert: ",
-            "Entpacken der Datei fehlgeschlagen: ({0}). Fehler: {1}",
-            "Project Paradise 2 - Security Module",
-            "Das Sicherheitsmodul ist nicht sicher. Das Spiel wurde geschlossen.",
-            "Mod-Abfrage abgeschlossen, {0} von {1} verfügbaren Mods werden angezeigt.",
-            "Benutzername und Passwort sind erforderlich.",
-            "Der Benutzername ist erforderlich.",
-            "Das Passwort ist erforderlich.",
-            "Das eingegebene Passwort stimmt nicht mit dem auf dem Server gespeicherten überein. Bitte überprüfen Sie Ihr Passwort und versuchen Sie es erneut.",
-            "Es ist ein Netzwerkfehler aufgetreten: {0}\nBitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
-            "Die Server-URL ist ungültig: {0}\nBitte kontaktieren Sie den Support, wenn das Problem weiterhin besteht.",
-            "Ein unerwarteter Fehler ist aufgetreten: {0}\nBitte starten Sie die Anwendung neu und versuchen Sie es erneut.",
-            "Ein unbekannter Fehler ist aufgetreten: {0}\nBitte kontaktieren Sie den Support, wenn das Problem weiterhin besteht.",
-            "Savegame vorhanden",
-            "Kein Savegame gefunden",
-            "Status: {0}\nSpeichergröße: {1}\nZuletzt hochgeladen: {2}\nSavegame-Name: {3}\nLetzte Prüfung: {4}",
-            "Status: Kein Savegame gefunden",
-            "Upload vorbereiten",
-            "Altes lokales Savegame bereinigen",
-            "Savegame für Upload erstellen",
-            "Upload starten",
-            "Upload-Fortschritt: {0}%, Größe: {1}",
-            "Upload erfolgreich",
-            "Download starten",
-            "Download-Fortschritt: {0}%, Größe: {1}",
-            "Download abgeschlossen. Entpacken der Dateien...",
-            "Cloud Savegame erfolgreich entpackt.",
-            "Spieleinformationen",
-            "Spielpfad: ",
-            "Dateiversion: ",
-            "Spielversion: ",
-            "Warnung: Sie haben den Launcher nicht korrekt oder vollständig konfiguriert.",
-            "Kein Spiel ausgewählt. Bitte wählen Sie zuerst ein Spiel aus, aktualisieren Sie das Spiel und stellen Sie die Verbindung zum Online-Dienst ein.",
-            "Bitte wählen Sie die installierte Spiel-Datei für Test Drive Unlimited 2 aus.",
-            "Die ausgewählte Datei ist nicht die ausführbare Datei für Test Drive Unlimited 2.\nBitte wählen Sie die korrekte Spiel-Datei aus.",
-            "Ein Steam-Spiel wurde erkannt.\nBitte bestätigen Sie, ob das Spiel über Steam installiert wurde.\nWenn das Spiel nicht über Steam installiert wurde, wird die steam_api.dll umbenannt.\n\nBesitzen Sie das Spiel auf Steam?",
-            "Ihr ausgewähltes Spiel entspricht nicht der neuesten offiziellen Spielversion. \nSie sollten das Spiel aktualisieren (führen Sie die Spielprüfung durch).",
-            "Der Spielordner kann nicht geöffnet werden, da kein Spiel ausgewählt wurde.",
-            "Der Savegame-Ordner kann nicht geöffnet werden, da kein Savegame vorhanden ist.",
-            "Die Serververbindung kann nicht geändert werden, da kein Spiel ausgewählt wurde.",
-            "Das Update kann nicht durchgeführt werden, da kein Spiel ausgewählt wurde.",
-            "Spiele-Server Online, Spieler: ",
-            "Fehler beim Abrufen der Informationen, Klicken Sie hier, um zu aktualisieren",
-            "Es fehlt ein Startparameter. \nBitte überprüfe, ob der Launcher im Steam-Spiel enthalten ist und der -direct-Befehl richtig gesetzt wurde.",
-            "Onlinemodus",
-            "Spielversion",
-            "Discord RPC",
-            "Update-Überprüfung",
-            "UPnP",
-            "Steam-Version",
-            "Sollte nur verwendet werden, wenn der Launcher dies sagt!",
-            "Launcher-Sprache",
-            "Audio-Modus",
-            "Ist das gewählte Spiel ein modifiziertes/unpacked Spiel?",
-            "Die Spieleüberprüfung wurde abgebrochen, modifizierte Spiele können dadurch kaputt gemacht werden.",
-            "Es wurden keine Standard-Spieldateien gefunden. Stelle sicher, dass das Spiel korrekt installiert und ausgewählt ist.", //125
-            "Ressourcen"
+            //Main UI-Langs
+            "Spielen",                                              //0
+            "Start",                                                //1
+            "Einstellungen",                                        //2
+            "Profile",                                              //3
+            "Service",                                              //4
+            "Informationen",                                        //5
+            "Über",                                                 //6
+            "Beenden",                                              //7
+            "Status prüfen",                                        //8
+            "Zurück",                                               //9
+            "Ersteller",                                            //10
+            "Beschreibung",                                         //11
+            "Updates",                                              //12
+            //Main UI-Langs end
+            //Settings UI-Langs
+            "Discord-Status",                                       //13
+            "Update-Prüfung",                                       //14
+            "UPnP-Portweiterleitung",                               //15
+            "Sprache",                                              //16
+            "Tonmodus",                                             //17
+            //Settings UI-Langs end
+            //Profile UI-Langs
+            "Neues Profil anlegen",                                 //18
+            //Profile UI-Langs end
+            //Create Profile UI-Langs
+            "Neue Spiel-Instanz erstellen",                         //19
+            "Spiel-Instanz bearbeiten",                             //20
+            "Profilname",                                           //21
+            "Startargs",                                            //22
+            "Dynamischer RAM",                                      //23
+            "Dynamische Kerne",                                     //24
+            "Höhere Priorität",                                     //25
+            "Auto-Dreck",                                           //26
+            "Auto-Schaden",                                         //27
+            "Online-Modus",                                         //28
+            "Spiel auswählen",                                      //29
+            "Ordner öffnen",                                        //30
+            "Verbindungs-Patch",                                    //31
+            "Mod-Browser",                                          //32
+            "Spiel-Update",                                         //33
+            "Speichern",                                            //34
+            "Spielversion: ",                                       //35
+            "Spielbuild: {0}",                                      //36
+            "Spielpfad: {0}",                                       //37
+            "Spielinstallationsgröße: {0}",                         //38
+            "Spieltyp: {0} '{1}' - {2}",                            //39
+            " (Falsche Spielversion) Update erforderlich",          //40
+            "Wähle dein Test Drive Unlimited Spiel",                //41
+            "Config Datei wurde ausgetauscht",                      //42
+            "Spiel Verzeichniss exestiert nicht.",                  //43
+            "Ordner Exestiert Nicht: ",                             //44
+            "Profil: {0} erfolgreich Gespeichert",                  //45
+            "Fehler beim Speichern de Profils: {0} Fehler: {1}",    //46
+            //Create Profile UI-Langs end
+            //Service UI-Langs 
+            "Account oder Password, kann nicht leer sein",          //47
+            "Account oder Password, kann nicht leer sein",          //48
+            "Password, kann nicht leer sein",                       //49
+            "Falsche Login daten, Einloggen nicht Möglich",         //50
+            "Fehler beim Login in der Cloud: {0}",                  //51
+            "Status: {0}\nSpeichergröße: {1}\nZuletzt hochgeladen: {2}\nSavegame-Name: {3}\nLetzte Prüfung: {4}", //52
+            "Savegame Exestiert",                                   //53
+            "Kein Savegame Exestiert",                              //54
+            "Fehler beim Laden der Savegame Infos: {0}",            //55
+            "Savegame Hochladen",                                   //56
+            "Upload-Fortschritt: {0}%, Größe: {1}",                 //57  
+            "Download-Fortschritt: {0}%, Größe: {1}",               //58
+            "Savegame Hochgeladen",                                 //59
+            "Savegame Downloaden",                                  //60
+            "Savegame Runtergeladen",                               //61
+            "Savegame Entpacken",                                   //62
+            "Temp-Files Cleanup",                                   //63
+            "PP2 Account Info",                                     //64
+            "Account name",                                         //65
+            "Account password",                                     //66
+            "Login",                                                //67
+            "Logout",                                               //68
+            "Refresh",                                              //69
+            "Hochladen",                                            //70
+            "Downloaden",                                           //71
+            "Backup Ordner",                                        //72
+            "Savegame Ordner",                                      //73
+            "Max. Speicherpunkte",                                  //74
+            "Cleanup",                                              //75
+            //Service UI-Langs end
+            //Update UI-Langs
+            "Starte die Spiel überprüfung",                         //76
+            "Unpacked Spiel erkannt, Stoppe Update",                //77
+            "Keine normale Spiel Installation erkannt, Stoppe Update",//78
+            "Gefunden Dateien: {0} Ordner: {1}",                    //79
+            "Verbinde zum Server",                                  //80
+            "Verbindung zum Server: OK, Starte Filecheck",          //81
+            "Konnte nicht zum Server Verbinden",                    //82
+            "Vergleiche Dateien, Phase 1",                          //83
+            "Phase 1: Überprüfung auf fehlende Dateien",            //84
+            "Fehlende Dateien: {0}",                                //85
+            "Fehlt: {0} - {1}",                                     //86
+            "Überprüfe Dateien auf Änderungen",                     //87
+            "Vergleiche Dateien, Phase 2",                          //88
+            "Phase 2: Datei wird überprüft: ",                      //89
+            "Datei: {0} ◄ Aktualisierung erforderlich, Datei unterschiedlich [{1}|{2}]",//90
+            "Datei: {0} ◄ Datei ist auf dem neuesten Stand",        //91
+            "Die Dateiüberprüfung scheint fehlgeschlagen zu sein. Bitte versuchen Sie es erneut.", //92
+            "Dateiüberprüfung abgeschlossen in: {0}",               //93
+            "Online-Spieldateiliste konnte nicht abgerufen werden. Bitte versuchen Sie es später erneut.",//94
+            "Live-Dateiliste heruntergeladen.",                     //95
+            "Zu viele fehlende Dateien. Aktualisierung abgebrochen. Bitte installiere das Spiel neu.", //96
+            "Dateien und Ordner gescannt.",                         //97
+            "Fehlendes Verzeichnis erstellt: ",                     //98
+            "Vergleiche Dateien, Phase 3",                          //99
+            "Phase 3: Überprüfung der Dateiintegrität",             //100
+            "Phase 3: Herunterladen und Installieren von Dateien",  //101
+            "Herunterladen der Datei: {0} ({1}% abgeschlossen)",    //102
+            "Aktualisierung abgeschlossen in: {0}",                 //103
+            "Spielaktualisierung beendet.",                         //104
+            "Datei aktualisiert: ",                                 //105
+            "Entpacken der Datei fehlgeschlagen: ({0}). Fehler: {1}", //106
+            "Datei: {0} ◄ Wird installiert",                        //107
+            "Spiel Prüfung Fertig",                                 //108
+            //Gameupdate end
+            //Generic Messages
+            "Project Paradise 2 - Security Module",                 //109
+            "Das Sicherheitsmodul ist nicht sicher. Das Spiel wurde geschlossen.", //110
+            "Es wurde ein Steam Spiel erkannt, ist das Richtig?", //111
+            "Es wurde ein Unpacked Spiel erkannt, ist das Richtig?", //112
+            "Warnung: Entpackte Spiele zu nutzen auf eigenes Risiko!\nWir geben hier keine Hilfe, oder sämmtlichen Support!", //113
+            "Warnung: Sollte dies dennoch ein Unpacked Spiel sein, Kann es Passieren das Manche Aktionen das Spiel Kaputt machen kann!\nUnd zu einer Neuinstallation Führen kann", //114
+            "Spiele-Server Online, Spieler: ",                  //115
+            "Fehler beim Abrufen der Informationen, Klicken Sie hier, um zu aktualisieren", //116
+            //Update UI-Langs end
+            //Mod Detail View
+            "Zurück", //117
+            "Ersteller", //118
+            "Beschreibung", //119
+            "Version", //120
+            "Dateien", //121
+            "Download Größe", //122
+            "Installation Größe", //123
+            "Updates", //124
+            "Installationen", //125
+            "Install | Update", //126
+            "Modname", //127
+            "Starte Mod-Download", //128
+            "Mod Installation ({0}) Abgeschlossen", //129
+            "Installiere Mod ({0}) Datei: {1} von {2}", //130
+            "Installierte Mods", //131
+            "Zeige: {0} Mods von {1}", //132
+            "Keine Mods Verfügbar für diesen Spiel Type", //133
+            "Lade Mods", //134
+            "Mod: {0} wurde erfolgreich Deinstalliert", //135
+            "Unpacked Mods können nicht vom Launcher Deinstalliert werden.", //136
+            "Falsche ModId Versuche es nach einem Restart", //137
+            "Ein ganz besonderer Dank \nAn unser großartiges Team und unsere Patreons – eure Unterstützung, euer Engagement und eure Beiträge bedeuten uns sehr viel. \nVon der Hilfe bei Discord bis hin zum Betrieb der Server – ihr macht dieses Projekt möglich. Wir schätzen jeden Einzelnen von euch sehr.", //138
+            "Der Launcher hat eine Alte Datenbank version, \nSoll versucht werden die Alten Einstellungen zu einem Neuen Profil zu Convertieren?", //139
+            "Du musst selbst ein Spiel Profil Anlegen,\nBevor du Spielen Kannst.", //140
+            "Bitte Prüfe die Profil einstellungen\nDas Profil wurde Erfolgreich angelegt als: Converted Profile", //141
         };
 
         public static string[] English =
         {
-            "Play TDU2",
-            "Start",
-            "Service",
-            "Mod Browser",
-            "Settings",
-            "Information",
-            "Exit",
-            "Latest News",
-            "Check Status",
-            "Back",
-            "Creator",
-            "Description",
-            "Updates",
-            "Downloads",
-            "Version",
-            "Files",
-            "Download Size",
-            "Installation Size",
-            "Install",
-            "Install/Update",
-            "My Mods",
-            "Login Data",
-            "Username",
-            "Password",
-            "Log Out",
-            "Upload",
-            "Download",
-            "Log In",
-            "Sign Out",
-            "Reload",
-            "Open Backup Folder",
-            "Select Game",
-            "Patch Connection",
-            "Open Game Folder",
-            "Check Game",
-            "Open Saves",
-            "Launcher Language",
-            "Audio Mode",
-            "Max Backups",
-            "Mod-Name",
-            "Starting game file check. This might take a while. Grab a coffee and relax while the launcher works.",
-            "Index creation completed. Files: {0}, Folders: {1}",
-            "Files and folders scanned",
-            "Connecting to server",
-            "Connection established!",
-            "Failed to connect to the server.",
-            "Comparing files, Stage 1",
-            "Stage 1: Checking for missing files",
-            "Files missing: {0}",
-            "Missing: {0} - {1}",
-            "Checking files for changes",
-            "Comparing files, Stage 2",
-            "Stage 2: Verifying file: ",
-            "File: {0} ◄ Update needed, file different [{1}|{2}]",
-            "File: {0} ◄ File is up to date",
-            "File check appears to have failed. Please try again.",
-            "File check completed in: {0}",
-            "Live file list downloaded.",
-            "Failed to retrieve online game file list. Please try again later.",
-            "Too many missing files. Update aborted. Please reinstall the game properly.",
-            "Files and folders scanned.",
-            "Created missing directory: ",
-            "Comparing files, Stage 3",
-            "Stage 3: Verifying file integrity",
-            "Stage 3: Downloading and Installing Files",
-            "Downloading File: {0} ({1}% complete)",
-            "Update completed in: {0}",
-            "Game update finished.",
-            "Updating Launcher Database",
-            "File: {0} ◄ Installing",
-            "File updated: ",
-            "Failed to extract file: ({0}). Error: {1}",
-            "Project Paradise 2 - Security Module",
-            "The security module is not secure. The game has been closed.",
-            "Mod querying done, displaying {0} of {1} available mods",
-            "Both username and password are required.",
-            "The username is required.",
-            "The password is required.",
-            "The entered password does not match the one stored on the server. Please check your password and try again.",
-            "A network error occurred: {0}\nPlease check your internet connection and try again.",
-            "The server URL is invalid: {0}\nPlease contact support if the issue persists.",
-            "An unexpected error occurred: {0}\nPlease restart the application and try again.",
-            "An unknown error occurred: {0}\nPlease contact support if this problem persists.",
-            "Savegame exists",
-            "No savegame found",
-            "State: {0}\nSave Size: {1}\nLast Uploaded: {2}\nSavegame Name: {3}\nLast Check: {4}",
-            "State: No savegame found",
-            "Prepare Upload",
-            "Clean Up Old Local Savegame",
-            "Create Savegame for Upload",
-            "Start Upload",
-            "Upload Progress: {0}%, Size: {1}",
-            "Upload successfully",
-            "Start Download",
-            "Download Progress: {0}%, Size: {1}",
-            "Download completed. Unpacking files...",
-            "Cloud Savegame unpacked successfully.",
-            "Game info",
-            "Game path: ",
-            "File version: ",
-            "Game version: ",
-            "Warning: You have not configured the launcher correctly or completely.",
-            "No game selected. Please select a game first, then update the game and set the connection to use the online service.",
-            "Please select the installed game file for Test Drive Unlimited 2.",
-            "The selected file is not the executable for Test Drive Unlimited 2.\nPlease choose the correct game file.",
-            "A Steam game has been detected.\nPlease confirm if the game is installed via Steam.\nIf the game is not installed via Steam, the steam_api.dll will be renamed.\n\nDo you own the game on Steam?",
-            "Your selected game does not match the latest official game version. \nYou should update the game (perform the game check).",
-            "The game folder cannot be opened because no game has been selected.",
-            "The savegame folder cannot be opened because no savegame is available.",
-            "The server connection cannot be changed because no game has been selected.",
-            "The update cannot be performed because no game has been selected.",
-            "Gameserver Online, Players: ",
-            "Failed to get info, Click here to Refresh",
-            "A start parameter is missing. \nPlease check if the launcher is included in the Steam game and if the -direct command is set correctly.",
-            "Online mode",
-            "Game build",
-            "Discord RPC",
-            "Update check",
-            "UPnP",
-            "Steam build",
-            "Should only be used if the launcher says so!",
-            "Launcher language",
-            "Audio mode",
-            "Is the selected game a modified/unpacked game?",
-            "The game verification was canceled, modified games may be broken as a result.",
-            "No standard game files were found. Make sure the game is properly installed and selected.",
-            "Resources"
+            //Main UI-Langs
+            "Play",                                                 //0
+            "Start",                                                //1
+            "Settings",                                             //2
+            "Profile",                                              //3
+            "Service",                                              //4
+            "Information",                                          //5
+            "About",                                                //6
+            "Exit",                                                 //7
+            "Check Status",                                         //8
+            "Back",                                                 //9
+            "Creator",                                              //10
+            "Description",                                          //11
+            "Updates",                                              //12
+            //Main UI-Langs end
+        
+            //Settings UI-Langs
+            "Discord Status",                                       //13
+            "Update Check",                                         //14
+            "UPnP Port Forwarding",                                 //15
+            "Language",                                             //16
+            "Audio Mode",                                           //17
+            //Settings UI-Langs end
+        
+            //Profile UI-Langs
+            "Create New Profile",                                   //18
+            //Profile UI-Langs end
+        
+            //Create Profile UI-Langs
+            "Create New Game Instance",                             //19
+            "Edit Game Instance",                                   //20
+            "Profile Name",                                         //21
+            "Start Args",                                      //22
+            "Dynamic RAM",                                          //23
+            "Dynamic Cores",                                        //24
+            "Higher Priority",                                      //25
+            "Auto-Dirt",                                            //26
+            "Auto-Damage",                                          //27
+            "Online Mode",                                          //28
+            "Select Game",                                          //29
+            "Open Folder",                                          //30
+            "Connection Patch",                                     //31
+            "Mod Browser",                                          //32
+            "Game Update",                                          //33
+            "Save",                                                 //34
+            "Game Version: ",                                       //35
+            "Game Build: {0}",                                      //36
+            "Game Path: {0}",                                       //37
+            "Game Install Size: {0}",                               //38
+            "Game Type: {0} '{1}' - {2}",                           //39
+            " (Wrong Game Version) Update Required",                //40
+            "Choose your Test Drive Unlimited Game",                //41
+            "Config File Replaced",                                 //42
+            "Game Directory Does Not Exist",                        //43
+            "Directory Does Not Exist: ",                           //44
+            "Profile: {0} Saved Successfully",                      //45
+            "Error Saving Profile: {0} Error: {1}",                 //46
+            //Create Profile UI-Langs end
+        
+            //Service UI-Langs 
+            "Account or Password cannot be empty",                  //47
+            "Account or Password cannot be empty",                  //48
+            "Password cannot be empty",                             //49
+            "Incorrect Login Data, Cannot Log In",                  //50
+            "Error Logging into Cloud: {0}",                        //51
+            "Status: {0}\nStorage Size: {1}\nLast Uploaded: {2}\nSavegame Name: {3}\nLast Check: {4}", //52
+            "Savegame Exists",                                      //53
+            "No Savegame Exists",                                   //54
+            "Error Loading Savegame Info: {0}",                     //55
+            "Upload Savegame",                                      //56
+            "Upload Progress: {0}%, Size: {1}",                     //57  
+            "Download Progress: {0}%, Size: {1}",                   //58
+            "Savegame Uploaded",                                    //59
+            "Download Savegame",                                    //60
+            "Savegame Downloaded",                                  //61
+            "Savegame Extracting",                                  //62
+            "Temp Files Cleanup",                                   //63
+            "PP2 Account Info",                                     //64
+            "Account Name",                                         //65
+            "Account Password",                                     //66
+            "Login",                                                //67
+            "Logout",                                               //68
+            "Refresh",                                              //69
+            "Upload",                                               //70
+            "Download",                                             //71
+            "Backup Folder",                                        //72
+            "Savegame Folder",                                      //73
+            "Max Storage Points",                                   //74
+            "Cleanup",                                              //75
+            //Service UI-Langs end
+        
+            //Update UI-Langs
+            "Starting Game Verification",                           //76
+            "Unpacked Game Detected, Stopping Update",              //77
+            "No Normal Game Installation Detected, Stopping Update",//78
+            "Found Files: {0} Folders: {1}",                        //79
+            "Connecting to Server",                                 //80
+            "Connected to Server: OK, Starting File Check",         //81
+            "Could Not Connect to Server",                          //82
+            "Comparing Files, Phase 1",                             //83
+            "Phase 1: Checking for Missing Files",                  //84
+            "Missing Files: {0}",                                   //85
+            "Missing: {0} - {1}",                                   //86
+            "Checking Files for Changes",                           //87
+            "Comparing Files, Phase 2",                             //88
+            "Phase 2: Checking File: ",                             //89
+            "File: {0} ◄ Update Required, File Differs [{1}|{2}]", //90
+            "File: {0} ◄ File is Up to Date",                       //91
+            "The file check seems to have failed. Please try again.", //92
+            "File Check Completed in: {0}",                         //93
+            "Online Game File List Could Not Be Retrieved. Please Try Again Later.",//94
+            "Live File List Downloaded.",                           //95
+            "Too Many Missing Files. Update Aborted. Please Reinstall the Game.", //96
+            "Files and Folders Scanned.",                           //97
+            "Missing Directory Created: ",                          //98
+            "Comparing Files, Phase 3",                             //99
+            "Phase 3: Checking File Integrity",                     //100
+            "Phase 3: Downloading and Installing Files",            //101
+            "Downloading File: {0} ({1}% Complete)",                //102
+            "Update Completed in: {0}",                             //103
+            "Game Update Finished.",                                //104
+            "File Updated: ",                                       //105
+            "Failed to Extract File: ({0}). Error: {1}",            //106
+            "File: {0} ◄ Installing",                               //107
+            "Game Check Complete",                                  //108
+        
+            //Gameupdate end
+        
+            //Generic Messages
+            "Project Paradise 2 - Security Module",                 //109
+            "The security module is not secure. The game has been closed.", //110
+            "Steam Game Detected, Is This Correct?",                //111
+            "Unpacked Game Detected, Is This Correct?",             //112
+            "Warning: Using Unpacked Games at Your Own Risk!\nWe Provide No Help or Support Here!", //113
+            "Warning: If This Is Still an Unpacked Game, Some Actions May Break the Game!\nAnd Can Lead to Reinstallation", //114
+            "Game Servers Online, Players: ",                       //115
+            "Error Fetching Information, Click Here to Refresh",    //116
+        
+            //Update UI-Langs end
+        
+            //Mod Detail View
+            "Back",                                                 //117
+            "Creator",                                              //118
+            "Description",                                          //119
+            "Version",                                              //120
+            "Files",                                                //121
+            "Download Size",                                        //122
+            "Installation Size",                                    //123
+            "Updates",                                              //124
+            "Installations",                                        //125
+            "Install | Update",                                     //126
+            "Mod Name",                                             //127
+            "Starting Mod Download",                                //128
+            "Mod Installation ({0}) Complete",                      //129
+            "Installing Mod ({0}) File: {1} of {2}",                //130
+            "Installed Mods",                                       //131
+            "Showing: {0} Mods of {1}",                             //132
+            "No Mods Available for This Game Type",                 //133
+            "Loading Mods",                                         //134
+            "Mod: {0} Successfully Uninstalled",                    //135
+            "Unpacked Mods Cannot Be Uninstalled by the Launcher",  //136
+            "Incorrect ModId, Try Again After Restart",             //137
+            "A Special Thanks \nTo Our Great Team and Our Patrons – Your Support, Engagement, and Contributions Mean a Lot to Us. \nFrom Discord Help to Server Operations – You Make This Project Possible. We Value Each One of You Very Much.", //138
+            "The Launcher Has an Old Database Version, \nShould It Try to Convert Old Settings to a New Profile?", //139
+            "You Must Create a Game Profile Yourself,\nBefore You Can Play.",                                       //140
+            "Please Check the Profile Settings\nThe Profile Was Successfully Created As: Converted Profile",         //141
         };
 
         public static string[] Czech =
         {
-            "Hrát TDU2",
-            "Start",
-            "Služba",
-            "Prohlížeč modů",
-            "Nastavení",
-            "Informace",
-            "Konec",
-            "Nejnovější zprávy",
-            "Zkontrolovat stav",
-            "Zpět",
-            "Tvůrce",
-            "Popis",
-            "Aktualizace",
-            "Stažení",
-            "Verze",
-            "Soubory",
-            "Velikost ke stažení",
-            "Velikost instalace",
-            "Instalovat",
-            "Instalovat/Aktualizovat",
-            "Moje mody",
-            "Údaje k přihlášení",
-            "Uživatelské jméno",
-            "Heslo",
-            "Odhlásit se",
-            "Nahrát",
-            "Stáhnout",
-            "Přihlásit se",
-            "Odhlásit se",
-            "Načíst znovu",
-            "Otevřít záložní složku",
-            "Vybrat hru",
-            "Patch připojení",
-            "Otevřít složku hry",
-            "Zkontrolovat hru",
-            "Otevřít uložené",
-            "Jazyk spouštěče",
-            "Zvukový režim",
-            "Max. záloh",
-            "Název modu",
-            "Spuštěna kontrola herních souborů. Může to chvíli trvat. Dejte si kávu a odpočiňte si, zatímco launcher pracuje.",
-            "Vytváření indexu dokončeno. Soubory: {0}, Složky: {1}",
-            "Soubory a složky naskenovány",
-            "Připojuji se k serveru",
-            "Připojení navázáno!",
-            "Nelze se připojit k serveru.",
-            "Porovnávám soubory, fáze 1",
-            "Fáze 1: Kontrola chybějících souborů",
-            "Chybějící soubory: {0}",
-            "Chybí: {0} - {1}",
-            "Kontrola změn v souborech",
-            "Porovnávám soubory, fáze 2",
-            "Fáze 2: Ověřuji soubor: ",
-            "Soubor: {0} ◄ Aktualizace nutná, soubor se liší [{1}|{2}]",
-            "Soubor: {0} ◄ Soubor je aktuální",
-            "Kontrola souborů selhala. Zkuste to prosím znovu.",
-            "Kontrola souborů dokončena za: {0}",
-            "Seznam živých souborů stažen.",
-            "Nelze získat online seznam herních souborů. Zkuste to prosím později.",
-            "Příliš mnoho chybějících souborů. Aktualizace přerušena. Znovu nainstalujte hru.",
-            "Soubory a složky naskenovány.",
-            "Vytvořena chybějící složka: ",
-            "Porovnávám soubory, fáze 3",
-            "Fáze 3: Ověřování integrity souborů",
-            "Fáze 3: Stahování a instalace souborů",
-            "Stahování souboru: {0} ({1}% hotovo)",
-            "Aktualizace dokončena za: {0}",
-            "Aktualizace hry dokončena.",
-            "Aktualizuji databázi launcheru",
-            "Soubor: {0} ◄ Instalace",
-            "Soubor aktualizován: ",
-            "Selhalo rozbalení souboru: ({0}). Chyba: {1}",
-            "Project Paradise 2 - Security Module",
-            "Bezpečnostní modul není bezpečný. Hra byla uzavřena.",
-            "Dotazování na mody dokončeno, zobrazuji {0} z {1} dostupných modů.",
-            "Uživatelské jméno a heslo jsou povinné.",
-            "Uživatelské jméno je povinné.",
-            "Heslo je povinné.",
-            "Zadané heslo neodpovídá tomu, které je uloženo na serveru. Zkontrolujte své heslo a zkuste to znovu.",
-            "Došlo k síťové chybě: {0}\nZkontrolujte své internetové připojení a zkuste to znovu.",
-            "URL serveru je neplatná: {0}\nPokud problém přetrvává, kontaktujte podporu.",
-            "Došlo k neočekávané chybě: {0}\nRestartujte aplikaci a zkuste to znovu.",
-            "Došlo k neznámé chybě: {0}\nPokud problém přetrvává, kontaktujte podporu.",
-            "Savegame existuje",
-            "Savegame nenalezeno",
-            "Stav: {0}\nVelikost uložené hry: {1}\nPoslední nahrání: {2}\nNázev uložené hry: {3}\nPoslední kontrola: {4}",
-            "Stav: Savegame nenalezeno",
-            "Připravit nahrávání",
-            "Vyčistit staré lokální Savegame",
-            "Vytvořit Savegame pro nahrání",
-            "Spustit nahrávání",
-            "Pokrok nahrávání: {0}%, Velikost: {1}",
-            "Nahrávání úspěšně dokončeno",
-            "Spustit stahování",
-            "Pokrok stahování: {0}%, Velikost: {1}",
-            "Stahování dokončeno. Rozbalování souborů...",
-            "Cloud Savegame úspěšně rozbaleno.",
-            "Informace o hře",
-            "Cesta k hře: ",
-            "Verze souboru: ",
-            "Verze hry: ",
-            "Upozornění: Launcher není správně nebo kompletně nakonfigurován.",
-            "Žádná hra není vybrána. Nejprve vyberte hru, poté aktualizujte hru a nastavte připojení pro použití online služby.",
-            "Vyberte prosím nainstalovaný soubor hry pro Test Drive Unlimited 2.",
-            "Vybraný soubor není spustitelný soubor pro Test Drive Unlimited 2.\nVyberte prosím správný soubor hry.",
-            "Byla detekována hra na Steamu.\nPotvrďte prosím, zda byla hra nainstalována přes Steam.\nPokud hra není nainstalována přes Steam, soubor steam_api.dll bude přejmenován.\n\nVlastníte tuto hru na Steamu?",
-            "Vybraná hra neodpovídá nejnovější oficiální verzi hry. \nMěli byste hru aktualizovat (proveďte kontrolu hry).",
-            "Složka s hrou nemůže být otevřena, protože žádná hra nebyla vybrána.",
-            "Složka s uloženými hrami nemůže být otevřena, protože žádná uložená hra není k dispozici.",
-            "Připojení k serveru nelze změnit, protože žádná hra nebyla vybrána.",
-            "Aktualizace nemůže být provedena, protože žádná hra nebyla vybrána.",
-            "Herní server online, hráči: ",
-            "Nepodařilo se získat informace, klikněte sem pro obnovení",
-            "Chybí spouštěcí parametr. \nZkontrolujte, zda je spouštěč součástí hry na Steamu a zda je příkaz -direct správně nastaven.",
-            "Režim online",
-            "Verze hry",
-            "Discord RPC",
-            "Kontrola aktualizace",
-            "UPnP",
-            "Verze Steam",
-            "Mělo by se používat pouze v případě, že to spouštěč říká!",
-            "Jazyk spouštěče",
-            "Režim zvuku",
-            "Je vybraný game modifikovaná/rozbalená hra?",
-            "Ověření hry bylo zrušeno, modifikované hry mohou být tímto poškozeny.",
-            "Nebyl nalezen žádný standardní herní soubor. Ujistěte se, že je hra správně nainstalována a vybrána.",
-            "Zdroje"
+            //Hlavní UI jazyky
+            "Hrát",                                                 //0
+            "Spustit",                                              //1
+            "Nastavení",                                            //2
+            "Profily",                                              //3
+            "Služba",                                               //4
+            "Informace",                                            //5
+            "O programu",                                           //6
+            "Ukončit",                                              //7
+            "Zkontrolovat stav",                                    //8
+            "Zpět",                                                 //9
+            "Tvůrce",                                               //10
+            "Popis",                                                //11
+            "Aktualizace",                                          //12
+            //Hlavní UI jazyky konec
+        
+            //Nastavení UI jazyky
+            "Discord stav",                                         //13
+            "Kontrola aktualizací",                                 //14
+            "Přesměrování portů UPnP",                              //15
+            "Jazyk",                                                //16
+            "Zvukový režim",                                        //17
+            //Nastavení UI jazyky konec
+        
+            //Profily UI jazyky
+            "Vytvořit nový profil",                                 //18
+            //Profily UI jazyky konec
+        
+            //Vytvoření profilu UI jazyky
+            "Vytvořit novou herní instanci",                         //19
+            "Upravit herní instanci",                               //20
+            "Název profilu",                                        //21
+            "Spustit arg",                                    //22
+            "Dynamická RAM",                                        //23
+            "Dynamické jádra",                                      //24
+            "Vyšší priorita",                                       //25
+            "Auto-prach",                                           //26
+            "Auto-poškození",                                       //27
+            "Online režim",                                         //28
+            "Vybrat hru",                                           //29
+            "Otevřít složku",                                       //30
+            "Připojení patch",                                      //31
+            "Prohlížeč modifikací",                                 //32
+            "Aktualizace hry",                                      //33
+            "Uložit",                                               //34
+            "Verze hry: ",                                          //35
+            "Sestavení hry: {0}",                                   //36
+            "Cesta hry: {0}",                                       //37
+            "Velikost instalace hry: {0}",                          //38
+            "Typ hry: {0} '{1}' - {2}",                             //39
+            " (Špatná verze hry) Vyžadována aktualizace",           //40
+            "Vyberte svou hru Test Drive Unlimited",                //41
+            "Konfigurační soubor byl nahrazen",                     //42
+            "Adresář hry neexistuje",                               //43
+            "Adresář neexistuje: ",                                  //44
+            "Profil: {0} úspěšně uložen",                           //45
+            "Chyba při ukládání profilu: {0} Chyba: {1}",          //46
+            //Vytvoření profilu UI jazyky konec
+        
+            //Služba UI jazyky 
+            "Účet nebo heslo nemůže být prázdné",                   //47
+            "Účet nebo heslo nemůže být prázdné",                   //48
+            "Heslo nemůže být prázdné",                             //49
+            "Nesprávné přihlašovací údaje, nelze se přihlásit",      //50
+            "Chyba při přihlášení do cloudu: {0}",                  //51
+            "Stav: {0}\nVelikost úložiště: {1}\nNaposledy nahráno: {2}\nNázev uložené hry: {3}\nPoslední kontrola: {4}", //52
+            "Uložená hra existuje",                                  //53
+            "Žádná uložená hra neexistuje",                          //54
+            "Chyba při načítání informací o uložené hře: {0}",      //55
+            "Nahrát uloženou hru",                                  //56
+            "Postup nahrávání: {0}%, Velikost: {1}",                //57  
+            "Postup stahování: {0}%, Velikost: {1}",                //58
+            "Uložená hra nahrána",                                  //59
+            "Stáhnout uloženou hru",                                //60
+            "Uložená hra stažena",                                  //61
+            "Rozbalování uložené hry",                              //62
+            "Vyčištění dočasných souborů",                          //63
+            "Informace o účtu PP2",                                 //64
+            "Název účtu",                                           //65
+            "Heslo účtu",                                           //66
+            "Přihlásit se",                                         //67
+            "Odhlásit se",                                          //68
+            "Obnovit",                                              //69
+            "Nahrát",                                               //70
+            "Stáhnout",                                             //71
+            "Záložní složka",                                       //72
+            "Složka uložených her",                                 //73
+            "Maximální počet úložišť",                              //74
+            "Vyčistit",                                             //75
+            //Služba UI jazyky konec
+        
+            //Aktualizace UI jazyky
+            "Spouštění kontroly hry",                               //76
+            "Zjištěna nebalená hra, zastavuji aktualizaci",         //77
+            "Nenalezena normální instalace hry, zastavuji aktualizaci",//78
+            "Nalezeno souborů: {0} složek: {1}",                    //79
+            "Připojování k serveru",                                //80
+            "Připojeno k serveru: OK, spouštění kontroly souborů",  //81
+            "Nelze se připojit k serveru",                          //82
+            "Porovnávání souborů, fáze 1",                         //83
+            "Fáze 1: Kontrola chybějících souborů",                //84
+            "Chybějící soubory: {0}",                               //85
+            "Chybí: {0} - {1}",                                     //86
+            "Kontrola souborů na změny",                            //87
+            "Porovnávání souborů, fáze 2",                         //88
+            "Fáze 2: Kontrola souboru: ",                           //89
+            "Soubor: {0} ◄ Vyžadována aktualizace, soubor se liší [{1}|{2}]",//90
+            "Soubor: {0} ◄ Soubor je aktuální",                    //91
+            "Kontrola souborů se nezdařila. Zkuste to prosím znovu.",//92
+            "Kontrola souborů dokončena za: {0}",                   //93
+            "Online seznam herních souborů nelze načíst. Zkuste to později.",//94
+            "Seznam souborů stažen",                                //95
+            "Příliš mnoho chybějících souborů. Aktualizace přerušena. Prosím, přeinstalujte hru.", //96
+            "Soubory a složky prozkoumány.",                        //97
+            "Vytvořená chybějící složka: ",                         //98
+            "Porovnávání souborů, fáze 3",                         //99
+            "Fáze 3: Kontrola integrity souborů",                  //100
+            "Fáze 3: Stahování a instalace souborů",                //101
+            "Stahování souboru: {0} ({1}% dokončeno)",              //102
+            "Aktualizace dokončena za: {0}",                        //103
+            "Aktualizace hry dokončena.",                           //104
+            "Soubor aktualizován: ",                                //105
+            "Nepodařilo se rozbalit soubor: ({0}). Chyba: {1}",     //106
+            "Soubor: {0} ◄ Instalace",                              //107
+            "Kontrola hry dokončena",                               //108
+        
+            //Aktualizace hry konec
+        
+            //Obecné zprávy
+            "Project Paradise 2 - Bezpečnostní modul",              //109
+            "Bezpečnostní modul není bezpečný. Hra byla uzavřena.", //110
+            "Zjištěna hra ze Steamu, je to správné?",               //111
+            "Zjištěna nebalená hra, je to správné?",                //112
+            "Varování: Používání nebalených her na vlastní riziko!\nZde neposkytujeme žádnou pomoc ani podporu!", //113
+            "Varování: Pokud je to stále nebalená hra, některé akce mohou poškodit hru!\nA mohou vést k přeinstalaci", //114
+            "Herní servery online, hráči: ",                        //115
+            "Chyba při načítání informací, klikněte sem pro obnovení", //116
+        
+            //Aktualizace UI jazyky konec
+        
+            //Detail modifikace
+            "Zpět",                                                 //117
+            "Tvůrce",                                               //118
+            "Popis",                                                //119
+            "Verze",                                                //120
+            "Soubory",                                              //121
+            "Velikost stahování",                                   //122
+            "Velikost instalace",                                   //123
+            "Aktualizace",                                          //124
+            "Instalace",                                            //125
+            "Instalovat | Aktualizovat",                            //126
+            "Název modifikace",                                     //127
+            "Spouštění stahování modifikace",                        //128
+            "Instalace modifikace ({0}) dokončena",                 //129
+            "Instalace modifikace ({0}) soubor: {1} z {2}",         //130
+            "Nainstalované modifikace",                             //131
+            "Zobrazuji: {0} modifikací z {1}",                      //132
+            "Žádné modifikace nejsou dostupné pro tento typ hry",   //133
+            "Načítání modifikací",                                  //134
+            "Modifikace: {0} byla úspěšně odinstalována",          //135
+            "Nezabalené modifikace nelze odinstalovat pomocí spouštěče", //136
+            "Nesprávné ID modifikace, zkuste to znovu po restartu", //137
+            "Zvláštní poděkování \nNaše skvělý tým a naši patroni – vaše podpora, zapojení a příspěvky pro nás mnoho znamenají. \nOd pomoci na Discordu až po provoz serverů – děláte tento projekt možný. Vážíme si každého z vás velmi.", //138
+            "Spouštěč má starší verzi databáze, \nMá se pokusit převést staré nastavení na nový profil?", //139
+            "Musíte si vytvořit herní profil sami,\nnež budete moci hrát.",                                        //140
+            "Zkontrolujte prosím nastavení profilu\nProfil byl úspěšně vytvořen jako: Převedený profil",             //141
         };
 
         public static string[] Spanish =
         {
-            "Jugar TDU2",
-            "Inicio",
-            "Servicio",
-            "Navegador de mods",
-            "Configuraciones",
-            "Información",
-            "Salir",
-            "Últimas noticias",
-            "Verificar estado",
-            "Atrás",
-            "Creador",
-            "Descripción",
-            "Actualizaciones",
-            "Descargas",
-            "Versión",
-            "Archivos",
-            "Tamaño de descarga",
-            "Tamaño de instalación",
-            "Instalar",
-            "Instalar/Actualizar",
-            "Mis mods",
-            "Datos de inicio de sesión",
-            "Nombre de usuario",
-            "Contraseña",
-            "Cerrar sesión",
-            "Subir",
-            "Descargar",
-            "Iniciar sesión",
-            "Desconectar",
-            "Recargar",
-            "Abrir carpeta de respaldo",
-            "Seleccionar juego",
-            "Conexión de parche",
-            "Abrir carpeta del juego",
-            "Verificar juego",
-            "Abrir guardados",
-            "Idioma del lanzador",
-            "Modo de audio",
-            "Máx. copias de seguridad",
-            "Nombre del mod",
-            "Iniciando la verificación de archivos del juego. Esto puede tardar un rato. Tómate un café y relájate mientras el lanzador trabaja.",
-            "Creación del índice completada. Archivos: {0}, Carpetas: {1}",
-            "Archivos y carpetas escaneados",
-            "Conectando al servidor",
-            "¡Conexión establecida!",
-            "Error al conectar con el servidor.",
-            "Comparando archivos, Etapa 1",
-            "Etapa 1: Verificando archivos faltantes",
-            "Archivos faltantes: {0}",
-            "Falta: {0} - {1}",
-            "Verificando cambios en los archivos",
-            "Comparando archivos, Etapa 2",
-            "Etapa 2: Verificando archivo: ",
-            "Archivo: {0} ◄ Actualización necesaria, archivo diferente [{1}|{2}]",
-            "Archivo: {0} ◄ El archivo está actualizado",
-            "La verificación de archivos parece haber fallado. Por favor, inténtalo de nuevo.",
-            "Verificación de archivos completada en: {0}",
-            "Lista de archivos en vivo descargada.",
-            "No se pudo recuperar la lista de archivos del juego en línea. Por favor, inténtalo más tarde.",
-            "Demasiados archivos faltantes. Actualización abortada. Por favor, reinstala el juego correctamente.",
-            "Archivos y carpetas escaneados.",
-            "Directorio faltante creado: ",
-            "Comparando archivos, Etapa 3",
-            "Etapa 3: Verificación de la integridad de archivos",
-            "Etapa 3: Descargando e instalando archivos",
-            "Descargando archivo: {0} ({1}% completado)",
-            "Actualización completada en: {0}",
-            "Actualización del juego finalizada.",
-            "Actualizando la base de datos del lanzador",
-            "Archivo: {0} ◄ Instalando",
-            "Archivo actualizado: ",
-            "Error al extraer el archivo: ({0}). Error: {1}",
-            "Project Paradise 2 - Security Module",
-            "El módulo de seguridad no es seguro. El juego se ha cerrado.",
-            "Consulta de mods completada, mostrando {0} de {1} mods disponibles.",
-            "Se requiere tanto el nombre de usuario como la contraseña.",
-            "Se requiere el nombre de usuario.",
-            "Se requiere la contraseña.",
-            "La contraseña ingresada no coincide con la almacenada en el servidor. Por favor, revisa tu contraseña e intenta nuevamente.",
-            "Ocurrió un error de red: {0}\nPor favor, revisa tu conexión a internet e intenta nuevamente.",
-            "La URL del servidor es inválida: {0}\nPor favor, contacta al soporte si el problema persiste.",
-            "Ocurrió un error inesperado: {0}\nPor favor, reinicia la aplicación e intenta nuevamente.",
-            "Ocurrió un error desconocido: {0}\nPor favor, contacta al soporte si el problema persiste.",
-            "Savegame existente",
-            "No se encontró ningún Savegame",
-            "Estado: {0}\nTamaño del Savegame: {1}\nÚltima carga: {2}\nNombre del Savegame: {3}\nÚltima comprobación: {4}",
-            "Estado: No se encontró ningún Savegame",
-            "Preparar carga",
-            "Limpieza del Savegame local antiguo",
-            "Crear Savegame para carga",
-            "Iniciar carga",
-            "Progreso de carga: {0}%, Tamaño: {1}",
-            "Carga exitosa",
-            "Iniciar descarga",
-            "Progreso de descarga: {0}%, Tamaño: {1}",
-            "Descarga completada. Desempaquetando archivos...",
-            "Cloud Savegame desempaquetado exitosamente.",
-            "Información del juego",
-            "Ruta del juego: ",
-            "Versión del archivo: ",
-            "Versión del juego: ",
-            "Advertencia: No has configurado el lanzador correctamente o completamente.",
-            "No se ha seleccionado ningún juego. Por favor, selecciona primero un juego, luego actualiza el juego y configura la conexión para usar el servicio en línea.",
-            "Por favor, selecciona el archivo del juego instalado para Test Drive Unlimited 2.",
-            "El archivo seleccionado no es el ejecutable de Test Drive Unlimited 2.\nPor favor, selecciona el archivo correcto del juego.",
-            "Se ha detectado un juego de Steam.\nPor favor, confirma si el juego está instalado a través de Steam.\nSi el juego no está instalado a través de Steam, el archivo steam_api.dll será renombrado.\n\n¿Tienes el juego en Steam?",
-            "El juego seleccionado no coincide con la última versión oficial del juego. \nDeberías actualizar el juego (realiza la comprobación del juego).",
-            "No se puede abrir la carpeta del juego porque no se ha seleccionado ningún juego.",
-            "No se puede abrir la carpeta de savegames porque no hay ningún savegame disponible.",
-            "La conexión al servidor no se puede cambiar porque no se ha seleccionado ningún juego.",
-            "No se puede realizar la actualización porque no se ha seleccionado ningún juego.",
-            "Servidor de juego en línea, Jugadores: ",
-            "Error al obtener la información, haz clic aquí para actualizar",
-            "Falta un parámetro de inicio. \nPor favor, verifica que el lanzador esté incluido en el juego de Steam y que el comando -direct esté correctamente configurado.",
-            "Modo en línea",
-            "Versión del juego",
-            "Discord RPC",
-            "Comprobación de actualización",
-            "UPnP",
-            "Versión de Steam",
-            "¡Solo debe usarse si el lanzador lo indica!",
-            "Idioma del lanzador",
-            "Modo de audio",
-            "¿Es el juego seleccionado un juego modificado/desempaquetado?",
-            "La verificación del juego fue cancelada, los juegos modificados pueden dañarse como resultado.",
-            "No se encontraron archivos estándar del juego. Asegúrate de que el juego esté correctamente instalado y seleccionado.",
-            "Recursos"
+            //Main UI-Langs
+            "Jugar",                                                //0
+            "Iniciar",                                              //1
+            "Configuración",                                        //2
+            "Perfiles",                                             //3
+            "Servicio",                                             //4
+            "Información",                                          //5
+            "Acerca de",                                            //6
+            "Salir",                                                //7
+            "Verificar Estado",                                     //8
+            "Atrás",                                                //9
+            "Creador",                                              //10
+            "Descripción",                                          //11
+            "Actualizaciones",                                      //12
+            //Main UI-Langs end
+        
+            //Settings UI-Langs
+            "Estado de Discord",                                    //13
+            "Verificación de Actualizaciones",                      //14
+            "Reenvío de Puertos UPnP",                              //15
+            "Idioma",                                               //16
+            "Modo de Audio",                                        //17
+            //Settings UI-Langs end
+        
+            //Profile UI-Langs
+            "Crear Nuevo Perfil",                                   //18
+            //Profile UI-Langs end
+        
+            //Create Profile UI-Langs
+            "Crear Nueva Instancia del Juego",                      //19
+            "Editar Instancia del Juego",                           //20
+            "Nombre del Perfil",                                    //21
+            "Argumentos",                                 //22
+            "RAM Dinámica",                                         //23
+            "Núcleos Dinámicos",                                    //24
+            "Prioridad Alta",                                       //25
+            "Dirt Automático",                                      //26
+            "Daño Automático",                                      //27
+            "Modo Online",                                          //28
+            "Seleccionar Juego",                                    //29
+            "Abrir Carpeta",                                        //30
+            "Parche de Conexión",                                   //31
+            "Navegador de Mods",                                    //32
+            "Actualización del Juego",                              //33
+            "Guardar",                                              //34
+            "Versión del Juego: ",                                  //35
+            "Compilación del Juego: {0}",                           //36
+            "Ruta del Juego: {0}",                                  //37
+            "Tamaño de Instalación del Juego: {0}",                 //38
+            "Tipo de Juego: {0} '{1}' - {2}",                       //39
+            " (Versión Incorrecta del Juego) Actualización Requerida", //40
+            "Elige tu Juego Test Drive Unlimited",                  //41
+            "Archivo de Configuración Sustituido",                  //42
+            "Directorio del Juego No Existe",                       //43
+            "Directorio No Existe: ",                               //44
+            "Perfil: {0} Guardado Exitosamente",                    //45
+            "Error al Guardar el Perfil: {0} Error: {1}",           //46
+            //Create Profile UI-Langs end
+        
+            //Service UI-Langs 
+            "La cuenta o contraseña no pueden estar vacías",        //47
+            "La cuenta o contraseña no pueden estar vacías",        //48
+            "La contraseña no puede estar vacía",                   //49
+            "Datos de inicio de sesión incorrectos, no se puede iniciar sesión", //50
+            "Error al iniciar sesión en la nube: {0}",              //51
+            "Estado: {0}\nTamaño del Almacenamiento: {1}\nÚltima Carga: {2}\nNombre del Guardado: {3}\nÚltima Verificación: {4}", //52
+            "Guardado Existe",                                      //53
+            "No Existe Guardado",                                   //54
+            "Error al Cargar la Información del Guardado: {0}",     //55
+            "Cargar Guardado",                                      //56
+            "Progreso de Carga: {0}%, Tamaño: {1}",                 //57  
+            "Progreso de Descarga: {0}%, Tamaño: {1}",              //58
+            "Guardado Cargado",                                     //59
+            "Descargar Guardado",                                   //60
+            "Guardado Descargado",                                  //61
+            "Extrayendo Guardado",                                  //62
+            "Limpieza de Archivos Temporales",                      //63
+            "Información de Cuenta PP2",                            //64
+            "Nombre de Cuenta",                                     //65
+            "Contraseña de Cuenta",                                 //66
+            "Iniciar Sesión",                                       //67
+            "Cerrar Sesión",                                        //68
+            "Actualizar",                                           //69
+            "Cargar",                                               //70
+            "Descargar",                                            //71
+            "Carpeta de Respaldo",                                  //72
+            "Carpeta de Guardados",                                 //73
+            "Puntos de Almacenamiento Máximos",                    //74
+            "Limpiar",                                              //75
+            //Service UI-Langs end
+        
+            //Update UI-Langs
+            "Iniciando Verificación del Juego",                     //76
+            "Juego Desempaquetado Detectado, Deteniendo Actualización", //77
+            "Ninguna Instalación Normal de Juego Detectada, Deteniendo Actualización", //78
+            "Archivos Encontrados: {0} Carpetas: {1}",              //79
+            "Conectando al Servidor",                               //80
+            "Conectado al Servidor: OK, Iniciando Verificación de Archivos", //81
+            "No Se Pudo Conectar al Servidor",                      //82
+            "Comparando Archivos, Fase 1",                          //83
+            "Fase 1: Verificando Archivos Faltantes",               //84
+            "Archivos Faltantes: {0}",                              //85
+            "Falta: {0} - {1}",                                     //86
+            "Verificando Archivos en Busca de Cambios",             //87
+            "Comparando Archivos, Fase 2",                          //88
+            "Fase 2: Verificando Archivo: ",                        //89
+            "Archivo: {0} ◄ Actualización Requerida, Archivo Diferente [{1}|{2}]", //90
+            "Archivo: {0} ◄ Archivo Está Actualizado",              //91
+            "La verificación de archivos parece haber fallado. Por favor inténtalo de nuevo.", //92
+            "Verificación de Archivos Completada en: {0}",          //93
+            "No Se Pudo Obtener la Lista de Archivos del Juego En Línea. Por Favor Inténtalo Más Tarde.", //94
+            "Lista de Archivos en Vivo Descargada.",                //95
+            "Demasiados Archivos Faltantes. Actualización Abortada. Por Favor Reinstala el Juego.", //96
+            "Archivos y Carpetas Escaneados.",                      //97
+            "Directorio Faltante Creado: ",                         //98
+            "Comparando Archivos, Fase 3",                          //99
+            "Fase 3: Verificando Integridad de Archivos",           //100
+            "Fase 3: Descargando e Instalando Archivos",            //101
+            "Descargando Archivo: {0} ({1}% Completado)",           //102
+            "Actualización Completada en: {0}",                     //103
+            "Actualización del Juego Terminada.",                   //104
+            "Archivo Actualizado: ",                                //105
+            "Error al Extraer Archivo: ({0}). Error: {1}",          //106
+            "Archivo: {0} ◄ Instalando",                            //107
+            "Verificación del Juego Completada",                    //108
+        
+            //Gameupdate end
+        
+            //Generic Messages
+            "Módulo de Seguridad de Project Paradise 2",            //109
+            "El módulo de seguridad no es seguro. El juego ha sido cerrado.", //110
+            "Juego de Steam Detectado, ¿Es Correcto?",              //111
+            "Juego Desempaquetado Detectado, ¿Es Correcto?",        //112
+            "Advertencia: ¡Usar Juegos Desempaquetados bajo Tu Propio Riesgo!\n¡No Ofrecemos Ayuda o Soporte Aquí!", //113
+            "Advertencia: Si Este Es Todavía un Juego Desempaquetado, Algunas Acciones Pueden Dañar el Juego!\nY Pueden Llevar a una Reinstalación", //114
+            "Servidores del Juego En Línea, Jugadores: ",           //115
+            "Error al Obtener Información, Haz Clic Aquí para Actualizar", //116
+        
+            //Update UI-Langs end
+        
+            //Mod Detail View
+            "Atrás",                                                //117
+            "Creador",                                              //118
+            "Descripción",                                          //119
+            "Versión",                                              //120
+            "Archivos",                                             //121
+            "Tamaño de Descarga",                                   //122
+            "Tamaño de Instalación",                                //123
+            "Actualizaciones",                                      //124
+            "Instalaciones",                                        //125
+            "Instalar | Actualizar",                                //126
+            "Nombre del Mod",                                       //127
+            "Iniciando Descarga de Mod",                            //128
+            "Instalación del Mod ({0}) Completada",                 //129
+            "Instalando Mod ({0}) Archivo: {1} de {2}",             //130
+            "Mods Instalados",                                      //131
+            "Mostrando: {0} Mods de {1}",                           //132
+            "No Hay Mods Disponibles para Este Tipo de Juego",      //133
+            "Cargando Mods",                                        //134
+            "Mod: {0} Desinstalado Exitosamente",                   //135
+            "Mods Desempaquetados No Pueden Ser Desinstalados por el Iniciador", //136
+            "ID de Mod Incorrecto, Inténtalo Nuevamente Después de Reiniciar", //137
+            "Un Agradecimiento Especial \nA Nuestro Excelente Equipo y Nuestros Patrocinadores – Su Apoyo, Compromiso y Contribuciones Significan Mucho Para Nosotros. \nDesde la Ayuda en Discord hasta el Funcionamiento de los Servidores – Ustedes Hacen Este Proyecto Posible. Valoramos Muy a Cada Uno de Ustedes.", //138
+            "El Iniciador Tiene una Versión Antigua de la Base de Datos, \n¿Debería Intentar Convertir la Configuración Antigua a un Nuevo Perfil?", //139
+            "Debes Crear Tu Propio Perfil de Juego,\nAntes de Poder Jugar.",                                       //140
+            "Por Favor Revisa la Configuración del Perfil\nEl Perfil Fue Creado Exitosamente Como: Perfil Convertido", //141
         };
 
         public static string[] French =
         {
-            "Jouer à TDU2",
-            "Démarrer",
-            "Service",
-            "Navigateur de mods",
-            "Paramètres",
-            "Informations",
-            "Quitter",
-            "Dernières nouvelles",
-            "Vérifier le statut",
-            "Retour",
-            "Créateur",
-            "Description",
-            "Mises à jour",
-            "Téléchargements",
-            "Version",
-            "Fichiers",
-            "Taille du téléchargement",
-            "Taille de l'installation",
-            "Installer",
-            "Installer/Mettre à jour",
-            "Mes mods",
-            "Données de connexion",
-            "Nom d'utilisateur",
-            "Mot de passe",
-            "Déconnexion",
-            "Téléverser",
-            "Télécharger",
-            "Se connecter",
-            "Se déconnecter",
-            "Recharger",
-            "Ouvrir le dossier de sauvegarde",
-            "Sélectionner le jeu",
-            "Connexion du patch",
-            "Ouvrir le dossier du jeu",
-            "Vérifier le jeu",
-            "Ouvrir dossier sauve",
-            "Langue du lanceur",
-            "Mode audio",
-            "Sauvegardes max.",
-            "Nom du mod",
-            "Lancement de la vérification des fichiers du jeu. Cela peut prendre un certain temps. Prenez un café et détendez-vous pendant que le launcher travaille.",
-            "Création de l'index terminée. Fichiers : {0}, Dossiers : {1}",
-            "Fichiers et dossiers analysés",
-            "Connexion au serveur",
-            "Connexion établie !",
-            "Échec de la connexion au serveur.",
-            "Comparaison des fichiers, Étape 1",
-            "Étape 1 : Vérification des fichiers manquants",
-            "Fichiers manquants : {0}",
-            "Manquant : {0} - {1}",
-            "Vérification des modifications des fichiers",
-            "Comparaison des fichiers, Étape 2",
-            "Étape 2 : Vérification du fichier : ",
-            "Fichier : {0} ◄ Mise à jour nécessaire, fichier différent [{1}|{2}]",
-            "Fichier : {0} ◄ Fichier à jour",
-            "La vérification des fichiers semble avoir échoué. Veuillez réessayer.",
-            "Vérification des fichiers terminée en : {0}",
-            "Liste des fichiers en direct téléchargée.",
-            "Impossible de récupérer la liste des fichiers du jeu en ligne. Veuillez réessayer plus tard.",
-            "Trop de fichiers manquants. Mise à jour annulée. Veuillez réinstaller correctement le jeu.",
-            "Fichiers et dossiers analysés.",
-            "Dossier manquant créé : ",
-            "Comparaison des fichiers, Étape 3",
-            "Étape 3 : Vérification de l'intégrité des fichiers",
-            "Étape 3 : Téléchargement et installation des fichiers",
-            "Téléchargement du fichier : {0} ({1}% terminé)",
-            "Mise à jour terminée en : {0}",
-            "Mise à jour du jeu terminée.",
-            "Mise à jour de la base de données du launcher",
-            "Fichier : {0} ◄ Installation",
-            "Fichier mis à jour : ",
-            "Échec de l'extraction du fichier : ({0}). Erreur : {1}",
-            "Project Paradise 2 - Security Module",
-            "Le module de sécurité n'est pas sécurisé. Le jeu a été fermé.",
-            "Requête de mods terminée, affichage de {0} sur {1} mods disponibles.",
-            "Le nom d'utilisateur et le mot de passe sont requis.",
-            "Le nom d'utilisateur est requis.",
-            "Le mot de passe est requis.",
-            "Le mot de passe saisi ne correspond pas à celui stocké sur le serveur. Veuillez vérifier votre mot de passe et réessayer.",
-            "Une erreur réseau est survenue : {0}\nVeuillez vérifier votre connexion internet et réessayer.",
-            "L'URL du serveur est invalide : {0}\nVeuillez contacter le support si le problème persiste.",
-            "Une erreur inattendue est survenue : {0}\nVeuillez redémarrer l'application et réessayer.",
-            "Une erreur inconnue est survenue : {0}\nVeuillez contacter le support si ce problème persiste.",
-            "Savegame existant",
-            "Aucun Savegame trouvé",
-            "État : {0}\nTaille du Savegame : {1}\nDernier téléchargement : {2}\nNom du Savegame : {3}\nDernière vérification : {4}",
-            "État : Aucun Savegame trouvé",
-            "Préparer le téléchargement",
-            "Nettoyer le vieux Savegame local",
-            "Créer un Savegame pour le téléchargement",
-            "Commencer le téléchargement",
-            "Progrès du téléchargement : {0}%, Taille : {1}",
-            "Téléchargement réussi",
-            "Démarrer le téléchargement",
-            "Progrès du téléchargement : {0}%, Taille : {1}",
-            "Téléchargement terminé. Décompression des fichiers...",
-            "Cloud Savegame décompressé avec succès.",
-            "Informations sur le jeu",
-            "Chemin du jeu : ",
-            "Version du fichier : ",
-            "Version du jeu : ",
-            "Avertissement : Vous n'avez pas configuré correctement ou complètement le lanceur.",
-            "Aucun jeu sélectionné. Veuillez d'abord sélectionner un jeu, puis mettez à jour le jeu et configurez la connexion pour utiliser le service en ligne.",
-            "Veuillez sélectionner le fichier du jeu installé pour Test Drive Unlimited 2.",
-            "Le fichier sélectionné n'est pas l'exécutable pour Test Drive Unlimited 2.\nVeuillez choisir le bon fichier de jeu.",
-            "Un jeu Steam a été détecté.\nVeuillez confirmer si le jeu est installé via Steam.\nSi le jeu n'est pas installé via Steam, le fichier steam_api.dll sera renommé.\n\nPossédez-vous le jeu sur Steam ?",
-            "Le jeu sélectionné ne correspond pas à la dernière version officielle du jeu. \nVous devez mettre à jour le jeu (effectuez la vérification du jeu).",
-            "Le dossier du jeu ne peut pas être ouvert car aucun jeu n'a été sélectionné.",
-            "Le dossier des sauvegardes ne peut pas être ouvert car aucune sauvegarde n'est disponible.",
-            "La connexion au serveur ne peut pas être modifiée car aucun jeu n'a été sélectionné.",
-            "La mise à jour ne peut pas être effectuée car aucun jeu n'a été sélectionné.",
-            "Serveur de jeu en ligne, Joueurs : ",
-            "Échec de la récupération des informations, cliquez ici pour actualiser",
-            "Un paramètre de démarrage est manquant. \nVeuillez vérifier si le lanceur est inclus dans le jeu Steam et si la commande -direct est correctement définie.",
-            "Mode en ligne",
-            "Version du jeu",
-            "Discord RPC",
-            "Vérification des mises à jour",
-            "UPnP",
-            "Version Steam",
-            "Ne doit être utilisé que si le lanceur le dit !",
-            "Langue du lanceur",
-            "Mode audio",
-            "Le jeu sélectionné est-il un jeu modifié/décompressé ?",
-            "La vérification du jeu a été annulée, les jeux modifiés peuvent être endommagés en conséquence.",
-            "Aucun fichier de jeu standard n'a été trouvé. Assurez-vous que le jeu est correctement installé et sélectionné.",
-            "Ressources"
+            //Main UI-Langs
+            "Jouer",                                                //0
+            "Démarrer",                                             //1
+            "Paramètres",                                           //2
+            "Profils",                                              //3
+            "Service",                                              //4
+            "Informations",                                         //5
+            "À propos",                                             //6
+            "Quitter",                                              //7
+            "Vérifier l'état",                                      //8
+            "Retour",                                               //9
+            "Créateur",                                             //10
+            "Description",                                          //11
+            "Mises à jour",                                         //12
+            //Main UI-Langs end
+        
+            //Settings UI-Langs
+            "Statut Discord",                                       //13
+            "Vérification des mises à jour",                        //14
+            "Redirection de port UPnP",                             //15
+            "Langue",                                               //16
+            "Mode audio",                                           //17
+            //Settings UI-Langs end
+        
+            //Profile UI-Langs
+            "Créer un nouveau profil",                              //18
+            //Profile UI-Langs end
+        
+            //Create Profile UI-Langs
+            "Créer une nouvelle instance de jeu",                   //19
+            "Modifier l'instance de jeu",                           //20
+            "Nom du profil",                                        //21
+            "Arguments",                               //22
+            "RAM dynamique",                                        //23
+            "Cœurs dynamiques",                                     //24
+            "Priorité élevée",                                      //25
+            "Dirt automatique",                                     //26
+            "Dégât automatique",                                    //27
+            "Mode en ligne",                                        //28
+            "Sélectionner le jeu",                                  //29
+            "Ouvrir le dossier",                                    //30
+            "Patch de connexion",                                   //31
+            "Navigateur de mods",                                   //32
+            "Mise à jour du jeu",                                   //33
+            "Enregistrer",                                          //34
+            "Version du jeu : ",                                    //35
+            "Build du jeu : {0}",                                   //36
+            "Chemin du jeu : {0}",                                  //37
+            "Taille d'installation du jeu : {0}",                   //38
+            "Type de jeu : {0} '{1}' - {2}",                        //39
+            " (Mauvaise version du jeu) Mise à jour requise",       //40
+            "Choisissez votre jeu Test Drive Unlimited",            //41
+            "Fichier de configuration remplacé",                    //42
+            "Le répertoire du jeu n'existe pas",                    //43
+            "Le répertoire n'existe pas : ",                        //44
+            "Profil : {0} enregistré avec succès",                  //45
+            "Erreur lors de l'enregistrement du profil : {0} Erreur : {1}", //46
+            //Create Profile UI-Langs end
+        
+            //Service UI-Langs 
+            "Le compte ou le mot de passe ne peut pas être vide",   //47
+            "Le compte ou le mot de passe ne peut pas être vide",   //48
+            "Le mot de passe ne peut pas être vide",                //49
+            "Identifiants de connexion incorrects, impossible de se connecter", //50
+            "Erreur lors de la connexion au cloud : {0}",           //51
+            "État : {0}\nTaille de stockage : {1}\nDernier téléchargement : {2}\nNom du sauvegarde : {3}\nDernière vérification : {4}", //52
+            "Sauvegarde existante",                                 //53
+            "Aucune sauvegarde existante",                          //54
+            "Erreur lors du chargement des informations de sauvegarde : {0}", //55
+            "Télécharger la sauvegarde",                            //56
+            "Progression du téléchargement : {0}%, Taille : {1}",    //57  
+            "Progression du téléchargement : {0}%, Taille : {1}",    //58
+            "Sauvegarde téléchargée",                               //59
+            "Télécharger la sauvegarde",                            //60
+            "Sauvegarde téléchargée",                               //61
+            "Extraction de la sauvegarde",                          //62
+            "Nettoyage des fichiers temporaires",                   //63
+            "Informations du compte PP2",                           //64
+            "Nom du compte",                                        //65
+            "Mot de passe du compte",                               //66
+            "Se connecter",                                         //67
+            "Se déconnecter",                                       //68
+            "Actualiser",                                           //69
+            "Télécharger",                                          //70
+            "Télécharger",                                          //71
+            "Dossier de sauvegarde",                                //72
+            "Dossier des sauvegardes",                              //73
+            "Points de stockage maximaux",                          //74
+            "Nettoyer",                                             //75
+            //Service UI-Langs end
+        
+            //Update UI-Langs
+            "Démarrage de la vérification du jeu",                  //76
+            "Jeu non empaqueté détecté, arrêt de la mise à jour",   //77
+            "Aucune installation normale de jeu détectée, arrêt de la mise à jour", //78
+            "Fichiers trouvés : {0} Dossiers : {1}",                //79
+            "Connexion au serveur",                                 //80
+            "Connecté au serveur : OK, démarrage de la vérification des fichiers", //81
+            "Impossible de se connecter au serveur",                //82
+            "Comparaison des fichiers, Phase 1",                    //83
+            "Phase 1 : Vérification des fichiers manquants",        //84
+            "Fichiers manquants : {0}",                             //85
+            "Manquant : {0} - {1}",                                 //86
+            "Vérification des fichiers pour les modifications",     //87
+            "Comparaison des fichiers, Phase 2",                    //88
+            "Phase 2 : Vérification du fichier : ",                 //89
+            "Fichier : {0} ◄ Mise à jour requise, fichier différent [{1}|{2}]", //90
+            "Fichier : {0} ◄ Fichier à jour",                       //91
+            "La vérification des fichiers semble avoir échoué. Veuillez réessayer.", //92
+            "Vérification des fichiers terminée en : {0}",          //93
+            "Impossible de récupérer la liste des fichiers du jeu en ligne. Veuillez réessayer plus tard.", //94
+            "Liste des fichiers en direct téléchargée.",            //95
+            "Trop de fichiers manquants. Mise à jour annulée. Veuillez réinstaller le jeu.", //96
+            "Fichiers et dossiers scannés.",                        //97
+            "Répertoire manquant créé : ",                          //98
+            "Comparaison des fichiers, Phase 3",                    //99
+            "Phase 3 : Vérification de l'intégrité des fichiers",   //100
+            "Phase 3 : Téléchargement et installation des fichiers", //101
+            "Téléchargement du fichier : {0} ({1}% terminé)",       //102
+            "Mise à jour terminée en : {0}",                        //103
+            "Mise à jour du jeu terminée.",                         //104
+            "Fichier mis à jour : ",                                //105
+            "Échec de l'extraction du fichier : ({0}). Erreur : {1}", //106
+            "Fichier : {0} ◄ Installation",                         //107
+            "Vérification du jeu terminée",                         //108
+        
+            //Gameupdate end
+        
+            //Generic Messages
+            "Module de sécurité de Project Paradise 2",             //109
+            "Le module de sécurité n'est pas sécurisé. Le jeu a été fermé.", //110
+            "Jeu Steam détecté, est-ce correct ?",                  //111
+            "Jeu non empaqueté détecté, est-ce correct ?",          //112
+            "Avertissement : Utiliser des jeux non empaquetés à vos propres risques !\nNous ne fournissons aucune aide ni support ici !", //113
+            "Avertissement : Si c'est toujours un jeu non empaqueté, certaines actions peuvent endommager le jeu !\nEt peuvent mener à une réinstallation", //114
+            "Serveurs de jeu en ligne, joueurs : ",                 //115
+            "Erreur lors de la récupération des informations, cliquez ici pour actualiser", //116
+        
+            //Update UI-Langs end
+        
+            //Mod Detail View
+            "Retour",                                               //117
+            "Créateur",                                             //118
+            "Description",                                          //119
+            "Version",                                              //120
+            "Fichiers",                                             //121
+            "Taille de téléchargement",                             //122
+            "Taille d'installation",                                //123
+            "Mises à jour",                                         //124
+            "Installations",                                        //125
+            "Installer | Mettre à jour",                            //126
+            "Nom du mod",                                           //127
+            "Démarrage du téléchargement du mod",                   //128
+            "Installation du mod ({0}) terminée",                   //129
+            "Installation du mod ({0}) Fichier : {1} sur {2}",      //130
+            "Mods installés",                                       //131
+            "Affichage : {0} mods sur {1}",                         //132
+            "Aucun mod disponible pour ce type de jeu",             //133
+            "Chargement des mods",                                  //134
+            "Mod : {0} désinstallé avec succès",                    //135
+            "Les mods non empaquetés ne peuvent pas être désinstallés par le lanceur", //136
+            "ID de mod incorrect, essayez à nouveau après redémarrage", //137
+            "Un merci spécial \nÀ notre merveilleux équipe et nos parrains – votre soutien, engagement et contributions comptent beaucoup pour nous. \nDe l'aide sur Discord jusqu'au fonctionnement des serveurs – vous rendez ce projet possible. Nous apprécions chacun d'entre vous très sincerement.", //138
+            "Le lanceur a une ancienne version de la base de données, \nDevrait-il essayer de convertir les anciens paramètres vers un nouveau profil ?", //139
+            "Vous devez créer votre propre profil de jeu,\nAvant de pouvoir jouer.",                                //140
+            "Veuillez vérifier les paramètres du profil\nLe profil a été créé avec succès en tant que : Profil Converti", //141
         };
 
         public static string[] Indonesian =
         {
-            "Mainkan TDU2",
-            "Mulai",
-            "Layanan",
-            "Penjelajah Mod",
-            "Pengaturan",
-            "Informasi",
-            "Keluar",
-            "Berita Terbaru",
-            "Periksa Status",
-            "Kembali",
-            "Pembuat",
-            "Deskripsi",
-            "Pembaruan",
-            "Unduhan",
-            "Versi",
-            "Berkas",
-            "Ukuran Unduhan",
-            "Ukuran Instalasi",
-            "Instal",
-            "Instal/Perbarui",
-            "Mod Saya",
-            "Data Login",
-            "Nama Pengguna",
-            "Kata Sandi",
-            "Keluar Akun",
-            "Unggah",
-            "Unduh",
-            "Masuk",
-            "Keluar",
-            "Muat Ulang",
-            "Buka Folder Cadangan",
-            "Pilih Game",
-            "Koneksi Patch",
-            "Buka Folder Game",
-            "Periksa Game",
-            "Buka Simpanan",
-            "Bahasa Peluncur",
-            "Mode Audio",
-            "Backup Maks.",
-            "Nama Mod",
-            "Memulai pemeriksaan file game. Ini mungkin membutuhkan waktu. Ambil kopi dan santai sementara peluncur bekerja.",
-            "Pembuatan indeks selesai. File: {0}, Folder: {1}",
-            "File dan folder dipindai",
-            "Menghubungkan ke server",
-            "Koneksi berhasil!",
-            "Gagal terhubung ke server.",
-            "Membandingkan file, Tahap 1",
-            "Tahap 1: Memeriksa file yang hilang",
-            "File yang hilang: {0}",
-            "Hilang: {0} - {1}",
-            "Memeriksa perubahan file",
-            "Membandingkan file, Tahap 2",
-            "Tahap 2: Memverifikasi file: ",
-            "File: {0} ◄ Pembaruan diperlukan, file berbeda [{1}|{2}]",
-            "File: {0} ◄ File sudah terbaru",
-            "Pemeriksaan file tampaknya gagal. Silakan coba lagi.",
-            "Pemeriksaan file selesai dalam: {0}",
-            "Daftar file langsung diunduh.",
-            "Gagal mengambil daftar file game online. Silakan coba lagi nanti.",
-            "Terlalu banyak file yang hilang. Pembaruan dibatalkan. Harap instal ulang game dengan benar.",
-            "File dan folder dipindai.",
-            "Direktori yang hilang dibuat: ",
-            "Membandingkan file, Tahap 3",
-            "Tahap 3: Memverifikasi integritas file",
-            "Tahap 3: Mengunduh dan Menginstal File",
-            "Mengunduh File: {0} ({1}% selesai)",
-            "Pembaruan selesai dalam: {0}",
-            "Pembaruan game selesai.",
-            "Memperbarui database launcher",
-            "File: {0} ◄ Menginstal",
-            "File diperbarui: ",
-            "Gagal mengekstrak file: ({0}). Kesalahan: {1}",
-            "Project Paradise 2 - Security Module",
-            "Modul keamanan tidak aman. Game telah ditutup.",
-            "Kuery mod selesai, menampilkan {0} dari {1} mod yang tersedia.",
-            "Nama pengguna dan kata sandi diperlukan.",
-            "Nama pengguna diperlukan.",
-            "Kata sandi diperlukan.",
-            "Kata sandi yang dimasukkan tidak cocok dengan yang disimpan di server. Silakan periksa kata sandi Anda dan coba lagi.",
-            "Terjadi kesalahan jaringan: {0}\nSilakan periksa koneksi internet Anda dan coba lagi.",
-            "URL server tidak valid: {0}\nSilakan hubungi dukungan jika masalah ini berlanjut.",
-            "Terjadi kesalahan tak terduga: {0}\nSilakan restart aplikasi dan coba lagi.",
-            "Terjadi kesalahan yang tidak diketahui: {0}\nSilakan hubungi dukungan jika masalah ini berlanjut.",
-            "Savegame ada",
-            "Savegame tidak ditemukan",
-            "Status: {0}\nUkuran Savegame: {1}\nTerakhir Diunggah: {2}\nNama Savegame: {3}\nPemeriksaan Terakhir: {4}",
-            "Status: Tidak ada Savegame ditemukan",
-            "Persiapkan Unggah",
-            "Bersihkan Savegame Lokal Lama",
-            "Buat Savegame untuk Unggah",
-            "Mulai Unggah",
-            "Progres Unggah: {0}%, Ukuran: {1}",
-            "Unggah berhasil",
-            "Mulai Unduh",
-            "Progres Unduh: {0}%, Ukuran: {1}",
-            "Unduhan selesai. Membuka file...",
-            "Cloud Savegame berhasil dibuka.",
-            "Informasi game",
-            "Path game: ",
-            "Versi file: ",
-            "Versi game: ",
-            "Peringatan: Anda belum mengonfigurasi peluncur dengan benar atau lengkap.",
-            "Tidak ada game yang dipilih. Silakan pilih game terlebih dahulu, kemudian perbarui game dan atur koneksi untuk menggunakan layanan online.",
-            "Silakan pilih file game yang terinstal untuk Test Drive Unlimited 2.",
-            "File yang dipilih bukan file eksekusi untuk Test Drive Unlimited 2.\nSilakan pilih file game yang benar.",
-            "Game Steam terdeteksi.\nSilakan konfirmasi jika game diinstal melalui Steam.\nJika game tidak diinstal melalui Steam, file steam_api.dll akan diganti namanya.\n\nApakah Anda memiliki game ini di Steam?",
-            "Game yang Anda pilih tidak cocok dengan versi resmi terbaru game. \nAnda harus memperbarui game (lakukan pemeriksaan game).",
-            "Folder game tidak dapat dibuka karena tidak ada game yang dipilih.",
-            "Folder savegame tidak dapat dibuka karena tidak ada savegame yang tersedia.",
-            "Koneksi server tidak dapat diubah karena tidak ada game yang dipilih.",
-            "Pembaruan tidak dapat dilakukan karena tidak ada game yang dipilih.",
-            "Server game online, Pemain: ",
-            "Gagal mendapatkan info, klik di sini untuk menyegarkan",
-            "Parameter awal hilang. \nSilakan periksa apakah peluncur ada di dalam game Steam dan apakah perintah -direct sudah diatur dengan benar.",
-            "Mode online",
-            "Versi game",
-            "Discord RPC",
-            "Pemeriksaan pembaruan",
-            "UPnP",
-            "Versi Steam",
-            "Hanya boleh digunakan jika peluncur mengatakannya!",
-            "Bahasa peluncur",
-            "Mode audio",
-            "Apakah game yang dipilih adalah game yang dimodifikasi/dibongkar?",
-            "Verifikasi game dibatalkan, game yang dimodifikasi mungkin rusak sebagai akibatnya.",
-            "Tidak ada file permainan standar yang ditemukan. Pastikan permainan terinstal dengan benar dan dipilih.",
-            "Sumber Daya"
+            //Main UI-Langs
+            "Bermain",                                              //0
+            "Mulai",                                                //1
+            "Pengaturan",                                           //2
+            "Profil",                                               //3
+            "Layanan",                                              //4
+            "Informasi",                                            //5
+            "Tentang",                                              //6
+            "Keluar",                                               //7
+            "Periksa Status",                                       //8
+            "Kembali",                                              //9
+            "Pembuat",                                              //10
+            "Deskripsi",                                            //11
+            "Pembaruan",                                            //12
+            //Main UI-Langs end
+        
+            //Settings UI-Langs
+            "Status Discord",                                       //13
+            "Pemeriksaan Pembaruan",                               //14
+            "Penerusan Port UPnP",                                  //15
+            "Bahasa",                                               //16
+            "Mode Audio",                                           //17
+            //Settings UI-Langs end
+        
+            //Profile UI-Langs
+            "Buat Profil Baru",                                     //18
+            //Profile UI-Langs end
+        
+            //Create Profile UI-Langs
+            "Buat Instance Permainan Baru",                         //19
+            "Edit Instance Permainan",                              //20
+            "Nama Profil",                                          //21
+            "Argumen",                                        //22
+            "RAM Dinamis",                                          //23
+            "Inti Dinamis",                                         //24
+            "Prioritas Tinggi",                                     //25
+            "Dirt Otomatis",                                        //26
+            "Kerusakan Otomatis",                                   //27
+            "Mode Online",                                          //28
+            "Pilih Permainan",                                      //29
+            "Buka Folder",                                          //30
+            "Patch Koneksi",                                        //31
+            "Peramban Mod",                                         //32
+            "Pembaruan Permainan",                                  //33
+            "Simpan",                                               //34
+            "Versi Permainan: ",                                    //35
+            "Build Permainan: {0}",                                 //36
+            "Jalur Permainan: {0}",                                 //37
+            "Ukuran Instalasi Permainan: {0}",                      //38
+            "Tipe Permainan: {0} '{1}' - {2}",                      //39
+            " (Versi Permainan Salah) Pembaruan Diperlukan",        //40
+            "Pilih permainan Test Drive Unlimited Anda",            //41
+            "File Konfigurasi Diganti",                             //42
+            "Direktori Permainan Tidak Ada",                        //43
+            "Direktori Tidak Ada: ",                                //44
+            "Profil: {0} Berhasil Disimpan",                        //45
+            "Kesalahan saat menyimpan profil: {0} Kesalahan: {1}",  //46
+            //Create Profile UI-Langs end
+        
+            //Service UI-Langs 
+            "Akun atau kata sandi tidak boleh kosong",             //47
+            "Akun atau kata sandi tidak boleh kosong",             //48
+            "Kata sandi tidak boleh kosong",                        //49
+            "Data masuk salah, tidak dapat masuk",                  //50
+            "Kesalahan saat masuk ke cloud: {0}",                   //51
+            "Status: {0}\nUkuran Penyimpanan: {1}\nTerakhir Diunggah: {2}\nNama Simpanan: {3}\nPeriksa Terakhir: {4}", //52
+            "Simpanan Ada",                                         //53
+            "Tidak Ada Simpanan",                                   //54
+            "Kesalahan saat memuat informasi simpanan: {0}",        //55
+            "Unggah Simpanan",                                      //56
+            "Progres Unggah: {0}%, Ukuran: {1}",                    //57  
+            "Progres Unduh: {0}%, Ukuran: {1}",                     //58
+            "Simpanan Diunggah",                                    //59
+            "Unduh Simpanan",                                       //60
+            "Simpanan Diunduh",                                     //61
+            "Mengekstrak Simpanan",                                 //62
+            "Pembersihan File Sementara",                           //63
+            "Informasi Akun PP2",                                   //64
+            "Nama Akun",                                            //65
+            "Kata Sandi Akun",                                      //66
+            "Masuk",                                                //67
+            "Keluar",                                               //68
+            "Segarkan",                                             //69
+            "Unggah",                                               //70
+            "Unduh",                                                //71
+            "Folder Cadangan",                                      //72
+            "Folder Simpanan",                                      //73
+            "Poin Penyimpanan Maksimum",                            //74
+            "Bersihkan",                                            //75
+            //Service UI-Langs end
+        
+            //Update UI-Langs
+            "Memulai Verifikasi Permainan",                         //76
+            "Permainan Tidak Terkemas Terdeteksi, Menghentikan Pembaruan", //77
+            "Tidak Ada Instalasi Permainan Normal Terdeteksi, Menghentikan Pembaruan", //78
+            "File Ditemukan: {0} Folder: {1}",                      //79
+            "Menghubungkan ke Server",                              //80
+            "Terhubung ke Server: OK, Memulai Pemeriksaan File",    //81
+            "Tidak Dapat Terhubung ke Server",                      //82
+            "Membandingkan File, Tahap 1",                          //83
+            "Tahap 1: Memeriksa File yang Hilang",                  //84
+            "File yang Hilang: {0}",                                //85
+            "Hilang: {0} - {1}",                                    //86
+            "Memeriksa File untuk Perubahan",                       //87
+            "Membandingkan File, Tahap 2",                          //88
+            "Tahap 2: Memeriksa File: ",                            //89
+            "File: {0} ◄ Pembaruan Diperlukan, File Berbeda [{1}|{2}]", //90
+            "File: {0} ◄ File Sudah Terbaru",                       //91
+            "Pemeriksaan file tampaknya gagal. Silakan coba lagi.", //92
+            "Pemeriksaan File Selesai dalam: {0}",                  //93
+            "Daftar File Permainan Online Tidak Dapat Diambil. Silakan Coba Lagi Nanti.", //94
+            "Daftar File Langsung Diunduh.",                        //95
+            "Terlalu Banyak File yang Hilang. Pembaruan Dibatalkan. Silakan Instal Ulang Permainan.", //96
+            "File dan Folder Dipindai.",                             //97
+            "Direktori yang Hilang Dibuat: ",                       //98
+            "Membandingkan File, Tahap 3",                          //99
+            "Tahap 3: Memeriksa Integritas File",                   //100
+            "Tahap 3: Mengunduh dan Menginstal File",              //101
+            "Mengunduh File: {0} ({1}% Selesai)",                   //102
+            "Pembaruan Selesai dalam: {0}",                         //103
+            "Pembaruan Permainan Selesai.",                         //104
+            "File Diperbarui: ",                                    //105
+            "Gagal Mengekstrak File: ({0}). Kesalahan: {1}",        //106
+            "File: {0} ◄ Menginstal",                               //107
+            "Verifikasi Permainan Selesai",                         //108
+        
+            //Gameupdate end
+        
+            //Generic Messages
+            "Modul Keamanan Project Paradise 2",                    //109
+            "Modul keamanan tidak aman. Permainan telah ditutup.", //110
+            "Permainan Steam Terdeteksi, Apakah Benar?",            //111
+            "Permainan Tidak Terkemas Terdeteksi, Apakah Benar?",   //112
+            "Peringatan: Menggunakan Permainan Tidak Terkemas dengan Risiko Anda Sendiri!\nKami Tidak Menyediakan Bantuan atau Dukungan Di Sini!", //113
+            "Peringatan: Jika Ini Masih Permainan Tidak Terkemas, Beberapa Aksi Mungkin Merusak Permainan!\nDan Dapat Memerlukan Instalasi Ulang", //114
+            "Server Permainan Online, Pemain: ",                    //115
+            "Kesalahan Mengambil Informasi, Klik Di Sini untuk Segarkan", //116
+        
+            //Update UI-Langs end
+        
+            //Mod Detail View
+            "Kembali",                                              //117
+            "Pembuat",                                              //118
+            "Deskripsi",                                            //119
+            "Versi",                                                //120
+            "File",                                                 //121
+            "Ukuran Unduhan",                                       //122
+            "Ukuran Instalasi",                                     //123
+            "Pembaruan",                                            //124
+            "Instalasi",                                            //125
+            "Instal | Perbarui",                                    //126
+            "Nama Mod",                                             //127
+            "Memulai Unduhan Mod",                                  //128
+            "Instalasi Mod ({0}) Selesai",                          //129
+            "Menginstal Mod ({0}) File: {1} dari {2}",             //130
+            "Mod Terinstal",                                        //131
+            "Menampilkan: {0} Mod dari {1}",                        //132
+            "Tidak Ada Mod Tersedia untuk Tipe Permainan Ini",      //133
+            "Memuat Mod",                                           //134
+            "Mod: {0} Berhasil Dihapus",                            //135
+            "Mod Tidak Terkemas Tidak Bisa Dihapus oleh Launcher",  //136
+            "ID Mod Salah, Coba Lagi Setelah Restart",              //137
+            "Terima Kasih Khusus \nKepada Tim Hebat Kami dan Patreon kami – Dukungan, partisipasi, dan kontribusi Anda sangat berarti bagi kami. \nDari bantuan di Discord hingga operasional server – Anda membuat proyek ini mungkin. Kami menghargai setiap dari Anda sangat banyak.", //138
+            "Launcher Memiliki Versi Database Lama, \nHaruskah Mencoba Mengonversi Pengaturan Lama ke Profil Baru?", //139
+            "Anda Harus Membuat Profil Permainan Sendiri,\nSebelum Dapat Bermain.",                                //140
+            "Silakan Periksa Pengaturan Profil\nProfil Berhasil Dibuat Sebagai: Profil Dikonversi",                //141
         };
 
         public static string[] Italian =
         {
-            "Gioca a TDU2",
-            "Avvia",
-            "Servizio",
-            "Browser Mod",
-            "Impostazioni",
-            "Informazioni",
-            "Esci",
-            "Ultime Notizie",
-            "Controlla Stato",
-            "Indietro",
-            "Creatore",
-            "Descrizione",
-            "Aggiornamenti",
-            "Download",
-            "Versione",
-            "File",
-            "Dimensione Download",
-            "Dimensione Installazione",
-            "Installa",
-            "Installa/Aggiorna",
-            "I miei mod",
-            "Dati di accesso",
-            "Nome utente",
-            "Password",
-            "Disconnetti",
-            "Carica",
-            "Scarica",
-            "Accedi",
-            "Disconnettiti",
-            "Ricarica",
-            "Apri cartella di backup",
-            "Seleziona gioco",
-            "Connessione Patch",
-            "Apri cartella di gioco",
-            "Controlla gioco",
-            "Apri salvataggi",
-            "Lingua del launcher",
-            "Modalità audio",
-            "Backup max.",
-            "Nome del mod",
-            "Avvio del controllo dei file di gioco. Questo potrebbe richiedere un po' di tempo. Prenditi un caffè e rilassati mentre il launcher lavora.",
-            "Creazione dell'indice completata. File: {0}, Cartelle: {1}",
-            "File e cartelle scansionati",
-            "Connessione al server",
-            "Connessione stabilita!",
-            "Impossibile connettersi al server.",
-            "Confronto file, Fase 1",
-            "Fase 1: Controllo file mancanti",
-            "File mancanti: {0}",
-            "Mancante: {0} - {1}",
-            "Controllo modifiche nei file",
-            "Confronto file, Fase 2",
-            "Fase 2: Verifica del file: ",
-            "File: {0} ◄ Aggiornamento necessario, file differente [{1}|{2}]",
-            "File: {0} ◄ File aggiornato",
-            "Il controllo dei file sembra non essere riuscito. Riprova.",
-            "Controllo dei file completato in: {0}",
-            "Lista file live scaricata.",
-            "Impossibile recuperare la lista file del gioco online. Riprova più tardi.",
-            "Troppi file mancanti. Aggiornamento interrotto. Si prega di reinstallare correttamente il gioco.",
-            "File e cartelle scansionati.",
-            "Creata directory mancante: ",
-            "Confronto file, Fase 3",
-            "Fase 3: Verifica dell'integrità dei file",
-            "Fase 3: Download e installazione dei file",
-            "Download del file: {0} ({1}% completato)",
-            "Aggiornamento completato in: {0}",
-            "Aggiornamento del gioco completato.",
-            "Aggiornamento del database del launcher",
-            "File: {0} ◄ Installazione",
-            "File aggiornato: ",
-            "Impossibile estrarre il file: ({0}). Errore: {1}",
-            "Project Paradise 2 - Security Module",
-            "Il modulo di sicurezza non è sicuro. Il gioco è stato chiuso.",
-            "Query dei mod completata, visualizzando {0} di {1} mod disponibili.",
-            "Sia il nome utente che la password sono necessari.",
-            "Il nome utente è necessario.",
-            "La password è necessaria.",
-            "La password inserita non corrisponde a quella memorizzata sul server. Controlla la tua password e riprova.",
-            "Si è verificato un errore di rete: {0}\nControlla la tua connessione a Internet e riprova.",
-            "L'URL del server non è valido: {0}\nContatta il supporto se il problema persiste.",
-            "Si è verificato un errore imprevisto: {0}\nRiavvia l'applicazione e riprova.",
-            "Si è verificato un errore sconosciuto: {0}\nContatta il supporto se questo problema persiste.",
-            "Savegame esistente",
-            "Savegame non trovato",
-            "Stato: {0}\nDimensione Savegame: {1}\nUltimo upload: {2}\nNome Savegame: {3}\nUltima verifica: {4}",
-            "Stato: Nessun Savegame trovato",
-            "Preparare l'upload",
-            "Pulisci il vecchio Savegame locale",
-            "Crea Savegame per l'upload",
-            "Inizia l'upload",
-            "Progresso dell'upload: {0}%, Dimensione: {1}",
-            "Upload completato con successo",
-            "Inizia il download",
-            "Progresso del download: {0}%, Dimensione: {1}",
-            "Download completato. Estrazione dei file...",
-            "Cloud Savegame estratto con successo.",
-            "Informazioni sul gioco",
-            "Percorso del gioco: ",
-            "Versione del file: ",
-            "Versione del gioco: ",
-            "Attenzione: Non hai configurato correttamente o completamente il launcher.",
-            "Nessun gioco selezionato. Seleziona prima un gioco, quindi aggiorna il gioco e configura la connessione per utilizzare il servizio online.",
-            "Seleziona il file di gioco installato per Test Drive Unlimited 2.",
-            "Il file selezionato non è l'eseguibile di Test Drive Unlimited 2.\nSeleziona il file corretto del gioco.",
-            "È stato rilevato un gioco Steam.\nConferma se il gioco è stato installato tramite Steam.\nSe il gioco non è stato installato tramite Steam, il file steam_api.dll verrà rinominato.\n\nPossiedi il gioco su Steam?",
-            "Il gioco selezionato non corrisponde all'ultima versione ufficiale del gioco. \nDovresti aggiornare il gioco (eseguire il controllo del gioco).",
-            "Impossibile aprire la cartella di gioco perché non è stato selezionato alcun gioco.",
-            "Impossibile aprire la cartella dei salvataggi perché non ci sono salvataggi disponibili.",
-            "La connessione al server non può essere modificata perché non è stato selezionato alcun gioco.",
-            "L'aggiornamento non può essere eseguito perché non è stato selezionato alcun gioco.",
-            "Server di gioco online, Giocatori: ",
-            "Impossibile ottenere le informazioni, fai clic qui per aggiornare",
-            "Manca un parametro di avvio. \nControlla se il launcher è incluso nel gioco di Steam e se il comando -direct è impostato correttamente.",
-            "Modalità online",
-            "Versione del gioco",
-            "Discord RPC",
-            "Controllo aggiornamenti",
-            "UPnP",
-            "Versione Steam",
-            "Dovrebbe essere usato solo se il launcher lo dice!",
-            "Lingua del launcher",
-            "Modalità audio",
-            "Il gioco selezionato è un gioco modificato/decompresso?",
-            "La verifica del gioco è stata annullata, i giochi modificati potrebbero essere danneggiati di conseguenza.",
-            "Non sono stati trovati file di gioco standard. Assicurati che il gioco sia correttamente installato e selezionato.",
-            "Risorse"
+            //Main UI-Langs
+            "Gioca",                                                //0
+            "Inizia",                                               //1
+            "Impostazioni",                                         //2
+            "Profili",                                              //3
+            "Servizio",                                             //4
+            "Informazioni",                                         //5
+            "Informazioni su",                                      //6
+            "Esci",                                                 //7
+            "Controlla Stato",                                      //8
+            "Indietro",                                             //9
+            "Autore",                                               //10
+            "Descrizione",                                          //11
+            "Aggiornamenti",                                        //12
+            //Main UI-Langs end
+        
+            //Settings UI-Langs
+            "Stato Discord",                                        //13
+            "Controllo Aggiornamenti",                              //14
+            "Inoltro Porta UPnP",                                   //15
+            "Lingua",                                               //16
+            "Modalità Audio",                                       //17
+            //Settings UI-Langs end
+        
+            //Profile UI-Langs
+            "Crea Nuovo Profilo",                                   //18
+            //Profile UI-Langs end
+        
+            //Create Profile UI-Langs
+            "Crea Nuova Istanza Gioco",                             //19
+            "Modifica Istanza Gioco",                               //20
+            "Nome Profilo",                                         //21
+            "Argomenti",                                      //22
+            "RAM Dinamica",                                         //23
+            "Core Dinamici",                                        //24
+            "Priorità Alta",                                        //25
+            "Dirt Automatico",                                      //26
+            "Danno Automatico",                                     //27
+            "Modalità Online",                                      //28
+            "Seleziona Gioco",                                      //29
+            "Apri Cartella",                                        //30
+            "Patch Connessione",                                    //31
+            "Browser Mod",                                          //32
+            "Aggiornamento Gioco",                                  //33
+            "Salva",                                                //34
+            "Versione Gioco: ",                                     //35
+            "Build Gioco: {0}",                                     //36
+            "Percorso Gioco: {0}",                                  //37
+            "Dimensione Installazione Gioco: {0}",                  //38
+            "Tipo Gioco: {0} '{1}' - {2}",                          //39
+            " (Versione Gioco Errata) Aggiornamento Richiesto",     //40
+            "Scegli il tuo gioco Test Drive Unlimited",             //41
+            "File Configurazione Sostituito",                       //42
+            "Directory Gioco Non Esiste",                           //43
+            "Directory Non Esiste: ",                               //44
+            "Profilo: {0} Salvato Con Successo",                    //45
+            "Errore durante il salvataggio del profilo: {0} Errore: {1}", //46
+            //Create Profile UI-Langs end
+        
+            //Service UI-Langs 
+            "Account o Password non possono essere vuoti",          //47
+            "Account o Password non possono essere vuoti",          //48
+            "Password non può essere vuota",                        //49
+            "Credenziali di accesso errate, impossibile accedere",  //50
+            "Errore durante l'accesso al cloud: {0}",               //51
+            "Stato: {0}\nDimensione Archiviazione: {1}\nUltimo Caricamento: {2}\nNome Salvataggio: {3}\nUltimo Controllo: {4}", //52
+            "Salvataggio Esiste",                                   //53
+            "Nessun Salvataggio Esistente",                         //54
+            "Errore durante il caricamento delle informazioni salvataggio: {0}", //55
+            "Carica Salvataggio",                                   //56
+            "Progresso Caricamento: {0}%, Dimensione: {1}",         //57  
+            "Progresso Download: {0}%, Dimensione: {1}",            //58
+            "Salvataggio Caricato",                                 //59
+            "Scarica Salvataggio",                                  //60
+            "Salvataggio Scaricato",                                //61
+            "Estrazione Salvataggio",                               //62
+            "Pulizia File Temporanei",                              //63
+            "Informazioni Account PP2",                             //64
+            "Nome Account",                                         //65
+            "Password Account",                                     //66
+            "Accedi",                                               //67
+            "Esci",                                                 //68
+            "Aggiorna",                                             //69
+            "Carica",                                               //70
+            "Scarica",                                              //71
+            "Cartella Backup",                                      //72
+            "Cartella Salvataggi",                                  //73
+            "Punti Archiviazione Massimi",                          //74
+            "Pulisci",                                              //75
+            //Service UI-Langs end
+        
+            //Update UI-Langs
+            "Avvio Verifica Gioco",                                 //76
+            "Gioco Non Compresso Rilevato, Interrompo Aggiornamento", //77
+            "Nessuna Installazione Normale Gioco Rilevata, Interrompo Aggiornamento", //78
+            "File Trovati: {0} Cartelle: {1}",                      //79
+            "Connessione al Server",                                //80
+            "Connesso al Server: OK, Avvio Controllo File",         //81
+            "Impossibile Connettersi al Server",                    //82
+            "Confronto File, Fase 1",                               //83
+            "Fase 1: Controllo File Mancanti",                      //84
+            "File Mancanti: {0}",                                   //85
+            "Mancante: {0} - {1}",                                  //86
+            "Controllo File per Modifiche",                         //87
+            "Confronto File, Fase 2",                               //88
+            "Fase 2: Controllo File: ",                             //89
+            "File: {0} ◄ Aggiornamento Richiesto, File Diverso [{1}|{2}]", //90
+            "File: {0} ◄ File è Aggiornato",                        //91
+            "Il controllo file sembra essere fallito. Per favore riprova.", //92
+            "Controllo File Completato in: {0}",                    //93
+            "Impossibile Recuperare Lista File Gioco Online. Riprova Più Tardi.", //94
+            "Lista File Live Scaricata.",                           //95
+            "Troppi File Mancanti. Aggiornamento Interrotto. Reinstalla il Gioco.", //96
+            "File e Cartelle Scansionati.",                         //97
+            "Cartella Mancante Creata: ",                           //98
+            "Confronto File, Fase 3",                               //99
+            "Fase 3: Controllo Integrità File",                     //100
+            "Fase 3: Download e Installazione File",                //101
+            "Download File: {0} ({1}% Completato)",                 //102
+            "Aggiornamento Completato in: {0}",                     //103
+            "Aggiornamento Gioco Terminato.",                       //104
+            "File Aggiornato: ",                                    //105
+            "Impossibile Estrarre File: ({0}). Errore: {1}",        //106
+            "File: {0} ◄ Installazione",                            //107
+            "Verifica Gioco Completata",                            //108
+        
+            //Gameupdate end
+        
+            //Generic Messages
+            "Modulo Sicurezza Project Paradise 2",                  //109
+            "Il modulo di sicurezza non è sicuro. Il gioco è stato chiuso.", //110
+            "Gioco Steam Rilevato, È Corretto?",                    //111
+            "Gioco Non Compresso Rilevato, È Corretto?",            //112
+            "Attenzione: Usare Giochi Non Compressi a tuo rischio!\nNon forniamo aiuto o supporto qui!", //113
+            "Attenzione: Se questo è ancora un gioco non compresso, alcune azioni potrebbero danneggiare il gioco!\nE possono portare a una reinstallazione", //114
+            "Server Gioco Online, Giocatori: ",                     //115
+            "Errore nel recupero informazioni, clicca qui per aggiornare", //116
+        
+            //Update UI-Langs end
+        
+            //Mod Detail View
+            "Indietro",                                             //117
+            "Autore",                                               //118
+            "Descrizione",                                          //119
+            "Versione",                                             //120
+            "File",                                                 //121
+            "Dimensione Download",                                  //122
+            "Dimensione Installazione",                             //123
+            "Aggiornamenti",                                        //124
+            "Installazioni",                                        //125
+            "Installa | Aggiorna",                                  //126
+            "Nome Mod",                                             //127
+            "Avvio Download Mod",                                   //128
+            "Installazione Mod ({0}) Completata",                   //129
+            "Installazione Mod ({0}) File: {1} di {2}",             //130
+            "Mod Installate",                                       //131
+            "Mostrando: {0} Mod di {1}",                            //132
+            "Nessuna Mod Disponibile per Questo Tipo di Gioco",     //133
+            "Caricamento Mod",                                      //134
+            "Mod: {0} Disinstallata Con Successo",                  //135
+            "Mod Non Compresso Non Possono Essere Disinstallate dal Launcher", //136
+            "ID Mod Errato, Riprova Dopo Il Riavvio",               //137
+            "Un Grazie Speciale \nAl Nostro Eccellente Team e Ai Nostri Patreon – Il Vostro Supporto, Impegno e Contributi Significano Molto Per Noi. \nDalla Guida su Discord fino al Funzionamento dei Server – Voi Rendete Questo Progetto Possibile. Vi Apprezziamo Ogni Singolo Di Voi Moltissimo.", //138
+            "Il Launcher Ha Una Vecchia Versione Del Database, \nDovrebbe Provare A Convertire Le Vecchie Impostazioni In Un Nuovo Profilo?", //139
+            "Devi Creare Il Tuo Profilo Di Gioco,\nPrima Di Poter Giocare.",                                       //140
+            "Per Favore Controlla Le Impostazioni Del Profilo\nIl Profilo È Stato Creato Con Successo Come: Profilo Convertito", //141
         };
 
         public static string[] Lithuanian =
         {
-            "Žaisti TDU2",
-            "Pradėti",
-            "Paslaugos",
-            "Modifikacijų naršyklė",
-            "Nustatymai",
-            "Informacija",
-            "Išeiti",
-            "Naujausios naujienos",
-            "Patikrinti būseną",
-            "Atgal",
-            "Kūrėjas",
-            "Aprašymas",
-            "Atnaujinimai",
-            "Atsisiuntimai",
-            "Versija",
-            "Failai",
-            "Atsisiuntimo dydis",
-            "Įdiegimo dydis",
-            "Įdiegti",
-            "Įdiegti/Atnaujinti",
-            "Mano modifikacijos",
-            "Prisijungimo duomenys",
-            "Vartotojo vardas",
-            "Slaptažodis",
-            "Atsijungti",
-            "Įkelti",
-            "Atsisiųsti",
-            "Prisijungti",
-            "Atsijungti",
-            "Perkrauti",
-            "Atidaryti atsarginį aplanką",
-            "Pasirinkti žaidimą",
-            "Pleistro ryšys",
-            "Atidaryti žaidimo aplanką",
-            "Patikrinti žaidimą",
-            "Atidaryti aplanką",
-            "Paleidimo kalba",
-            "Garso režimas",
-            "Maks. atsarginių kopijų",
-            "Modifikacijos pavadinimas",
-            "Pradedama žaidimo failų patikra. Tai gali užtrukti. Atsigerkite kavos ir atsipalaiduokite, kol paleidimo programa dirba.",
-            "Indekso kūrimas baigtas. Failai: {0}, Aplankai: {1}",
-            "Failai ir aplankai nuskaityti",
-            "Jungiamasi prie serverio",
-            "Prisijungimas sėkmingas!",
-            "Nepavyko prisijungti prie serverio.",
-            "Lyginami failai, 1 etapas",
-            "1 etapas: Tikrinami trūkstami failai",
-            "Trūkstami failai: {0}",
-            "Trūksta: {0} - {1}",
-            "Tikrinami failų pakeitimai",
-            "Lyginami failai, 2 etapas",
-            "2 etapas: Tikrinamas failas: ",
-            "Failas: {0} ◄ Reikalingas atnaujinimas, failas skiriasi [{1}|{2}]",
-            "Failas: {0} ◄ Failas atnaujintas",
-            "Failų patikra nepavyko. Bandykite dar kartą.",
-            "Failų patikra baigta per: {0}",
-            "Atsisiųstas tiesioginių failų sąrašas.",
-            "Nepavyko gauti žaidimo failų sąrašo internete. Bandykite vėliau.",
-            "Pernelyg daug trūkstamų failų. Atnaujinimas nutrauktas. Prašome tinkamai iš naujo įdiegti žaidimą.",
-            "Failai ir aplankai nuskaityti.",
-            "Sukurtas trūkstamas katalogas: ",
-            "Lyginami failai, 3 etapas",
-            "3 etapas: Failų vientisumo tikrinimas",
-            "3 etapas: Failų atsisiuntimas ir diegimas",
-            "Atsisiunčiamas failas: {0} ({1}% baigta)",
-            "Atnaujinimas baigtas per: {0}",
-            "Žaidimo atnaujinimas baigtas.",
-            "Atnaujinama paleidimo programos duomenų bazė",
-            "Failas: {0} ◄ Diegiama",
-            "Failas atnaujintas: ",
-            "Nepavyko išskleisti failo: ({0}). Klaida: {1}",
-            "Project Paradise 2 - Security Module",
-            "Saugumo modulis nesaugus. Žaidimas buvo uždarytas.",
-            "Modų užklausos baigtos, rodomi {0} iš {1} pasiekiamų modų.",
-            "Reikalingi tiek vartotojo vardas, tiek slaptažodis.",
-            "Vartotojo vardas yra privalomas.",
-            "Slaptažodis yra privalomas.",
-            "Įvestas slaptažodis nesutampa su serverio saugomu. Patikrinkite savo slaptažodį ir bandykite dar kartą.",
-            "Įvyko tinklo klaida: {0}\nPatikrinkite savo interneto ryšį ir bandykite dar kartą.",
-            "Serverio URL neteisingas: {0}\nJei problema tęsiasi, susisiekite su pagalbos tarnyba.",
-            "Įvyko netikėta klaida: {0}\nPrašome iš naujo paleisti programą ir bandyti vėl.",
-            "Įvyko nežinoma klaida: {0}\nJei problema tęsiasi, susisiekite su pagalbos tarnyba.",
-            "Savegame egzistuoja",
-            "Savegame nerasta",
-            "Būklė: {0}\nSavegame dydis: {1}\nPaskutinis įkėlimas: {2}\nSavegame pavadinimas: {3}\nPaskutinė patikra: {4}",
-            "Būklė: Savegame nerasta",
-            "Paruošti įkėlimą",
-            "Švarinti seną vietinį savegame",
-            "Sukurti savegame įkėlimui",
-            "Pradėti įkėlimą",
-            "Įkėlimo pažanga: {0}%, Dydis: {1}",
-            "Įkėlimas sėkmingas",
-            "Pradėti atsisiuntimą",
-            "Atsisiuntimo pažanga: {0}%, Dydis: {1}",
-            "Atsisiuntimas baigtas. Išpakavimas...",
-            "Cloud Savegame sėkmingai išpakuotas.",
-            "Žaidimo informacija",
-            "Žaidimo kelias: ",
-            "Failo versija: ",
-            "Žaidimo versija: ",
-            "Įspėjimas: Jūs nesate teisingai arba pilnai sukonfigūravę paleidimo programą.",
-            "Nėra pasirinkto žaidimo. Pirmiausia pasirinkite žaidimą, tada atnaujinkite žaidimą ir nustatykite ryšį, kad galėtumėte naudoti internetinę paslaugą.",
-            "Pasirinkite įdiegtą žaidimo failą, skirtą Test Drive Unlimited 2.",
-            "Pasirinktas failas nėra Test Drive Unlimited 2 vykdomasis failas.\nPasirinkite teisingą žaidimo failą.",
-            "Buvo aptiktas Steam žaidimas.\nPrašome patvirtinti, ar žaidimas įdiegtas per Steam.\nJei žaidimas nėra įdiegtas per Steam, steam_api.dll failas bus pervadintas.\n\nAr turite žaidimą Steam?",
-            "Jūsų pasirinktas žaidimas neatitinka naujausios oficialios žaidimo versijos. \nTurėtumėte atnaujinti žaidimą (atlikite žaidimo patikrinimą).",
-            "Žaidimo aplanko neįmanoma atidaryti, nes žaidimas nebuvo pasirinktas.",
-            "Žaidimo išsaugojimo aplanko neįmanoma atidaryti, nes nėra išsaugotų žaidimų.",
-            "Serverio ryšys negali būti pakeistas, nes žaidimas nebuvo pasirinktas.",
-            "Atnaujinimas negali būti atliktas, nes žaidimas nebuvo pasirinktas.",
-            "Žaidimo serveris yra prisijungęs, Žaidėjai: ",
-            "Nepavyko gauti informacijos, spustelėkite čia, kad atnaujintumėte",
-            "Trūksta paleidimo parametro. \nPatikrinkite, ar paleidimo programa yra įtraukta į „Steam“ žaidimą ir ar -direct komanda nustatyta teisingai.",
-            "Interneto režimas",
-            "Žaidimo versija",
-            "Discord RPC",
-            "Atnaujinimo tikrinimas",
-            "UPnP",
-            "Steam versija",
-            "Turėtų būti naudojama tik jei paleidimo programa tai nurodo!",
-            "Paleidimo kalba",
-            "Garso režimas",
-            "Ar pasirinktas žaidimas yra modifikuotas/ išpakuotas žaidimas?",
-            "Žaidimo tikrinimas buvo nutrauktas, modifikuoti žaidimai gali būti sugadinti.",
-            "Nerasta standartinių žaidimo failų. Įsitikinkite, kad žaidimas yra tinkamai įdiegtas ir pasirinktas.",
-            "Ištekliai"
+            //Main UI-Langs
+            "Žaisti",                                               //0
+            "Paleisti",                                             //1
+            "Nustatymai",                                           //2
+            "Profiliai",                                            //3
+            "Paslauga",                                             //4
+            "Informacija",                                          //5
+            "Apie",                                                 //6
+            "Išeiti",                                               //7
+            "Patikrinti būseną",                                    //8
+            "Atgal",                                                //9
+            "Kūrėjas",                                              //10
+            "Aprašymas",                                            //11
+            "Atnaujinimai",                                         //12
+            //Main UI-Langs end
+        
+            //Settings UI-Langs
+            "Discord statusas",                                     //13
+            "Atnaujinimų tikrinimas",                               //14
+            "UPnP prievadų nukreipimas",                            //15
+            "Kalba",                                                //16
+            "Garso režimas",                                        //17
+            //Settings UI-Langs end
+        
+            //Profile UI-Langs
+            "Sukurti naują profilį",                                //18
+            //Profile UI-Langs end
+        
+            //Create Profile UI-Langs
+            "Sukurti naują žaidimo instanciją",                     //19
+            "Redaguoti žaidimo instanciją",                         //20
+            "Profilio pavadinimas",                                 //21
+            "argumentai",                                 //22
+            "Dinaminis RAM",                                        //23
+            "Dinaminiai branduoliai",                               //24
+            "Aukštesnė prioriteta",                                 //25
+            "Automatinis dulkės",                                   //26
+            "Automatinis pažeidimas",                               //27
+            "Interneto režimas",                                    //28
+            "Pasirinkti žaidimą",                                   //29
+            "Atverti aplanką",                                      //30
+            "Ryšio pataisa",                                        //31
+            "Modifikacijų naršyklė",                                //32
+            "Žaidimo atnaujinimas",                                 //33
+            "Išsaugoti",                                            //34
+            "Žaidimo versija: ",                                     //35
+            "Žaidimo kūrimo versija: {0}",                           //36
+            "Žaidimo kelias: {0}",                                   //37
+            "Žaidimo įdiegimo dydis: {0}",                          //38
+            "Žaidimo tipas: {0} '{1}' - {2}",                        //39
+            " (Neteisinga žaidimo versija) Reikalingas atnaujinimas", //40
+            "Pasirinkite savo Test Drive Unlimited žaidimą",         //41
+            "Konfigūracijos failas pakeistas",                      //42
+            "Žaidimo katalogas neegzistuoja",                       //43
+            "Katalogas neegzistuoja: ",                             //44
+            "Profilis: {0} sėkmingai išsaugotas",                   //45
+            "Klaida išsaugojant profilį: {0} Klaida: {1}",           //46
+            //Create Profile UI-Langs end
+        
+            //Service UI-Langs 
+            "Paskyra arba slaptažodis negali būti tuščias",        //47
+            "Paskyra arba slaptažodis negali būti tuščias",        //48
+            "Slaptažodis negali būti tuščias",                     //49
+            "Neteisingi prisijungimo duomenys, negalima prisijungti", //50
+            "Klaida prisijungiant prie debesies: {0}",              //51
+            "Būsena: {0}\nSandėliavimo dydis: {1}\nPaskutinis įkėlimas: {2}\nIšsaugojimo vardas: {3}\nPaskutinis tikrinimas: {4}", //52
+            "Išsaugojimas egzistuoja",                              //53
+            "Nėra išsaugojimų",                                     //54
+            "Klaida įkeliant išsaugojimo informaciją: {0}",         //55
+            "Įkelti išsaugojimą",                                   //56
+            "Įkėlimo progresas: {0}%, Dydis: {1}",                  //57  
+            "Atsisiuntimo progresas: {0}%, Dydis: {1}",             //58
+            "Išsaugojimas įkeltas",                                 //59
+            "Atsisiųsti išsaugojimą",                               //60
+            "Išsaugojimas atsisiųstas",                             //61
+            "Išsaugojimo išskleidimas",                             //62
+            "Laikinų failų valymas",                                //63
+            "PP2 paskyros informacija",                             //64
+            "Paskyros vardas",                                      //65
+            "Paskyros slaptažodis",                                //66
+            "Prisijungti",                                          //67
+            "Atsijungti",                                           //68
+            "Atnaujinti",                                           //69
+            "Įkelti",                                               //70
+            "Atsisiųsti",                                           //71
+            "Atsarginės kopijos aplankas",                          //72
+            "Išsaugojimų aplankas",                                 //73
+            "Maksimalus sandėliavimo taškų skaičius",               //74
+            "Išvalyti",                                             //75
+            //Service UI-Langs end
+        
+            //Update UI-Langs
+            "Paleidžiama žaidimo patikra",                          //76
+            "Nepakartotinis žaidimas aptiktas, stabdomas atnaujinimas", //77
+            "Nėra įprastos žaidimo įdiegties aptikta, stabdomas atnaujinimas", //78
+            "Rasta failų: {0} aplankų: {1}",                        //79
+            "Jungiamasi prie serverio",                             //80
+            "Prisijungta prie serverio: GERAI, paleidžiama failų tikrinimas", //81
+            "Nepavyko prisijungti prie serverio",                   //82
+            "Palyginami failai, 1 etapas",                          //83
+            "1 etapas: Tikrinami trūkstami failai",                 //84
+            "Trūkstami failai: {0}",                                //85
+            "Trūksta: {0} - {1}",                                   //86
+            "Tikrinami failai dėl pokyčių",                         //87
+            "Palyginami failai, 2 etapas",                          //88
+            "2 etapas: Tikrinamas failas: ",                        //89
+            "Failas: {0} ◄ Reikalingas atnaujinimas, failas skiriasi [{1}|{2}]", //90
+            "Failas: {0} ◄ Failas yra naujausias",                  //91
+            "Failų tikrinimas panašiai nepavyko. Bandykite dar kartą.", //92
+            "Failų tikrinimas baigtas per: {0}",                    //93
+            "Nepavyko gauti žaidimo failų sąrašo internete. Bandykite vėliau.", //94
+            "Gyvų failų sąrašas atsisiųstas.",                      //95
+            "Per daug trūkstamų failų. Atnaujinimas nutrauktas. Įdiekite žaidimą iš naujo.", //96
+            "Failai ir aplankai nuskaityti.",                       //97
+            "Trūkstamas katalogas sukurtas: ",                      //98
+            "Palyginami failai, 3 etapas",                          //99
+            "3 etapas: Failų vienties patikra",                      //100
+            "3 etapas: Failų atsisiuntimas ir įdiegimas",           //101
+            "Atsisiunčiamas failas: {0} ({1}% baigta)",             //102
+            "Atnaujinimas baigtas per: {0}",                        //103
+            "Žaidimo atnaujinimas baigtas.",                        //104
+            "Failas atnaujintas: ",                                 //105
+            "Nepavyko išskleisti failo: ({0}). Klaida: {1}",         //106
+            "Failas: {0} ◄ Įdiegimas",                              //107
+            "Žaidimo tikrinimas baigtas",                           //108
+        
+            //Gameupdate end
+        
+            //Generic Messages
+            "Project Paradise 2 - Saugumo modulis",                 //109
+            "Saugumo modulis nėra saugus. Žaidimas buvo uždarytas.", //110
+            "Aptiktas Steam žaidimas, ar tai teisinga?",            //111
+            "Aptiktas nepakartotinis žaidimas, ar tai teisinga?",    //112
+            "Įspėjimas: Naudoti nepakartotinius žaidimus savo rizika!\nČia mes nematome pagalbos ar priežiūros!", //113
+            "Įspėjimas: Jei tai vis dar nepakartotinis žaidimas, kai kurios veiksmų gali sugadinti žaidimą!\nIr gali vesti prie naujo įdiegimo", //114
+            "Žaidimo serveriai prisijungę, žaidėjai: ",             //115
+            "Klaida gaunant informaciją, spustelėkite čia norėdami atnaujinti", //116
+        
+            //Update UI-Langs end
+        
+            //Mod Detail View
+            "Atgal",                                                //117
+            "Kūrėjas",                                              //118
+            "Aprašymas",                                            //119
+            "Versija",                                              //120
+            "Failai",                                               //121
+            "Atsisiuntimo dydis",                                   //122
+            "Įdiegimo dydis",                                       //123
+            "Atnaujinimai",                                         //124
+            "Įdiegtys",                                             //125
+            "Įdiegti | Atnaujinti",                                //126
+            "Modifikacijos pavadinimas",                            //127
+            "Pradedamas modifikacijų atsisiuntimas",                //128
+            "Modifikacijos įdiegimas ({0}) baigtas",               //129
+            "Įdiegiamas modifikacijos ({0}) failas: {1} iš {2}",   //130
+            "Įdiegtos modifikacijos",                               //131
+            "Rodoma: {0} modifikacijų iš {1}",                      //132
+            "Nėra modifikacijų šiam žaidimo tipui",                 //133
+            "Įkeliama modifikacijos",                               //134
+            "Modifikacija: {0} sėkmingai pašalinta",               //135
+            "Nepakartotinės modifikacijos negali būti pašalintos iš leistuvės", //136
+            "Neteisingas modifikacijos ID, pabandykite vėliau po paleidimo", //137
+            "Ypač ačiū \nMūsų puikiai komandai ir mūsų patronams – jūsų parama, įsipareigojimas ir indėlis labai mums svarbus. \nNuo Discord pagalbos iki serverių veikimo – jūs padedate šiam projektui būti įgyvendinamą. Mes vertiname kiekvieną iš jūsų labai daug.", //138
+            "Leistuvė turi seną duomenų bazės versiją, \nAr turėtų bandyti konvertuoti senus nustatymus į naują profilį?", //139
+            "Turite sukurti savo žaidimo profilį,\nPrieš galėdami žaisti.",                                        //140
+            "Prašome patikrinti profilio nustatymus\nProfilis sėkmingai sukurtas kaip: Konvertuotas profilis",      //141
         };
 
         public static string[] Polish =
         {
-            "Zagraj w TDU2",
-            "Start",
-            "Usługa",
-            "Przeglądarka modów",
-            "Ustawienia",
-            "Informacje",
-            "Zakończ",
-            "Najnowsze wiadomości",
-            "Sprawdź status",
-            "Wstecz",
-            "Twórca",
-            "Opis",
-            "Aktualizacje",
-            "Pobrane",
-            "Wersja",
-            "Pliki",
-            "Rozmiar pliku do pobrania",
-            "Rozmiar instalacji",
-            "Zainstaluj",
-            "Zainstaluj/Zaktualizuj",
-            "Moje mody",
-            "Dane logowania",
-            "Nazwa użytkownika",
-            "Hasło",
-            "Wyloguj",
-            "Prześlij",
-            "Pobierz",
-            "Zaloguj",
-            "Wyloguj się",
-            "Przeładuj",
-            "Otwórz folder kopii zapasowej",
-            "Wybierz grę",
-            "Połączenie patcha",
-            "Otwórz folder gry",
-            "Sprawdź grę",
-            "Otwórz zapisy",
-            "Język launchera",
-            "Tryb audio",
-            "Maks. kopii zapasowych",
-            "Nazwa moda",
-            "Rozpoczynanie sprawdzania plików gry. To może chwilę potrwać. Zrób sobie kawę i zrelaksuj się, gdy launcher pracuje.",
-            "Tworzenie indeksu zakończone. Pliki: {0}, Foldery: {1}",
-            "Przeskanowano pliki i foldery",
-            "Łączenie z serwerem",
-            "Połączono z serwerem!",
-            "Nie udało się połączyć z serwerem.",
-            "Porównywanie plików, Etap 1",
-            "Etap 1: Sprawdzanie brakujących plików",
-            "Brakujące pliki: {0}",
-            "Brak: {0} - {1}",
-            "Sprawdzanie zmian w plikach",
-            "Porównywanie plików, Etap 2",
-            "Etap 2: Weryfikacja pliku: ",
-            "Plik: {0} ◄ Wymagana aktualizacja, plik różni się [{1}|{2}]",
-            "Plik: {0} ◄ Plik jest aktualny",
-            "Wydaje się, że sprawdzanie plików nie powiodło się. Spróbuj ponownie.",
-            "Sprawdzanie plików zakończone w: {0}",
-            "Pobrano listę plików na żywo.",
-            "Nie udało się pobrać listy plików gry online. Spróbuj ponownie później.",
-            "Zbyt wiele brakujących plików. Aktualizacja przerwana. Proszę poprawnie zainstalować grę.",
-            "Pliki i foldery zeskanowane.",
-            "Utworzono brakujący katalog: ",
-            "Porównywanie plików, Etap 3",
-            "Etap 3: Weryfikacja integralności plików",
-            "Etap 3: Pobieranie i instalowanie plików",
-            "Pobieranie pliku: {0} ({1}% ukończono)",
-            "Aktualizacja zakończona w: {0}",
-            "Ukończono aktualizację gry.",
-            "Aktualizowanie bazy danych launchera",
-            "Plik: {0} ◄ Instalacja",
-            "Plik zaktualizowany: ",
-            "Nie udało się rozpakować pliku: ({0}). Błąd: {1}",
-            "Project Paradise 2 - Security Module",
-            "Moduł zabezpieczeń nie jest bezpieczny. Gra została zamknięta.",
-            "Zapytanie o mody zakończone, wyświetlanie {0} z {1} dostępnych modów.",
-            "Zarówno nazwa użytkownika, jak i hasło są wymagane.",
-            "Nazwa użytkownika jest wymagana.",
-            "Hasło jest wymagane.",
-            "Wprowadzone hasło nie pasuje do tego, które jest zapisane na serwerze. Sprawdź swoje hasło i spróbuj ponownie.",
-            "Wystąpił błąd sieciowy: {0}\nSprawdź swoje połączenie internetowe i spróbuj ponownie.",
-            "Adres URL serwera jest nieprawidłowy: {0}\nSkontaktuj się z pomocą techniczną, jeśli problem będzie się powtarzał.",
-            "Wystąpił nieoczekiwany błąd: {0}\nUruchom ponownie aplikację i spróbuj ponownie.",
-            "Wystąpił nieznany błąd: {0}\nSkontaktuj się z pomocą techniczną, jeśli problem będzie się powtarzał.",
-            "Savegame istnieje",
-            "Brak savegame",
-            "Stan: {0}\nRozmiar savegame: {1}\nOstatnie załadowanie: {2}\nNazwa savegame: {3}\nOstatnia kontrola: {4}",
-            "Stan: Brak savegame",
-            "Przygotuj upload",
-            "Usuń stare lokalne savegame",
-            "Utwórz savegame do uploadu",
-            "Rozpocznij upload",
-            "Postęp uploadu: {0}%, Rozmiar: {1}",
-            "Upload zakończony pomyślnie",
-            "Rozpocznij pobieranie",
-            "Postęp pobierania: {0}%, Rozmiar: {1}",
-            "Pobieranie zakończone. Rozpakowywanie plików...",
-            "Cloud Savegame rozpakowane pomyślnie.",
-            "Informacje o grze",
-            "Ścieżka gry: ",
-            "Wersja pliku: ",
-            "Wersja gry: ",
-            "Ostrzeżenie: Nie skonfigurowałeś poprawnie lub całkowicie programu uruchamiającego.",
-            "Nie wybrano gry. Wybierz najpierw grę, następnie zaktualizuj grę i ustaw połączenie z usługą online.",
-            "Proszę wybrać zainstalowany plik gry dla Test Drive Unlimited 2.",
-            "Wybrany plik nie jest plikiem wykonywalnym dla Test Drive Unlimited 2.\nWybierz poprawny plik gry.",
-            "Wykryto grę Steam.\nProszę potwierdzić, czy gra została zainstalowana przez Steam.\nJeśli gra nie została zainstalowana przez Steam, plik steam_api.dll zostanie zmieniony.\n\nCzy posiadasz grę na Steamie?",
-            "Wybrana gra nie pasuje do najnowszej oficjalnej wersji gry. \nPowinieneś zaktualizować grę (przeprowadź kontrolę gry).",
-            "Nie można otworzyć folderu gry, ponieważ nie wybrano gry.",
-            "Nie można otworzyć folderu zapisu, ponieważ brak zapisanej gry.",
-            "Nie można zmienić połączenia z serwerem, ponieważ nie wybrano gry.",
-            "Nie można przeprowadzić aktualizacji, ponieważ nie wybrano gry.",
-            "Serwer gry online, Gracze: ",
-            "Nie udało się pobrać informacji, kliknij tutaj, aby odświeżyć",
-            "Brakuje parametru startowego. \nSprawdź, czy launcher jest zawarty w grze Steam i czy polecenie -direct jest poprawnie ustawione.",
-            "Tryb online",
-            "Wersja gry",
-            "Discord RPC",
-            "Sprawdzanie aktualizacji",
-            "UPnP",
-            "Wersja Steam",
-            "Należy używać tylko wtedy, gdy launcher to mówi!",
-            "Język launchera",
-            "Tryb audio",
-            "Czy wybrana gra to zmodyfikowana/rozpakowana gra?",
-            "Weryfikacja gry została anulowana, zmodyfikowane gry mogą zostać uszkodzone w wyniku tego.",
-            "Nie znaleziono standardowych plików gry. Upewnij się, że gra jest poprawnie zainstalowana i wybrana.",
-            "Zasoby"
+            //Main UI-Langs
+            "Graj",                                                 //0
+            "Start",                                                //1
+            "Ustawienia",                                           //2
+            "Profile",                                              //3
+            "Usługa",                                               //4
+            "Informacje",                                           //5
+            "O programie",                                          //6
+            "Zakończ",                                              //7
+            "Sprawdź status",                                       //8
+            "Wstecz",                                               //9
+            "Autor",                                                //10
+            "Opis",                                                 //11
+            "Aktualizacje",                                         //12
+            //Main UI-Langs end
+            //Settings UI-Langs
+            "Status Discord",                                       //13
+            "Sprawdzanie aktualizacji",                             //14
+            "Przekazywanie portów UPnP",                           //15
+            "Język",                                                //16
+            "Tryb dźwięku",                                         //17
+            //Settings UI-Langs end
+            //Profile UI-Langs
+            "Utwórz nowy profil",                                   //18
+            //Profile UI-Langs end
+            //Create Profile UI-Langs
+            "Utwórz nową instancję gry",                            //19
+            "Edytuj instancję gry",                                 //20
+            "Nazwa profilu",                                        //21
+            "Argumenty",                                   //22
+            "Dynamiczna RAM",                                       //23
+            "Dynamiczne rdzenie",                                   //24
+            "Wyższy priorytet",                                     //25
+            "Auto-Dirt",                                            //26
+            "Auto-Damage",                                          //27
+            "Tryb online",                                          //28
+            "Wybierz grę",                                          //29
+            "Otwórz folder",                                        //30
+            "Patch połączenia",                                     //31
+            "Przeglądarka modów",                                   //32
+            "Aktualizacja gry",                                     //33
+            "Zapisz",                                               //34
+            "Wersja gry: ",                                         //35
+            "Build gry: {0}",                                       //36
+            "Ścieżka do gry: {0}",                                  //37
+            "Rozmiar instalacji gry: {0}",                          //38
+            "Typ gry: {0} '{1}' - {2}",                             //39
+            " (Nieprawidłowa wersja gry) Wymagana aktualizacja",   //40
+            "Wybierz swoją grę Test Drive Unlimited",                //41
+            "Plik konfiguracyjny został zamieniony",               //42
+            "Folder gry nie istnieje.",                             //43
+            "Folder nie istnieje: ",                                //44
+            "Profil: {0} został pomyślnie zapisany",                //45
+            "Błąd podczas zapisywania profilu: {0} Błąd: {1}",      //46
+            //Create Profile UI-Langs end
+            //Service UI-Langs 
+            "Konto lub hasło nie może być puste",                  //47
+            "Konto lub hasło nie może być puste",                  //48
+            "Hasło nie może być puste",                             //49
+            "Nieprawidłowe dane logowania, nie można się zalogować", //50
+            "Błąd logowania do chmury: {0}",                        //51
+            "Status: {0}\nPojemność dysku: {1}\nOstatnie przesłanie: {2}\nNazwa zapisu: {3}\nOstatnia weryfikacja: {4}", //52
+            "Zapis istnieje",                                       //53
+            "Brak zapisów",                                         //54
+            "Błąd ładowania informacji o zapisie: {0}",             //55
+            "Przesyłanie zapisu",                                   //56
+            "Postęp przesyłania: {0}%, Rozmiar: {1}",              //57  
+            "Postęp pobierania: {0}%, Rozmiar: {1}",               //58
+            "Zapis przesłany",                                      //59
+            "Pobieranie zapisu",                                    //60
+            "Zapis pobrany",                                        //61
+            "Rozpakowywanie zapisu",                                //62
+            "Czyszczenie plików tymczasowych",                      //63
+            "Informacje o koncie PP2",                              //64
+            "Nazwa konta",                                          //65
+            "Hasło konta",                                          //66
+            "Zaloguj się",                                          //67
+            "Wyloguj się",                                          //68
+            "Odśwież",                                              //69
+            "Przesyłanie",                                          //70
+            "Pobieranie",                                           //71
+            "Folder kopii zapasowej",                               //72
+            "Folder zapisów",                                       //73
+            "Maksymalna pojemność dysku",                           //74
+            "Wyczyść",                                              //75
+            //Service UI-Langs end
+            //Update UI-Langs
+            "Uruchamianie sprawdzania gry",                         //76
+            "Wykryto rozpakowaną grę, zatrzymaj aktualizację",      //77
+            "Nie wykryto normalnej instalacji gry, zatrzymaj aktualizację", //78
+            "Znalezione pliki: {0} Foldery: {1}",                  //79
+            "Łączenie z serwerem",                                  //80
+            "Połączenie z serwerem: OK, uruchamianie sprawdzania plików", //81
+            "Nie można połączyć się z serwerem",                    //82
+            "Porównywanie plików, faza 1",                          //83
+            "Faza 1: Sprawdzanie brakujących plików",               //84
+            "Brakujące pliki: {0}",                                 //85
+            "Brakuje: {0} - {1}",                                   //86
+            "Sprawdzanie plików pod kątem zmian",                   //87
+            "Porównywanie plików, faza 2",                          //88
+            "Faza 2: Sprawdzanie pliku: ",                          //89
+            "Plik: {0} ◄ Wymagana aktualizacja, plik różni się [{1}|{2}]", //90
+            "Plik: {0} ◄ Plik jest aktualny",                       //91
+            "Sprawdzanie plików nie powiodło się. Spróbuj ponownie.", //92
+            "Sprawdzanie plików zakończone w: {0}",                 //93
+            "Nie można pobrać listy plików online. Spróbuj ponownie później.", //94
+            "Pobrano listę plików online.",                         //95
+            "Zbyt wiele brakujących plików. Aktualizacja została przerwana. Zainstaluj grę ponownie.", //96
+            "Przeskanowano pliki i foldery.",                       //97
+            "Utworzono brakujący katalog: ",                        //98
+            "Porównywanie plików, faza 3",                          //99
+            "Faza 3: Sprawdzanie integralności plików",             //100
+            "Faza 3: Pobieranie i instalowanie plików",             //101
+            "Pobieranie pliku: {0} ({1}% ukończone)",              //102
+            "Aktualizacja zakończona w: {0}",                       //103
+            "Aktualizacja gry zakończona.",                         //104
+            "Plik zaktualizowany: ",                                //105
+            "Błąd rozpakowania pliku ({0}). Błąd: {1}",             //106
+            "Plik: {0} ◄ Instalowanie",                             //107
+            "Sprawdzanie gry zakończone",                           //108
+            //Gameupdate end
+            //Generic Messages
+            "Project Paradise 2 - Moduł bezpieczeństwa",           //109
+            "Moduł bezpieczeństwa jest niebezpieczny. Gra została zamknięta.", //110
+            "Wykryto grę Steam, czy to poprawne?",                 //111
+            "Wykryto rozpakowaną grę, czy to poprawne?",            //112
+            "Ostrzeżenie: Używanie rozpakowanych gier jest na własne ryzyko!\nNie udzielamy pomocy ani wsparcia!", //113
+            "Ostrzeżenie: Jeśli to wciąż jest rozpakowana gra, może się zdarzyć, że niektóre działania zniszczą grę!\nMoże również prowadzić do reinstalacji", //114
+            "Serwery gier online, gracze: ",                        //115
+            "Błąd podczas pobierania informacji, kliknij tutaj, aby odświeżyć", //116
+            //Update UI-Langs end
+            //Mod Detail View
+            "Powrót",                                               //117
+            "Autor",                                                //118
+            "Opis",                                                 //119
+            "Wersja",                                               //120
+            "Pliki",                                                //121
+            "Rozmiar pobierania",                                   //122
+            "Rozmiar instalacji",                                   //123
+            "Aktualizacje",                                         //124
+            "Instalacje",                                           //125
+            "Zainstaluj | Zaktualizuj",                            //126
+            "Nazwa moda",                                           //127
+            "Rozpoczynanie pobierania moda",                        //128
+            "Instalacja moda ({0}) zakończona",                     //129
+            "Instalowanie moda ({0}) plik: {1} z {2}",              //130
+            "Zainstalowane mody",                                   //131
+            "Wyświetlanie: {0} modów z {1}",                        //132
+            "Brak dostępnych modów dla tego typu gry",              //133
+            "Wczytywanie modów",                                    //134
+            "Mod: {0} został pomyślnie odinstalowany",              //135
+            "Mody rozpakowane nie mogą być odinstalowane przez launcher.", //136
+            "Nieprawidłowy identyfikator moda, spróbuj ponownie po restarcie", //137
+            "Specjalne podziękowania \nDla naszego wspaniałego zespołu i patronów – Twoja pomoc, zaangażowanie i wsparcie znaczą dla nas bardzo. \nOd pomocy na Discordzie po utrzymanie serwerów – wasze działania sprawiają, że ten projekt jest możliwy. Czcimy każdego z was.", //138
+            "Launcher ma starą wersję bazy danych,\nCzy spróbować skonwertować stare ustawienia do nowego profilu?", //139
+            "Musisz samodzielnie utworzyć profil gry,\nZanim będziesz mógł grać.",                                  //140
+            "Proszę sprawdzić ustawienia profilu\nProfil został pomyślnie utworzony jako: Skonwertowany Profil",       //141
         };
 
         public static string[] Russian =
         {
-            "Играть в TDU2",
-            "Старт",
-            "Сервис",
-            "Браузер модов",
-            "Настройки",
-            "Информация",
-            "Выход",
-            "Последние новости",
-            "Проверить статус",
-            "Назад",
-            "Создатель",
-            "Описание",
-            "Обновления",
-            "Загрузки",
-            "Версия",
-            "Файлы",
-            "Размер загрузки",
-            "Размер установки",
-            "Установить",
-            "Установить/Обновить",
-            "Мои моды",
-            "Данные для входа",
-            "Имя пользователя",
-            "Пароль",
-            "Выйти",
-            "Загрузить",
-            "Скачать",
-            "Войти",
-            "Выйти из системы",
-            "Перезагрузить",
-            "Открыть папку резервных копий",
-            "Выбрать игру",
-            "Подключение патча",
-            "Открыть папку игры",
-            "Проверить игру",
-            "Открыть папку",
-            "Язык лаунчера",
-            "Аудио режим",
-            "Макс. резервных копий",
-            "Название мода",
-            "Начата проверка игровых файлов. Это может занять некоторое время. Выпейте кофе и расслабьтесь, пока лаунчер работает.",
-            "Создание индекса завершено. Файлы: {0}, Папки: {1}",
-            "Файлы и папки сканированы",
-            "Подключение к серверу",
-            "Соединение установлено!",
-            "Не удалось подключиться к серверу.",
-            "Сравнение файлов, Этап 1",
-            "Этап 1: Проверка отсутствующих файлов",
-            "Отсутствующие файлы: {0}",
-            "Отсутствует: {0} - {1}",
-            "Проверка изменений файлов",
-            "Сравнение файлов, Этап 2",
-            "Этап 2: Проверка файла: ",
-            "Файл: {0} ◄ Требуется обновление, файл отличается [{1}|{2}]",
-            "Файл: {0} ◄ Файл актуален",
-            "Проверка файлов, похоже, не удалась. Повторите попытку.",
-            "Проверка файлов завершена за: {0}",
-            "Загружен актуальный список файлов.",
-            "Не удалось получить список игровых файлов онлайн. Попробуйте позже.",
-            "Слишком много отсутствующих файлов. Обновление прервано. Пожалуйста, правильно переустановите игру.",
-            "Файлы и папки сканированы.",
-            "Создана отсутствующая директория: ",
-            "Сравнение файлов, Этап 3",
-            "Этап 3: Проверка целостности файлов",
-            "Этап 3: Загрузка и установка файлов",
-            "Загрузка файла: {0} ({1}% завершено)",
-            "Обновление завершено за: {0}",
-            "Обновление игры завершено.",
-            "Обновление базы данных лаунчера",
-            "Файл: {0} ◄ Установка",
-            "Файл обновлён: ",
-            "Не удалось извлечь файл: ({0}). Ошибка: {1}",
-            "Project Paradise 2 - Security Module",
-            "Модуль безопасности ненадежен. Игра была закрыта.",
-            "Запрос модов завершен, отображается {0} из {1} доступных модов.",
-            "Требуются как имя пользователя, так и пароль.",
-            "Имя пользователя обязательно.",
-            "Пароль обязателен.",
-            "Введенный пароль не совпадает с тем, который хранится на сервере. Пожалуйста, проверьте свой пароль и попробуйте снова.",
-            "Произошла сетевая ошибка: {0}\nПроверьте подключение к интернету и попробуйте снова.",
-            "URL сервера недействителен: {0}\nПожалуйста, свяжитесь с поддержкой, если проблема сохраняется.",
-            "Произошла непредвиденная ошибка: {0}\nПерезапустите приложение и попробуйте снова.",
-            "Произошла неизвестная ошибка: {0}\nПожалуйста, свяжитесь с поддержкой, если проблема сохраняется.",
-            "Savegame существует",
-            "Savegame не найдено",
-            "Статус: {0}\nРазмер Savegame: {1}\nПоследнее обновление: {2}\nИмя Savegame: {3}\nПоследняя проверка: {4}",
-            "Статус: Savegame не найдено",
-            "Подготовка к загрузке",
-            "Очистить старое локальное Savegame",
-            "Создать Savegame для загрузки",
-            "Начать загрузку",
-            "Прогресс загрузки: {0}%, Размер: {1}",
-            "Загрузка завершена успешно",
-            "Начать скачивание",
-            "Прогресс скачивания: {0}%, Размер: {1}",
-            "Загрузка завершена. Распаковка файлов...",
-            "Cloud Savegame успешно распаковано.",
-            "Информация о игре",
-            "Путь к игре: ",
-            "Версия файла: ",
-            "Версия игры: ",
-            "Предупреждение: Вы не настроили запускатель корректно или полностью.",
-            "Игра не выбрана. Пожалуйста, сначала выберите игру, затем обновите её и настройте подключение для использования онлайн-сервиса.",
-            "Пожалуйста, выберите установленный файл игры для Test Drive Unlimited 2.",
-            "Выбранный файл не является исполнимым файлом для Test Drive Unlimited 2.\nПожалуйста, выберите правильный файл игры.",
-            "Обнаружена игра Steam.\nПожалуйста, подтвердите, что игра установлена через Steam.\nЕсли игра не установлена через Steam, файл steam_api.dll будет переименован.\n\nУ вас есть эта игра в Steam?",
-            "Выбранная игра не соответствует последней официальной версии игры. \nВам следует обновить игру (провести проверку игры).",
-            "Невозможно открыть папку с игрой, так как игра не выбрана.",
-            "Невозможно открыть папку сохранений, так как нет доступных сохранений.",
-            "Подключение к серверу не может быть изменено, так как игра не выбрана.",
-            "Обновление не может быть выполнено, так как игра не выбрана.",
-            "Игровой сервер в сети, Игроки: ",
-            "Не удалось получить информацию, нажмите здесь для обновления",
-            "Отсутствует стартовый параметр. \nПожалуйста, убедитесь, что лаунчер включен в игру в Steam и что команда -direct установлена правильно.",
-            "Онлайн режим",
-            "Версия игры",
-            "Discord RPC",
-            "Проверка обновлений",
-            "UPnP",
-            "Версия Steam",
-            "Следует использовать только если это говорит лаунчер!",
-            "Язык лаунчера",
-            "Режим аудио",
-            "Является ли выбранная игра модифицированной/распакованной игрой?",
-            "Проверка игры была отменена, модифицированные игры могут быть повреждены в результате.",
-            "Не найдены стандартные файлы игры. Убедитесь, что игра правильно установлена и выбрана.",
-            "Ресурсы"
+            //Main UI-Langs
+            "Играть",                                              //0
+            "Старт",                                               //1
+            "Настройки",                                           //2
+            "Профили",                                             //3
+            "Сервис",                                              //4
+            "Информация",                                          //5
+            "О программе",                                         //6
+            "Выход",                                               //7
+            "Проверить статус",                                    //8
+            "Назад",                                               //9
+            "Автор",                                               //10
+            "Описание",                                            //11
+            "Обновления",                                          //12
+            //Main UI-Langs end
+            //Settings UI-Langs
+            "Статус Discord",                                      //13
+            "Проверка обновлений",                                 //14
+            "UPnP переадресация портов",                           //15
+            "Язык",                                                //16
+            "Режим звука",                                         //17
+            //Settings UI-Langs end
+            //Profile UI-Langs
+            "Создать новый профиль",                               //18
+            //Profile UI-Langs end
+            //Create Profile UI-Langs
+            "Создать новую игровую инстанцию",                     //19
+            "Редактировать игровую инстанцию",                     //20
+            "Имя профиля",                                         //21
+            "аргументы",                                 //22
+            "Динамическая память (RAM)",                           //23
+            "Динамические ядра",                                   //24
+            "Высокий приоритет",                                   //25
+            "Авто-грязь",                                          //26
+            "Авто-повреждения",                                    //27
+            "Онлайн-режим",                                        //28
+            "Выбрать игру",                                        //29
+            "Открыть папку",                                       //30
+            "Патч соединения",                                     //31
+            "Мод-браузер",                                         //32
+            "Обновление игры",                                     //33
+            "Сохранить",                                           //34
+            "Версия игры: ",                                       //35
+            "Сборка игры: {0}",                                    //36
+            "Путь к игре: {0}",                                    //37
+            "Размер установки: {0}",                               //38
+            "Тип игры: {0} '{1}' - {2}",                           //39
+            " (Неправильная версия игры) Требуется обновление",    //40
+            "Выберите свою игру Test Drive Unlimited",             //41
+            "Файл конфигурации был заменён",                       //42
+            "Каталог игры не существует.",                         //43
+            "Папка не существует: ",                               //44
+            "Профиль: {0} успешно сохранён",                       //45
+            "Ошибка при сохранении профиля: {0} Ошибка: {1}",      //46
+            //Create Profile UI-Langs end
+            //Service UI-Langs 
+            "Аккаунт или пароль не могут быть пустыми",            //47
+            "Аккаунт или пароль не могут быть пустыми",            //48
+            "Пароль не может быть пустым",                         //49
+            "Неверные данные входа, вход невозможен",              //50
+            "Ошибка входа в облако: {0}",                          //51
+            "Статус: {0}\nРазмер: {1}\nПоследняя загрузка: {2}\nИмя сохранения: {3}\nПоследняя проверка: {4}", //52
+            "Сохранение существует",                               //53
+            "Сохранение не найдено",                               //54
+            "Ошибка при загрузке информации о сохранении: {0}",    //55
+            "Загрузить сохранение",                                //56
+            "Прогресс загрузки: {0}%, размер: {1}",                //57  
+            "Прогресс скачивания: {0}%, размер: {1}",              //58
+            "Сохранение загружено",                                //59
+            "Скачать сохранение",                                  //60
+            "Сохранение скачано",                                  //61
+            "Распаковать сохранение",                              //62
+            "Очистка временных файлов",                            //63
+            "Информация об аккаунте PP2",                          //64
+            "Имя аккаунта",                                        //65
+            "Пароль аккаунта",                                     //66
+            "Войти",                                               //67
+            "Выйти",                                               //68
+            "Обновить",                                            //69
+            "Загрузить",                                           //70
+            "Скачать",                                             //71
+            "Папка резервных копий",                               //72
+            "Папка сохранений",                                    //73
+            "Макс. количество точек сохранения",                   //74
+            "Очистить",                                            //75
+            //Service UI-Langs end
+            //Update UI-Langs
+            "Запуск проверки игры",                                //76
+            "Обнаружена распакованная версия игры, обновление остановлено", //77
+            "Обычная установка игры не найдена, обновление остановлено", //78
+            "Файлы: {0} Папки: {1}",                               //79
+            "Подключение к серверу",                               //80
+            "Соединение с сервером: OK, начинаю проверку файлов",  //81
+            "Не удалось подключиться к серверу",                   //82
+            "Сравнение файлов, фаза 1",                            //83
+            "Фаза 1: проверка на отсутствие файлов",               //84
+            "Отсутствующие файлы: {0}",                            //85
+            "Отсутствует: {0} - {1}",                              //86
+            "Проверка изменений в файлах",                         //87
+            "Сравнение файлов, фаза 2",                            //88
+            "Фаза 2: проверяется файл: ",                          //89
+            "Файл: {0} ◄ Требуется обновление, различие [{1}|{2}]", //90
+            "Файл: {0} ◄ Файл актуален",                           //91
+            "Проверка файлов не удалась. Попробуйте снова.",       //92
+            "Проверка завершена за: {0}",                          //93
+            "Не удалось получить онлайн-список файлов. Повторите попытку позже.", //94
+            "Список файлов загружен.",                             //95
+            "Слишком много отсутствующих файлов. Обновление отменено. Переустановите игру.", //96
+            "Файлы и папки просканированы.",                       //97
+            "Создан отсутствующий каталог: ",                      //98
+            "Сравнение файлов, фаза 3",                            //99
+            "Фаза 3: проверка целостности файлов",                 //100
+            "Фаза 3: загрузка и установка файлов",                 //101
+            "Загрузка файла: {0} ({1}% завершено)",                //102
+            "Обновление завершено за: {0}",                        //103
+            "Обновление игры завершено.",                          //104
+            "Файл обновлён: ",                                     //105
+            "Ошибка при распаковке файла: ({0}). Ошибка: {1}",     //106
+            "Файл: {0} ◄ Устанавливается",                         //107
+            "Проверка игры завершена",                             //108
+            //Gameupdate end
+            //Generic Messages
+            "Project Paradise 2 - Модуль безопасности",             //109
+            "Модуль безопасности небезопасен. Игра закрыта.",       //110
+            "Обнаружена Steam-версия игры, это верно?",             //111
+            "Обнаружена распакованная версия игры, это верно?",     //112
+            "Предупреждение: использование распакованных версий на свой страх и риск!\nПоддержка не предоставляется!", //113
+            "Предупреждение: если это всё же распакованная версия, некоторые действия могут повредить игру\nи привести к переустановке!", //114
+            "Игровые серверы онлайн, игроков: ",                    //115
+            "Ошибка при получении информации. Нажмите здесь, чтобы обновить", //116
+            //Update UI-Langs end
+            //Mod Detail View
+            "Назад",                                                //117
+            "Автор",                                                //118
+            "Описание",                                             //119
+            "Версия",                                               //120
+            "Файлы",                                                //121
+            "Размер загрузки",                                      //122
+            "Размер установки",                                     //123
+            "Обновления",                                           //124
+            "Установки",                                            //125
+            "Установить | Обновить",                                //126
+            "Имя мода",                                             //127
+            "Начало загрузки мода",                                //128
+            "Установка мода ({0}) завершена",                       //129
+            "Установка мода ({0}) файл: {1} из {2}",                //130
+            "Установленные моды",                                   //131
+            "Показано: {0} модов из {1}",                           //132
+            "Нет доступных модов для этого типа игры",              //133
+            "Загрузка модов",                                       //134
+            "Мод: {0} успешно удалён",                              //135
+            "Распакованные моды нельзя удалить через лаунчер.",     //136
+            "Неверный ModId, попробуйте после перезапуска",         //137
+            "Особая благодарность \nНашей замечательной команде и нашим патронам – за вашу поддержку, участие и вклад.\nОт помощи в Discord до работы серверов – вы делаете этот проект возможным. Мы очень ценим каждого из вас.", //138
+            "У лаунчера устаревшая версия базы данных.\nПреобразовать старые настройки в новый профиль?", //139
+            "Сначала создайте игровой профиль,\nпрежде чем начинать игру.", //140
+            "Проверьте настройки профиля.\nПрофиль успешно создан как: Converted Profile", //141
         };
 
         public static string[] Portuguese_Brazil =
         {
-            "Jogar TDU2",
-            "Iniciar",
-            "Serviço",
-            "Navegador de Mods",
-            "Configurações",
-            "Informações",
-            "Sair",
-            "Últimas Notícias",
-            "Verificar Status",
-            "Voltar",
-            "Criador",
-            "Descrição",
-            "Atualizações",
-            "Downloads",
-            "Versão",
-            "Arquivos",
-            "Tamanho do Download",
-            "Tamanho da Instalação",
-            "Instalar",
-            "Instalar/Atualizar",
-            "Meus Mods",
-            "Dados de Login",
-            "Nome de Usuário",
-            "Senha",
-            "Deslogar",
-            "Enviar",
-            "Baixar",
-            "Entrar",
-            "Sair",
-            "Recarregar",
-            "Abrir Pasta de Backup",
-            "Selecionar Jogo",
-            "Conexão de Patch",
-            "Abrir Pasta do Jogo",
-            "Verificar Jogo",
-            "Abrir Savegame",
-            "Idioma do Launcher",
-            "Modo de Áudio",
-            "Máx. de Backups",
-            "Nome do Mod",
-            "A verificação de arquivos do jogo foi iniciada. Isso pode levar algum tempo. Pegue um café e relaxe enquanto o launcher trabalha.",
-            "Indexação concluída. Arquivos: {0}, Pastas: {1}",
-            "Arquivos e pastas verificados",
-            "Conectando ao servidor",
-            "Conexão estabelecida!",
-            "Erro ao conectar ao servidor.",
-            "Comparando arquivos, Fase 1",
-            "Fase 1: Verificando arquivos ausentes",
-            "Arquivos ausentes: {0}",
-            "Faltando: {0} - {1}",
-            "Verificando arquivos para alterações",
-            "Comparando arquivos, Fase 2",
-            "Fase 2: Verificando arquivo: ",
-            "Arquivo: {0} ◄ Atualização necessária, arquivo diferente [{1}|{2}]",
-            "Arquivo: {0} ◄ Arquivo está atualizado",
-            "A verificação de arquivos falhou. Por favor, tente novamente.",
-            "Verificação de arquivos concluída em: {0}",
-            "Lista de arquivos ao vivo baixada.",
-            "Não foi possível obter a lista de arquivos online. Por favor, tente novamente mais tarde.",
-            "Muitos arquivos ausentes. Atualização cancelada. Por favor, reinstale o jogo.",
-            "Arquivos e pastas verificados.",
-            "Diretório ausente criado: ",
-            "Comparando arquivos, Fase 3",
-            "Fase 3: Verificação da integridade dos arquivos",
-            "Fase 3: Baixando e instalando arquivos",
-            "Baixando arquivo: {0} ({1}% concluído)",
-            "Atualização concluída em: {0}",
-            "Atualização do jogo finalizada.",
-            "Atualizando banco de dados do Launcher",
-            "Arquivo: {0} ◄ Instalando",
-            "Arquivo atualizado: ",
-            "Falha ao extrair o arquivo: ({0}). Erro: {1}",
-            "Project Paradise 2 - Módulo de Segurança",
-            "O módulo de segurança não é seguro. O jogo foi fechado.",
-            "Consulta de mods concluída, {0} de {1} mods disponíveis exibidos.",
-            "Nome de usuário e senha são obrigatórios.",
-            "O nome de usuário é obrigatório.",
-            "A senha é obrigatória.",
-            "A senha digitada não corresponde à armazenada no servidor. Por favor, verifique sua senha e tente novamente.",
-            "Ocorreu um erro de rede: {0}\nPor favor, verifique sua conexão com a internet e tente novamente.",
-            "A URL do servidor é inválida: {0}\nSe o problema persistir, entre em contato com o suporte.",
-            "Ocorreu um erro inesperado: {0}\nPor favor, reinicie o aplicativo e tente novamente.",
-            "Ocorreu um erro desconhecido: {0}\nSe o problema persistir, entre em contato com o suporte.",
-            "Savegame disponível",
-            "Nenhum savegame encontrado",
-            "Status: {0}\nTamanho do save: {1}\nÚltimo upload: {2}\nNome do savegame: {3}\nÚltima verificação: {4}",
-            "Status: Nenhum savegame encontrado",
-            "Preparando upload",
-            "Limpando antigo savegame local",
-            "Criando savegame para upload",
-            "Iniciando upload",
-            "Progresso do upload: {0}%, Tamanho: {1}",
-            "Upload bem-sucedido",
-            "Iniciando download",
-            "Progresso do download: {0}%, Tamanho: {1}",
-            "Download concluído. Extraindo arquivos...",
-            "Savegame na nuvem extraído com sucesso.",
-            "Informações do Jogo",
-            "Caminho do jogo: ",
-            "Versão do arquivo: ",
-            "Versão do jogo: ",
-            "Aviso: Você não configurou o Launcher corretamente ou completamente.",
-            "Nenhum jogo selecionado. Por favor, selecione um jogo primeiro, atualize o jogo e configure a conexão com o serviço online.",
-            "Por favor, selecione o arquivo de jogo instalado para Test Drive Unlimited 2.",
-            "O arquivo selecionado não é o executável do Test Drive Unlimited 2.\nPor favor, selecione o arquivo correto do jogo.",
-            "Um jogo da Steam foi detectado.\nPor favor, confirme se o jogo foi instalado pela Steam.\nSe o jogo não foi instalado pela Steam, o arquivo steam_api.dll será renomeado.\n\nVocê possui o jogo na Steam?",
-            "Seu jogo selecionado não corresponde à versão oficial mais recente. \nVocê deve atualizar o jogo (execute a verificação do jogo).",
-            "A pasta do jogo não pode ser aberta porque nenhum jogo foi selecionado.",
-            "A pasta do savegame não pode ser aberta porque nenhum savegame foi encontrado.",
-            "A conexão com o servidor não pode ser alterada porque nenhum jogo foi selecionado.",
-            "A atualização não pode ser realizada porque nenhum jogo foi selecionado.",
-            "Servidor do jogo online, Jogadores: ",
-            "Erro ao obter informações, clique aqui para atualizar",
-            "Está faltando um parâmetro de inicialização. \nPor favor, verifique se o launcher está incluído no jogo da Steam e se o comando `-direct` foi configurado corretamente.",
-            "Modo online",
-            "Versão do jogo",
-            "Discord RPC",
-            "Verificação de atualização",
-            "UPnP",
-            "Versão do Steam",
-            "Deve ser usado apenas se o lançador disser para usar!",
-            "Idioma do lançador",
-            "Modo de áudio",
-            "O jogo selecionado é um jogo modificado/descompactado?",
-            "A verificação do jogo foi cancelada, jogos modificados podem ser corrompidos como resultado.",
-            "Nenhum arquivo padrão do jogo foi encontrado. Certifique-se de que o jogo esteja corretamente instalado e selecionado.",
-            "Recursos"
+            //Main UI-Langs
+            "Jogar",                                                //0
+            "Iniciar",                                              //1
+            "Configurações",                                        //2
+            "Perfis",                                               //3
+            "Serviço",                                              //4
+            "Informações",                                          //5
+            "Sobre",                                                //6
+            "Sair",                                                 //7
+            "Verificar Status",                                     //8
+            "Voltar",                                               //9
+            "Criador",                                              //10
+            "Descrição",                                            //11
+            "Atualizações",                                         //12
+            //Main UI-Langs end
+            //Settings UI-Langs
+            "Status do Discord",                                    //13
+            "Verificação de Atualização",                           //14
+            "Redirecionamento de Porta UPnP",                       //15
+            "Idioma",                                               //16
+            "Modo de Áudio",                                        //17
+            //Settings UI-Langs end
+            //Profile UI-Langs
+            "Criar Novo Perfil",                                    //18
+            //Profile UI-Langs end
+            //Create Profile UI-Langs
+            "Criar Nova Instância do Jogo",                         //19
+            "Editar Instância do Jogo",                             //20
+            "Nome do Perfil",                                       //21
+            "Argumentos",                          //22
+            "RAM Dinâmico",                                         //23
+            "Núcleos Dinâmicos",                                    //24
+            "Prioridade Alta",                                      //25
+            "Auto-Dirt",                                            //26
+            "Auto-Dano",                                            //27
+            "Modo Online",                                          //28
+            "Selecionar Jogo",                                      //29
+            "Abrir Pasta",                                          //30
+            "Patch de Conexão",                                     //31
+            "Navegador de Mods",                                    //32
+            "Atualização do Jogo",                                  //33
+            "Salvar",                                               //34
+            "Versão do Jogo: ",                                     //35
+            "Build do Jogo: {0}",                                   //36
+            "Caminho do Jogo: {0}",                                 //37
+            "Tamanho da Instalação do Jogo: {0}",                   //38
+            "Tipo de Jogo: {0} '{1}' - {2}",                        //39
+            " (Versão Incorreta) Atualização Necessária",           //40
+            "Escolha seu Jogo Test Drive Unlimited",                //41
+            "Arquivo de Configuração Trocado",                      //42
+            "Pasta do Jogo Não Existe.",                            //43
+            "Pasta Não Existe: ",                                   //44
+            "Perfil: {0} Salvo com Sucesso",                        //45
+            "Erro ao salvar o perfil: {0} Erro: {1}",               //46
+            //Create Profile UI-Langs end
+            //Service UI-Langs 
+            "Conta ou Senha não pode estar vazio",                  //47
+            "Conta ou Senha não pode estar vazio",                  //48
+            "Senha não pode estar vazia",                           //49
+            "Credenciais Inválidas, Não é Possível Entrar",         //50
+            "Erro ao Entrar na Nuvem: {0}",                         //51
+            "Status: {0}\nTamanho do Armazenamento: {1}\nÚltimo Upload: {2}\nNome do Savegame: {3}\nÚltima Verificação: {4}", //52
+            "Savegame Existe",                                      //53
+            "Nenhum Savegame Existe",                               //54
+            "Erro ao Carregar Informações do Savegame: {0}",       //55
+            "Enviar Savegame",                                      //56
+            "Progresso do Upload: {0}%, Tamanho: {1}",              //57  
+            "Progresso do Download: {0}%, Tamanho: {1}",            //58
+            "Savegame Enviado",                                     //59
+            "Baixar Savegame",                                      //60
+            "Savegame Baixado",                                     //61
+            "Desempacotando Savegame",                              //62
+            "Limpeza de Arquivos Temporários",                      //63
+            "Informações da Conta PP2",                             //64
+            "Nome da Conta",                                        //65
+            "Senha da Conta",                                       //66
+            "Entrar",                                               //67
+            "Sair",                                                 //68
+            "Atualizar",                                            //69
+            "Enviar",                                               //70
+            "Baixar",                                               //71
+            "Pasta de Backup",                                      //72
+            "Pasta de Savegames",                                   //73
+            "Máximo de Pontos de Armazenamento",                    //74
+            "Limpar",                                               //75
+            //Service UI-Langs end
+            //Update UI-Langs
+            "Iniciando Verificação do Jogo",                        //76
+            "Jogo Desempacotado Detectado, Parando Atualização",    //77
+            "Nenhuma Instalação Normal de Jogo Detectada, Parando Atualização", //78
+            "Arquivos Encontrados: {0} Pastas: {1}",               //79
+            "Conectando ao Servidor",                               //80
+            "Conexão com o Servidor OK, Iniciando Verificação de Arquivos", //81
+            "Não foi possível conectar ao servidor",                //82
+            "Comparando Arquivos, Fase 1",                          //83
+            "Fase 1: Verificando Arquivos Faltando",                //84
+            "Arquivos Faltando: {0}",                               //85
+            "Faltando: {0} - {1}",                                  //86
+            "Verificando Arquivos por Alterações",                  //87
+            "Comparando Arquivos, Fase 2",                          //88
+            "Fase 2: Verificando Arquivo: ",                        //89
+            "Arquivo: {0} ◄ Atualização Necessária, Arquivo Diferente [{1}|{2}]", //90
+            "Arquivo: {0} ◄ Arquivo está Atualizado",               //91
+            "A verificação de arquivos parece ter falhado. Por favor, tente novamente.", //92
+            "Verificação de Arquivos Concluída em: {0}",            //93
+            "Não foi possível obter a lista de arquivos online. Tente novamente mais tarde.", //94
+            "Lista de Arquivos Online Baixada.",                    //95
+            "Muitos Arquivos Faltando. Atualização Cancelada. Por favor, reinstale o jogo.", //96
+            "Arquivos e Pastas Escaneados.",                        //97
+            "Diretório Faltante Criado: ",                         //98
+            "Comparando Arquivos, Fase 3",                          //99
+            "Fase 3: Verificando Integridade dos Arquivos",         //100
+            "Fase 3: Baixando e Instalando Arquivos",               //101
+            "Baixando Arquivo: {0} ({1}% Concluído)",              //102
+            "Atualização Concluída em: {0}",                        //103
+            "Atualização do Jogo Finalizada.",                      //104
+            "Arquivo Atualizado: ",                                 //105
+            "Falha ao Desempacotar Arquivo: ({0}). Erro: {1}",      //106
+            "Arquivo: {0} ◄ Instalando",                            //107
+            "Verificação do Jogo Concluída",                        //108
+            //Gameupdate end
+            //Generic Messages
+            "Project Paradise 2 - Módulo de Segurança",             //109
+            "O módulo de segurança não é seguro. O jogo foi fechado.", //110
+            "Um jogo Steam foi detectado, está correto?",          //111
+            "Um jogo desempacotado foi detectado, está correto?",   //112
+            "Aviso: Usar jogos desempacotados é por sua conta e risco!\nNão oferecemos ajuda ou suporte aqui!", //113
+            "Aviso: Se ainda for um jogo desempacotado, algumas ações podem corromper o jogo!\nE pode exigir reinstalação.", //114
+            "Servidores de Jogo Online, Jogadores: ",              //115
+            "Erro ao buscar informações, clique aqui para atualizar", //116
+            //Update UI-Langs end
+            //Mod Detail View
+            "Voltar",                                               //117
+            "Criador",                                              //118
+            "Descrição",                                            //119
+            "Versão",                                               //120
+            "Arquivos",                                             //121
+            "Tamanho do Download",                                  //122
+            "Tamanho da Instalação",                                //123
+            "Atualizações",                                         //124
+            "Instalações",                                          //125
+            "Instalar | Atualizar",                                 //126
+            "Nome do Mod",                                          //127
+            "Iniciando Download do Mod",                            //128
+            "Instalação do Mod ({0}) Concluída",                    //129
+            "Instalando Mod ({0}) Arquivo: {1} de {2}",             //130
+            "Mods Instalados",                                      //131
+            "Mostrando: {0} Mods de {1}",                           //132
+            "Nenhum Mod Disponível para Este Tipo de Jogo",         //133
+            "Carregando Mods",                                      //134
+            "Mod: {0} foi desinstalado com sucesso",                //135
+            "Mods Desempacotados não podem ser desinstalados pelo Launcher.", //136
+            "ID de Mod Inválido. Tente reiniciar o programa.",      //137
+            "Um agradecimento especial \nAo nosso incrível time e nossos patreons – seu apoio, engajamento e contribuições significam muito para nós. \nDesde ajuda no Discord até operação dos servidores – vocês fazem este projeto possível. Valorizamos cada um de vocês.", //138
+            "O launcher possui uma versão antiga da base de dados,\nDeseja tentar converter as configurações antigas para um novo perfil?", //139
+            "Você precisa criar um perfil de jogo,\nAntes de jogar.", //140
+            "Por favor, verifique as configurações do perfil\nO perfil foi criado com sucesso como: Perfil Convertido", //141
         };
 
         public static string[] English_UK =
         {
-            "Play TDU2",
-            "Start",
-            "Service",
-            "Mod Browser",
-            "Settings",
-            "Information",
-            "Exit",
-            "Latest News",
-            "Check Status",
-            "Back",
-            "Creator",
-            "Description",
-            "Updates",
-            "Downloads",
-            "Version",
-            "Files",
-            "Download Size",
-            "Installation Size",
-            "Install",
-            "Install/Update",
-            "My Mods",
-            "Login Details",
-            "Username",
-            "Password",
-            "Log Out",
-            "Upload",
-            "Download",
-            "Sign In",
-            "Sign Out",
-            "Reload",
-            "Open Backup Folder",
-            "Select Game",
-            "Patch Connection",
-            "Open Game Folder",
-            "Check Game",
-            "Open Savegame",
-            "Launcher Language",
-            "Audio Mode",
-            "Max. Backups",
-            "Mod Name",
-            "Game file verification has started. This may take a while. Grab a coffee and relax while the launcher works.",
-            "Indexing completed. Files: {0}, Folders: {1}",
-            "Files and folders scanned",
-            "Connecting to the server",
-            "Connection established!",
-            "Error connecting to the server.",
-            "Comparing files, Phase 1",
-            "Phase 1: Checking for missing files",
-            "Missing files: {0}",
-            "Missing: {0} - {1}",
-            "Checking files for changes",
-            "Comparing files, Phase 2",
-            "Phase 2: Checking file: ",
-            "File: {0} ◄ Update required, file differs [{1}|{2}]",
-            "File: {0} ◄ File is up to date",
-            "File verification appears to have failed. Please try again.",
-            "File verification completed in: {0}",
-            "Live file list downloaded.",
-            "Failed to retrieve online game file list. Please try again later.",
-            "Too many missing files. Update aborted. Please reinstall the game.",
-            "Files and folders scanned.",
-            "Created missing directory: ",
-            "Comparing files, Phase 3",
-            "Phase 3: Checking file integrity",
-            "Phase 3: Downloading and installing files",
-            "Downloading file: {0} ({1}% completed)",
-            "Update completed in: {0}",
-            "Game update finished.",
-            "Updating launcher database",
-            "File: {0} ◄ Installing",
-            "File updated: ",
-            "Failed to extract file: ({0}). Error: {1}",
-            "Project Paradise 2 - Security Module",
-            "The security module is not secure. The game has been closed.",
-            "Mod query completed, {0} of {1} available mods displayed.",
-            "Username and password are required.",
-            "Username is required.",
-            "Password is required.",
-            "The entered password does not match the one stored on the server. Please check your password and try again.",
-            "A network error has occurred: {0}\nPlease check your internet connection and try again.",
-            "The server URL is invalid: {0}\nIf the problem persists, please contact support.",
-            "An unexpected error has occurred: {0}\nPlease restart the application and try again.",
-            "An unknown error has occurred: {0}\nIf the problem persists, please contact support.",
-            "Savegame available",
-            "No savegame found",
-            "Status: {0}\nSave Size: {1}\nLast Upload: {2}\nSavegame Name: {3}\nLast Check: {4}",
-            "Status: No savegame found",
-            "Preparing upload",
-            "Cleaning old local savegame",
-            "Creating savegame for upload",
-            "Starting upload",
-            "Upload progress: {0}%, Size: {1}",
-            "Upload successful",
-            "Starting download",
-            "Download progress: {0}%, Size: {1}",
-            "Download completed. Extracting files...",
-            "Cloud savegame successfully extracted.",
-            "Game Information",
-            "Game Path: ",
-            "File Version: ",
-            "Game Version: ",
-            "Warning: You have not configured the launcher correctly or completely.",
-            "No game selected. Please select a game first, update the game, and set up the online service connection.",
-            "Please select the installed game file for Test Drive Unlimited 2.",
-            "The selected file is not the executable for Test Drive Unlimited 2.\nPlease select the correct game file.",
-            "A Steam game was detected.\nPlease confirm whether the game was installed via Steam.\nIf the game was not installed via Steam, the steam_api.dll will be renamed.\n\nDo you own the game on Steam?",
-            "Your selected game does not match the latest official game version. \nYou should update the game (run the game check).",
-            "The game folder cannot be opened because no game has been selected.",
-            "The savegame folder cannot be opened because no savegame was found.",
-            "The server connection cannot be changed because no game has been selected.",
-            "The update cannot be performed because no game has been selected.",
-            "Game server online, Players: ",
-            "Error retrieving information, click here to refresh",
-            "A startup parameter is missing. \nPlease check if the launcher is included in the Steam game and if the `-direct` command is set correctly.",
-            "Online mode",
-            "Game build",
-            "Discord RPC",
-            "Update check",
-            "UPnP",
-            "Steam build",
-            "Should only be used if the launcher says so!",
-            "Launcher language",
-            "Audio mode",
-            "Is the selected game a modified/unpacked game?",
-            "The game verification was canceled, modified games may be broken as a result.",
-            "No standard game files were found. Make sure the game is properly installed and selected.",
-            "Resources"
+            //Main UI-Langs
+            "Play",                                                 //0
+            "Start",                                                //1
+            "Settings",                                             //2
+            "Profiles",                                             //3
+            "Service",                                              //4
+            "Information",                                          //5
+            "About",                                                //6
+            "Exit",                                                 //7
+            "Check Status",                                         //8
+            "Back",                                                 //9
+            "Creator",                                              //10
+            "Description",                                          //11
+            "Updates",                                              //12
+            //Main UI-Langs end
+            //Settings UI-Langs
+            "Discord Status",                                       //13
+            "Update Check",                                         //14
+            "UPnP Port Forwarding",                                 //15
+            "Language",                                             //16
+            "Sound Mode",                                           //17
+            //Settings UI-Langs end
+            //Profile UI-Langs
+            "Create New Profile",                                   //18
+            //Profile UI-Langs end
+            //Create Profile UI-Langs
+            "Create New Game Instance",                             //19
+            "Edit Game Instance",                                   //20
+            "Profile Name",                                         //21
+            "Launch Args",                                          //22
+            "Dynamic RAM",                                          //23
+            "Dynamic Cores",                                        //24
+            "Higher Priority",                                      //25
+            "Auto Dirt",                                            //26
+            "Auto Damage",                                          //27
+            "Online Mode",                                          //28
+            "Select Game",                                          //29
+            "Open Folder",                                          //30
+            "Connection Patch",                                     //31
+            "Mod Browser",                                          //32
+            "Game Update",                                          //33
+            "Save",                                                 //34
+            "Game Version: ",                                       //35
+            "Game Build: {0}",                                      //36
+            "Game Path: {0}",                                       //37
+            "Installation Size: {0}",                               //38
+            "Game Type: {0} '{1}' - {2}",                           //39
+            " (Incorrect Game Version) Update Required",            //40
+            "Select your Test Drive Unlimited game",                //41
+            "Config file has been replaced",                        //42
+            "Game directory does not exist.",                       //43
+            "Folder does not exist: ",                              //44
+            "Profile: {0} saved successfully",                      //45
+            "Error saving profile: {0} Error: {1}",                 //46
+            //Create Profile UI-Langs end
+            //Service UI-Langs 
+            "Account or password cannot be empty",                  //47
+            "Account or password cannot be empty",                  //48
+            "Password cannot be empty",                             //49
+            "Incorrect login details, login not possible",          //50
+            "Error logging into cloud: {0}",                        //51
+            "Status: {0}\nStorage Size: {1}\nLast Uploaded: {2}\nSavegame Name: {3}\nLast Checked: {4}", //52
+            "Savegame Exists",                                      //53
+            "No Savegame Exists",                                   //54
+            "Error loading savegame info: {0}",                     //55
+            "Upload Savegame",                                      //56
+            "Upload Progress: {0}%, Size: {1}",                     //57  
+            "Download Progress: {0}%, Size: {1}",                   //58
+            "Savegame Uploaded",                                    //59
+            "Download Savegame",                                    //60
+            "Savegame Downloaded",                                  //61
+            "Extract Savegame",                                     //62
+            "Cleanup Temp Files",                                   //63
+            "PP2 Account Info",                                     //64
+            "Account Name",                                         //65
+            "Account Password",                                     //66
+            "Login",                                                //67
+            "Logout",                                               //68
+            "Refresh",                                              //69
+            "Upload",                                               //70
+            "Download",                                             //71
+            "Backup Folder",                                        //72
+            "Savegame Folder",                                      //73
+            "Max. Save Points",                                     //74
+            "Cleanup",                                              //75
+            //Service UI-Langs end
+            //Update UI-Langs
+            "Starting Game Verification",                           //76
+            "Unpacked Game Detected, Stopping Update",              //77
+            "No Regular Game Installation Detected, Stopping Update", //78
+            "Files Found: {0} Folders: {1}",                        //79
+            "Connecting to Server",                                 //80
+            "Connection to Server: OK, Starting File Check",        //81
+            "Could Not Connect to Server",                          //82
+            "Comparing Files, Phase 1",                             //83
+            "Phase 1: Checking for Missing Files",                  //84
+            "Missing Files: {0}",                                   //85
+            "Missing: {0} - {1}",                                   //86
+            "Checking Files for Modifications",                     //87
+            "Comparing Files, Phase 2",                             //88
+            "Phase 2: Checking File: ",                             //89
+            "File: {0} ◄ Update Required, File Differs [{1}|{2}]",  //90
+            "File: {0} ◄ File is Up-to-Date",                       //91
+            "File Verification Failed. Please Try Again.",          //92
+            "File Verification Completed in: {0}",                  //93
+            "Could Not Retrieve Online File List. Please Try Again Later.", //94
+            "Live File List Downloaded.",                           //95
+            "Too Many Missing Files. Update Aborted. Please Reinstall the Game.", //96
+            "Files and Folders Scanned.",                           //97
+            "Created Missing Directory: ",                          //98
+            "Comparing Files, Phase 3",                             //99
+            "Phase 3: Verifying File Integrity",                    //100
+            "Phase 3: Downloading and Installing Files",            //101
+            "Downloading File: {0} ({1}% Complete)",                //102
+            "Update Completed in: {0}",                             //103
+            "Game Update Finished.",                                //104
+            "File Updated: ",                                       //105
+            "Failed to Extract File: ({0}). Error: {1}",            //106
+            "File: {0} ◄ Installing",                               //107
+            "Game Check Complete",                                  //108
+            //Gameupdate end
+            //Generic Messages
+            "Project Paradise 2 - Security Module",                 //109
+            "The security module is not secure. The game has been closed.", //110
+            "A Steam version of the game was detected. Is that correct?", //111
+            "An unpacked version of the game was detected. Is that correct?", //112
+            "Warning: Using unpacked games is at your own risk!\nWe provide no help or support for this!", //113
+            "Warning: If this is indeed an unpacked game, some actions may damage your installation\nand require reinstallation!", //114
+            "Game Servers Online, Players: ",                       //115
+            "Error retrieving information. Click here to refresh",  //116
+            //Update UI-Langs end
+            //Mod Detail View
+            "Back",                                                 //117
+            "Creator",                                              //118
+            "Description",                                          //119
+            "Version",                                              //120
+            "Files",                                                //121
+            "Download Size",                                        //122
+            "Installation Size",                                    //123
+            "Updates",                                              //124
+            "Installations",                                        //125
+            "Install | Update",                                     //126
+            "Mod Name",                                             //127
+            "Starting Mod Download",                                //128
+            "Mod Installation ({0}) Completed",                     //129
+            "Installing Mod ({0}) File: {1} of {2}",                //130
+            "Installed Mods",                                       //131
+            "Showing: {0} Mods of {1}",                             //132
+            "No Mods Available for this Game Type",                 //133
+            "Loading Mods",                                         //134
+            "Mod: {0} Uninstalled Successfully",                    //135
+            "Unpacked Mods Cannot Be Uninstalled via Launcher.",    //136
+            "Invalid ModId. Please Try Again After Restart",        //137
+            "A very special thank you \nto our wonderful team and patrons – your support, dedication and contributions mean the world to us. \nFrom helping on Discord to keeping the servers running – you make this project possible. We truly appreciate each and every one of you.", //138
+            "The launcher has an outdated database version.\nWould you like to convert the old settings into a new profile?", //139
+            "You must create a game profile\nbefore you can play.", //140
+            "Please check the profile settings.\nProfile successfully created as: Converted Profile", //141
         };
 
         public static string[] Dutch =
         {
-            "TDU2 Spelen",
-            "Start",
-            "Service",
-            "Modbrowser",
-            "Instellingen",
-            "Informatie",
-            "Afsluiten",
-            "Laatste nieuws",
-            "Controleer status",
-            "Terug",
-            "Maker",
-            "Beschrijving",
-            "Updates",
-            "Downloads",
-            "Versie",
-            "Bestanden",
-            "Downloadgrootte",
-            "Installatiegrootte",
-            "Installeren",
-            "Installeren/Updaten",
-            "Mijn Mods",
-            "Inloggegevens",
-            "Gebruikersnaam",
-            "Wachtwoord",
-            "Uitloggen",
-            "Uploaden",
-            "Downloaden",
-            "Inloggen",
-            "Uitloggen",
-            "Herladen",
-            "Backup-map openen",
-            "Spel selecteren",
-            "Patch-verbinding",
-            "Spelmap openen",
-            "Spel controleren",
-            "Savegame openen",
-            "Launcher-taal",
-            "Audio-modus",
-            "Max. back-ups",
-            "Mod-naam",
-            "De spelbestandcontrole is gestart. Dit kan even duren. Haal een kopje koffie en ontspan terwijl de launcher werkt.",
-            "Indexeren voltooid. Bestanden: {0}, Mappen: {1}",
-            "Bestanden en mappen gescand",
-            "Verbinding maken met de server",
-            "Verbinding tot stand gebracht!",
-            "Fout bij verbinden met de server.",
-            "Vergelijk bestanden, fase 1",
-            "Fase 1: Controleren op ontbrekende bestanden",
-            "Ontbrekende bestanden: {0}",
-            "Ontbreekt: {0} - {1}",
-            "Bestanden controleren op wijzigingen",
-            "Vergelijk bestanden, fase 2",
-            "Fase 2: Bestand controleren: ",
-            "Bestand: {0} ◄ Update vereist, bestand verschilt [{1}|{2}]",
-            "Bestand: {0} ◄ Bestand is up-to-date",
-            "De bestandcontrole lijkt te zijn mislukt. Probeer het opnieuw.",
-            "Bestandcontrole voltooid in: {0}",
-            "Live bestandslijst gedownload.",
-            "Kon de online bestandslijst niet ophalen. Probeer het later opnieuw.",
-            "Te veel ontbrekende bestanden. Update geannuleerd. Installeer het spel opnieuw.",
-            "Bestanden en mappen gescand.",
-            "Ontbrekende map aangemaakt: ",
-            "Vergelijk bestanden, fase 3",
-            "Fase 3: Controleren van bestandsintegriteit",
-            "Fase 3: Bestanden downloaden en installeren",
-            "Downloaden van bestand: {0} ({1}% voltooid)",
-            "Update voltooid in: {0}",
-            "Spelupdate voltooid.",
-            "Launcher-database bijwerken",
-            "Bestand: {0} ◄ Installeren",
-            "Bestand bijgewerkt: ",
-            "Uitpakken van bestand mislukt: ({0}). Fout: {1}",
-            "Project Paradise 2 - Beveiligingsmodule",
-            "De beveiligingsmodule is niet veilig. Het spel is gesloten.",
-            "Mod-query voltooid, {0} van {1} beschikbare mods weergegeven.",
-            "Gebruikersnaam en wachtwoord zijn vereist.",
-            "Gebruikersnaam is vereist.",
-            "Wachtwoord is vereist.",
-            "Het ingevoerde wachtwoord komt niet overeen met het wachtwoord op de server. Controleer uw wachtwoord en probeer het opnieuw.",
-            "Er is een netwerkfout opgetreden: {0}\nControleer uw internetverbinding en probeer het opnieuw.",
-            "De server-URL is ongeldig: {0}\nNeem contact op met de ondersteuning als het probleem zich blijft voordoen.",
-            "Er is een onverwachte fout opgetreden: {0}\nHerstart de applicatie en probeer het opnieuw.",
-            "Er is een onbekende fout opgetreden: {0}\nNeem contact op met de ondersteuning als het probleem zich blijft voordoen.",
-            "Savegame beschikbaar",
-            "Geen savegame gevonden",
-            "Status: {0}\nOpslaggrootte: {1}\nLaatst geüpload: {2}\nSavegame-naam: {3}\nLaatste controle: {4}",
-            "Status: Geen savegame gevonden",
-            "Upload voorbereiden",
-            "Oude lokale savegame opruimen",
-            "Savegame voor upload maken",
-            "Upload starten",
-            "Uploadvoortgang: {0}%, Grootte: {1}",
-            "Upload succesvol",
-            "Download starten",
-            "Downloadvoortgang: {0}%, Grootte: {1}",
-            "Download voltooid. Bestanden uitpakken...",
-            "Cloud-savegame succesvol uitgepakt.",
-            "Spelinformatie",
-            "Spelpad: ",
-            "Bestandsversie: ",
-            "Spelversie: ",
-            "Waarschuwing: U heeft de launcher niet correct of volledig geconfigureerd.",
-            "Geen spel geselecteerd. Selecteer eerst een spel, update het spel en stel de online serviceverbinding in.",
-            "Selecteer het geïnstalleerde spelbestand voor Test Drive Unlimited 2.",
-            "Het geselecteerde bestand is niet het uitvoerbare bestand voor Test Drive Unlimited 2.\nSelecteer het juiste spelbestand.",
-            "Een Steam-spel is gedetecteerd.\nBevestig of het spel via Steam is geïnstalleerd.\nAls het spel niet via Steam is geïnstalleerd, wordt steam_api.dll hernoemd.\n\nHeeft u het spel op Steam?",
-            "Uw geselecteerde spel komt niet overeen met de nieuwste officiële spelversie.\nU moet het spel bijwerken (voer de spelcontrole uit).",
-            "De spelmap kan niet worden geopend omdat er geen spel is geselecteerd.",
-            "De savegame-map kan niet worden geopend omdat er geen savegame is gevonden.",
-            "De serververbinding kan niet worden gewijzigd omdat er geen spel is geselecteerd.",
-            "De update kan niet worden uitgevoerd omdat er geen spel is geselecteerd.",
-            "Game-server online, spelers: ",
-            "Fout bij ophalen van informatie, klik hier om te verversen",
-            "Er ontbreekt een opstartparameter.\nControleer of de launcher in het Steam-spel is opgenomen en of de -direct-opdracht correct is ingesteld.",
-            "Online modus",
-            "Game build",
-            "Discord RPC",
-            "Update controle",
-            "UPnP",
-            "Steam versie",
-            "Mag alleen gebruikt worden als de launcher dit zegt!",
-            "Launcher taal",
-            "Audiomodus",
-            "Is het geselecteerde spel een gemodificeerd/uitgepakte game?",
-            "De gameverificatie werd geannuleerd, gemodificeerde games kunnen daardoor kapot gaan.",
-            "Geen standaard spelbestanden gevonden. Zorg ervoor dat het spel correct is geïnstalleerd en geselecteerd.",
-            "Bronnen"
+            //Main UI-Langs
+            "Spelen",                                               //0
+            "Start",                                                //1
+            "Instellingen",                                         //2
+            "Profielen",                                            //3
+            "Service",                                              //4
+            "Informatie",                                           //5
+            "Over",                                                 //6
+            "Afsluiten",                                            //7
+            "Status controleren",                                   //8
+            "Terug",                                                //9
+            "Maker",                                                //10
+            "Beschrijving",                                         //11
+            "Updates",                                              //12
+            //Main UI-Langs end
+            //Settings UI-Langs
+            "Discord-status",                                       //13
+            "Updatecontrole",                                       //14
+            "UPnP Poortdoorsturing",                                //15
+            "Taal",                                                 //16
+            "Geluidsmodus",                                         //17
+            //Settings UI-Langs end
+            //Profile UI-Langs
+            "Nieuw profiel aanmaken",                               //18
+            //Profile UI-Langs end
+            //Create Profile UI-Langs
+            "Nieuwe game-instantie maken",                          //19
+            "Game-instantie bewerken",                              //20
+            "Profielnaam",                                          //21
+            "Startargs",                                      //22
+            "Dynamisch RAM-gebruik",                                //23
+            "Dynamische cores",                                     //24
+            "Hogere prioriteit",                                    //25
+            "Auto-vuil",                                            //26
+            "Auto-schade",                                          //27
+            "Online-modus",                                         //28
+            "Spel selecteren",                                      //29
+            "Map openen",                                           //30
+            "Verbindingspatch",                                     //31
+            "Mod-browser",                                          //32
+            "Game-update",                                          //33
+            "Opslaan",                                              //34
+            "Gameversie: ",                                         //35
+            "Gamebuild: {0}",                                       //36
+            "Gamepad: {0}",                                         //37
+            "Installatiegrootte: {0}",                              //38
+            "Speltype: {0} '{1}' - {2}",                            //39
+            " (Verkeerde gameversie) Update vereist",               //40
+            "Selecteer je Test Drive Unlimited-spel",               //41
+            "Configuratiebestand is vervangen",                     //42
+            "Spelmap bestaat niet.",                                //43
+            "Map bestaat niet: ",                                   //44
+            "Profiel: {0} succesvol opgeslagen",                    //45
+            "Fout bij het opslaan van profiel: {0} Fout: {1}",      //46
+            //Create Profile UI-Langs end
+            //Service UI-Langs 
+            "Account of wachtwoord mag niet leeg zijn",             //47
+            "Account of wachtwoord mag niet leeg zijn",             //48
+            "Wachtwoord mag niet leeg zijn",                        //49
+            "Onjuiste inloggegevens, inloggen niet mogelijk",       //50
+            "Fout bij het inloggen op de cloud: {0}",               //51
+            "Status: {0}\nOpslaggrootte: {1}\nLaatst geüpload: {2}\nSavegame-naam: {3}\nLaatste controle: {4}", //52
+            "Savegame bestaat",                                     //53
+            "Geen savegame gevonden",                               //54
+            "Fout bij het laden van savegame-info: {0}",            //55
+            "Savegame uploaden",                                    //56
+            "Uploadvoortgang: {0}%, Grootte: {1}",                  //57  
+            "Downloadvoortgang: {0}%, Grootte: {1}",                //58
+            "Savegame geüpload",                                    //59
+            "Savegame downloaden",                                  //60
+            "Savegame gedownload",                                  //61
+            "Savegame uitpakken",                                   //62
+            "Tijdelijke bestanden opruimen",                        //63
+            "PP2-accountinformatie",                                //64
+            "Accountnaam",                                          //65
+            "Accountwachtwoord",                                    //66
+            "Inloggen",                                             //67
+            "Uitloggen",                                            //68
+            "Vernieuwen",                                           //69
+            "Uploaden",                                             //70
+            "Downloaden",                                           //71
+            "Back-upmap",                                           //72
+            "Savegame-map",                                         //73
+            "Max. aantal opslagpunten",                             //74
+            "Opruimen",                                             //75
+            //Service UI-Langs end
+            //Update UI-Langs
+            "Gamecontrole starten",                                 //76
+            "Uitgepakte game gedetecteerd, update gestopt",         //77
+            "Geen normale game-installatie gedetecteerd, update gestopt", //78
+            "Gevonden bestanden: {0} Mappen: {1}",                  //79
+            "Verbinding maken met server",                          //80
+            "Verbinding met server: OK, start bestandscontrole",    //81
+            "Kon geen verbinding maken met server",                 //82
+            "Bestanden vergelijken, fase 1",                        //83
+            "Fase 1: controle op ontbrekende bestanden",            //84
+            "Ontbrekende bestanden: {0}",                           //85
+            "Ontbreekt: {0} - {1}",                                 //86
+            "Bestanden controleren op wijzigingen",                 //87
+            "Bestanden vergelijken, fase 2",                        //88
+            "Fase 2: bestand controleren: ",                        //89
+            "Bestand: {0} ◄ Update vereist, bestand verschilt [{1}|{2}]", //90
+            "Bestand: {0} ◄ Bestand is up-to-date",                 //91
+            "Bestandscontrole mislukt. Probeer het opnieuw.",       //92
+            "Bestandscontrole voltooid in: {0}",                    //93
+            "Kon online bestandslijst niet ophalen. Probeer het later opnieuw.", //94
+            "Live-bestandslijst gedownload.",                       //95
+            "Te veel ontbrekende bestanden. Update geannuleerd. Installeer het spel opnieuw.", //96
+            "Bestanden en mappen gescand.",                         //97
+            "Ontbrekende map aangemaakt: ",                         //98
+            "Bestanden vergelijken, fase 3",                        //99
+            "Fase 3: bestandsintegriteit controleren",              //100
+            "Fase 3: bestanden downloaden en installeren",          //101
+            "Bestand downloaden: {0} ({1}% voltooid)",              //102
+            "Update voltooid in: {0}",                              //103
+            "Game-update voltooid.",                                //104
+            "Bestand bijgewerkt: ",                                 //105
+            "Uitpakken van bestand mislukt: ({0}). Fout: {1}",      //106
+            "Bestand: {0} ◄ Wordt geïnstalleerd",                  //107
+            "Gamecontrole voltooid",                                //108
+            //Gameupdate end
+            //Generic Messages
+            "Project Paradise 2 - Beveiligingsmodule",              //109
+            "De beveiligingsmodule is niet veilig. Het spel is afgesloten.", //110
+            "Een Steam-versie van het spel is gedetecteerd. Klopt dat?", //111
+            "Een uitgepakte versie van het spel is gedetecteerd. Klopt dat?", //112
+            "Waarschuwing: het gebruik van uitgepakte spellen is op eigen risico!\nWij bieden hiervoor geen hulp of ondersteuning!", //113
+            "Waarschuwing: als dit inderdaad een uitgepakte game is, kunnen sommige acties het spel beschadigen\nof een herinstallatie vereisen!", //114
+            "Game-servers online, spelers: ",                       //115
+            "Fout bij het ophalen van informatie. Klik hier om te vernieuwen", //116
+            //Update UI-Langs end
+            //Mod Detail View
+            "Terug",                                                //117
+            "Maker",                                                //118
+            "Beschrijving",                                         //119
+            "Versie",                                               //120
+            "Bestanden",                                            //121
+            "Downloadgrootte",                                      //122
+            "Installatiegrootte",                                   //123
+            "Updates",                                              //124
+            "Installaties",                                         //125
+            "Installeren | Updaten",                                //126
+            "Modnaam",                                              //127
+            "Mod-download starten",                                 //128
+            "Mod-installatie ({0}) voltooid",                       //129
+            "Mod ({0}) installeren bestand: {1} van {2}",           //130
+            "Geïnstalleerde mods",                                  //131
+            "Toon: {0} mods van {1}",                               //132
+            "Geen mods beschikbaar voor dit speltype",              //133
+            "Mods laden",                                           //134
+            "Mod: {0} succesvol verwijderd",                        //135
+            "Uitgepakte mods kunnen niet via de launcher worden verwijderd.", //136
+            "Ongeldige ModId, probeer opnieuw na herstart",         //137
+            "Een speciale dank \naan ons geweldige team en onze patrons – jullie steun, inzet en bijdragen betekenen enorm veel voor ons. \nVan hulp op Discord tot het draaien van de servers – jullie maken dit project mogelijk. We waarderen jullie allemaal enorm.", //138
+            "De launcher heeft een verouderde databaseversie.\nWil je de oude instellingen omzetten naar een nieuw profiel?", //139
+            "Je moet eerst een spelprofiel aanmaken\nvoordat je kunt spelen.", //140
+            "Controleer de profielinstellingen.\nProfiel succesvol aangemaakt als: Converted Profile", //141
         };
 
         public static string[] Romanian =
         {
-            "Joacă TDU2",
-            "Start",
-            "Serviciu",
-            "Browser de moduri",
-            "Setări",
-            "Informații",
-            "Ieșire",
-            "Ultimele știri",
-            "Verifică starea",
-            "Înapoi",
-            "Autor",
-            "Descriere",
-            "Actualizări",
-            "Descărcări",
-            "Versiune",
-            "Fișiere",
-            "Dimensiune descărcare",
-            "Dimensiune instalare",
-            "Instalare",
-            "Instalare/Actualizare",
-            "Modurile mele",
-            "Date de conectare",
-            "Nume utilizator",
-            "Parolă",
-            "Deconectare",
-            "Încărcare",
-            "Descărcare",
-            "Autentificare",
-            "Deautentificare",
-            "Reîncărcare",
-            "Deschide folderul de backup",
-            "Alege jocul",
-            "Conectare patch",
-            "Deschide folderul jocului",
-            "Verifică jocul",
-            "Deschide fișierul de salvare",
-            "Limbă launcher",
-            "Mod audio",
-            "Max. backup-uri",
-            "Nume mod",
-            "Verificarea fișierelor jocului a început. Acest proces poate dura ceva timp. Ia-ți o cafea și relaxează-te în timp ce launcher-ul lucrează.",
-            "Indexare finalizată. Fișiere: {0}, Foldere: {1}",
-            "Fișiere și foldere scanate",
-            "Conectare la server",
-            "Conectat!",
-            "Eroare la conectarea la server.",
-            "Comparare fișiere, faza 1",
-            "Faza 1: Verificare fișiere lipsă",
-            "Fișiere lipsă: {0}",
-            "Lipsește: {0} - {1}",
-            "Verificare modificări fișiere",
-            "Comparare fișiere, faza 2",
-            "Faza 2: Verificare fișier: ",
-            "Fișier: {0} ◄ Necesită actualizare, diferă [{1}|{2}]",
-            "Fișier: {0} ◄ Este actualizat",
-            "Verificarea fișierelor a eșuat. Încearcă din nou.",
-            "Verificare finalizată în: {0}",
-            "Listă fișiere live descărcată.",
-            "Nu s-a putut obține lista online a fișierelor. Încearcă mai târziu.",
-            "Prea multe fișiere lipsă. Actualizarea anulată. Reinstalează jocul.",
-            "Fișiere și foldere scanate.",
-            "Folder lipsă creat: ",
-            "Comparare fișiere, faza 3",
-            "Faza 3: Verificare integritate fișiere",
-            "Faza 3: Descărcare și instalare fișiere",
-            "Descărcare fișier: {0} ({1}% finalizat)",
-            "Actualizare finalizată în: {0}",
-            "Actualizare joc finalizată.",
-            "Actualizare bază de date launcher",
-            "Fișier: {0} ◄ Se instalează",
-            "Fișier actualizat: ",
-            "Eșec la extragerea fișierului: ({0}). Eroare: {1}",
-            "Project Paradise 2 - Modul de securitate",
-            "Modulul de securitate nu este sigur. Jocul a fost închis.",
-            "Interogare moduri finalizată, {0} din {1} moduri disponibile afișate.",
-            "Numele utilizatorului și parola sunt necesare.",
-            "Numele utilizatorului este necesar.",
-            "Parola este necesară.",
-            "Parola introdusă nu se potrivește cu cea stocată pe server. Verifică parola și încearcă din nou.",
-            "A apărut o eroare de rețea: {0}\nVerifică conexiunea la internet și încearcă din nou.",
-            "URL-ul serverului este invalid: {0}\nContactează suportul dacă problema persistă.",
-            "A apărut o eroare neașteptată: {0}\nRepornește aplicația și încearcă din nou.",
-            "A apărut o eroare necunoscută: {0}\nContactează suportul dacă problema persistă.",
-            "Fișier de salvare găsit",
-            "Fișier de salvare inexistent",
-            "Stare: {0}\nDimensiune fișier: {1}\nUltima încărcare: {2}\nNume fișier de salvare: {3}\nUltima verificare: {4}",
-            "Stare: Niciun fișier de salvare găsit",
-            "Pregătire încărcare",
-            "Curățare fișier de salvare local",
-            "Creare fișier de salvare pentru încărcare",
-            "Începere încărcare",
-            "Progres încărcare: {0}%, Dimensiune: {1}",
-            "Încărcare reușită",
-            "Începere descărcare",
-            "Progres descărcare: {0}%, Dimensiune: {1}",
-            "Descărcare finalizată. Se extrag fișierele...",
-            "Fișier de salvare din cloud extras cu succes.",
-            "Informații joc",
-            "Calea jocului: ",
-            "Versiune fișier: ",
-            "Versiune joc: ",
-            "Avertizare: Launcher-ul nu este configurat corect sau complet.",
-            "Niciun joc selectat. Selectează un joc, actualizează-l și configurează conexiunea la serviciul online.",
-            "Selectează fișierul executabil instalat pentru Test Drive Unlimited 2.",
-            "Fișierul selectat nu este executabilul pentru Test Drive Unlimited 2.\nSelectează fișierul corect.",
-            "A fost detectat un joc Steam.\nConfirmă dacă jocul este instalat prin Steam.\nDacă jocul nu este instalat prin Steam, steam_api.dll va fi redenumit.\n\nDeții jocul pe Steam?",
-            "Jocul selectat nu corespunde celei mai recente versiuni oficiale.\nAr trebui să actualizezi jocul (execută verificarea jocului).",
-            "Folderul jocului nu poate fi deschis deoarece niciun joc nu este selectat.",
-            "Folderul fișierelor de salvare nu poate fi deschis deoarece nu există niciun fișier de salvare.",
-            "Conexiunea la server nu poate fi schimbată deoarece niciun joc nu este selectat.",
-            "Actualizarea nu poate fi efectuată deoarece niciun joc nu este selectat.",
-            "Server joc online, jucători: ",
-            "Eroare la obținerea informațiilor, click aici pentru a reîmprospăta",
-            "Lipsește un parametru de pornire.\nVerifică dacă launcher-ul este inclus în jocul Steam și dacă comanda -direct este setată corect.",
-            "Mod online",
-            "Versiune joc",
-            "Discord RPC",
-            "Verificare actualizare",
-            "UPnP",
-            "Versiune Steam",
-            "Ar trebui folosit doar dacă lansatorul spune acest lucru!",
-            "Limba lansatorului",
-            "Mod audio",
-            "Jocul selectat este un joc modificat/dezarchivat?",
-            "Verificarea jocului a fost anulată, jocurile modificate pot fi deteriorate din această cauză.",
-            "Nu au fost găsite fișiere standard de joc. Asigură-te că jocul este instalat și selectat corect.",
-            "Resurse"
+            //Main UI-Langs
+            "Joacă",                                                //0
+            "Start",                                                //1
+            "Setări",                                               //2
+            "Profiluri",                                            //3
+            "Serviciu",                                             //4
+            "Informații",                                           //5
+            "Despre",                                               //6
+            "Ieșire",                                               //7
+            "Verifică statusul",                                    //8
+            "Înapoi",                                               //9
+            "Autor",                                                //10
+            "Descriere",                                            //11
+            "Actualizări",                                          //12
+            //Main UI-Langs end
+            //Settings UI-Langs
+            "Status Discord",                                       //13
+            "Verificare actualizări",                               //14
+            "Redirecționare port UPnP",                             //15
+            "Limbă",                                                //16
+            "Mod sunet",                                            //17
+            //Settings UI-Langs end
+            //Profile UI-Langs
+            "Creează un profil nou",                                //18
+            //Profile UI-Langs end
+            //Create Profile UI-Langs
+            "Creează o nouă instanță de joc",                       //19
+            "Editează instanța de joc",                             //20
+            "Nume profil",                                          //21
+            "Argumente",                                 //22
+            "Utilizare dinamică a RAM-ului",                        //23
+            "Procesoare dinamice",                                  //24
+            "Prioritate ridicată",                                  //25
+            "Murdărie automată",                                    //26
+            "Daune automate",                                       //27
+            "Mod online",                                           //28
+            "Selectează jocul",                                     //29
+            "Deschide folderul",                                    //30
+            "Patch de conexiune",                                   //31
+            "Browser de moduri",                                    //32
+            "Actualizare joc",                                      //33
+            "Salvează",                                             //34
+            "Versiunea jocului: ",                                  //35
+            "Build joc: {0}",                                       //36
+            "Gamepad: {0}",                                         //37
+            "Dimensiune instalare: {0}",                            //38
+            "Tip joc: {0} '{1}' - {2}",                             //39
+            " (Versiune greșită a jocului) Este necesară actualizarea", //40
+            "Selectează jocul tău Test Drive Unlimited",            //41
+            "Fișierul de configurare a fost înlocuit",              //42
+            "Folderul jocului nu există.",                          //43
+            "Folder inexistent: ",                                  //44
+            "Profil: {0} salvat cu succes",                         //45
+            "Eroare la salvarea profilului: {0} Eroare: {1}",       //46
+            //Create Profile UI-Langs end
+            //Service UI-Langs 
+            "Contul sau parola nu pot fi goale",                    //47
+            "Contul sau parola nu pot fi goale",                    //48
+            "Parola nu poate fi goală",                             //49
+            "Datele de conectare sunt incorecte, autentificare eșuată", //50
+            "Eroare la autentificarea în cloud: {0}",               //51
+            "Status: {0}\nDimensiune stocare: {1}\nUltima încărcare: {2}\nNume salvare: {3}\nUltima verificare: {4}", //52
+            "Savegame existent",                                    //53
+            "Nu s-a găsit niciun savegame",                         //54
+            "Eroare la încărcarea informațiilor de salvare: {0}",   //55
+            "Încarcă savegame-ul",                                  //56
+            "Progres încărcare: {0}%, Dimensiune: {1}",             //57  
+            "Progres descărcare: {0}%, Dimensiune: {1}",            //58
+            "Savegame încărcat",                                    //59
+            "Descarcă savegame-ul",                                 //60
+            "Savegame descărcat",                                   //61
+            "Extrage savegame-ul",                                  //62
+            "Curăță fișierele temporare",                           //63
+            "Informații cont PP2",                                  //64
+            "Nume cont",                                            //65
+            "Parolă cont",                                          //66
+            "Autentificare",                                        //67
+            "Deconectare",                                          //68
+            "Reîmprospătează",                                      //69
+            "Încarcă",                                              //70
+            "Descarcă",                                             //71
+            "Folder backup",                                        //72
+            "Folder savegame",                                      //73
+            "Număr maxim de salvări",                               //74
+            "Curăță",                                               //75
+            //Service UI-Langs end
+            //Update UI-Langs
+            "Pornește verificarea jocului",                         //76
+            "Joc despachetat detectat, actualizarea oprită",        //77
+            "Nu s-a detectat o instalare normală, actualizarea oprită", //78
+            "Fișiere găsite: {0} Foldere: {1}",                     //79
+            "Conectare la server",                                  //80
+            "Conectare la server: OK, începe verificarea fișierelor", //81
+            "Nu s-a putut conecta la server",                       //82
+            "Comparare fișiere, faza 1",                            //83
+            "Faza 1: verificare fișiere lipsă",                     //84
+            "Fișiere lipsă: {0}",                                   //85
+            "Lipsește: {0} - {1}",                                  //86
+            "Verificare fișiere modificate",                        //87
+            "Comparare fișiere, faza 2",                            //88
+            "Faza 2: verificare fișier: ",                          //89
+            "Fișier: {0} ◄ Necesită actualizare, fișier diferit [{1}|{2}]", //90
+            "Fișier: {0} ◄ Este la zi",                             //91
+            "Verificarea fișierelor a eșuat. Reîncearcă.",          //92
+            "Verificare fișiere finalizată în: {0}",                //93
+            "Nu s-a putut obține lista online de fișiere. Reîncearcă mai târziu.", //94
+            "Lista de fișiere live descărcată.",                    //95
+            "Prea multe fișiere lipsă. Actualizare anulată. Reinstalează jocul.", //96
+            "Fișiere și foldere scanate.",                          //97
+            "Folder lipsă creat: ",                                 //98
+            "Comparare fișiere, faza 3",                            //99
+            "Faza 3: verificare integritate fișiere",               //100
+            "Faza 3: descărcare și instalare fișiere",              //101
+            "Descărcare fișier: {0} ({1}% complet)",                //102
+            "Actualizare finalizată în: {0}",                       //103
+            "Actualizare joc finalizată.",                          //104
+            "Fișier actualizat: ",                                  //105
+            "Extracția fișierului a eșuat: ({0}). Eroare: {1}",     //106
+            "Fișier: {0} ◄ Instalare în curs",                      //107
+            "Verificarea jocului finalizată",                       //108
+            //Gameupdate end
+            //Generic Messages
+            "Project Paradise 2 - Modul de securitate",             //109
+            "Modulul de securitate nu este sigur. Jocul a fost închis.", //110
+            "A fost detectată o versiune Steam a jocului. Este corect?", //111
+            "A fost detectată o versiune despachetată a jocului. Este corect?", //112
+            "Avertisment: folosirea jocurilor despachetate se face pe propria răspundere!\nNu oferim suport pentru acestea!", //113
+            "Avertisment: dacă aceasta este o versiune despachetată, unele acțiuni pot deteriora jocul\nsau pot necesita reinstalare!", //114
+            "Servere de joc online, jucători: ",                    //115
+            "Eroare la obținerea informațiilor. Apasă aici pentru a reîmprospăta", //116
+            //Update UI-Langs end
+            //Mod Detail View
+            "Înapoi",                                               //117
+            "Autor",                                                //118
+            "Descriere",                                            //119
+            "Versiune",                                             //120
+            "Fișiere",                                              //121
+            "Dimensiune descărcare",                                //122
+            "Dimensiune instalare",                                 //123
+            "Actualizări",                                          //124
+            "Instalări",                                            //125
+            "Instalează | Actualizează",                            //126
+            "Nume mod",                                             //127
+            "Pornește descărcarea modului",                         //128
+            "Instalarea modului ({0}) finalizată",                  //129
+            "Instalare mod ({0}) fișier: {1} din {2}",              //130
+            "Moduri instalate",                                     //131
+            "Afișează: {0} moduri din {1}",                         //132
+            "Niciun mod disponibil pentru acest tip de joc",        //133
+            "Se încarcă modurile",                                  //134
+            "Modul: {0} eliminat cu succes",                        //135
+            "Modurile despachetate nu pot fi eliminate din launcher.", //136
+            "ModId invalid, reîncearcă după repornire",             //137
+            "Un mare mulțumesc echipei noastre și susținătorilor – sprijinul și contribuțiile voastre înseamnă enorm pentru noi.\nDe la ajutorul pe Discord până la servere – voi faceți posibil acest proiect. Vă apreciem enorm.", //138
+            "Launcher-ul are o versiune veche a bazei de date.\nDorești să convertești setările vechi într-un nou profil?", //139
+            "Trebuie mai întâi să creezi un profil de joc\nînainte de a juca.", //140
+            "Verifică setările profilului.\nProfil creat cu succes ca: Converted Profile", //141
         };
 
         public static string[] Turkish =
         {
-            "TDU2 Oyna",
-            "Başlat",
-            "Hizmet",
-            "Mod Tarayıcı",
-            "Ayarlar",
-            "Bilgiler",
-            "Çıkış",
-            "Son Haberler",
-            "Durumu Kontrol Et",
-            "Geri",
-            "Yaratıcı",
-            "Açıklama",
-            "Güncellemeler",
-            "İndirmeler",
-            "Sürüm",
-            "Dosyalar",
-            "İndirme Boyutu",
-            "Kurulum Boyutu",
-            "Kur",
-            "Kur / Güncelle",
-            "Modlarım",
-            "Giriş Bilgileri",
-            "Kullanıcı Adı",
-            "Şifre",
-            "Çıkış Yap",
-            "Yükle",
-            "İndir",
-            "Giriş Yap",
-            "Oturumu Kapat",
-            "Yeniden Yükle",
-            "Yedekleme Klasörünü Aç",
-            "Oyunu Seç",
-            "Yama Bağlantısı",
-            "Oyun Klasörünü Aç",
-            "Oyunu Kontrol Et",
-            "Kayıt Dosyasını Aç",
-            "Başlatıcı Dili",
-            "Ses Modu",
-            "Maksimum Yedekleme",
-            "Mod Adı",
-            "Oyun dosyası doğrulaması başlatıldı. Bu işlem biraz zaman alabilir. Bir kahve alın ve başlatıcının çalışmasını izleyin.",
-            "Dizin oluşturma tamamlandı. Dosyalar: {0}, Klasörler: {1}",
-            "Dosyalar ve klasörler tarandı",
-            "Sunucuya bağlanılıyor",
-            "Bağlantı kuruldu!",
-            "Sunucuya bağlanırken hata oluştu.",
-            "Dosyaları karşılaştır, Aşama 1",
-            "Aşama 1: Eksik dosyalar kontrol ediliyor",
-            "Eksik dosyalar: {0}",
-            "Eksik: {0} - {1}",
-            "Dosya değişiklikleri kontrol ediliyor",
-            "Dosyaları karşılaştır, Aşama 2",
-            "Aşama 2: Dosya kontrol ediliyor: ",
-            "Dosya: {0} ◄ Güncelleme gerekli, farklı [{1}|{2}]",
-            "Dosya: {0} ◄ Güncel",
-            "Dosya doğrulaması başarısız oldu. Lütfen tekrar deneyin.",
-            "Dosya doğrulaması tamamlandı: {0}",
-            "Canlı dosya listesi indirildi.",
-            "Çevrimiçi oyun dosya listesi alınamadı. Lütfen daha sonra tekrar deneyin.",
-            "Çok fazla eksik dosya. Güncelleme iptal edildi. Lütfen oyunu yeniden yükleyin.",
-            "Dosyalar ve klasörler tarandı.",
-            "Eksik dizin oluşturuldu: ",
-            "Dosyaları karşılaştır, Aşama 3",
-            "Aşama 3: Dosya bütünlüğü kontrolü",
-            "Aşama 3: Dosyalar indiriliyor ve yükleniyor",
-            "Dosya indiriliyor: {0} ({1}% tamamlandı)",
-            "Güncelleme tamamlandı: {0}",
-            "Oyun güncellemesi tamamlandı.",
-            "Başlatıcı veritabanı güncelleniyor",
-            "Dosya: {0} ◄ Kuruluyor",
-            "Dosya güncellendi: ",
-            "Dosya çıkartma başarısız: ({0}). Hata: {1}",
-            "Project Paradise 2 - Güvenlik Modülü",
-            "Güvenlik modülü güvenli değil. Oyun kapatıldı.",
-            "Mod sorgulama tamamlandı, {0} / {1} mod görüntüleniyor.",
-            "Kullanıcı adı ve şifre gereklidir.",
-            "Kullanıcı adı gereklidir.",
-            "Şifre gereklidir.",
-            "Girilen şifre sunucudakiyle eşleşmiyor. Lütfen şifrenizi kontrol edin ve tekrar deneyin.",
-            "Ağ hatası oluştu: {0}\nLütfen internet bağlantınızı kontrol edip tekrar deneyin.",
-            "Sunucu URL'si geçersiz: {0}\nSorun devam ederse destekle iletişime geçin.",
-            "Beklenmeyen bir hata oluştu: {0}\nLütfen uygulamayı yeniden başlatın ve tekrar deneyin.",
-            "Bilinmeyen bir hata oluştu: {0}\nSorun devam ederse destekle iletişime geçin.",
-            "Kayıt dosyası mevcut",
-            "Kayıt dosyası bulunamadı",
-            "Durum: {0}\nDosya Boyutu: {1}\nSon Yükleme: {2}\nKayıt Dosyası Adı: {3}\nSon Kontrol: {4}",
-            "Durum: Kayıt dosyası bulunamadı",
-            "Yükleme hazırlanıyor",
-            "Eski yerel kayıt dosyası temizleniyor",
-            "Yükleme için kayıt dosyası oluşturuluyor",
-            "Yükleme başlatılıyor",
-            "Yükleme ilerleme durumu: {0}%, Boyut: {1}",
-            "Yükleme başarılı",
-            "İndirme başlatılıyor",
-            "İndirme ilerleme durumu: {0}%, Boyut: {1}",
-            "İndirme tamamlandı. Dosyalar çıkartılıyor...",
-            "Bulut kayıt dosyası başarıyla çıkartıldı.",
-            "Oyun Bilgileri",
-            "Oyun yolu: ",
-            "Dosya sürümü: ",
-            "Oyun sürümü: ",
-            "Uyarı: Başlatıcı doğru veya tam yapılandırılmamış.",
-            "Oyun seçilmedi. Lütfen önce bir oyun seçin, güncelleyin ve çevrimiçi hizmet bağlantısını ayarlayın.",
-            "Test Drive Unlimited 2 için kurulu oyun dosyasını seçin.",
-            "Seçilen dosya, Test Drive Unlimited 2 yürütülebilir dosyası değil.\nLütfen doğru oyun dosyasını seçin.",
-            "Bir Steam oyunu algılandı.\nOyunun Steam üzerinden kurulu olup olmadığını onaylayın.\nEğer oyun Steam üzerinden kurulu değilse, steam_api.dll yeniden adlandırılacaktır.\n\nOyuna Steam üzerinden mi sahipsiniz?",
-            "Seçilen oyun en son resmi oyun sürümüyle eşleşmiyor.\nOyunu güncellemeniz gerekiyor (Oyun doğrulamasını çalıştırın).",
-            "Oyun klasörü açılamıyor çünkü bir oyun seçilmedi.",
-            "Kayıt dosyası klasörü açılamıyor çünkü kayıt dosyası bulunamadı.",
-            "Sunucu bağlantısı değiştirilemiyor çünkü bir oyun seçilmedi.",
-            "Güncelleme gerçekleştirilemiyor çünkü bir oyun seçilmedi.",
-            "Oyun sunucusu çevrimiçi, oyuncular: ",
-            "Bilgiler alınırken hata oluştu, yenilemek için buraya tıklayın",
-            "Eksik bir başlangıç parametresi var.\nLütfen başlatıcının Steam oyununda mevcut olduğundan ve -direct komutunun doğru ayarlandığından emin olun.",
-            "Çevrim içi mod",
-            "Oyun sürümü",
-            "Discord RPC",
-            "Güncelleme kontrolü",
-            "UPnP",
-            "Steam sürümü",
-            "Sadece başlatıcı böyle söylüyorsa kullanılmalıdır!",
-            "Başlatıcı dili",
-            "Ses modu",
-            "Seçilen oyun, modifiye edilmiş / açılmış bir oyun mu?",
-            "Oyun doğrulaması iptal edildi, modifiye edilmiş oyunlar buna bağlı olarak bozulabilir.",
-            "Standart oyun dosyaları bulunamadı. Oyunun doğru şekilde kurulduğundan ve seçildiğinden emin olun.",
-            "Kaynaklar"
+            //Main UI-Langs
+            "Oyna",                                                 //0
+            "Başlat",                                               //1
+            "Ayarlar",                                              //2
+            "Profiller",                                            //3
+            "Servis",                                               //4
+            "Bilgi",                                                //5
+            "Hakkında",                                             //6
+            "Çıkış",                                                //7
+            "Durumu Kontrol Et",                                    //8
+            "Geri",                                                 //9
+            "Yapımcı",                                              //10
+            "Açıklama",                                              //11
+            "Güncellemeler",                                        //12
+            //Main UI-Langs end
+            //Settings UI-Langs
+            "Discord Durumu",                                       //13
+            "Güncelleme Kontrolü",                                  //14
+            "UPnP Port Yönlendirme",                                //15
+            "Dil",                                                  //16
+            "Ses Modu",                                              //17
+            //Settings UI-Langs end
+            //Profile UI-Langs
+            "Yeni Profil Oluştur",                                  //18
+            //Profile UI-Langs end
+            //Create Profile UI-Langs
+            "Yeni Oyun Oturumu Oluştur",                            //19
+            "Oyun Oturumunu Düzenle",                               //20
+            "Profil Adı",                                           //21
+            "Argümanları",                                 //22
+            "Dinamik RAM",                                          //23
+            "Dinamik Çekirdekler",                                  //24
+            "Daha Yüksek Öncelik",                                  //25
+            "Otomatik Kir",                                          //26
+            "Otomatik Hasar",                                        //27
+            "Çevrimiçi Mod",                                        //28
+            "Oyun Seç",                                              //29
+            "Klasör Aç",                                             //30
+            "Bağlantı Yaması",                                       //31
+            "Mod Tarayıcı",                                          //32
+            "Oyun Güncellemesi",                                     //33
+            "Kaydet",                                                //34
+            "Oyun Versiyonu: ",                                      //35
+            "Oyun Derlemesi: {0}",                                   //36
+            "Oyun Yolu: {0}",                                        //37
+            "Kurulum Boyutu: {0}",                                   //38
+            "Oyun Türü: {0} '{1}' - {2}",                            //39
+            " (Yanlış Oyun Versiyonu) Güncelleme gerekli",          //40
+            "Test Drive Unlimited oyununu seç",                     //41
+            "Yapılandırma dosyası değiştirildi",                     //42
+            "Oyun dizini mevcut değil.",                             //43
+            "Klasör mevcut değil: ",                                 //44
+            "Profil: {0} başarıyla kaydedildi",                      //45
+            "Profil kaydedilirken hata: {0} Hata: {1}",             //46
+            //Create Profile UI-Langs end
+            //Service UI-Langs 
+            "Hesap veya şifre boş olamaz",                          //47
+            "Hesap veya şifre boş olamaz",                          //48
+            "Şifre boş olamaz",                                      //49
+            "Yanlış giriş bilgileri, giriş yapılamıyor",            //50
+            "Buluta girişte hata: {0}",                              //51
+            "Durum: {0}\nDepolama Boyutu: {1}\nSon Yükleme: {2}\nSavegame Adı: {3}\nSon Kontrol: {4}", //52
+            "Savegame mevcut",                                       //53
+            "Savegame mevcut değil",                                 //54
+            "Savegame bilgileri yüklenirken hata: {0}",              //55
+            "Savegame Yükle",                                        //56
+            "Yükleme İlerleme: {0}%, Boyut: {1}",                     //57  
+            "İndirme İlerleme: {0}%, Boyut: {1}",                     //58
+            "Savegame Yüklendi",                                     //59
+            "Savegame İndir",                                        //60
+            "Savegame İndirildi",                                    //61
+            "Savegame Çıkart",                                       //62
+            "Geçici Dosyaları Temizle",                               //63
+            "PP2 Hesap Bilgileri",                                   //64
+            "Hesap Adı",                                             //65
+            "Hesap Şifresi",                                         //66
+            "Giriş",                                                 //67
+            "Çıkış Yap",                                             //68
+            "Yenile",                                                //69
+            "Yükle",                                                 //70
+            "İndir",                                                 //71
+            "Yedekleme Klasörü",                                     //72
+            "Savegame Klasörü",                                      //73
+            "Maks. Kayıt Noktası",                                   //74
+            "Temizle",                                               //75
+            //Service UI-Langs end
+            //Update UI-Langs
+            "Oyun kontrolü başlatılıyor",                            //76
+            "Paketlenmemiş oyun tespit edildi, güncelleme durduruldu", //77
+            "Normal oyun kurulumu tespit edilmedi, güncelleme durduruldu", //78
+            "Bulunan Dosyalar: {0} Klasörler: {1}",                  //79
+            "Sunucuya bağlanılıyor",                                 //80
+            "Sunucuya bağlantı: Tamam, Dosya kontrolü başlatılıyor", //81
+            "Sunucuya bağlanılamadı",                                //82
+            "Dosyalar karşılaştırılıyor, aşama 1",                   //83
+            "Aşama 1: Eksik dosyalar kontrol ediliyor",              //84
+            "Eksik dosyalar: {0}",                                   //85
+            "Eksik: {0} - {1}",                                      //86
+            "Dosyalar değişiklikler için kontrol ediliyor",          //87
+            "Dosyalar karşılaştırılıyor, aşama 2",                   //88
+            "Aşama 2: Dosya kontrol ediliyor: ",                     //89
+            "Dosya: {0} ◄ Güncelleme gerekli, dosya farklı [{1}|{2}]", //90
+            "Dosya: {0} ◄ Dosya güncel",                             //91
+            "Dosya kontrolü başarısız oldu. Lütfen tekrar deneyin.", //92
+            "Dosya kontrolü tamamlandı: {0}",                        //93
+            "Çevrimiçi dosya listesi alınamadı. Lütfen daha sonra tekrar deneyin.", //94
+            "Canlı dosya listesi indirildi.",                        //95
+            "Çok fazla eksik dosya var. Güncelleme iptal edildi. Oyunu yeniden kurun.", //96
+            "Dosyalar ve klasörler tarandı.",                        //97
+            "Eksik klasör oluşturuldu: ",                            //98
+            "Dosyalar karşılaştırılıyor, aşama 3",                   //99
+            "Aşama 3: Dosya bütünlüğü kontrol ediliyor",             //100
+            "Aşama 3: Dosyalar indiriliyor ve kuruluyor",            //101
+            "Dosya indiriliyor: {0} (%{1} tamamlandı)",              //102
+            "Güncelleme tamamlandı: {0}",                            //103
+            "Oyun güncellemesi tamamlandı.",                         //104
+            "Dosya güncellendi: ",                                   //105
+            "Dosya çıkarma başarısız oldu: ({0}). Hata: {1}",        //106
+            "Dosya: {0} ◄ Kuruluyor",                               //107
+            "Oyun kontrolü tamamlandı",                              //108
+            //Gameupdate end
+            //Generic Messages
+            "Project Paradise 2 - Güvenlik Modülü",                  //109
+            "Güvenlik modülü güvenli değil. Oyun kapatıldı.",        //110
+            "Steam oyunu tespit edildi, doğru mu?",                  //111
+            "Paketlenmemiş oyun tespit edildi, doğru mu?",           //112
+            "Uyarı: Paketlenmemiş oyunları kullanmak risklidir!\nHerhangi bir yardım veya destek sunmuyoruz!", //113
+            "Uyarı: Bu gerçekten paketlenmemiş bir oyun ise, bazı işlemler oyunu bozabilir\ndolayısıyla yeniden kurulum gerekebilir!", //114
+            "Oyun sunucuları çevrimiçi, oyuncu sayısı: ",           //115
+            "Bilgi alınamadı. Yenilemek için tıklayın",             //116
+            //Update UI-Langs end
+            //Mod Detail View
+            "Geri",                                                 //117
+            "Yapımcı",                                              //118
+            "Açıklama",                                              //119
+            "Versiyon",                                              //120
+            "Dosyalar",                                              //121
+            "İndirme Boyutu",                                        //122
+            "Kurulum Boyutu",                                        //123
+            "Güncellemeler",                                         //124
+            "Kurulumlar",                                            //125
+            "Kur | Güncelle",                                        //126
+            "Mod Adı",                                               //127
+            "Mod İndirme Başlatılıyor",                              //128
+            "Mod Kurulumu ({0}) Tamamlandı",                         //129
+            "Mod ({0}) kuruluyor dosya: {1} / {2}",                  //130
+            "Kurulu Modlar",                                         //131
+            "Gösteriliyor: {0} moddan {1}",                          //132
+            "Bu oyun türü için mod mevcut değil",                    //133
+            "Modlar yükleniyor",                                     //134
+            "Mod: {0} başarıyla kaldırıldı",                         //135
+            "Paketlenmemiş modlar launcher üzerinden kaldırılamaz.", //136
+            "Geçersiz ModId, yeniden başlattıktan sonra tekrar deneyin", //137
+            "Özel teşekkürler \nHarika ekibimize ve destekçilerimize – desteğiniz, katkılarınız bizim için çok değerli. \nDiscord’daki yardımdan sunucuların çalıştırılmasına kadar – bu projeyi siz mümkün kılıyorsunuz. Hepinizi çok takdir ediyoruz.", //138
+            "Launcher eski bir veri tabanı sürümüne sahip.\nEski ayarları yeni bir profile dönüştürmek ister misiniz?", //139
+            "Oynamadan önce oyun profili oluşturmanız gerekir.",   //140
+            "Lütfen profil ayarlarını kontrol edin.\nProfil başarıyla oluşturuldu: Converted Profile", //141
         };
 
         public static string[] Chinese =
         {
-            "玩TDU2",
-            "开始",
-            "服务",
-            "模组浏览器",
-            "设置",
-            "信息",
-            "退出",
-            "最新消息",
-            "检查状态",
-            "返回",
-            "创建者",
-            "描述",
-            "更新",
-            "下载",
-            "版本",
-            "文件",
-            "下载大小",
-            "安装大小",
-            "安装",
-            "安装/更新",
-            "我的模组",
-            "登录信息",
-            "用户名",
-            "密码",
-            "登出",
-            "上传",
-            "下载",
-            "登录",
-            "注销",
-            "重新加载",
-            "打开备份文件夹",
-            "选择游戏",
-            "补丁连接",
-            "打开游戏文件夹",
-            "检查游戏",
-            "打开存档",
-            "启动器语言",
-            "音频模式",
-            "最大备份",
-            "模组名称",
-            "游戏文件验证已开始。这可能需要一些时间。请拿一杯咖啡，放松一下，等待启动器完成。",
-            "索引创建完成。文件：{0}，文件夹：{1}",
-            "文件和文件夹已扫描",
-            "连接到服务器",
-            "已连接！",
-            "连接服务器时出错。",
-            "比较文件，阶段1",
-            "阶段1：检查缺失文件",
-            "缺失文件：{0}",
-            "缺失：{0} - {1}",
-            "检查文件是否有变化",
-            "比较文件，阶段2",
-            "阶段2：检查文件：",
-            "文件：{0} ◄ 需要更新，文件不同 [{1}|{2}]",
-            "文件：{0} ◄ 文件是最新的",
-            "文件验证似乎失败了。请重试。",
-            "文件验证完成：{0}",
-            "已下载实时文件列表。",
-            "无法获取在线游戏文件列表。请稍后重试。",
-            "缺少文件太多，更新已取消。请重新安装游戏。",
-            "文件和文件夹已扫描。",
-            "创建缺失的目录：",
-            "比较文件，阶段3",
-            "阶段3：验证文件完整性",
-            "阶段3：下载并安装文件",
-            "正在下载文件：{0} ({1}% 完成)",
-            "更新完成：{0}",
-            "游戏更新完成。",
-            "更新启动器数据库",
-            "文件：{0} ◄ 正在安装",
-            "文件已更新：",
-            "解压文件失败：（{0}）。错误：{1}",
-            "Project Paradise 2 - 安全模块",
-            "安全模块不安全。游戏已关闭。",
-            "模组查询完成，显示了 {0} 个可用的模组，共 {1} 个。",
-            "需要用户名和密码。",
-            "用户名是必需的。",
-            "密码是必需的。",
-            "输入的密码与服务器上的密码不匹配。请检查您的密码并重试。",
-            "发生了网络错误：{0}\n请检查您的网络连接并重试。",
-            "服务器 URL 无效：{0}\n如果问题仍然存在，请联系支持团队。",
-            "发生了一个意外错误：{0}\n请重新启动应用程序并重试。",
-            "发生了一个未知错误：{0}\n如果问题仍然存在，请联系支持团队。",
-            "存在存档文件",
-            "未找到存档文件",
-            "状态：{0}\n存储大小：{1}\n最后上传时间：{2}\n存档文件名：{3}\n最后检查时间：{4}",
-            "状态：未找到存档文件",
-            "准备上传",
-            "清理旧的本地存档",
-            "创建上传用存档",
-            "开始上传",
-            "上传进度：{0}%，大小：{1}",
-            "上传成功",
-            "开始下载",
-            "下载进度：{0}%，大小：{1}",
-            "下载完成，正在解压文件...",
-            "云存档成功解压。",
-            "游戏信息",
-            "游戏路径：",
-            "文件版本：",
-            "游戏版本：",
-            "警告：您没有正确或完全配置启动器。",
-            "未选择游戏。请首先选择游戏，更新游戏并连接到在线服务。",
-            "请选择 Test Drive Unlimited 2 的已安装游戏文件。",
-            "所选文件不是 Test Drive Unlimited 2 的可执行文件。\n请选正确的游戏文件。",
-            "检测到 Steam 游戏。\n请确认游戏是否通过 Steam 安装。\n如果游戏没有通过 Steam 安装，将重命名 steam_api.dll。\n\n您是否在 Steam 上拥有此游戏？",
-            "您选择的游戏不是最新的官方游戏版本。\n您需要更新游戏（执行游戏验证）。",
-            "无法打开游戏文件夹，因为没有选择游戏。",
-            "无法打开存档文件夹，因为没有存档文件。",
-            "无法更改服务器连接，因为没有选择游戏。",
-            "无法进行更新，因为没有选择游戏。",
-            "游戏服务器在线，玩家：",
-            "获取信息时出错，请点击此处刷新",
-            "缺少启动参数。\n请检查启动器是否包含在 Steam 游戏中，并确保 -direct 命令正确设置。",
-            "在线模式",
-            "游戏版本",
-            "Discord RPC",
-            "更新检查",
-            "UPnP",
-            "Steam版本",
-            "只有在启动器提示时才使用！",
-            "启动器语言",
-            "音频模式",
-            "选择的游戏是修改过的/解包的游戏吗？",
-            "游戏验证已取消，修改过的游戏可能因此被破坏。",
-            "未找到标准游戏文件。请确保游戏已正确安装并选择。",
-            "繁體中文",
+            //Main UI-Langs
+            "开始游戏",                                              //0
+            "开始",                                                  //1
+            "设置",                                                  //2
+            "配置文件",                                              //3
+            "服务",                                                  //4
+            "信息",                                                  //5
+            "关于",                                                  //6
+            "退出",                                                  //7
+            "检查状态",                                              //8
+            "返回",                                                  //9
+            "作者",                                                  //10
+            "描述",                                                  //11
+            "更新",                                                  //12
+            //Main UI-Langs end
+            //Settings UI-Langs
+            "Discord状态",                                          //13
+            "检查更新",                                              //14
+            "UPnP端口转发",                                          //15
+            "语言",                                                  //16
+            "音效模式",                                              //17
+            //Settings UI-Langs end
+            //Profile UI-Langs
+            "创建新配置文件",                                        //18
+            //Profile UI-Langs end
+            //Create Profile UI-Langs
+            "创建新的游戏实例",                                      //19
+            "编辑游戏实例",                                          //20
+            "配置文件名",                                            //21
+            "启动参数",                                              //22
+            "动态内存",                                              //23
+            "动态核心",                                              //24
+            "更高优先级",                                            //25
+            "自动污损",                                              //26
+            "自动损伤",                                              //27
+            "在线模式",                                              //28
+            "选择游戏",                                              //29
+            "打开文件夹",                                            //30
+            "连接补丁",                                              //31
+            "模组浏览器",                                            //32
+            "游戏更新",                                              //33
+            "保存",                                                  //34
+            "游戏版本: ",                                            //35
+            "游戏构建: {0}",                                         //36
+            "游戏路径: {0}",                                         //37
+            "游戏安装大小: {0}",                                      //38
+            "游戏类型: {0} '{1}' - {2}",                             //39
+            "（游戏版本错误）需要更新",                              //40
+            "选择你的Test Drive Unlimited游戏",                     //41
+            "配置文件已替换",                                        //42
+            "游戏目录不存在",                                        //43
+            "文件夹不存在: ",                                        //44
+            "配置文件: {0} 保存成功",                                 //45
+            "保存配置文件时出错: {0} 错误: {1}",                     //46
+            //Create Profile UI-Langs end
+            //Service UI-Langs 
+            "账号或密码不能为空",                                    //47
+            "账号或密码不能为空",                                    //48
+            "密码不能为空",                                          //49
+            "登录信息错误，无法登录",                                //50
+            "云端登录出错: {0}",                                     //51
+            "状态: {0}\n存储大小: {1}\n最后上传: {2}\n存档名: {3}\n最后检查: {4}", //52
+            "存档存在",                                              //53
+            "没有存档",                                              //54
+            "加载存档信息出错: {0}",                                  //55
+            "上传存档",                                              //56
+            "上传进度: {0}%, 大小: {1}",                              //57  
+            "下载进度: {0}%, 大小: {1}",                              //58
+            "存档已上传",                                            //59
+            "下载存档",                                              //60
+            "存档已下载",                                            //61
+            "解压存档",                                              //62
+            "临时文件清理",                                          //63
+            "PP2账号信息",                                           //64
+            "账号名",                                                //65
+            "账号密码",                                              //66
+            "登录",                                                  //67
+            "登出",                                                  //68
+            "刷新",                                                  //69
+            "上传",                                                  //70
+            "下载",                                                  //71
+            "备份文件夹",                                            //72
+            "存档文件夹",                                            //73
+            "最大存档点数",                                          //74
+            "清理",                                                  //75
+            //Service UI-Langs end
+            //Update UI-Langs
+            "开始游戏检测",                                          //76
+            "检测到解包游戏，停止更新",                               //77
+            "未检测到正常游戏安装，停止更新",                         //78
+            "找到文件: {0} 文件夹: {1}",                             //79
+            "连接服务器",                                            //80
+            "连接服务器成功，开始文件检查",                           //81
+            "无法连接服务器",                                        //82
+            "比较文件，第1阶段",                                      //83
+            "第1阶段: 检查缺失文件",                                  //84
+            "缺失文件: {0}",                                          //85
+            "缺少: {0} - {1}",                                       //86
+            "检查文件更改",                                           //87
+            "比较文件，第2阶段",                                      //88
+            "第2阶段: 检查文件: ",                                    //89
+            "文件: {0} ◄ 需要更新，文件不同 [{1}|{2}]",              //90
+            "文件: {0} ◄ 已是最新",                                   //91
+            "文件检查失败，请重试。",                                 //92
+            "文件检查完成，耗时: {0}",                                //93
+            "无法获取在线文件列表，请稍后重试。",                      //94
+            "在线文件列表已下载。",                                   //95
+            "缺少文件过多，更新中止，请重新安装游戏。",               //96
+            "文件和文件夹已扫描。",                                   //97
+            "缺失目录已创建: ",                                       //98
+            "比较文件，第3阶段",                                      //99
+            "第3阶段: 验证文件完整性",                                 //100
+            "第3阶段: 下载并安装文件",                                 //101
+            "正在下载文件: {0} ({1}% 完成)",                          //102
+            "更新完成，耗时: {0}",                                     //103
+            "游戏更新完成。",                                         //104
+            "文件已更新: ",                                           //105
+            "解压文件失败: ({0}) 错误: {1}",                          //106
+            "文件: {0} ◄ 正在安装",                                   //107
+            "游戏检测完成",                                           //108
+            //Gameupdate end
+            //Generic Messages
+            "Project Paradise 2 - 安全模块",                          //109
+            "安全模块不安全，游戏已关闭。",                             //110
+            "检测到Steam游戏，是否正确？",                            //111
+            "检测到解包游戏，是否正确？",                               //112
+            "警告：使用解包游戏风险自负！\n我们不提供相关帮助或支持！",     //113
+            "警告：如果这是解包游戏，某些操作可能会损坏游戏\n并导致重新安装！", //114
+            "游戏服务器在线，玩家数: ",                              //115
+            "获取信息失败，点击这里刷新",                              //116
+            //Update UI-Langs end
+            //Mod Detail View
+            "返回",                                                  //117
+            "作者",                                                  //118
+            "描述",                                                  //119
+            "版本",                                                  //120
+            "文件",                                                  //121
+            "下载大小",                                              //122
+            "安装大小",                                              //123
+            "更新",                                                  //124
+            "安装记录",                                              //125
+            "安装 | 更新",                                           //126
+            "模组名称",                                              //127
+            "开始模组下载",                                           //128
+            "模组安装完成 ({0})",                                     //129
+            "正在安装模组 ({0}) 文件: {1} / {2}",                     //130
+            "已安装模组",                                             //131
+            "显示: {0} 个模组，共 {1}",                               //132
+            "该游戏类型没有可用模组",                                 //133
+            "加载模组",                                               //134
+            "模组: {0} 已成功卸载",                                   //135
+            "解包模组无法通过启动器卸载。",                           //136
+            "错误的ModId，请重启后再试",                              //137
+            "特别感谢我们的团队和赞助者——您的支持、投入和贡献对我们意义重大。\n从Discord的帮助到服务器运行，都是您让这个项目成为可能。我们非常感激每一个人。", //138
+            "启动器使用旧数据库版本。\n是否将旧设置转换为新配置文件？", //139
+            "在开始游戏之前必须创建游戏配置文件。",                 //140
+            "请检查配置文件设置。\n配置文件已成功创建: Converted Profile", //141
         };
-
     }
 }

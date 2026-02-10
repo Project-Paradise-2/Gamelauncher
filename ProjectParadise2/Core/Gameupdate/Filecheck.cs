@@ -35,8 +35,8 @@ namespace ProjectParadise2.Gameupdate
         /// </summary>
         public static async void StartCheck()
         {
-            UpdateView.Instance.PrintMessage(Lang.GetText(40), 1);
-            Thread.Sleep(250);
+            UpdateView.Instance.PrintMessage(Lang.GetText(76), 1);
+            Thread.Sleep(650);
             if (!string.IsNullOrEmpty(Database.Database.p2Database.Usersettings.Gamedirectory))
             {
 
@@ -44,22 +44,20 @@ namespace ProjectParadise2.Gameupdate
                 bool isUnpacked2 = Directory.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/Unknown_bin");
                 if (isUnpacked && isUnpacked2)
                 {
-                    UpdateView.Instance.Updatestatus(Lang.GetText(124));
+                    UpdateView.Instance.Updatestatus(Lang.GetText(77));
                     Log.Error("Unpacked game files detected.");
                     return;
                 }
                 if (isUnpacked || isUnpacked2)
                 {
-                    UpdateView.Instance.Updatestatus(Lang.GetText(124) + " mixed game?");
+                    UpdateView.Instance.Updatestatus(Lang.GetText(77) + " mixed game?");
                     Log.Error("Both unpacked and packed game files detected.");
                     return;
                 }
 
-                if (!File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/bigfile_EU_1.big") || !File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/bigfile_EU_2.big")
-                    || !File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/bigfile_EU_3.big")
-                    || !File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/bigfile_EU_4.big"))
+                if (!File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/bigfile_EU_1.big") || !File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/bigfile_EU_2.big") || !File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/bigfile_EU_3.big") || !File.Exists(Database.Database.p2Database.Usersettings.Gamedirectory + "/bigfile_EU_4.big"))
                 {
-                    UpdateView.Instance.Updatestatus(Lang.GetText(125));
+                    UpdateView.Instance.Updatestatus(Lang.GetText(78));
                     Log.Error("Missing bigfiles in game directory (Default Files each Version).");
                     return;
                 }
@@ -69,23 +67,21 @@ namespace ProjectParadise2.Gameupdate
                 Directories = Directory.GetDirectories(Database.Database.p2Database.Usersettings.Gamedirectory, "*", SearchOption.AllDirectories);
                 Local.Directorys = Directory.GetFiles(Database.Database.p2Database.Usersettings.Gamedirectory + "/", "*.*", SearchOption.AllDirectories);
 
-                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(41), Files.Length, Directories.Length));
+                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(79), Files.Length, Directories.Length));
 
-                UpdateView.Instance.Updatestatus(Lang.GetText(42));
-
-                var animationTask = PlayLoadingAnimationAsync(5, Lang.GetText(43));
+                var animationTask = PlayLoadingAnimationAsync(5, Lang.GetText(80));
                 bool success = await Task.Run(() => GetOnlinefile());
 
                 await animationTask;
 
                 if (success)
                 {
-                    UpdateView.Instance.Updatestatus(Lang.GetText(44));
+                    UpdateView.Instance.Updatestatus(Lang.GetText(81));
                     CompareFiles();
                 }
                 else
                 {
-                    UpdateView.Instance.Updatestatus(Lang.GetText(45));
+                    UpdateView.Instance.Updatestatus(Lang.GetText(82));
                 }
             }
         }
@@ -99,7 +95,7 @@ namespace ProjectParadise2.Gameupdate
             List<string> requiredFiles = new List<string>();
 
             Thread.Sleep(250);
-            UpdateView.Instance.Updatestatus(Lang.GetText(46));
+            UpdateView.Instance.Updatestatus(Lang.GetText(83));
 
             foreach (var liveFile in Live.File)
             {
@@ -114,14 +110,14 @@ namespace ProjectParadise2.Gameupdate
             }
 
             List<string> missingFiles = CompareFiles(requiredFiles, localFiles);
-            UpdateView.Instance.UpdateProgress(requiredFiles.Count, 0, Lang.GetText(47));
-            UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(48), missingFiles.Count), 0);
+            UpdateView.Instance.UpdateProgress(requiredFiles.Count, 0, Lang.GetText(84));
+            UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(85), missingFiles.Count), 0);
 
             foreach (string file in missingFiles)
             {
                 var info = GetInfo(file);
                 GamefileLoader.AddFile(file, info[0], info[1]);
-                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(49), info[0], info[2]), 0);
+                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(86), info[0], info[2]), 0);
                 Log.Info($"Missing file detected: {info[0]} Size: {info[2]}");
                 Thread.Sleep(5);
             }
@@ -134,9 +130,9 @@ namespace ProjectParadise2.Gameupdate
         private static void PerformHashCheck()
         {
             UpdateView.Instance.PrintMessage($"", 0);
-            UpdateView.Instance.PrintMessage(Lang.GetText(50), 5);
+            UpdateView.Instance.PrintMessage(Lang.GetText(87), 5);
             UpdateView.Instance.PrintMessage($"", 0);
-            UpdateView.Instance.Updatestatus(Lang.GetText(51));
+            UpdateView.Instance.Updatestatus(Lang.GetText(88));
             string CurrentFile = "";
             int totalFiles = Live.File.Count;
             for (int u = 0; u < totalFiles; u++)
@@ -147,17 +143,17 @@ namespace ProjectParadise2.Gameupdate
 
                     if (relativePath == Live.File[u].FilePath)
                     {
-                        UpdateView.Instance.UpdateProgress(totalFiles, u + 1, Lang.GetText(52) + relativePath);
+                        UpdateView.Instance.UpdateProgress(totalFiles, u + 1, Lang.GetText(89) + relativePath);
                         string hash = GetMD5(Files[i]);
                         CurrentFile = relativePath;
                         if (hash != Live.File[u].FileHash)
                         {
-                            UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(53), relativePath, hash, Live.File[u].FileHash), 0);
+                            UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(90), relativePath, hash, Live.File[u].FileHash), 0);
                             GetUpdatedFile(u);
                         }
                         else
                         {
-                            UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(54), relativePath), 1);
+                            UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(91), relativePath), 1);
                         }
 
                         Thread.Sleep(10);
@@ -173,7 +169,7 @@ namespace ProjectParadise2.Gameupdate
 
             if (elapsed < minimumDuration)
             {
-                UpdateView.Instance.PrintMessage(Lang.GetText(55), 0);
+                UpdateView.Instance.PrintMessage(Lang.GetText(92), 0);
             }
             else
             {
@@ -191,7 +187,7 @@ namespace ProjectParadise2.Gameupdate
 
                 formattedTime += string.Format("{0:D2}s.{1:D3}ms", elapsed.Seconds, elapsed.Milliseconds);
 
-                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(56), formattedTime), 5);
+                UpdateView.Instance.PrintMessage(string.Format(Lang.GetText(93), formattedTime), 5);
                 UpdateView.Instance.PrintMessage($"", 0);
                 GamefileLoader.CreateDirs();
             }
@@ -276,28 +272,27 @@ namespace ProjectParadise2.Gameupdate
                 System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
                 var client = new WebClient
                 {
-                    //Headers = { ["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" },
                     Headers = { ["User-Agent"] = "Launcher Updatefiles Request" },
                 };
 
                 string url = Constans.Cdn + "/update/Update.json";
                 string content = client.DownloadString(url);
                 Live = JsonConvert.DeserializeObject<UpdateInfos>(content);
-                UpdateView.Instance.Updatestatus(Lang.GetText(57));
+                UpdateView.Instance.Updatestatus(Lang.GetText(95));
                 return true;
             }
             catch (WebException ex)
             {
                 UpdateView.Instance.PrintMessage($"Failed to connect to server: {ex.Message}\n");
                 Log.Error("Failed to connect to server: ", ex);
-                UpdateView.Instance.Updatestatus(Lang.GetText(58));
+                UpdateView.Instance.Updatestatus(Lang.GetText(94));
                 return false;
             }
             catch (Exception ex)
             {
                 UpdateView.Instance.PrintMessage($"An error occurred: {ex.Message}\n");
                 Log.Error("An error occurred while retrieving the online file: ", ex);
-                UpdateView.Instance.Updatestatus(Lang.GetText(58));
+                UpdateView.Instance.Updatestatus(Lang.GetText(94));
                 return false;
             }
         }

@@ -30,6 +30,7 @@ namespace ProjectParadise2.Views
             this.StatusText.Text = "Starting game file check. This might take a while. Grab a coffee and relax while the launcher works.";
             // Start a new thread to perform the file check.
             var check = new Thread(Filecheck.StartCheck);
+            Thread.Sleep(200);
             check.Start();
         }
 

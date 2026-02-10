@@ -1,15 +1,12 @@
-﻿using KuxiiSoft.Utils.Crashreport;
+﻿
 using Newtonsoft.Json;
 using ProjectParadise2.Core.Log;
 using ProjectParadise2.Database.Data;
 using ProjectParadise2.Properties;
-using ProjectParadise2.Views;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace ProjectParadise2.Database
@@ -53,26 +50,39 @@ namespace ProjectParadise2.Database
                     }
                     catch (JsonException ex)
                     {
-                        Report.GenerateJson(ex, "Failed Deserialize Launcher Database");
                         Log.Error("Failed Deserialize Database: " + ex.Message, ex);
                     }
+
                 }
                 else
                 {
                     Write();
                     //New User?
                     var currentLanguage = CultureInfo.CurrentCulture.ToString().Split("-");
-                    if (currentLanguage[0] == "de")
+                    Log.Info("Current Language: " + currentLanguage[0] + " new user Install, Call Install File");
+                    switch (currentLanguage[0])
                     {
-                        File.WriteAllBytes(Constans.DokumentsFolder + "/install.html", Resources.pp2_de);
-                    }
-                    if (currentLanguage[0] == "ru")
-                    {
-                        File.WriteAllBytes(Constans.DokumentsFolder + "/install.html", Resources.pp2_ru);
-                    }
-                    else
-                    {
-                        File.WriteAllBytes(Constans.DokumentsFolder + "/install.html", Resources.pp2_en);
+                        case "de":
+                            File.WriteAllBytes(Constans.DokumentsFolder + "/install.html", Resources.pp2_de);
+                            break;
+                        case "ru":
+                            File.WriteAllBytes(Constans.DokumentsFolder + "/install.html", Resources.pp2_ru);
+                            break;
+                        case "es":
+                            File.WriteAllBytes(Constans.DokumentsFolder + "/install.html", Resources.pp2_es);
+                            break;
+                        case "fr":
+                            File.WriteAllBytes(Constans.DokumentsFolder + "/install.html", Resources.pp2_fr);
+                            break;
+                        case "pl":
+                            File.WriteAllBytes(Constans.DokumentsFolder + "/install.html", Resources.pp2_pl);
+                            break;
+                        case "pt":
+                            File.WriteAllBytes(Constans.DokumentsFolder + "/install.html", Resources.pp2_pg);
+                            break;
+                        default:
+                            File.WriteAllBytes(Constans.DokumentsFolder + "/install.html", Resources.pp2_en);
+                            break;
                     }
 
                     if (File.Exists(Constans.DokumentsFolder + "/install.html"))
@@ -108,7 +118,6 @@ namespace ProjectParadise2.Database
             }
             catch (Exception ex)
             {
-                Report.Generate(ex, "Failed Load Launcher Database");
                 Log.Error("Failed Open Database: " + ex.Message, ex);
             }
             Log.Info("Database Loadet Version: " + p2Database.DatabaseVersion + " launcher used: " + db);
@@ -129,73 +138,8 @@ namespace ProjectParadise2.Database
             }
             catch (Exception ex)
             {
-                Report.Generate(ex, "Failed Write Launcher Database");
                 Log.Error("Failed Write Database: " + ex.Message);
             }
-        }
-
-        /// <summary>
-        /// Adds a mod to the database, updating its version if it already exists.
-        /// </summary>
-        /// <param name="ModId">The ID of the mod.</param>
-        /// <param name="Name">The name of the mod.</param>
-        /// <param name="Version">The version of the mod.</param>
-        /// <param name="ModType">The type of the mod (e.g., packed or not).</param>
-        /// <param name="Files">A list of files associated with the mod.</param>
-        /// <param name="ProjectName">The project name associated with the mod.</param>
-        public static void AddMod(int ModId, string Name, string Version, int ModType, List<ProjectParadise2.JsonClasses.FileInfo> Files, string ProjectName)
-        {
-            bool packed = false;
-
-            if (ModType == 1)
-            {
-                packed = true;
-            }
-
-            Gamemod mod = new Gamemod()
-            {
-                ModId = ModId,
-                Name = Name,
-                Version = Version,
-                Installed = DateTime.Now.ToString("HH:mm dd.MM.yyyy"),
-                Packed = packed,
-                Files = Files,
-            };
-
-            for (int i = 0; i < p2Database.Usermods.Count; i++)
-            {
-                if (p2Database.Usermods[i].Name == mod.Name)
-                {
-                    p2Database.Usermods[i].Version = Version;
-                    p2Database.Usermods[i].Files = Files;
-                    return;
-                }
-            }
-            ModViewModel.CountDownload(ProjectName);
-            p2Database.Usermods.Add(mod);
-            Write();
-        }
-
-
-        /// <summary>
-        /// Checks if a mod is already installed by its project name.
-        /// </summary>
-        /// <param name="ProjectName">The project name of the mod.</param>
-        /// <returns>True if the mod is installed, false otherwise.</returns>
-        public static bool isModInstalled(string ProjectName)
-        {
-            return p2Database.Usermods.Where(x => x.Name == ProjectName).FirstOrDefault() != null;
-        }
-
-        /// <summary>
-        /// Checks if the specified version of a mod is installed.
-        /// </summary>
-        /// <param name="ProjectName">The project name of the mod.</param>
-        /// <param name="Version">The version of the mod.</param>
-        /// <returns>True if the specified version of the mod is installed, false otherwise.</returns>
-        public static bool GetInstalledversion(string ProjectName, string Version)
-        {
-            return p2Database.Usermods.Where(x => x.Name == ProjectName).FirstOrDefault().Version == Version;
         }
     }
 }

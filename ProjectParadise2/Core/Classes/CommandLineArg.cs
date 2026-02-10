@@ -1,5 +1,4 @@
-﻿using KuxiiSoft.Utils;
-
+﻿
 namespace ProjectParadise2
 {
     /// <summary>
@@ -93,11 +92,9 @@ namespace ProjectParadise2
             // Log the flags read from command line arguments
             if (flags.Equals("Read Launcher Flags:"))
             {
-                Log.Debug("No Custom flags set.");
             }
             else
             {
-                Log.Warning(flags);
             }
         }
     }

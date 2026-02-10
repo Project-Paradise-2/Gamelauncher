@@ -4,7 +4,7 @@
 // The `DiscordRpcClient` is initialized and the status is updated to Discord with different `RichPresence` states, 
 // including information like the game details, current state, and buttons for additional interaction.
 using DiscordRPC;
-using KuxiiSoft.Utils;
+using ProjectParadise2.Core.Log;
 using System;
 using System.Threading;
 
@@ -60,6 +60,7 @@ namespace ProjectParadise2
                 UserAvatar = _client.CurrentUser.GetAvatarURL(User.AvatarFormat.PNG, User.AvatarSize.x32);
                 MainWindow.DoWork();
             }
+            UpdateRpc(Start);
         }
 
         /// <summary>
@@ -69,7 +70,9 @@ namespace ProjectParadise2
         {
             Buttons = new Button[]
             {
-                new Button(){ Label = "Find Us", Url = "https://pfcard.link/ProjectParadise2"}
+                new Button(){ Label = "Find Us", Url = "https://pfcard.link/ProjectParadise2"},
+
+                new Button(){ Label = "Website", Url = "https://project-paradise2.de"}
             },
 
             Timestamps = new Timestamps()
@@ -77,8 +80,7 @@ namespace ProjectParadise2
                 Start = DateTime.UtcNow
             },
 
-            Details = "Test Drive Unlimited 2",
-            State = "Launcher Started",
+            Details = "Launcher Started",
             Assets = new Assets()
             {
                 LargeImageKey = "paradise2",
@@ -103,10 +105,35 @@ namespace ProjectParadise2
             },
 
             Details = "Test Drive Unlimited 2",
-            State = "Playing in online mode",
+            State = "Playing TDU2 Online",
             Assets = new Assets()
             {
-                LargeImageKey = "paradise2",
+                LargeImageKey = "tdu2",
+                LargeImageText = "Enjoying the game online",
+                SmallImageKey = "open"
+            }
+        };
+
+        /// <summary>
+        /// Rich Presence when the user is in online mode.
+        /// </summary>
+        public static readonly RichPresence TDU = new RichPresence()
+        {
+            Buttons = new Button[]
+            {
+                new Button(){ Label = "Find Us", Url = "https://pfcard.link/ProjectParadise2"}
+            },
+
+            Timestamps = new Timestamps()
+            {
+                Start = DateTime.UtcNow
+            },
+
+            Details = "Test Drive Unlimited",
+            State = "Playing TDU1",
+            Assets = new Assets()
+            {
+                LargeImageKey = "tdu",
                 LargeImageText = "Enjoying the game online",
                 SmallImageKey = "open"
             }
@@ -128,10 +155,10 @@ namespace ProjectParadise2
             },
 
             Details = "Test Drive Unlimited 2",
-            State = "Playing in offline mode",
+            State = "Playing TDU2 Offline",
             Assets = new Assets()
             {
-                LargeImageKey = "paradise2",
+                LargeImageKey = "tdu2",
                 LargeImageText = "Enjoying the game offline",
                 SmallImageKey = "blocked"
             }
@@ -178,8 +205,7 @@ namespace ProjectParadise2
                 End = DateTime.UtcNow
             },
 
-            Details = "Test Drive Unlimited 2",
-            State = "Game Closed",
+            Details = "Back to Launcher",
             Assets = new Assets()
             {
                 LargeImageKey = "paradise2",
@@ -206,6 +232,10 @@ namespace ProjectParadise2
                 Start = DateTime.UtcNow,
             };
             ErrorCollecting.Timestamps = new Timestamps()
+            {
+                Start = DateTime.UtcNow,
+            };
+            TDU.Timestamps = new Timestamps()
             {
                 Start = DateTime.UtcNow,
             };
