@@ -4,8 +4,11 @@
 // The `DiscordRpcClient` is initialized and the status is updated to Discord with different `RichPresence` states, 
 // including information like the game details, current state, and buttons for additional interaction.
 using DiscordRPC;
+using DiscordRPC.Message;
+using ProjectParadise2.Core;
 using ProjectParadise2.Core.Log;
 using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace ProjectParadise2
@@ -37,21 +40,26 @@ namespace ProjectParadise2
         /// </summary>
         public static void OnStart()
         {
+            if(Regestry.GetUserid() == -1)
+            {
+                Log.Warning("UserId is -1, Regestry issue?");
+            }
+
             SetRpcTime();
-            _client = new DiscordRpcClient("964267884383711254")//, pipe: DiscordPipe)
+            _client = new DiscordRpcClient("964267884383711254", DiscordPipe, null, true)
             {
 
             };
-            _client.Initialize();
+            _client.RegisterUriScheme("", System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            Debug.WriteLine("Initializing Discord RPC client...: " + System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
             _client.OnReady += _client_OnReady;
+            _client.Subscribe(EventType.Join);// | EventType.JoinRequest);
+            _client.OnJoinRequested += OnJoinRequested;
+            _client.OnJoin += OnJoin;
+            _client.Initialize();
             UpdateRpc(Start);
         }
-
-        /// <summary>
-        /// Event handler that runs when the Discord client is ready.
-        /// It sets the current user's details like Username, DisplayName, and Avatar.
-        /// </summary>
-        private static void _client_OnReady(object sender, DiscordRPC.Message.ReadyMessage args)
+        private static void _client_OnReady(object sender, ReadyMessage args)
         {
             if (_client?.CurrentUser != null)
             {
@@ -60,8 +68,45 @@ namespace ProjectParadise2
                 UserAvatar = _client.CurrentUser.GetAvatarURL(User.AvatarFormat.PNG, User.AvatarSize.x32);
                 MainWindow.DoWork();
             }
-            UpdateRpc(Start);
         }
+
+        private static void OnJoinRequested(object sender, JoinRequestMessage args)
+        {
+            Debug.WriteLine("JoinReqest: " + args.User.Username);
+        }
+
+        private static void OnJoin(object sender, JoinMessage args)
+        {
+            var data = args.Secret.Split('|');
+            var unk = args.Type;
+            var LobbyId = int.Parse(data[0]);
+            var currentplayer = int.Parse(data[1]);
+            var maxplayer = int.Parse(data[2]);
+            var userId = int.Parse(data[3]);
+            var PartyId = data[4];
+            var myplayer = Regestry.GetUserid();
+
+            var party = _client.CurrentPresence.Party;
+            party.ID = PartyId;
+
+            if ((currentplayer + 1) < maxplayer)
+            {
+                string joindata = $"{myplayer}|{LobbyId}";
+                _client.UpdateParty(party);
+                using (WebConnection wc = new WebConnection())
+                {
+                    wc.Timeout = 10;
+                    System.Text.Encoding.UTF8.GetString(wc.DownloadData("https://cdn.project-paradise2.de/Requests/playerjoinrequest.php?data=" + Uri.EscapeDataString(joindata)));
+                }
+                Log.Info($"Try Join player: {userId} via Discordrpc: {myplayer} to LobbyId: {LobbyId} Playercount: {currentplayer}/{maxplayer}");
+            }
+        }
+
+        /// <summary>
+        /// Event handler that runs when the Discord client is ready.
+        /// It sets the current user's details like Username, DisplayName, and Avatar.
+        /// </summary>
+
 
         /// <summary>
         /// Default Rich Presence for the game launcher.
@@ -86,7 +131,7 @@ namespace ProjectParadise2
                 LargeImageKey = "paradise2",
                 LargeImageText = "Welcome to Project Paradise 2!",
                 SmallImageKey = "moderate"
-            }
+            },
         };
 
         /// <summary>
@@ -103,15 +148,26 @@ namespace ProjectParadise2
             {
                 Start = DateTime.UtcNow
             },
-
             Details = "Test Drive Unlimited 2",
             State = "Playing TDU2 Online",
+            StateUrl = "https://project-paradise2.de",
             Assets = new Assets()
             {
                 LargeImageKey = "tdu2",
                 LargeImageText = "Enjoying the game online",
                 SmallImageKey = "open"
+            },
+
+            Type = ActivityType.Playing,
+
+            Party = new Party()
+            {
+                ID = Regestry.GetUserid() + DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss"),
+                Privacy = Party.PrivacySetting.Public,
+                Size = 1,
+                Max = 1,
             }
+
         };
 
         /// <summary>
@@ -161,7 +217,18 @@ namespace ProjectParadise2
                 LargeImageKey = "tdu2",
                 LargeImageText = "Enjoying the game offline",
                 SmallImageKey = "blocked"
-            }
+            },
+
+
+            Type = ActivityType.Playing,
+            Party = new Party()
+            {
+                ID = Regestry.GetUserid() + DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss"),
+                Size = 1,
+
+                Privacy = Party.PrivacySetting.Private,
+                Max = 1,
+            },
         };
 
         /// <summary>
@@ -260,8 +327,6 @@ namespace ProjectParadise2
 
                     _client.ClearPresence();
 
-                    // Deinitialize the RPC client to clean up any active connections
-                    _client.Deinitialize();
                     Log.Info("Discord RPC client deinitialized successfully.");
 
                     // Dispose of the client to free up resources
@@ -290,7 +355,6 @@ namespace ProjectParadise2
             try
             {
                 _client?.SetPresence(state);
-
                 if (state == Closed)
                 {
                     try
@@ -308,9 +372,51 @@ namespace ProjectParadise2
                     _client.UpdateStartTime();
                     _client.Invoke();
                 }
-                _client?.Invoke();
+                    _client?.Invoke();
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to update Discord Rich Presence. Ensure that Discord is running and the RPC client is initialized." + ex.ToString());
+            }
+        }
+
+        internal static void UpdateParty(int playerId)
+        {
+            string Lobby;
+            using (WebConnection wc = new WebConnection())
+            {
+                wc.Timeout = 10;
+                Lobby = System.Text.Encoding.UTF8.GetString(wc.DownloadData("https://cdn.project-paradise2.de/Requests/getmyLobby.php?user=" + playerId));
+            }
+
+            var data = Lobby.Split('|');
+            if (!string.IsNullOrEmpty(data[0]) && !string.IsNullOrEmpty(data[1]) && !string.IsNullOrEmpty(data[2]))
+            {
+                if (_client.CurrentPresence.Buttons != null)
+                    _client.CurrentPresence.Buttons = null;
+
+                if (_client.CurrentPresence.Party == null)
+                {
+                    return;
+                }
+
+                if (_client.CurrentPresence.Party.ID != data[0])
+                {
+                    var party = _client.CurrentPresence.Party;
+                    party.ID = data[0];
+                    _client.UpdateParty(party);
+                }
+
+                _client.UpdatePartySize(int.Parse(data[1]), int.Parse(data[2]));
+
+                Secrets secrets = new Secrets()
+                {
+                    JoinSecret = Lobby + "|" + Regestry.GetUserid() + "|" + _client.CurrentPresence.Party.ID,
+                };
+
+                _client.UpdateSecrets(secrets);
+                _client.Invoke();
+            }
         }
     }
 }

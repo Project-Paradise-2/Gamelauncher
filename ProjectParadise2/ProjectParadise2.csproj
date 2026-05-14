@@ -25,13 +25,22 @@ For the Custom Gameserver from Test Drive Unlimited 2</Description>
     <DelaySign>True</DelaySign>
     <PackageId>Uplauncher</PackageId>
     <Product>Project-Paradise-2</Product>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
@@ -51,9 +60,10 @@ For the Custom Gameserver from Test Drive Unlimited 2</Description>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DiscordRichPresence" Version="1.6.1.70" />
+    <PackageReference Include="DiscordRichPresence" Version="1.5.0.51" />
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="HardwareInformation" Version="5.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="Open.Nat" Version="2.1.0" />
     <PackageReference Include="STUN" Version="0.5.0" />
   </ItemGroup>

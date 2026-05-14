@@ -1,4 +1,5 @@
-﻿using ProjectParadise2.Core;
+﻿using DiscordRPC;
+using ProjectParadise2.Core;
 using ProjectParadise2.Core.Log;
 using ProjectParadise2.Views;
 using System;
@@ -63,7 +64,8 @@ namespace ProjectParadise2
                     {
                         if (profile.OnlineMode)
                         {
-                            DiscordIntegration.UpdateRpc(DiscordIntegration.OnlineMode);
+                            var rpc = DiscordIntegration.OnlineMode;
+                            DiscordIntegration.UpdateRpc(rpc);
                         }
                         else
                         {

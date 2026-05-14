@@ -7,8 +7,8 @@ using ProjectParadise2.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Net.Security;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,6 +22,7 @@ namespace ProjectParadise2.Core
     /// </summary>
     internal class BackgroundWorker
     {
+        public static int PlayerId;
         public static string SecSession { get; set; }
         public static bool NetworkTestsDone { get; set; } = false;
         public static string LauncherNews { get; set; } = "|" + Constans.LauncherVersion;
@@ -109,6 +110,27 @@ namespace ProjectParadise2.Core
             {
                 Log.Log.Error("Failed to update the connection ", ex);
             }
+            var UpdateThread = new Thread(OnRefresh);
+            UpdateThread.IsBackground = true;
+            UpdateThread.Start();
+        }
+
+        private static void OnRefresh()
+        {
+            Thread.Sleep(5000);
+
+            if (CurrentProfile() != null)
+            {
+                if (CurrentProfile().OnlineMode)
+                {
+                    PlayerId = Regestry.GetUserid();
+                    DiscordIntegration.UpdateParty(PlayerId);
+                }
+            }
+
+            if (CurrentProfile() != null && Regestry.GetUserid() != -1)
+                if (CurrentProfile().OnlineMode)
+                    OnRefresh();
         }
 
         public static void RefreshProfiles()
@@ -182,8 +204,8 @@ namespace ProjectParadise2.Core
                 Log.Log.Error("Failed to run the STUN test ", ex);
             }
 
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback((sender, certificate, chain, sslPolicyErrors) => true);
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+            System.Net.ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback((sender, certificate, chain, sslPolicyErrors) => true);
             GC.Collect();
             if (CurrentProfile() != null)
             {
@@ -208,7 +230,7 @@ namespace ProjectParadise2.Core
         {
             try
             {
-                using (WebClient wc = new WebClient())
+                using (System.Net.WebClient wc = new System.Net.WebClient())
                 {
                     wc.Encoding = Encoding.UTF8;
                     wc.Headers.Add("User-Agent", "ProjectParadise2-Launcher");
@@ -265,7 +287,7 @@ namespace ProjectParadise2.Core
                     return System.Text.Encoding.UTF8.GetString(wc.DownloadData(Constans.Cdn + $"/Requests/serial.php"));
                 }
             }
-            catch (WebException)
+            catch (System.Net.WebException)
             {
                 return "";
             }

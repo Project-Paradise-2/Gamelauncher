@@ -48,7 +48,7 @@ namespace ProjectParadise2
                         if (value != null)
                         {
                             path = value.ToString();
-                            break; // Wenn wir einen gültigen Pfad gefunden haben, abbrechen
+                            return path;
                         }
                     }
                 }
@@ -172,6 +172,7 @@ namespace ProjectParadise2
                         if (value != null && value.ToString().Equals("XAudio2", StringComparison.OrdinalIgnoreCase))
                         {
                             audioMode = AudioMode.XAudio2;
+                            return audioMode;
                         }
                     }
                 }
@@ -194,6 +195,40 @@ namespace ProjectParadise2
             }
 
             return audioMode;
+        }
+
+        public static int GetUserid()
+        {
+            string[] subKeyPaths =
+            {
+                @"SOFTWARE\Atari\TDU2",
+                @"SOFTWARE\Atari\TDU2\Steam"
+            };
+
+            try
+            {
+                foreach (var subKeyPath in subKeyPaths)
+                {
+                    using (RegistryKey baseKey = RegistryKey
+                        .OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32)
+                        .OpenSubKey(subKeyPath, false))
+                    {
+                        if (baseKey == null)
+                            continue;
+
+                        object value = baseKey.GetValue("GameLastPlayerId");
+
+                        if (value != null && int.TryParse(value.ToString(), out int parsed))
+                            return parsed;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Registry error: {ex.Message}", ex);
+            }
+
+            return -1;
         }
 
         /// <summary>
